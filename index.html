@@ -192806,6 +192806,9 @@ const QUINCENA1_DATA_ACT = {
 
                 if (!k) return;
 
+                const kUpper = k.toString().trim().toUpperCase();
+                if (kUpper === 'SIN REGIONAL' || kUpper === 'SIN_REGIONAL' || kUpper === 'SIN ESPECIFICAR' || kUpper === 'SIN ZONA') return;
+
                 const pres = regMap[k] || 0;
 
                 const nomTotal = ventasPorReg[k] ? ventasPorReg[k].nominal : 0;
@@ -193441,11 +193444,12 @@ const QUINCENA1_DATA_ACT = {
 
                 const zName = item.ZONA || '';
 
+                const k = normKey(zName);
+                if (!k || k === normKey('SIN ESPECIFICAR') || k === normKey('SIN ZONA') || k === normKey('SIN REGIONAL')) return;
+
                 const regName = item.REGIONAL || '';
 
                 const pres = item.PRESUPUESTO || 0;
-
-                const k = normKey(zName);
 
                 processedKeys.add(k);
 
@@ -193522,8 +193526,11 @@ const QUINCENA1_DATA_ACT = {
                 Object.keys(ventasPorZona).forEach(k => {
 
                     if (processedKeys.has(k)) return;
+                    if (!k || k === normKey('SIN ESPECIFICAR') || k === normKey('SIN ZONA') || k === normKey('SIN REGIONAL')) return;
 
                     const vData = ventasPorZona[k];
+                    const zNameCheck = (vData.name || '').toString().trim().toUpperCase();
+                    if (!zNameCheck || zNameCheck === 'SIN ESPECIFICAR' || zNameCheck === 'SIN ZONA' || zNameCheck === 'SIN REGIONAL') return;
 
                     const zName = vData.name;
 
@@ -195202,6 +195209,8 @@ const QUINCENA1_DATA_ACT = {
             let rows = [];
             allKeys.forEach(k => {
                 if (!k) return;
+                const kUpper = k.toString().trim().toUpperCase();
+                if (kUpper === 'SIN REGIONAL' || kUpper === 'SIN_REGIONAL' || kUpper === 'SIN ESPECIFICAR' || kUpper === 'SIN ZONA') return;
                 const pres = regMap[k] || 0;
                 const vObj = ventasPorReg[k] || { name: k, nominal: 0, nominalAprobado: 0 };
                 const nominal = vObj.nominal;
@@ -195495,7 +195504,9 @@ const QUINCENA1_DATA_ACT = {
             let rows = [];
 
             zonaList.forEach(pz => {
-                const zKey = normKey(pz.ZONA);
+                const zName = (pz.ZONA || '').toString().trim();
+                const zKey = normKey(zName);
+                if (!zKey || zKey === normKey('SIN ESPECIFICAR') || zKey === normKey('SIN ZONA') || zKey === normKey('SIN REGIONAL')) return;
                 mappedZones.add(zKey);
                 const vObj = ventasPorZona[zKey] || { nominal: 0, nominalAprobado: 0 };
                 const nominal = vObj.nominal;
