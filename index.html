@@ -199683,7 +199683,7 @@ const QUINCENA1_DATA_ACT = {
             const container = document.getElementById('syncBadgeContainer');
             if (!badge) return;
 
-            const isNetlify = window.location.hostname.includes('netlify.app');
+            const isNetlify = window.location.hostname.includes('netlify.app') || window.location.hostname.includes('github.io');
 
             if (enProgreso) {
                 badge.innerText = isNetlify ? 'Verificando nube...' : 'Sincronizando con Drive...';
@@ -199726,7 +199726,7 @@ const QUINCENA1_DATA_ACT = {
         }
 
         async function verificarEstadoServidor() {
-            const isNetlify = window.location.hostname.includes('netlify.app');
+            const isNetlify = window.location.hostname.includes('netlify.app') || window.location.hostname.includes('github.io');
             if (isNetlify) {
                 try {
                     const controller = new AbortController();
@@ -200581,7 +200581,7 @@ const QUINCENA1_DATA_ACT = {
         async function forzarSincronizacionDrive() {
             if (isSyncingDrive) return;
 
-            const isNetlify = window.location.hostname.includes('netlify.app');
+            const isNetlify = window.location.hostname.includes('netlify.app') || window.location.hostname.includes('github.io');
             if (isNetlify) {
                 const btn = document.getElementById('btnSyncNow');
                 const btnText = document.getElementById('btnSyncText');
@@ -200681,7 +200681,7 @@ const QUINCENA1_DATA_ACT = {
             if (btnText) btnText.innerText = 'Sincronizar Drive';
             if (btnIcon) btnIcon.innerText = '🔄';
             const fecha = typeof ULTIMA_ACTUALIZACION !== 'undefined' ? ULTIMA_ACTUALIZACION : '';
-            const isNetlify = window.location.hostname.includes('netlify.app');
+            const isNetlify = window.location.hostname.includes('netlify.app') || window.location.hostname.includes('github.io');
             actualizarBadgeSync(fecha, isNetlify ? true : false, false);
         }
 
