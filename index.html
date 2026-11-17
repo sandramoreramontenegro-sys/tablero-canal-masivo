@@ -1182,24 +1182,45 @@
             background: #f1f5f9 !important;
         }
         .reinc-tipo-pill {
-            padding: 6px 14px;
-            border-radius: 6px;
-            border: 1px solid transparent;
-            background: transparent;
-            font-size: 0.8rem;
+            padding: 9px 18px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            background: #ffffff;
+            font-size: 0.85rem;
             font-weight: 700;
-            color: #64748b;
+            color: #334155;
             cursor: pointer;
-            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
         .reinc-tipo-pill:hover {
-            color: #1e293b;
-            background: #e2e8f0;
+            color: #1e1b4b;
+            background: #f1f5f9;
+            border-color: #94a3b8;
+            transform: translateY(-1px);
         }
         .reinc-tipo-pill.active {
-            background: #4338ca;
-            color: #ffffff;
-            box-shadow: 0 2px 6px rgba(67, 56, 202, 0.25);
+            background: #4338ca !important;
+            color: #ffffff !important;
+            border-color: #312e81 !important;
+            box-shadow: 0 4px 14px rgba(67, 56, 202, 0.35) !important;
+            font-weight: 800;
+        }
+        .reinc-tipo-pill .reinc-pill-count {
+            background: #e2e8f0;
+            color: #1e293b;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            transition: all 0.2s ease;
+        }
+        .reinc-tipo-pill.active .reinc-pill-count {
+            background: rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
         }
         .month-chip {
             display: inline-flex;
@@ -4653,20 +4674,33 @@
         </div>
 
         <!-- Panel de Filtros -->
-        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
-                <div style="font-weight: 800; font-size: 0.95rem; color: #1e293b; display: flex; align-items: center; gap: 8px;">
-                    <span>⚙️</span> FILTROS DE REINCIDENCIA
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 22px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.04);">
+            <!-- Encabezado y Botones de Tipo de Asesor -->
+            <div style="margin-bottom: 20px;">
+                <div style="font-weight: 800; font-size: 1.05rem; color: #1e1b4b; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; letter-spacing: -0.2px;">
+                    <span style="font-size: 1.25rem;">⚙️</span> FILTROS DE REINCIDENCIA
                 </div>
-                <!-- Pills Tipo de Asesor (Directos vs Distribuidores) -->
-                <div style="display: flex; gap: 6px; background: #f1f5f9; padding: 4px; border-radius: 8px;">
-                    <button type="button" class="reinc-tipo-pill active" onclick="setReincTipoFilter('ALL')" id="reinc-tipo-all">Todos (<span id="reinc-badge-cnt-all">0</span>)</button>
-                    <button type="button" class="reinc-tipo-pill" onclick="setReincTipoFilter('DIRECTO')" id="reinc-tipo-dir">👤 Directos (<span id="reinc-badge-cnt-dir">0</span>)</button>
-                    <button type="button" class="reinc-tipo-pill" onclick="setReincTipoFilter('DISTRIBUIDOR')" id="reinc-tipo-dis">🏢 Distribuidores (<span id="reinc-badge-cnt-dis">0</span>)</button>
+
+                <!-- Botones Destacados: Directos vs Distribuidores (Debajo del Título) -->
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <label style="font-size: 0.73rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">
+                        TIPO DE FUERZA COMERCIAL
+                    </label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; background: #f8fafc; padding: 6px; border-radius: 10px; border: 1px solid #e2e8f0; width: fit-content;">
+                        <button type="button" class="reinc-tipo-pill active" onclick="setReincTipoFilter('ALL')" id="reinc-tipo-all">
+                            <span>👥</span> Todos los Asesores <span class="reinc-pill-count" id="reinc-badge-cnt-all">0</span>
+                        </button>
+                        <button type="button" class="reinc-tipo-pill" onclick="setReincTipoFilter('DIRECTO')" id="reinc-tipo-dir">
+                            <span>👤</span> Contrato Directo <span class="reinc-pill-count" id="reinc-badge-cnt-dir">0</span>
+                        </button>
+                        <button type="button" class="reinc-tipo-pill" onclick="setReincTipoFilter('DISTRIBUIDOR')" id="reinc-tipo-dis">
+                            <span>🏢</span> Distribuidores Autorizados <span class="reinc-pill-count" id="reinc-badge-cnt-dis">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; align-items: end; padding-top: 16px; border-top: 1px solid #f1f5f9;">
                 <!-- Filtro Nivel -->
                 <div>
                     <label style="display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 4px;">NIVEL / PATRÓN</label>
