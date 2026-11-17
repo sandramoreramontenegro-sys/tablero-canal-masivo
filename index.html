@@ -1134,7 +1134,89 @@
             border-color: #1B365D;
             box-shadow: 0 4px 10px rgba(27, 54, 93, 0.25);
         }
-</style>
+
+        /* ========================================== */
+        /* ESTILOS DEL MÓDULO REINCIDENCIA ANUAL     */
+        /* ========================================== */
+        .reinc-tipo-pill {
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: transparent;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .reinc-tipo-pill:hover {
+            color: #1e293b;
+            background: #e2e8f0;
+        }
+        .reinc-tipo-pill.active {
+            background: #4338ca;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(67, 56, 202, 0.25);
+        }
+        .month-chip {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            margin: 1px;
+            position: relative;
+            cursor: default;
+            transition: transform 0.15s ease;
+        }
+        .month-chip:hover {
+            transform: scale(1.15);
+            z-index: 10;
+        }
+        .month-chip.cumplio {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+        .month-chip.incumplio {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        .month-chip.nodata {
+            background: #f1f5f9;
+            color: #94a3b8;
+            border: 1px dashed #cbd5e1;
+        }
+        .reinc-rank-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .reinc-rank-table th {
+            background: #f8fafc;
+            color: #475569;
+            font-weight: 800;
+            padding: 8px 10px;
+            border-bottom: 2px solid #e2e8f0;
+            text-align: left;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+        }
+        .reinc-rank-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #1e293b;
+        }
+        .reinc-rank-table tr:hover td {
+            background: #f8fafc;
+        }
+
+    </style>
 
 </head>
 
@@ -1187,6 +1269,11 @@
             <span>⚡</span> CUMPLIMIENTO 1RA QUINCENA
         </button>
         <button class="tab-btn" id="tab-btn-retiros" onclick="switchTab('retiros')">
+            <span>🚪</span> RETIROS
+        </button>
+        <button class="tab-btn" id="tab-btn-reincidencia" onclick="switchTab('reincidencia')">
+            <span>🔁</span> REINCIDENCIA
+        </button>
             <span>🚪</span> RETIROS
         </button>
     </div>
@@ -4458,11 +4545,261 @@
         </div>
     </div>
 
+    
+    <!-- ========================================== -->
+    <!-- PESTAÑA: REINCIDENCIA ANUAL (COLUMNAS AB-AV)-->
+    <!-- ========================================== -->
+    <div id="tab-reincidencia" class="tab-content">
+        <!-- Banner Encabezado Reincidencia -->
+        <div style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); color: #ffffff; padding: 22px 28px; border-radius: 14px; margin-bottom: 22px; box-shadow: 0 8px 24px rgba(49, 46, 129, 0.16); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                    <span style="font-size: 1.8rem;">🔁</span>
+                    <h2 style="margin: 0; font-size: 1.55rem; font-weight: 800; letter-spacing: -0.3px;">REINCIDENCIA ANUAL EN INCUMPLIMIENTO (2026)</h2>
+                </div>
+                <p style="margin: 0; font-size: 0.88rem; opacity: 0.9; max-width: 850px;">
+                    Consolidado acumulado Enero - Octubre (Hoja <b>Presupuesto asesores</b>, Cols AB a AV). Asesores que durante este año no han cumplido presupuesto, meses consecutivos y ranking por Regional, Zona y Director.
+                </p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" onclick="exportarReincidenciaCSV()" style="background: #ffffff; color: #312e81; border: none; font-weight: 700; font-size: 0.85rem; padding: 10px 18px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); transition: all 0.2s;">
+                    <span>📥</span> Exportar a Excel (CSV)
+                </button>
+            </div>
+        </div>
+
+        <!-- Tarjetas KPIs Reincidencia (5 cards) -->
+        <div class="kpi-banner-grid has-5-cards" style="margin-bottom: 20px;">
+            <!-- 1. Total Reincidentes -->
+            <div class="card-pill kpi-llevamos">
+                <span class="pill-badge" style="background: #4338ca;">TOTAL REINCIDENTES</span>
+                <div class="pill-number" id="reinc-kpi-total" style="color: #312e81;">0</div>
+                <div class="pill-sub">Con 1 o más meses sin cumplir</div>
+                <div style="margin-top: 6px; font-size: 0.68rem; font-weight: 800; color: #475569;" id="reinc-kpi-sub-breakdown">
+                    -- Directos / -- Distribuidores
+                </div>
+            </div>
+
+            <!-- 2. Casos Críticos (6+ meses) -->
+            <div class="card-pill" style="border-left: 5px solid #dc2626;">
+                <span class="pill-badge" style="background: #dc2626;">🚨 CRÍTICOS (6+ MESES)</span>
+                <div class="pill-number" id="reinc-kpi-criticos" style="color: #b91c1c;">0</div>
+                <div class="pill-sub">Máxima severidad en el año</div>
+            </div>
+
+            <!-- 3. Racha Consecutiva Activa -->
+            <div class="card-pill" style="border-left: 5px solid #ea580c;">
+                <span class="pill-badge" style="background: #ea580c;">⚠️ CONSECUTIVOS ACTIVOS</span>
+                <div class="pill-number" id="reinc-kpi-consecutivos" style="color: #c2410c;">0</div>
+                <div class="pill-sub">Racha activa (3+ seguidos a Oct)</div>
+            </div>
+
+            <!-- 4. Moderados (3-5 meses) -->
+            <div class="card-pill" style="border-left: 5px solid #d97706;">
+                <span class="pill-badge" style="background: #d97706;">🟡 MODERADOS (3-5 MESES)</span>
+                <div class="pill-number" id="reinc-kpi-moderados" style="color: #b45309;">0</div>
+                <div class="pill-sub">En riesgo de criticidad</div>
+            </div>
+
+            <!-- 5. Promedio de Meses -->
+            <div class="card-pill" style="border-left: 5px solid #0284c7;">
+                <span class="pill-badge" style="background: #0284c7;">📊 INTENSIDAD ANUAL</span>
+                <div class="pill-number" id="reinc-kpi-promedio" style="color: #0369a1;">0.0</div>
+                <div class="pill-sub">Promedio de meses por asesor</div>
+            </div>
+        </div>
+
+        <!-- Panel de Filtros -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;">
+                <div style="font-weight: 800; font-size: 0.95rem; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                    <span>⚙️</span> FILTROS DE REINCIDENCIA
+                </div>
+                <!-- Pills Tipo de Asesor (Directos vs Distribuidores) -->
+                <div style="display: flex; gap: 6px; background: #f1f5f9; padding: 4px; border-radius: 8px;">
+                    <button type="button" class="reinc-tipo-pill active" onclick="setReincTipoFilter('ALL')" id="reinc-tipo-all">Todos (<span id="reinc-badge-cnt-all">0</span>)</button>
+                    <button type="button" class="reinc-tipo-pill" onclick="setReincTipoFilter('DIRECTO')" id="reinc-tipo-dir">👤 Directos (<span id="reinc-badge-cnt-dir">0</span>)</button>
+                    <button type="button" class="reinc-tipo-pill" onclick="setReincTipoFilter('DISTRIBUIDOR')" id="reinc-tipo-dis">🏢 Distribuidores (<span id="reinc-badge-cnt-dis">0</span>)</button>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end;">
+                <!-- Filtro Nivel -->
+                <div>
+                    <label style="display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 4px;">NIVEL / PATRÓN</label>
+                    <select id="reinc-filter-nivel" onchange="renderReincidenciaDashboard()" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; font-weight: 600; background: #fff;">
+                        <option value="ALL">Todos los niveles</option>
+                        <option value="CRITICA">🚨 Críticos (6+ meses incumplidos)</option>
+                        <option value="CONSECUTIVO">⚠️ Racha Consecutiva (3+ meses seguidos a Oct)</option>
+                        <option value="MODERADA">🟡 Moderados (3 a 5 meses)</option>
+                        <option value="LEVE">🟢 Leves (1 a 2 meses)</option>
+                    </select>
+                </div>
+
+                <!-- Filtro Regional -->
+                <div>
+                    <label style="display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 4px;">REGIONAL</label>
+                    <select id="reinc-filter-regional" onchange="renderReincidenciaDashboard()" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; font-weight: 600; background: #fff;">
+                        <option value="ALL">Todas las Regionales</option>
+                    </select>
+                </div>
+
+                <!-- Filtro Zona -->
+                <div>
+                    <label style="display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 4px;">ZONA</label>
+                    <select id="reinc-filter-zona" onchange="renderReincidenciaDashboard()" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; font-weight: 600; background: #fff;">
+                        <option value="ALL">Todas las Zonas</option>
+                    </select>
+                </div>
+
+                <!-- Filtro Director -->
+                <div>
+                    <label style="display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 4px;">DIRECTOR</label>
+                    <select id="reinc-filter-director" onchange="renderReincidenciaDashboard()" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; font-weight: 600; background: #fff;">
+                        <option value="ALL">Todos los Directores</option>
+                    </select>
+                </div>
+
+                <!-- Buscador por nombre / cedula -->
+                <div>
+                    <label style="display: block; font-size: 0.73rem; font-weight: 700; color: #475569; margin-bottom: 4px;">BUSCAR ASESOR</label>
+                    <input type="text" id="reinc-filter-search" oninput="renderReincidenciaDashboard()" placeholder="🔍 Nombre o cédula..." style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.82rem; box-sizing: border-box;">
+                </div>
+
+                <!-- Botón Limpiar -->
+                <div>
+                    <button type="button" onclick="limpiarFiltrosReincidencia()" style="width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 0.82rem; font-weight: 700; color: #64748b; cursor: pointer; transition: all 0.2s;">
+                        🔄 Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE RANKINGS (3 COLUMNAS LADO A LADO) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <!-- Ranking Regional -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); border-top: 4px solid #1e40af;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-weight: 800; font-size: 0.88rem; color: #1e3a8a; display: flex; align-items: center; gap: 6px;">
+                        <span>🏢</span> RANKING POR REGIONAL
+                    </span>
+                    <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Más reincidentes</span>
+                </div>
+                <div style="max-height: 280px; overflow-y: auto;">
+                    <table class="reinc-rank-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Regional</th>
+                                <th style="text-align: center;">Total</th>
+                                <th style="text-align: center;">Dir / Dis</th>
+                                <th style="text-align: center;">Críticos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reinc-rank-regional-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Ranking Zona -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); border-top: 4px solid #6d28d9;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-weight: 800; font-size: 0.88rem; color: #5b21b6; display: flex; align-items: center; gap: 6px;">
+                        <span>📍</span> RANKING POR ZONA
+                    </span>
+                    <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Más reincidentes</span>
+                </div>
+                <div style="max-height: 280px; overflow-y: auto;">
+                    <table class="reinc-rank-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Zona</th>
+                                <th>Regional</th>
+                                <th style="text-align: center;">Total</th>
+                                <th style="text-align: center;">Críticos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reinc-rank-zona-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Ranking Director -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); border-top: 4px solid #b45309;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-weight: 800; font-size: 0.88rem; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                        <span>👤</span> RANKING POR DIRECTOR
+                    </span>
+                    <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">Más reincidentes</span>
+                </div>
+                <div style="max-height: 280px; overflow-y: auto;">
+                    <table class="reinc-rank-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Director</th>
+                                <th style="text-align: center;">Total</th>
+                                <th style="text-align: center;">Dir / Dis</th>
+                                <th style="text-align: center;">Críticos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reinc-rank-director-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLA PRINCIPAL DE ASESORES REINCIDENTES -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+                <div>
+                    <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                        <span>📋</span> LISTADO DETALLADO DE ASESORES REINCIDENTES
+                    </h3>
+                    <p style="margin: 3px 0 0 0; font-size: 0.78rem; color: #64748b;" id="reinc-table-count-label">
+                        Cargando asesores...
+                    </p>
+                </div>
+                <!-- Leyenda del Historial -->
+                <div style="display: flex; align-items: center; gap: 12px; font-size: 0.72rem; color: #475569; font-weight: 700;">
+                    <span style="display: flex; align-items: center; gap: 4px;">
+                        <span style="display: inline-block; width: 10px; height: 10px; background: #dcfce7; border: 1px solid #86efac; border-radius: 2px;"></span> Cumplió (≥100%)
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 4px;">
+                        <span style="display: inline-block; width: 10px; height: 10px; background: #fee2e2; border: 1px solid #fca5a5; border-radius: 2px;"></span> Incumplió (&lt;100%)
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 4px;">
+                        <span style="display: inline-block; width: 10px; height: 10px; background: #f1f5f9; border: 1px dashed #cbd5e1; border-radius: 2px;"></span> No evaluado
+                    </span>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem;">
+                    <thead>
+                        <tr style="background: #1e1b4b; color: #ffffff;">
+                            <th onclick="sortReincidencia('rank')" style="cursor: pointer; padding: 10px 12px; text-align: center; width: 45px;"># ↕</th>
+                            <th onclick="sortReincidencia('nombre')" style="cursor: pointer; padding: 10px 12px; text-align: left;">Asesor ↕</th>
+                            <th onclick="sortReincidencia('tipo')" style="cursor: pointer; padding: 10px 12px; text-align: center;">Tipo ↕</th>
+                            <th onclick="sortReincidencia('director')" style="cursor: pointer; padding: 10px 12px; text-align: left;">Director ↕</th>
+                            <th onclick="sortReincidencia('regional')" style="cursor: pointer; padding: 10px 12px; text-align: left;">Regional / Zona ↕</th>
+                            <th onclick="sortReincidencia('meses_incumplidos')" style="cursor: pointer; padding: 10px 12px; text-align: center; width: 110px;">Meses Incump. (Col AV) ↕</th>
+                            <th onclick="sortReincidencia('consecutivos')" style="cursor: pointer; padding: 10px 12px; text-align: center; width: 130px;">Patrón / Racha ↕</th>
+                            <th style="padding: 10px 12px; text-align: center;">Historial Mes a Mes (Ene - Oct)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reinc-table-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 19:40:45';
-const TIMESTAMP_ACTUALIZACION = 1794876045;
+const ULTIMA_ACTUALIZACION = '2026-11-16 19:44:50';
+const TIMESTAMP_ACTUALIZACION = 1794876290;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -218117,7 +218454,17 @@ const REINCIDENCIA_DATA = {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-            if (tab === 'presupuesto') {
+            if (tab === 'reincidencia') {
+                const btn = document.getElementById('tab-btn-reincidencia');
+                if (btn) btn.classList.add('active');
+                const t = document.getElementById('tab-reincidencia');
+                if (t) t.classList.add('active');
+                if (!isReincidenciaInitialized) {
+                    initReincidenciaDashboard();
+                } else {
+                    renderReincidenciaDashboard();
+                }
+            } else if (tab === 'presupuesto') {
                 const btn = document.getElementById('tab-btn-actual') || document.querySelectorAll('.tab-btn')[0];
                 if (btn) btn.classList.add('active');
                 const t = document.getElementById('tab-presupuesto');
@@ -228505,6 +228852,353 @@ const REINCIDENCIA_DATA = {
 
         verificarEstadoServidor();
         setInterval(verificarEstadoServidor, 15000);
+
+
+        // ==========================================
+        // 🔁 LÓGICA DEL MÓDULO REINCIDENCIA ANUAL
+        // ==========================================
+        let isReincidenciaInitialized = false;
+        let reincSelectedTipo = 'ALL'; // 'ALL', 'DIRECTO', 'DISTRIBUIDOR'
+        let reincCurrentSort = { column: 'meses_incumplidos', dir: 'desc' };
+
+        function setReincTipoFilter(tipo) {
+            reincSelectedTipo = tipo;
+            document.querySelectorAll('.reinc-tipo-pill').forEach(b => b.classList.remove('active'));
+            if (tipo === 'ALL') {
+                const el = document.getElementById('reinc-tipo-all');
+                if (el) el.classList.add('active');
+            } else if (tipo === 'DIRECTO') {
+                const el = document.getElementById('reinc-tipo-dir');
+                if (el) el.classList.add('active');
+            } else if (tipo === 'DISTRIBUIDOR') {
+                const el = document.getElementById('reinc-tipo-dis');
+                if (el) el.classList.add('active');
+            }
+            renderReincidenciaDashboard();
+        }
+
+        function limpiarFiltrosReincidencia() {
+            reincSelectedTipo = 'ALL';
+            setReincTipoFilter('ALL');
+            const elNivel = document.getElementById('reinc-filter-nivel');
+            if (elNivel) elNivel.value = 'ALL';
+            const elReg = document.getElementById('reinc-filter-regional');
+            if (elReg) elReg.value = 'ALL';
+            const elZon = document.getElementById('reinc-filter-zona');
+            if (elZon) elZon.value = 'ALL';
+            const elDir = document.getElementById('reinc-filter-director');
+            if (elDir) elDir.value = 'ALL';
+            const elSearch = document.getElementById('reinc-filter-search');
+            if (elSearch) elSearch.value = '';
+            renderReincidenciaDashboard();
+        }
+
+        function sortReincidencia(column) {
+            if (reincCurrentSort.column === column) {
+                reincCurrentSort.dir = (reincCurrentSort.dir === 'asc') ? 'desc' : 'asc';
+            } else {
+                reincCurrentSort.column = column;
+                reincCurrentSort.dir = 'desc';
+            }
+            renderReincidenciaDashboard();
+        }
+
+        function initReincidenciaDashboard() {
+            if (typeof REINCIDENCIA_DATA === 'undefined' || !REINCIDENCIA_DATA) return;
+
+            // Poblar dropdowns de filtros
+            const elReg = document.getElementById('reinc-filter-regional');
+            if (elReg && REINCIDENCIA_DATA.filtros && REINCIDENCIA_DATA.filtros.regionales) {
+                elReg.innerHTML = '<option value="ALL">Todas las Regionales</option>' +
+                    REINCIDENCIA_DATA.filtros.regionales.map(r => `<option value="${r}">${r}</option>`).join('');
+            }
+
+            const elZon = document.getElementById('reinc-filter-zona');
+            if (elZon && REINCIDENCIA_DATA.filtros && REINCIDENCIA_DATA.filtros.zonas) {
+                elZon.innerHTML = '<option value="ALL">Todas las Zonas</option>' +
+                    REINCIDENCIA_DATA.filtros.zonas.map(z => `<option value="${z}">${z}</option>`).join('');
+            }
+
+            const elDir = document.getElementById('reinc-filter-director');
+            if (elDir && REINCIDENCIA_DATA.filtros && REINCIDENCIA_DATA.filtros.directores) {
+                elDir.innerHTML = '<option value="ALL">Todos los Directores</option>' +
+                    REINCIDENCIA_DATA.filtros.directores.map(d => `<option value="${d}">${d}</option>`).join('');
+            }
+
+            isReincidenciaInitialized = true;
+            renderReincidenciaDashboard();
+        }
+
+        function renderReincidenciaDashboard() {
+            if (typeof REINCIDENCIA_DATA === 'undefined' || !REINCIDENCIA_DATA) return;
+
+            const allAsesores = REINCIDENCIA_DATA.asesores || [];
+
+            // Contadores en los botones tipo
+            const cntAll = allAsesores.length;
+            const cntDir = allAsesores.filter(a => a.tipo === 'DIRECTO').length;
+            const cntDis = allAsesores.filter(a => a.tipo === 'DISTRIBUIDOR').length;
+
+            const bAll = document.getElementById('reinc-badge-cnt-all');
+            if (bAll) bAll.innerText = cntAll;
+            const bDir = document.getElementById('reinc-badge-cnt-dir');
+            if (bDir) bDir.innerText = cntDir;
+            const bDis = document.getElementById('reinc-badge-cnt-dis');
+            if (bDis) bDis.innerText = cntDis;
+
+            // Leer filtros
+            const nivelVal = (document.getElementById('reinc-filter-nivel') ? document.getElementById('reinc-filter-nivel').value : 'ALL');
+            const regVal = (document.getElementById('reinc-filter-regional') ? document.getElementById('reinc-filter-regional').value : 'ALL');
+            const zonVal = (document.getElementById('reinc-filter-zona') ? document.getElementById('reinc-filter-zona').value : 'ALL');
+            const dirVal = (document.getElementById('reinc-filter-director') ? document.getElementById('reinc-filter-director').value : 'ALL');
+            const searchVal = (document.getElementById('reinc-filter-search') ? document.getElementById('reinc-filter-search').value.trim().toLowerCase() : '');
+
+            // Filtrar asesores
+            let filtered = allAsesores.filter(a => {
+                if (reincSelectedTipo !== 'ALL' && a.tipo !== reincSelectedTipo) return false;
+                if (nivelVal === 'CRITICA' && a.criticidad !== 'CRITICA') return false;
+                if (nivelVal === 'CONSECUTIVO' && a.consecutivos_actuales < 3) return false;
+                if (nivelVal === 'MODERADA' && a.criticidad !== 'MODERADA') return false;
+                if (nivelVal === 'LEVE' && a.criticidad !== 'LEVE') return false;
+                if (regVal !== 'ALL' && a.regional !== regVal) return false;
+                if (zonVal !== 'ALL' && a.zona !== zonVal) return false;
+                if (dirVal !== 'ALL' && a.director !== dirVal) return false;
+                if (searchVal) {
+                    const matchNom = a.nombre.toLowerCase().includes(searchVal);
+                    const matchCed = a.cedula.toLowerCase().includes(searchVal);
+                    if (!matchNom && !matchCed) return false;
+                }
+                return true;
+            });
+
+            // Actualizar Tarjetas de KPIs con el subset filtrado
+            const kpiTotal = filtered.length;
+            const kpiDir = filtered.filter(a => a.tipo === 'DIRECTO').length;
+            const kpiDis = filtered.filter(a => a.tipo === 'DISTRIBUIDOR').length;
+            const kpiCrit = filtered.filter(a => a.criticidad === 'CRITICA').length;
+            const kpiConsec = filtered.filter(a => a.consecutivos_actuales >= 3).length;
+            const kpiMod = filtered.filter(a => a.criticidad === 'MODERADA').length;
+            const kpiProm = kpiTotal > 0 ? (filtered.reduce((acc, a) => acc + a.meses_incumplidos, 0) / kpiTotal).toFixed(1) : '0.0';
+
+            const elKpiTot = document.getElementById('reinc-kpi-total');
+            if (elKpiTot) elKpiTot.innerText = kpiTotal;
+            const elSubBreak = document.getElementById('reinc-kpi-sub-breakdown');
+            if (elSubBreak) elSubBreak.innerText = `${kpiDir} Directos / ${kpiDis} Distribuidores`;
+            const elKpiCrit = document.getElementById('reinc-kpi-criticos');
+            if (elKpiCrit) elKpiCrit.innerText = kpiCrit;
+            const elKpiConsec = document.getElementById('reinc-kpi-consecutivos');
+            if (elKpiConsec) elKpiConsec.innerText = kpiConsec;
+            const elKpiMod = document.getElementById('reinc-kpi-moderados');
+            if (elKpiMod) elKpiMod.innerText = kpiMod;
+            const elKpiProm = document.getElementById('reinc-kpi-promedio');
+            if (elKpiProm) elKpiProm.innerText = kpiProm;
+
+            // Renderizar Rankings
+            renderReincRankings(filtered);
+
+            // Ordenar asesores
+            const col = reincCurrentSort.column;
+            const isAsc = reincCurrentSort.dir === 'asc';
+            filtered.sort((a, b) => {
+                let vA = a[col];
+                let vB = b[col];
+                if (col === 'consecutivos') {
+                    vA = a.consecutivos_actuales;
+                    vB = b.consecutivos_actuales;
+                }
+                if (typeof vA === 'string') {
+                    return isAsc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                }
+                return isAsc ? (vA - vB) : (vB - vA);
+            });
+
+            // Renderizar Tabla de Asesores
+            const tbody = document.getElementById('reinc-table-tbody');
+            const countLabel = document.getElementById('reinc-table-count-label');
+            if (countLabel) {
+                countLabel.innerText = `Mostrando ${filtered.length} asesores reincidentes según los filtros aplicados.`;
+            }
+
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px; color: #64748b; font-weight: 700;">No se encontraron asesores con los filtros seleccionados.</td></tr>';
+                return;
+            }
+
+            filtered.forEach((a, idx) => {
+                const tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid #f1f5f9';
+
+                // Badge Tipo
+                const isDir = a.tipo === 'DIRECTO';
+                const badgeTipo = isDir
+                    ? `<span style="background: #ede9fe; color: #6d28d9; padding: 2.5px 7px; border-radius: 4px; font-weight: 800; font-size: 0.7rem;">DIRECTO</span>`
+                    : `<span style="background: #fef3c7; color: #b45309; padding: 2.5px 7px; border-radius: 4px; font-weight: 800; font-size: 0.7rem;">DISTRIBUIDOR</span>`;
+
+                // Badge Meses Incumplidos
+                let badgeMesesColor = '#f59e0b';
+                let badgeMesesBg = '#fef3c7';
+                let badgeMesesText = '#92400e';
+                if (a.meses_incumplidos >= 6) {
+                    badgeMesesColor = '#ef4444';
+                    badgeMesesBg = '#fee2e2';
+                    badgeMesesText = '#991b1b';
+                } else if (a.meses_incumplidos <= 2) {
+                    badgeMesesColor = '#10b981';
+                    badgeMesesBg = '#dcfce7';
+                    badgeMesesText = '#166534';
+                }
+
+                const badgeMeses = `<span style="display: inline-block; min-width: 32px; padding: 3px 8px; border-radius: 999px; background: ${badgeMesesBg}; color: ${badgeMesesText}; font-weight: 900; font-size: 0.85rem; border: 1.5px solid ${badgeMesesColor}; text-align: center;">${a.meses_incumplidos}</span>`;
+
+                // Badge Consecutivos
+                let badgePatron = '';
+                if (a.consecutivos_actuales >= 3) {
+                    badgePatron = `<span style="background: #fee2e2; color: #b91c1c; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.7rem; border: 1px solid #fca5a5;">🚨 ${a.consecutivos_actuales} meses seguidos (a Oct)</span>`;
+                } else if (a.consecutivos_actuales === 2) {
+                    badgePatron = `<span style="background: #ffedd5; color: #c2410c; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.7rem; border: 1px solid #fdba74;">⚠️ 2 meses seguidos</span>`;
+                } else if (a.max_consecutivos >= 3) {
+                    badgePatron = `<span style="background: #fef9c3; color: #854d0e; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.7rem;">Discontinuo (máx ${a.max_consecutivos} seg.)</span>`;
+                } else {
+                    badgePatron = `<span style="color: #64748b; font-size: 0.72rem; font-weight: 600;">Discontinuo</span>`;
+                }
+
+                // Generar los 10 chips de meses (Ene a Oct)
+                const chipsHtml = (a.historial || []).map(h => {
+                    if (!h.has_data) {
+                        return `<span class="month-chip nodata" title="${h.mes}: Sin datos">-<span style="font-size:0.5rem; color:#94a3b8;">${h.mes}</span></span>`;
+                    }
+                    if (h.cumplio) {
+                        return `<span class="month-chip cumplio" title="${h.mes}: Cumplió (${h.raw_pct} - $${Math.round(h.valor).toLocaleString('es-CO')})">✓<span style="font-size:0.5rem; font-weight:700;">${h.mes}</span></span>`;
+                    } else {
+                        return `<span class="month-chip incumplio" title="${h.mes}: No cumplió (${h.raw_pct} - $${Math.round(h.valor).toLocaleString('es-CO')})">✕<span style="font-size:0.5rem; font-weight:700;">${h.mes}</span></span>`;
+                    }
+                }).join('');
+
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: 800; color: #94a3b8; font-size: 0.75rem;">${idx + 1}</td>
+                    <td>
+                        <div style="font-weight: 800; color: #1e293b;">${a.nombre}</div>
+                        <div style="font-size: 0.7rem; color: #64748b;">CC ${a.cedula || 'S/N'}</div>
+                    </td>
+                    <td style="text-align: center;">${badgeTipo}</td>
+                    <td style="font-weight: 600; color: #334155;">${a.director}</td>
+                    <td>
+                        <div style="font-weight: 700; color: #1e3a8a;">${a.regional}</div>
+                        <div style="font-size: 0.7rem; color: #64748b;">${a.zona}</div>
+                    </td>
+                    <td style="text-align: center;">${badgeMeses}</td>
+                    <td style="text-align: center;">${badgePatron}</td>
+                    <td style="text-align: center; white-space: nowrap;">${chipsHtml}</td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderReincRankings(filteredList) {
+            // Ranking por Regional
+            const regMap = {};
+            // Ranking por Zona
+            const zonMap = {};
+            // Ranking por Director
+            const dirMap = {};
+
+            filteredList.forEach(a => {
+                // Regional
+                if (!regMap[a.regional]) regMap[a.regional] = { name: a.regional, total: 0, dir: 0, dis: 0, crit: 0 };
+                regMap[a.regional].total++;
+                if (a.tipo === 'DIRECTO') regMap[a.regional].dir++;
+                else regMap[a.regional].dis++;
+                if (a.criticidad === 'CRITICA') regMap[a.regional].crit++;
+
+                // Zona
+                const zKey = `${a.zona}||${a.regional}`;
+                if (!zonMap[zKey]) zonMap[zKey] = { name: a.zona, reg: a.regional, total: 0, crit: 0 };
+                zonMap[zKey].total++;
+                if (a.criticidad === 'CRITICA') zonMap[zKey].crit++;
+
+                // Director
+                if (!dirMap[a.director]) dirMap[a.director] = { name: a.director, total: 0, dir: 0, dis: 0, crit: 0 };
+                dirMap[a.director].total++;
+                if (a.tipo === 'DIRECTO') dirMap[a.director].dir++;
+                else dirMap[a.director].dis++;
+                if (a.criticidad === 'CRITICA') dirMap[a.director].crit++;
+            });
+
+            // Render Regional Tbody
+            const rList = Object.values(regMap).sort((a, b) => b.total - a.total);
+            const rTbody = document.getElementById('reinc-rank-regional-tbody');
+            if (rTbody) {
+                rTbody.innerHTML = rList.slice(0, 10).map((r, i) => `
+                    <tr>
+                        <td style="font-weight: 800; color: #94a3b8;">${i + 1}</td>
+                        <td style="font-weight: 700;">${r.name}</td>
+                        <td style="text-align: center; font-weight: 800; color: #1e3a8a;">${r.total}</td>
+                        <td style="text-align: center; font-size: 0.72rem; color: #64748b;">${r.dir}D / ${r.dis}Ds</td>
+                        <td style="text-align: center; font-weight: 700; color: #b91c1c;">${r.crit}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">Sin datos</td></tr>';
+            }
+
+            // Render Zona Tbody
+            const zList = Object.values(zonMap).sort((a, b) => b.total - a.total);
+            const zTbody = document.getElementById('reinc-rank-zona-tbody');
+            if (zTbody) {
+                zTbody.innerHTML = zList.slice(0, 10).map((z, i) => `
+                    <tr>
+                        <td style="font-weight: 800; color: #94a3b8;">${i + 1}</td>
+                        <td style="font-weight: 700;">${z.name}</td>
+                        <td style="font-size: 0.72rem; color: #64748b;">${z.reg}</td>
+                        <td style="text-align: center; font-weight: 800; color: #5b21b6;">${z.total}</td>
+                        <td style="text-align: center; font-weight: 700; color: #b91c1c;">${z.crit}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">Sin datos</td></tr>';
+            }
+
+            // Render Director Tbody
+            const dList = Object.values(dirMap).sort((a, b) => b.total - a.total);
+            const dTbody = document.getElementById('reinc-rank-director-tbody');
+            if (dTbody) {
+                dTbody.innerHTML = dList.map((d, i) => `
+                    <tr>
+                        <td style="font-weight: 800; color: #94a3b8;">${i + 1}</td>
+                        <td style="font-weight: 700;">${d.name}</td>
+                        <td style="text-align: center; font-weight: 800; color: #92400e;">${d.total}</td>
+                        <td style="text-align: center; font-size: 0.72rem; color: #64748b;">${d.dir}D / ${d.dis}Ds</td>
+                        <td style="text-align: center; font-weight: 700; color: #b91c1c;">${d.crit}</td>
+                    </tr>
+                `).join('') || '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">Sin datos</td></tr>';
+            }
+        }
+
+        function exportarReincidenciaCSV() {
+            if (typeof REINCIDENCIA_DATA === 'undefined' || !REINCIDENCIA_DATA) return;
+            const asesores = REINCIDENCIA_DATA.asesores || [];
+            if (asesores.length === 0) {
+                alert('No hay datos para exportar.');
+                return;
+            }
+
+            let csv = '\uFEFF'; // BOM para tildes y caracteres en Excel
+            csv += 'Rank,Asesor,Cedula,Tipo,Director,Regional,Zona,Meses_Incumplidos_Col_AV,Racha_Consecutiva_Oct,Max_Consecutivos,Criticidad,Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct\n';
+
+            asesores.forEach((a, i) => {
+                const mesesRow = (a.historial || []).map(h => h.has_data ? (h.cumplio ? 'CUMPLIÓ' : h.raw_pct) : 'N/A').join(',');
+                csv += `"${i + 1}","${a.nombre}","${a.cedula}","${a.tipo}","${a.director}","${a.regional}","${a.zona}","${a.meses_incumplidos}","${a.consecutivos_actuales}","${a.max_consecutivos}","${a.criticidad_label}",${mesesRow}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `Reincidencia_Incumplimiento_Asesores_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
 </script>
 
