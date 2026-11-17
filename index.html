@@ -5530,8 +5530,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-17 10:50:14';
-const TIMESTAMP_ACTUALIZACION = 1794930614;
+const ULTIMA_ACTUALIZACION = '2026-11-17 10:56:16';
+const TIMESTAMP_ACTUALIZACION = 1794930976;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -30620,6 +30620,20 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "YUSMARI DEL CARMEN  MOLINA CARRILLO",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 628800.0,
+    "VALOR ANUAL": 628800.0,
+    "REGIONAL": "Antioquia",
+    "ZONA": "Medellin",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -34339,11 +34353,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Antioquia",
     "ZONA": "Medellin",
     "PRESUPUESTO": 18700000.0,
-    "LLEVAMOS": 9958200.0,
-    "CANTIDAD DE VENTAS": 21,
-    "NOS FALTA": 8741800.0,
-    "DEBEMOS HACER DIARIO": 794709.0,
-    "CUMPLIMIENTO": 53.0,
+    "LLEVAMOS": 10587000.0,
+    "CANTIDAD DE VENTAS": 22,
+    "NOS FALTA": 8113000.0,
+    "DEBEMOS HACER DIARIO": 737545.0,
+    "CUMPLIMIENTO": 57.0,
     "APROBADO": 2469600.0,
     "TIPO DE ASESOR": "CONTRATO DIRECTO"
   },
@@ -39988,13 +40002,13 @@ const CANTADAS_ROWS = [
     "DIAMANTE",
     "14%",
     "$18,700,000",
-    "$9,958,200",
-    "21",
-    "$8,741,800",
-    "$794,709",
-    "53%",
-    "$19,086,550",
-    "102%"
+    "$10,587,000",
+    "22",
+    "$8,113,000",
+    "$737,545",
+    "57%",
+    "$20,291,750",
+    "109%"
   ],
   [
     "Erubey Dávila",
@@ -140393,10 +140407,10 @@ const ROTACION_DATA = {
         "actual": {
           "nombre": "Noviembre",
           "mes_num": 11,
-          "ingresos": 18,
+          "ingresos": 19,
           "activados": 10,
-          "en_induccion": 8,
-          "tasa_activacion": 55.6
+          "en_induccion": 9,
+          "tasa_activacion": 52.6
         }
       }
     },
@@ -140479,10 +140493,10 @@ const ROTACION_DATA = {
         "actual": {
           "nombre": "Noviembre",
           "mes_num": 11,
-          "ingresos": 18,
+          "ingresos": 19,
           "activados": 10,
-          "en_induccion": 8,
-          "tasa_activacion": 55.6
+          "en_induccion": 9,
+          "tasa_activacion": 52.6
         }
       }
     }
@@ -140552,7 +140566,7 @@ const ROTACION_DATA = {
         },
         {
           "director": "Angélica Mur",
-          "total_ingresos": 11,
+          "total_ingresos": 12,
           "retenidos": 5,
           "desertaron": 2,
           "nuevos_activos": 2,
@@ -140676,7 +140690,7 @@ const ROTACION_DATA = {
         },
         {
           "regional": "Tolima Norte",
-          "total_ingresos": 5,
+          "total_ingresos": 6,
           "retenidos": 3,
           "desertaron": 2,
           "tasa_retencion": 60.0,
@@ -140760,7 +140774,7 @@ const ROTACION_DATA = {
         },
         {
           "director": "Angélica Mur",
-          "total_ingresos": 11,
+          "total_ingresos": 12,
           "retenidos": 5,
           "desertaron": 2,
           "nuevos_activos": 2,
@@ -140884,7 +140898,7 @@ const ROTACION_DATA = {
         },
         {
           "regional": "Tolima Norte",
-          "total_ingresos": 5,
+          "total_ingresos": 6,
           "retenidos": 3,
           "desertaron": 2,
           "tasa_retencion": 60.0,
@@ -143121,6 +143135,26 @@ const ROTACION_DATA = {
       "estado": "NUEVO CON VENTA",
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (2 ventas en su 1er mes)"
+    },
+    {
+      "cedula": "1012348035",
+      "nombre": "MICHAEL ALEXIS CONTRERAS PINTO",
+      "fecha_ingreso": "17/11/2026",
+      "mes_ingreso_num": 11,
+      "cohorte": "Noviembre",
+      "tipo": "DISTRIBUIDOR",
+      "regional": "Tolima Norte",
+      "zona": "Ibague",
+      "director": "Angélica Mur",
+      "ventas_antep": 0,
+      "ventas_ant": 0,
+      "ventas_act": 0,
+      "total_ventas": 0,
+      "in_pres_act": false,
+      "in_pres_ant": false,
+      "estado": "NUEVO EN INDUCCIÓN",
+      "badge_type": "induccion",
+      "diagnostico": "En período de entrenamiento / sin venta aún"
     }
   ]
 };
@@ -181959,7 +181993,7 @@ const QUINCENA1_DATA_ACT = {
     "total_cumplieron": 7,
     "pct_cumplieron_global": 2.1,
     "total_presupuesto": 2229300000.0,
-    "total_ventas_q1": 679368600.0,
+    "total_ventas_q1": 679997400.0,
     "ventas_q1_cumplidores": 38472600.0
   },
   "pivot_directores": [
@@ -186633,11 +186667,11 @@ const QUINCENA1_DATA_ACT = {
                   "zona": "Medellin",
                   "tipo": "Contrato Directo",
                   "presupuesto": 18700000.0,
-                  "ventas_q1": 9958200.0,
-                  "cant_q1": 21,
+                  "ventas_q1": 10587000.0,
+                  "cant_q1": 22,
                   "cumple": false,
-                  "pct_cumplimiento": 53.3,
-                  "diferencia": -8741800.0
+                  "pct_cumplimiento": 56.6,
+                  "diferencia": -8113000.0
                 },
                 {
                   "nombre": "WILSON URRIAGO ATEHORTUA",
@@ -187154,8 +187188,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 283800000.0,
-      "ventas_q1_total": 120113400.0,
-      "pct_venta_meta": 42.3,
+      "ventas_q1_total": 120742200.0,
+      "pct_venta_meta": 42.5,
       "asesores_cumplieron": []
     },
     {
@@ -187356,8 +187390,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 247500000.0,
-      "ventas_q1_total": 109315800.0,
-      "pct_venta_meta": 44.2,
+      "ventas_q1_total": 109944600.0,
+      "pct_venta_meta": 44.4,
       "asesores_cumplieron": []
     },
     {
@@ -187611,8 +187645,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 355800000.0,
-      "ventas_q1_total": 135870600.0,
-      "pct_venta_meta": 38.2,
+      "ventas_q1_total": 136499400.0,
+      "pct_venta_meta": 38.4,
       "asesores_cumplieron": []
     },
     {
@@ -191357,11 +191391,11 @@ const QUINCENA1_DATA_ACT = {
       "zona": "Medellin",
       "tipo": "Contrato Directo",
       "presupuesto": 18700000.0,
-      "ventas_q1": 9958200.0,
-      "cant_q1": 21,
+      "ventas_q1": 10587000.0,
+      "cant_q1": 22,
       "cumple": false,
-      "pct_cumplimiento": 53.3,
-      "diferencia": -8741800.0
+      "pct_cumplimiento": 56.6,
+      "diferencia": -8113000.0
     },
     {
       "nombre": "LIBIA MODESTA FERRER MOLINA",
@@ -219770,10 +219804,10 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 73,
           "nominal_prod": 67368000.0,
-          "total_ventas_reg": 234,
-          "total_nominal_reg": 120951000.0,
-          "pct_ventas_mix": 31.2,
-          "pct_nominal_mix": 55.7,
+          "total_ventas_reg": 235,
+          "total_nominal_reg": 121579800.0,
+          "pct_ventas_mix": 31.1,
+          "pct_nominal_mix": 55.4,
           "ticket_promedio": 922849.0,
           "cuota_promedio": 76904.0,
           "top_asesor": "Daniela Alexandra  Salazar Bracho"
@@ -219978,10 +220012,10 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 72,
           "nominal_prod": 66780000.0,
-          "total_ventas_zona": 204,
-          "total_nominal_zona": 109315800.0,
-          "pct_ventas_mix": 35.3,
-          "pct_nominal_mix": 61.1,
+          "total_ventas_zona": 205,
+          "total_nominal_zona": 109944600.0,
+          "pct_ventas_mix": 35.1,
+          "pct_nominal_mix": 60.7,
           "ticket_promedio": 927500.0,
           "cuota_promedio": 77292.0
         },
@@ -220291,10 +220325,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 74,
           "nominal_prod": 67452000.0,
-          "total_ventas_dir": 274,
-          "total_nominal_dir": 136708200.0,
-          "pct_ventas_mix": 27.0,
-          "pct_nominal_mix": 49.3,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 137337000.0,
+          "pct_ventas_mix": 26.9,
+          "pct_nominal_mix": 49.1,
           "ticket_promedio": 911514.0,
           "cuota_promedio": 75959.0,
           "asesores_vendiendo": 19
@@ -220715,8 +220749,8 @@ const PRODUCTOS_DATA = {
           "ticket_promedio": 1311600.0,
           "cuota_promedio": 109300.0,
           "subplan_ppal": "RM Oro",
-          "total_ventas_asesor": 21,
-          "pct_mix_asesor": 9.5,
+          "total_ventas_asesor": 22,
+          "pct_mix_asesor": 9.1,
           "aprobadas": 0,
           "pct_aprob": 0.0,
           "pos": 19
@@ -221573,8 +221607,8 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 1,
           "nominal_prod": 381000.0,
-          "total_ventas_reg": 234,
-          "total_nominal_reg": 120951000.0,
+          "total_ventas_reg": 235,
+          "total_nominal_reg": 121579800.0,
           "pct_ventas_mix": 0.4,
           "pct_nominal_mix": 0.3,
           "ticket_promedio": 381000.0,
@@ -221871,8 +221905,8 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 204,
-          "total_nominal_zona": 109315800.0,
+          "total_ventas_zona": 205,
+          "total_nominal_zona": 109944600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -222015,8 +222049,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 1,
           "nominal_prod": 381000.0,
-          "total_ventas_dir": 274,
-          "total_nominal_dir": 136708200.0,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 137337000.0,
           "pct_ventas_mix": 0.4,
           "pct_nominal_mix": 0.3,
           "ticket_promedio": 381000.0,
@@ -222910,8 +222944,8 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 234,
-          "total_nominal_reg": 120951000.0,
+          "total_ventas_reg": 235,
+          "total_nominal_reg": 121579800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -223263,8 +223297,8 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 204,
-          "total_nominal_zona": 109315800.0,
+          "total_ventas_zona": 205,
+          "total_nominal_zona": 109944600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -223407,10 +223441,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 3,
           "nominal_prod": 2400000.0,
-          "total_ventas_dir": 274,
-          "total_nominal_dir": 136708200.0,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 137337000.0,
           "pct_ventas_mix": 1.1,
-          "pct_nominal_mix": 1.8,
+          "pct_nominal_mix": 1.7,
           "ticket_promedio": 800000.0,
           "cuota_promedio": 66667.0,
           "asesores_vendiendo": 1
@@ -223646,10 +223680,10 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 74,
           "nominal_prod": 67749000.0,
-          "total_ventas_reg": 234,
-          "total_nominal_reg": 120951000.0,
-          "pct_ventas_mix": 31.6,
-          "pct_nominal_mix": 56.0,
+          "total_ventas_reg": 235,
+          "total_nominal_reg": 121579800.0,
+          "pct_ventas_mix": 31.5,
+          "pct_nominal_mix": 55.7,
           "ticket_promedio": 915527.0,
           "cuota_promedio": 76294.0,
           "top_asesor": "Daniela Alexandra  Salazar Bracho"
@@ -223854,10 +223888,10 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 72,
           "nominal_prod": 66780000.0,
-          "total_ventas_zona": 204,
-          "total_nominal_zona": 109315800.0,
-          "pct_ventas_mix": 35.3,
-          "pct_nominal_mix": 61.1,
+          "total_ventas_zona": 205,
+          "total_nominal_zona": 109944600.0,
+          "pct_ventas_mix": 35.1,
+          "pct_nominal_mix": 60.7,
           "ticket_promedio": 927500.0,
           "cuota_promedio": 77292.0
         },
@@ -224167,10 +224201,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 78,
           "nominal_prod": 70233000.0,
-          "total_ventas_dir": 274,
-          "total_nominal_dir": 136708200.0,
-          "pct_ventas_mix": 28.5,
-          "pct_nominal_mix": 51.4,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 137337000.0,
+          "pct_ventas_mix": 28.4,
+          "pct_nominal_mix": 51.1,
           "ticket_promedio": 900423.0,
           "cuota_promedio": 75035.0,
           "asesores_vendiendo": 20
@@ -224843,8 +224877,8 @@ const PRODUCTOS_DATA = {
           "ticket_promedio": 1311600.0,
           "cuota_promedio": 109300.0,
           "subplan_ppal": "RM Oro",
-          "total_ventas_asesor": 21,
-          "pct_mix_asesor": 9.5,
+          "total_ventas_asesor": 22,
+          "pct_mix_asesor": 9.1,
           "aprobadas": 0,
           "pct_aprob": 0.0,
           "pos": 33
@@ -226022,8 +226056,8 @@ const PRODUCTOS_DATA = {
       ]
     },
     "global_info": {
-      "total_ventas_mes": 1792,
-      "total_nominal_mes": 688894800.0,
+      "total_ventas_mes": 1793,
+      "total_nominal_mes": 689523600.0,
       "total_asesores_mes": 254
     }
   },
