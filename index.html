@@ -4847,8 +4847,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 20:08:52';
-const TIMESTAMP_ACTUALIZACION = 1794877732;
+const ULTIMA_ACTUALIZACION = '2026-11-16 20:14:48';
+const TIMESTAMP_ACTUALIZACION = 1794878088;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -28266,6 +28266,20 @@ const SERVER_DATA = [
     "DIA": "SIN ESPECIFICAR",
     "NOMINAL VENTA": 388800.0,
     "VALOR ANUAL": 388800.0,
+    "REGIONAL": "Valle Norte",
+    "ZONA": "Cartago",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "FERNEY MAHECHA PULIDO",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 354000.0,
+    "VALOR ANUAL": 354000.0,
     "REGIONAL": "Valle Norte",
     "ZONA": "Cartago",
     "STATUS": "Reportada",
@@ -181067,7 +181081,7 @@ const QUINCENA1_DATA_ACT = {
     "total_cumplieron": 6,
     "pct_cumplieron_global": 1.8,
     "total_presupuesto": 2229300000.0,
-    "total_ventas_q1": 444621012.0,
+    "total_ventas_q1": 444975012.0,
     "ventas_q1_cumplidores": 32436600.0
   },
   "pivot_directores": [
@@ -183719,11 +183733,11 @@ const QUINCENA1_DATA_ACT = {
                   "zona": "Cartago",
                   "tipo": "Contrato Directo",
                   "presupuesto": 12300000.0,
-                  "ventas_q1": 10653000.0,
-                  "cant_q1": 18,
+                  "ventas_q1": 11007000.0,
+                  "cant_q1": 19,
                   "cumple": false,
-                  "pct_cumplimiento": 86.6,
-                  "diferencia": -1647000.0
+                  "pct_cumplimiento": 89.5,
+                  "diferencia": -1293000.0
                 },
                 {
                   "nombre": "JENNIFER ALARCON PIMIENTA",
@@ -186307,8 +186321,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 63000000.0,
-      "ventas_q1_total": 20206200.0,
-      "pct_venta_meta": 32.1,
+      "ventas_q1_total": 20560200.0,
+      "pct_venta_meta": 32.6,
       "asesores_cumplieron": []
     },
     {
@@ -186507,8 +186521,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 63000000.0,
-      "ventas_q1_total": 20206200.0,
-      "pct_venta_meta": 32.1,
+      "ventas_q1_total": 20560200.0,
+      "pct_venta_meta": 32.6,
       "asesores_cumplieron": []
     },
     {
@@ -186693,7 +186707,7 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 1.5,
       "pct_global": 0.3,
       "presupuesto_total": 505400000.0,
-      "ventas_q1_total": 95787600.0,
+      "ventas_q1_total": 96141600.0,
       "pct_venta_meta": 19.0,
       "asesores_cumplieron": [
         "YULI  PAULIN BETANCUR BOTERO"
@@ -190578,11 +190592,11 @@ const QUINCENA1_DATA_ACT = {
       "zona": "Cartago",
       "tipo": "Contrato Directo",
       "presupuesto": 12300000.0,
-      "ventas_q1": 10653000.0,
-      "cant_q1": 18,
+      "ventas_q1": 11007000.0,
+      "cant_q1": 19,
       "cumple": false,
-      "pct_cumplimiento": 86.6,
-      "diferencia": -1647000.0
+      "pct_cumplimiento": 89.5,
+      "diferencia": -1293000.0
     },
     {
       "nombre": "SAULY GONZÁLEZ MENDOZA",
@@ -229504,25 +229518,30 @@ const REINCIDENCIA_DATA = {
                     patronBadge = `<span style="background: #f1f5f9; color: #475569; padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 0.72rem;">🟢 Leve (${a.meses_incumplidos}m)</span>`;
                 }
 
-                // Generar chips mes a mes
+                // Generar chips mes a mes (Verde si cumplió, Rojo si incumplió, Gris si sin registro)
                 const chipsHtml = (a.historial || []).map(m => {
                     let cls = 'nodata';
                     let symb = '-';
-                    let tt = `${m.mes}: Sin datos`;
-                    if (m.evaluado) {
+                    const mesLabel = m.mes || '';
+                    let tt = `${mesLabel}: Sin registro / inactivo`;
+
+                    if (m.has_data) {
+                        const pctStr = m.raw_pct || (m.pct != null ? `${m.pct}%` : '');
+                        const valStr = m.valor != null ? `$${Number(m.valor).toLocaleString('es-CO')}` : '$0';
                         if (m.cumplio) {
                             cls = 'cumplio';
                             symb = '✓';
-                            tt = `${m.mes}: CUMPLIÓ (${(m.cumpl_pct*100).toFixed(1)}% - Cantado: $${m.cantado.toLocaleString('es-CO')})`;
+                            tt = `${mesLabel}: CUMPLIÓ (${pctStr} - Cantado: ${valStr})`;
                         } else {
                             cls = 'incumplio';
                             symb = '✗';
-                            tt = `${m.mes}: INCUMPLIÓ (${(m.cumpl_pct*100).toFixed(1)}% - Cantado: $${m.cantado.toLocaleString('es-CO')})`;
+                            tt = `${mesLabel}: INCUMPLIÓ (${pctStr} - Cantado: ${valStr})`;
                         }
                     }
+
                     return `<span class="month-chip ${cls}" title="${tt}">
-                        <span style="font-size: 0.52rem; opacity: 0.85;">${m.abrev}</span>
-                        <span>${symb}</span>
+                        <span style="font-size: 0.52rem; opacity: 0.85; line-height: 1;">${mesLabel}</span>
+                        <span style="font-size: 0.68rem; font-weight: 900; line-height: 1;">${symb}</span>
                     </span>`;
                 }).join('');
 
@@ -229686,7 +229705,7 @@ const REINCIDENCIA_DATA = {
             });
 
             const headers = ['#', 'Nombre Asesor', 'Cédula', 'Tipo Asesor', 'Director', 'Regional', 'Zona', 'Meses Incumplidos (Col AV)', 'Criticidad', 'Racha Actual Consecutiva'];
-            const mesesNombres = (REINCIDENCIA_DATA.meses || []).map(m => m.nombre);
+            const mesesNombres = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct'];
             mesesNombres.forEach(m => headers.push(`% Cumpl ${m}`, `Cantado ${m}`));
 
             const rows = [headers.join(';')];
@@ -229705,8 +229724,8 @@ const REINCIDENCIA_DATA = {
                     a.consecutivos_actuales
                 ];
                 (a.historial || []).forEach(m => {
-                    r.push(m.evaluado ? (m.cumpl_pct*100).toFixed(1) + '%' : 'N/A');
-                    r.push(m.evaluado ? m.cantado : 'N/A');
+                    r.push(m.has_data ? (m.raw_pct || `${m.pct}%`) : 'N/A');
+                    r.push(m.has_data ? m.valor : 'N/A');
                 });
                 rows.push(r.join(';'));
             });
