@@ -619,6 +619,117 @@
             text-align: center !important;
         }
 
+        /* ========================================================= */
+        /* BOTONES DESTACADOS: FILTRO TIPO DE ASESOR (CERO VENTAS)   */
+        /* ========================================================= */
+        .cz-tipo-filter-btn {
+            padding: 10px 20px !important;
+            font-size: 0.92rem !important;
+            font-weight: 800 !important;
+            border-radius: 10px !important;
+            cursor: pointer !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+            user-select: none !important;
+        }
+        .cz-tipo-filter-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12) !important;
+        }
+        .cz-tipo-filter-btn:active {
+            transform: translateY(0px) !important;
+        }
+
+        /* 1. Botón Todos */
+        #btn-cz-tipo-todos {
+            background: #ffffff !important;
+            color: #1e293b !important;
+            border: 2px solid #cbd5e1 !important;
+        }
+        #btn-cz-tipo-todos:hover {
+            background: #f8fafc !important;
+            border-color: #94a3b8 !important;
+        }
+        #btn-cz-tipo-todos.active {
+            background: #1e1b4b !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+            box-shadow: 0 4px 16px rgba(30, 27, 75, 0.35) !important;
+        }
+        #btn-cz-tipo-todos .cz-pill-count {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding: 2px 9px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+        #btn-cz-tipo-todos.active .cz-pill-count {
+            background: rgba(255, 255, 255, 0.25) !important;
+            color: #ffffff !important;
+        }
+
+        /* 2. Botón Solo Contrato Directo */
+        #btn-cz-tipo-directo {
+            background: #fff5f5 !important;
+            color: #dc2626 !important;
+            border: 2px solid #f87171 !important;
+        }
+        #btn-cz-tipo-directo:hover {
+            background: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        #btn-cz-tipo-directo.active {
+            background: #dc2626 !important;
+            color: #ffffff !important;
+            border-color: #b91c1c !important;
+            box-shadow: 0 5px 18px rgba(220, 38, 38, 0.4) !important;
+        }
+        #btn-cz-tipo-directo .cz-pill-count {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 2px 9px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+        #btn-cz-tipo-directo.active .cz-pill-count {
+            background: rgba(255, 255, 255, 0.3) !important;
+            color: #ffffff !important;
+        }
+
+        /* 3. Botón Solo Distribuidores */
+        #btn-cz-tipo-distri {
+            background: #f0fdf4 !important;
+            color: #059669 !important;
+            border: 2px solid #34d399 !important;
+        }
+        #btn-cz-tipo-distri:hover {
+            background: #dcfce7 !important;
+            border-color: #10b981 !important;
+        }
+        #btn-cz-tipo-distri.active {
+            background: #059669 !important;
+            color: #ffffff !important;
+            border-color: #047857 !important;
+            box-shadow: 0 5px 18px rgba(5, 150, 105, 0.4) !important;
+        }
+        #btn-cz-tipo-distri .cz-pill-count {
+            background: #dcfce7;
+            color: #065f46;
+            padding: 2px 9px;
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+        #btn-cz-tipo-distri.active .cz-pill-count {
+            background: rgba(255, 255, 255, 0.3) !important;
+            color: #ffffff !important;
+        }
+
         /* Centrado de tabla Cruce Regional */
 
         #cruceRegionalTable th,
@@ -2386,18 +2497,22 @@
             </div>
 
             <!-- Fila de Filtro de Tipo de Asesor (Directos vs Distribuidores) y Drilldown -->
-            <div style="background: #ffffff; padding: 12px 18px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
-                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                    <span style="font-size: 0.86rem; font-weight: 700; color: #1e293b;">🔍 Filtrar por Tipo de Asesor:</span>
-                    <button type="button" id="btn-cz-tipo-todos" class="cruce-view-btn active" onclick="switchCeroVentasTipo('todos')">
-                        👥 Todos los Asesores (<span id="cz-count-tipo-todos">0</span>)
-                    </button>
-                    <button type="button" id="btn-cz-tipo-directo" class="cruce-view-btn" style="border-color: #ef4444; color: #dc2626;" onclick="switchCeroVentasTipo('directo')">
-                        🚨 Solo Contrato Directo (<span id="cz-count-tipo-directo">0</span>)
-                    </button>
-                    <button type="button" id="btn-cz-tipo-distri" class="cruce-view-btn" style="border-color: #10b981; color: #047857;" onclick="switchCeroVentasTipo('distri')">
-                        🤝 Solo Distribuidores (<span id="cz-count-tipo-distri">0</span>)
-                    </button>
+            <div style="background: #ffffff; padding: 16px 20px; border-radius: 12px; border: 1.5px solid #e2e8f0; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+                <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <div style="font-size: 0.95rem; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 6px;">
+                        <span>🔍</span> Filtrar por Tipo de Asesor:
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" id="btn-cz-tipo-todos" class="cz-tipo-filter-btn active" onclick="switchCeroVentasTipo('todos')" title="Haz clic para ver todos los asesores sin ventas">
+                            <span>👥</span> Todos los Asesores <span class="cz-pill-count" id="cz-count-tipo-todos">0</span>
+                        </button>
+                        <button type="button" id="btn-cz-tipo-directo" class="cz-tipo-filter-btn" onclick="switchCeroVentasTipo('directo')" title="Haz clic para filtrar solo asesores de contrato directo">
+                            <span>🚨</span> Solo Contrato Directo <span class="cz-pill-count" id="cz-count-tipo-directo">0</span>
+                        </button>
+                        <button type="button" id="btn-cz-tipo-distri" class="cz-tipo-filter-btn" onclick="switchCeroVentasTipo('distri')" title="Haz clic para filtrar solo distribuidores autorizados">
+                            <span>🤝</span> Solo Distribuidores <span class="cz-pill-count" id="cz-count-tipo-distri">0</span>
+                        </button>
+                    </div>
                 </div>
                 <div id="cz-active-drilldown-banner" style="display: none; align-items: center; gap: 8px;">
                     <span id="cz-active-drilldown-text" style="font-size: 0.84rem; font-weight: 700; color: #dc2626; background: #fee2e2; padding: 4px 10px; border-radius: 6px; border: 1px solid #fca5a5;">
