@@ -568,6 +568,57 @@
 
         td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 
+        /* ================================================================= */
+        /* CENTRADO DE TODAS LAS COLUMNAS EN REPORTES DETALLADOS              */
+        /* (REPORTE MES ACTUAL Y MES ANTERIOR - TODAS LAS MODALIDADES)        */
+        /* ================================================================= */
+        #pTable th,
+        #pTable td,
+        #pTable th.num,
+        #pTable td.num,
+        #pTable tfoot td,
+        #antPTable th,
+        #antPTable td,
+        #antPTable th.num,
+        #antPTable td.num,
+        #antPTable tfoot td,
+        #antSinAprobarTable th,
+        #antSinAprobarTable td,
+        #antSinAprobarTable th.num,
+        #antSinAprobarTable td.num,
+        #sinAprobarTable th,
+        #sinAprobarTable td,
+        #sinAprobarTable th.num,
+        #sinAprobarTable td.num,
+        #asesorConcentracionTable th,
+        #asesorConcentracionTable td,
+        #antConcentracionTable th,
+        #antConcentracionTable td,
+        #detailed-reports-card table th,
+        #detailed-reports-card table td,
+        #ant-detailed-reports-card table th,
+        #ant-detailed-reports-card table td,
+        .detailed-reports-card table th,
+        .detailed-reports-card table td,
+        #asesor-standard-table-container table th,
+        #asesor-standard-table-container table td,
+        #ant-asesor-standard-table-container table th,
+        #ant-asesor-standard-table-container table td {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        #pTable .badge,
+        #antPTable .badge,
+        #pTable .badge-cumpl,
+        #antPTable .badge-cumpl,
+        #detailed-reports-card .badge,
+        #ant-detailed-reports-card .badge {
+            display: inline-block !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+        }
+
         /* Centrado de tabla Cruce Regional */
 
         #cruceRegionalTable th,
