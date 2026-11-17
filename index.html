@@ -221,6 +221,22 @@
 
         }
 
+        .kpi-banner-grid.has-5-cards {
+
+            grid-template-columns: repeat(5, 1fr);
+
+        }
+
+        @media (max-width: 1300px) {
+
+            .kpi-banner-grid.has-5-cards {
+
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+            }
+
+        }
+
         @media (max-width: 1200px) {
 
             .kpi-banner-grid {
@@ -334,6 +350,8 @@
 
         .card-pill.kpi-cumpl::before { background: #059669; }
 
+        .card-pill.kpi-proyeccion::before { background: #0284c7; }
+
         .card-pill.kpi-falta::before { background: #d97706; }
 
         
@@ -369,6 +387,8 @@
         .card-pill.kpi-presupuesto::after { background: #e0f2fe; }
 
         .card-pill.kpi-cumpl::after { background: #dcfce7; }
+
+        .card-pill.kpi-proyeccion::after { background: #e0f2fe; }
 
         .card-pill.kpi-falta::after { background: #fef3c7; }
 
@@ -410,7 +430,15 @@
 
         .card-pill.kpi-cumpl .pill-badge { background-color: #059669; }
 
+        .card-pill.kpi-proyeccion .pill-badge { background-color: #0284c7; }
+
         .card-pill.kpi-falta .pill-badge { background-color: #d97706; }
+
+        .card-pill.kpi-proyeccion .pill-number { color: #0369a1; }
+
+        .card-pill.kpi-proyeccion { cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+
+        .card-pill.kpi-proyeccion:hover { border-color: #38bdf8; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.16); transform: translateY(-2px); }
 
         /* Cifra numérica grande proporcionada sin invadir la pantalla */
 
@@ -1217,7 +1245,7 @@
 
         <!-- Tarjetas Estilo Imagen (Pill Banner) -->
 
-        <div class="kpi-banner-grid">
+        <div class="kpi-banner-grid has-5-cards">
 
             <!-- 1. Valor Anual Acumulado / Llevamos -->
 
@@ -1261,7 +1289,7 @@
 
             <!-- 3. % Cumplimiento General -->
 
-            <div class="card-pill kpi-cumpl">
+            <div class="card-pill kpi-cumpl" onclick="switchCruceMode('general')" style="cursor: pointer;" title="Toca aquí para ver Realizó sobre Presupuesto">
 
                 <span class="pill-badge">% CUMPLIMIENTO GLOBAL</span>
 
@@ -1271,7 +1299,19 @@
 
             </div>
 
-            <!-- 4. Nos Falta -->
+            <!-- 4. % Proyección de Cierre -->
+
+            <div class="card-pill kpi-proyeccion" onclick="switchCruceMode('proyeccion')" style="cursor: pointer;" title="Toca aquí para ver la Proyección de Cierre por Regional y Zona">
+
+                <span class="pill-badge">% PROYECCIÓN CIERRE</span>
+
+                <div class="pill-number" id="p-kpi-proyeccion">57.2 %</div>
+
+                <div class="pill-sub" id="p-kpi-proyeccion-sub">Estimado al cierre de mes</div>
+
+            </div>
+
+            <!-- 5. Nos Falta -->
 
             <div class="card-pill kpi-falta">
 
@@ -190723,6 +190763,22 @@ const QUINCENA1_DATA_ACT = {
             document.getElementById('p-kpi-presupuesto').innerText = formatter.format(totPresupuesto);
 
             document.getElementById('p-kpi-cumpl').innerText = cumplGlobal.toFixed(1) + " %";
+
+            // 4. Proyección de Cierre Global
+            const formulaData = typeof DATOS_FORMULA !== 'undefined' ? DATOS_FORMULA : { DIAS_HABILES: 23, DIAS_LABORADOS: 12, DIAS_RESTANTES: 11 };
+            const diasHabiles = formulaData.DIAS_HABILES || 23;
+            const diasLaborados = formulaData.DIAS_LABORADOS || 12;
+            const proyeccionValor = (diasLaborados > 0) ? (totLlevamos / diasLaborados) * diasHabiles : totLlevamos;
+            const pctProyeccion = totPresupuesto > 0 ? (proyeccionValor / totPresupuesto) * 100 : 0;
+
+            const elProy = document.getElementById('p-kpi-proyeccion');
+            if (elProy) {
+                elProy.innerText = pctProyeccion.toFixed(1) + " %";
+            }
+            const elProySub = document.getElementById('p-kpi-proyeccion-sub');
+            if (elProySub) {
+                elProySub.innerHTML = `Estimado: <b>${formatter.format(proyeccionValor)}</b>`;
+            }
 
             const elFalta = document.getElementById('p-kpi-falta');
             if (elFalta) {
