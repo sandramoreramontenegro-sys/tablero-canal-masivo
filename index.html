@@ -3171,20 +3171,20 @@
                 <!-- Barra de selector de modo y Filtros de Asesores -->
                 <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; background: #ffffff; padding: 14px 18px; border-radius: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                     <!-- Fila 1: Botones de Modo -->
-                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;" id="ant-detailed-mode-buttons-container">
                         <button type="button" id="btn-ant-asesor-general" class="cruce-mode-pill active" onclick="switchAsesorModeAnt('general')">
                             <span>📊</span> CUMPLIMIENTO GENERAL
                         </button>
-                        <button type="button" id="btn-ant-asesor-efectividad" class="cruce-mode-pill efectividad" onclick="switchAsesorModeAnt('efectividad')">
+                        <button type="button" id="btn-ant-asesor-efectividad" class="cruce-mode-pill efectividad" onclick="switchAsesorModeAnt('efectividad')" style="display: none;">
                             <span>✅</span> EFECTIVIDAD DE CONFIRMACIÓN
                         </button>
-                        <button type="button" id="btn-ant-asesor-nocumplen" class="cruce-mode-pill nocumplen" onclick="switchAsesorModeAnt('nocumplen')">
+                        <button type="button" id="btn-ant-asesor-nocumplen" class="cruce-mode-pill nocumplen" onclick="switchAsesorModeAnt('nocumplen')" style="display: none;">
                             <span>🚨</span> CONTRATO DIRECTO EN RIESGO (< 100%)
                         </button>
-                        <button type="button" id="btn-ant-asesor-concentracion" class="cruce-mode-pill concentracion" onclick="switchAsesorModeAnt('concentracion')">
+                        <button type="button" id="btn-ant-asesor-concentracion" class="cruce-mode-pill concentracion" onclick="switchAsesorModeAnt('concentracion')" style="display: none;">
                             <span>⚠️</span> MAYOR INCUMPLIMIENTO DIRECTOS
                         </button>
-                        <button type="button" id="btn-ant-asesor-sinaprobar" class="cruce-mode-pill sinaprobar" onclick="switchAsesorModeAnt('sinaprobar')">
+                        <button type="button" id="btn-ant-asesor-sinaprobar" class="cruce-mode-pill sinaprobar" onclick="switchAsesorModeAnt('sinaprobar')" style="display: none;">
                             <span>⏳</span> RANKING NOMINAL SIN APROBAR
                         </button>
                     </div>
@@ -218989,6 +218989,9 @@ const REINCIDENCIA_DATA = {
                     initPresupuestoAnt();
                 } else {
                     renderPresupuestoDashboardAnt();
+                    if (typeof updateAntDetailedReportsButtons === 'function') {
+                        updateAntDetailedReportsButtons(currentCruceModeAnt || 'general');
+                    }
                 }
             } else if (tab === 'ajustes') {
                 const btn = document.getElementById('tab-btn-ajustes');
@@ -223093,6 +223096,7 @@ const REINCIDENCIA_DATA = {
 
             isAntInitialized = true;
             applyPresupuestoFiltersAnt();
+            updateAntDetailedReportsButtons(currentCruceModeAnt || 'general');
         }
 
         function onAsesorFilterChangeAnt(changed) {
@@ -223529,6 +223533,42 @@ const REINCIDENCIA_DATA = {
             }
         }
 
+        function updateAntDetailedReportsButtons(cruceMode) {
+            const btnGen = document.getElementById('btn-ant-asesor-general');
+            const btnEf = document.getElementById('btn-ant-asesor-efectividad');
+            const btnNc = document.getElementById('btn-ant-asesor-nocumplen');
+            const btnConc = document.getElementById('btn-ant-asesor-concentracion');
+            const btnSinAprob = document.getElementById('btn-ant-asesor-sinaprobar');
+
+            const allBtns = [btnGen, btnEf, btnNc, btnConc, btnSinAprob];
+            allBtns.forEach(b => {
+                if (b) b.style.display = 'none';
+            });
+
+            if (cruceMode === 'general') {
+                // Solo botón "CUMPLIMIENTO GENERAL"
+                if (btnGen) btnGen.style.display = 'inline-flex';
+                switchAsesorModeAnt('general');
+            } else if (cruceMode === 'efectividad') {
+                // Solo botón "EFECTIVIDAD DE CONFIRMACIÓN"
+                if (btnEf) btnEf.style.display = 'inline-flex';
+                switchAsesorModeAnt('efectividad');
+            } else if (cruceMode === 'nocumplen') {
+                // Solo botones "CONTRATO DIRECTO EN RIESGO (< 100%)" y "MAYOR INCUMPLIMIENTO DIRECTOS"
+                if (btnNc) btnNc.style.display = 'inline-flex';
+                if (btnConc) btnConc.style.display = 'inline-flex';
+                if (currentAsesorModeAnt === 'concentracion') {
+                    switchAsesorModeAnt('concentracion');
+                } else {
+                    switchAsesorModeAnt('nocumplen');
+                }
+            } else if (cruceMode === 'aprob_realizado') {
+                // Solo botón "RANKING NOMINAL SIN APROBAR"
+                if (btnSinAprob) btnSinAprob.style.display = 'inline-flex';
+                switchAsesorModeAnt('sinaprobar');
+            }
+        }
+
         function switchCruceModeAnt(mode) {
             currentCruceModeAnt = mode;
             const btnGen = document.getElementById('btn-ant-mode-general');
@@ -223564,6 +223604,9 @@ const REINCIDENCIA_DATA = {
 
             if (repContAnt) repContAnt.style.display = 'block';
             if (progContAnt) progContAnt.style.display = 'block';
+
+            // Sincronizar dinámicamente los botones que deben aparecer en REPORTES DETALLADOS MES ANTERIOR
+            updateAntDetailedReportsButtons(mode);
 
             if (mode === 'aprob_realizado') {
                 if (grid) grid.style.display = 'none';
