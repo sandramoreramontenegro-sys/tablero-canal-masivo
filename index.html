@@ -5530,8 +5530,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-17 17:14:33';
-const TIMESTAMP_ACTUALIZACION = 1794953673;
+const ULTIMA_ACTUALIZACION = '2026-11-17 17:20:23';
+const TIMESTAMP_ACTUALIZACION = 1794954023;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -32664,6 +32664,34 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Distri. Autorizados"
+  },
+  {
+    "ASESOR PLANILLA": "CONSUELO QUIROGA TANGARIFE",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 528000.0,
+    "VALOR ANUAL": 528000.0,
+    "REGIONAL": "Caldas",
+    "ZONA": "Manizales",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Distri. Autorizados"
+  },
+  {
+    "ASESOR PLANILLA": "MANUEL MINA",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 384000.0,
+    "VALOR ANUAL": 384000.0,
+    "REGIONAL": "Valle Centro",
+    "ZONA": "Palmira",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -35053,11 +35081,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Valle Centro",
     "ZONA": "Palmira",
     "PRESUPUESTO": 7500000.0,
-    "LLEVAMOS": 2943600.0,
-    "CANTIDAD DE VENTAS": 6,
-    "NOS FALTA": 4556400.0,
-    "DEBEMOS HACER DIARIO": 414218.0,
-    "CUMPLIMIENTO": 39.0,
+    "LLEVAMOS": 3327600.0,
+    "CANTIDAD DE VENTAS": 7,
+    "NOS FALTA": 4172400.0,
+    "DEBEMOS HACER DIARIO": 379309.0,
+    "CUMPLIMIENTO": 44.0,
     "APROBADO": 0.0,
     "TIPO DE ASESOR": "CONTRATO DIRECTO"
   },
@@ -35179,11 +35207,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Caldas",
     "ZONA": "Manizales",
     "PRESUPUESTO": 7500000.0,
-    "LLEVAMOS": 0.0,
-    "CANTIDAD DE VENTAS": 0,
-    "NOS FALTA": 7500000.0,
-    "DEBEMOS HACER DIARIO": 681818.0,
-    "CUMPLIMIENTO": 0.0,
+    "LLEVAMOS": 528000.0,
+    "CANTIDAD DE VENTAS": 1,
+    "NOS FALTA": 6972000.0,
+    "DEBEMOS HACER DIARIO": 633818.0,
+    "CUMPLIMIENTO": 7.0,
     "APROBADO": 0.0,
     "TIPO DE ASESOR": "DISTRIBUIDOR AUTORIZADO"
   },
@@ -40431,13 +40459,13 @@ const CANTADAS_ROWS = [
     "JUNIOR",
     "11%",
     "$7,500,000",
-    "$2,943,600",
-    "6",
-    "$4,556,400",
-    "$414,218",
-    "39%",
-    "$5,641,900",
-    "75%"
+    "$3,327,600",
+    "7",
+    "$4,172,400",
+    "$379,309",
+    "44%",
+    "$6,377,900",
+    "85%"
   ],
   [
     "Angélica Mur",
@@ -40584,13 +40612,13 @@ const CANTADAS_ROWS = [
     "SEMILLERO",
     "9%",
     "$7,500,000",
-    "",
-    "",
-    "$7,500,000",
-    "$681,818",
-    "0%",
-    "$0",
-    "0%"
+    "$528,000",
+    "1",
+    "$6,972,000",
+    "$633,818",
+    "7%",
+    "$1,012,000",
+    "13%"
   ],
   [
     "Diana Romero",
@@ -142342,7 +142370,7 @@ const ROTACION_DATA = {
           "evolucion_ventas": {
             "mes_1": 48,
             "mes_2": 36,
-            "mes_3": 21
+            "mes_3": 22
           }
         },
         "anterior": {
@@ -142428,7 +142456,7 @@ const ROTACION_DATA = {
           "evolucion_ventas": {
             "mes_1": 48,
             "mes_2": 36,
-            "mes_3": 21
+            "mes_3": 22
           }
         },
         "anterior": {
@@ -143082,13 +143110,13 @@ const ROTACION_DATA = {
       "director": "Siuly García",
       "ventas_antep": 14,
       "ventas_ant": 11,
-      "ventas_act": 0,
-      "total_ventas": 25,
+      "ventas_act": 1,
+      "total_ventas": 26,
       "in_pres_act": true,
       "in_pres_ant": true,
-      "estado": "RETENIDO EN RIESGO",
-      "badge_type": "riesgo",
-      "diagnostico": "Activo en Octubre o en meta de Noviembre, sin ventas este mes"
+      "estado": "RETENIDO ACTIVO",
+      "badge_type": "activo",
+      "diagnostico": "Vendió en Noviembre (1 contratos)"
     },
     {
       "cedula": "1037776573",
@@ -221816,39 +221844,39 @@ const PRODUCTOS_DATA = {
   "actual": {
     "RENACER_MASCOTAS": {
       "kpis": {
-        "total_ventas": 157,
-        "total_nominal": 127218000.0,
-        "ticket_promedio": 810306.0,
-        "cuota_promedio": 67526.0,
+        "total_ventas": 158,
+        "total_nominal": 127746000.0,
+        "ticket_promedio": 808519.0,
+        "cuota_promedio": 67377.0,
         "pct_ventas_global": 8.1,
-        "pct_nominal_global": 17.0,
+        "pct_nominal_global": 17.1,
         "aprobadas": 14,
         "pct_aprob": 8.9,
-        "asesores_unicos": 58,
-        "pct_penetracion_asesores": 22.2,
+        "asesores_unicos": 59,
+        "pct_penetracion_asesores": 22.5,
         "ventas_directos": 128,
-        "ventas_distribuidores": 29,
-        "pct_directos": 81.5,
+        "ventas_distribuidores": 30,
+        "pct_directos": 81.0,
         "nominal_directos": 108292800.0,
-        "nominal_distribuidores": 18925200.0
+        "nominal_distribuidores": 19453200.0
       },
       "subplanes": [
         {
           "plan": "RM Oro",
-          "ventas": 139,
-          "nominal": 118922400.0,
-          "pct_ventas": 88.5,
+          "ventas": 140,
+          "nominal": 119450400.0,
+          "pct_ventas": 88.6,
           "pct_nominal": 93.5,
-          "ticket_promedio": 855557.0,
-          "cuota_promedio": 71296.0,
+          "ticket_promedio": 853217.0,
+          "cuota_promedio": 71101.0,
           "aprobadas": 10,
-          "pct_aprob": 7.2
+          "pct_aprob": 7.1
         },
         {
           "plan": "RM Plata",
           "ventas": 10,
           "nominal": 5872800.0,
-          "pct_ventas": 6.4,
+          "pct_ventas": 6.3,
           "pct_nominal": 4.6,
           "ticket_promedio": 587280.0,
           "cuota_promedio": 48940.0,
@@ -221917,14 +221945,14 @@ const PRODUCTOS_DATA = {
         },
         {
           "regional": "Caldas",
-          "ventas_prod": 12,
-          "nominal_prod": 10077600.0,
-          "total_ventas_reg": 83,
-          "total_nominal_reg": 28667400.0,
-          "pct_ventas_mix": 14.5,
-          "pct_nominal_mix": 35.2,
-          "ticket_promedio": 839800.0,
-          "cuota_promedio": 69983.0,
+          "ventas_prod": 13,
+          "nominal_prod": 10605600.0,
+          "total_ventas_reg": 84,
+          "total_nominal_reg": 29195400.0,
+          "pct_ventas_mix": 15.5,
+          "pct_nominal_mix": 36.3,
+          "ticket_promedio": 815815.0,
+          "cuota_promedio": 67985.0,
           "top_asesor": "Victoria Catalina Lafont Alvarez"
         },
         {
@@ -222075,8 +222103,8 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Centro",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 159,
-          "total_nominal_reg": 65671800.0,
+          "total_ventas_reg": 160,
+          "total_nominal_reg": 66055800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -222128,14 +222156,14 @@ const PRODUCTOS_DATA = {
           "zona": "Manizales",
           "regional": "Caldas",
           "director": "Siuly García",
-          "ventas_prod": 11,
-          "nominal_prod": 8704800.0,
-          "total_ventas_zona": 47,
-          "total_nominal_zona": 16386000.0,
-          "pct_ventas_mix": 23.4,
-          "pct_nominal_mix": 53.1,
-          "ticket_promedio": 791345.0,
-          "cuota_promedio": 65945.0
+          "ventas_prod": 12,
+          "nominal_prod": 9232800.0,
+          "total_ventas_zona": 48,
+          "total_nominal_zona": 16914000.0,
+          "pct_ventas_mix": 25.0,
+          "pct_nominal_mix": 54.6,
+          "ticket_promedio": 769400.0,
+          "cuota_promedio": 64117.0
         },
         {
           "zona": "Armenia",
@@ -222325,8 +222353,8 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 117,
-          "total_nominal_zona": 48237000.0,
+          "total_ventas_zona": 118,
+          "total_nominal_zona": 48621000.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -222428,15 +222456,15 @@ const PRODUCTOS_DATA = {
         {
           "director": "Siuly García",
           "regionales": "Caldas, Quindio, Risaralda, Valle Norte",
-          "ventas_prod": 35,
-          "nominal_prod": 22934400.0,
-          "total_ventas_dir": 490,
-          "total_nominal_dir": 156126600.0,
-          "pct_ventas_mix": 7.1,
-          "pct_nominal_mix": 14.7,
-          "ticket_promedio": 655269.0,
-          "cuota_promedio": 54606.0,
-          "asesores_vendiendo": 21
+          "ventas_prod": 36,
+          "nominal_prod": 23462400.0,
+          "total_ventas_dir": 491,
+          "total_nominal_dir": 156654600.0,
+          "pct_ventas_mix": 7.3,
+          "pct_nominal_mix": 15.0,
+          "ticket_promedio": 651733.0,
+          "cuota_promedio": 54311.0,
+          "asesores_vendiendo": 22
         },
         {
           "director": "Erubey Dávila",
@@ -222469,8 +222497,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 2,
           "nominal_prod": 336000.0,
-          "total_ventas_dir": 350,
-          "total_nominal_dir": 136732200.0,
+          "total_ventas_dir": 351,
+          "total_nominal_dir": 137116200.0,
           "pct_ventas_mix": 0.6,
           "pct_nominal_mix": 0.2,
           "ticket_promedio": 168000.0,
@@ -223429,6 +223457,24 @@ const PRODUCTOS_DATA = {
           "pos": 52
         },
         {
+          "cedula": "30298364",
+          "nombre": "Consuelo Quiroga Tangarife",
+          "tipo": "Distri. Autorizados",
+          "regional": "Caldas",
+          "zona": "Manizales",
+          "director": "Siuly García",
+          "ventas_prod": 1,
+          "nominal_prod": 528000.0,
+          "ticket_promedio": 528000.0,
+          "cuota_promedio": 44000.0,
+          "subplan_ppal": "RM Oro",
+          "total_ventas_asesor": 1,
+          "pct_mix_asesor": 100.0,
+          "aprobadas": 0,
+          "pct_aprob": 0.0,
+          "pos": 53
+        },
+        {
           "cedula": "15932522",
           "nombre": "John Fredy Alvarez Ocampo",
           "tipo": "Asesor Directo",
@@ -223444,7 +223490,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 7.7,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 53
+          "pos": 54
         },
         {
           "cedula": "24587409",
@@ -223462,7 +223508,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 54
+          "pos": 55
         },
         {
           "cedula": "24318548",
@@ -223480,7 +223526,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 55
+          "pos": 56
         },
         {
           "cedula": "31565303",
@@ -223498,7 +223544,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 9.1,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 56
+          "pos": 57
         },
         {
           "cedula": "38140758",
@@ -223516,7 +223562,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 9.1,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 57
+          "pos": 58
         },
         {
           "cedula": "91252904",
@@ -223534,7 +223580,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 100.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 58
+          "pos": 59
         }
       ]
     },
@@ -223545,11 +223591,11 @@ const PRODUCTOS_DATA = {
         "ticket_promedio": 388072.0,
         "cuota_promedio": 32339.0,
         "pct_ventas_global": 5.3,
-        "pct_nominal_global": 5.4,
+        "pct_nominal_global": 5.3,
         "aprobadas": 25,
         "pct_aprob": 24.3,
         "asesores_unicos": 47,
-        "pct_penetracion_asesores": 18.0,
+        "pct_penetracion_asesores": 17.9,
         "ventas_directos": 75,
         "ventas_distribuidores": 28,
         "pct_directos": 72.8,
@@ -223632,10 +223678,10 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Centro",
           "ventas_prod": 9,
           "nominal_prod": 5418600.0,
-          "total_ventas_reg": 159,
-          "total_nominal_reg": 65671800.0,
-          "pct_ventas_mix": 5.7,
-          "pct_nominal_mix": 8.3,
+          "total_ventas_reg": 160,
+          "total_nominal_reg": 66055800.0,
+          "pct_ventas_mix": 5.6,
+          "pct_nominal_mix": 8.2,
           "ticket_promedio": 602067.0,
           "cuota_promedio": 50172.0,
           "top_asesor": "Alba Rocio Rodriguez"
@@ -223704,8 +223750,8 @@ const PRODUCTOS_DATA = {
           "regional": "Caldas",
           "ventas_prod": 4,
           "nominal_prod": 840600.0,
-          "total_ventas_reg": 83,
-          "total_nominal_reg": 28667400.0,
+          "total_ventas_reg": 84,
+          "total_nominal_reg": 29195400.0,
           "pct_ventas_mix": 4.8,
           "pct_nominal_mix": 2.9,
           "ticket_promedio": 210150.0,
@@ -223843,10 +223889,10 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 9,
           "nominal_prod": 5418600.0,
-          "total_ventas_zona": 117,
-          "total_nominal_zona": 48237000.0,
-          "pct_ventas_mix": 7.7,
-          "pct_nominal_mix": 11.2,
+          "total_ventas_zona": 118,
+          "total_nominal_zona": 48621000.0,
+          "pct_ventas_mix": 7.6,
+          "pct_nominal_mix": 11.1,
           "ticket_promedio": 602067.0,
           "cuota_promedio": 50172.0
         },
@@ -223908,10 +223954,10 @@ const PRODUCTOS_DATA = {
           "director": "Siuly García",
           "ventas_prod": 4,
           "nominal_prod": 840600.0,
-          "total_ventas_zona": 47,
-          "total_nominal_zona": 16386000.0,
-          "pct_ventas_mix": 8.5,
-          "pct_nominal_mix": 5.1,
+          "total_ventas_zona": 48,
+          "total_nominal_zona": 16914000.0,
+          "pct_ventas_mix": 8.3,
+          "pct_nominal_mix": 5.0,
           "ticket_promedio": 210150.0,
           "cuota_promedio": 17512.0
         },
@@ -224117,10 +224163,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 45,
           "nominal_prod": 19627200.0,
-          "total_ventas_dir": 350,
-          "total_nominal_dir": 136732200.0,
-          "pct_ventas_mix": 12.9,
-          "pct_nominal_mix": 14.4,
+          "total_ventas_dir": 351,
+          "total_nominal_dir": 137116200.0,
+          "pct_ventas_mix": 12.8,
+          "pct_nominal_mix": 14.3,
           "ticket_promedio": 436160.0,
           "cuota_promedio": 36347.0,
           "asesores_vendiendo": 20
@@ -224143,8 +224189,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Caldas, Quindio, Risaralda, Valle Norte",
           "ventas_prod": 14,
           "nominal_prod": 3783600.0,
-          "total_ventas_dir": 490,
-          "total_nominal_dir": 156126600.0,
+          "total_ventas_dir": 491,
+          "total_nominal_dir": 156654600.0,
           "pct_ventas_mix": 2.9,
           "pct_nominal_mix": 2.4,
           "ticket_promedio": 270257.0,
@@ -225149,8 +225195,8 @@ const PRODUCTOS_DATA = {
           "regional": "Caldas",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 83,
-          "total_nominal_reg": 28667400.0,
+          "total_ventas_reg": 84,
+          "total_nominal_reg": 29195400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -225269,8 +225315,8 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Centro",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 159,
-          "total_nominal_reg": 65671800.0,
+          "total_ventas_reg": 160,
+          "total_nominal_reg": 66055800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -225453,8 +225499,8 @@ const PRODUCTOS_DATA = {
           "director": "Siuly García",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 47,
-          "total_nominal_zona": 16386000.0,
+          "total_ventas_zona": 48,
+          "total_nominal_zona": 16914000.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -225505,8 +225551,8 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 117,
-          "total_nominal_zona": 48237000.0,
+          "total_ventas_zona": 118,
+          "total_nominal_zona": 48621000.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -225623,8 +225669,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Caldas, Quindio, Risaralda, Valle Norte",
           "ventas_prod": 1,
           "nominal_prod": 3434400.0,
-          "total_ventas_dir": 490,
-          "total_nominal_dir": 156126600.0,
+          "total_ventas_dir": 491,
+          "total_nominal_dir": 156654600.0,
           "pct_ventas_mix": 0.2,
           "pct_nominal_mix": 2.2,
           "ticket_promedio": 3434400.0,
@@ -225649,8 +225695,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 350,
-          "total_nominal_dir": 136732200.0,
+          "total_ventas_dir": 351,
+          "total_nominal_dir": 137116200.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -225738,40 +225784,40 @@ const PRODUCTOS_DATA = {
     },
     "TODOS": {
       "kpis": {
-        "total_ventas": 264,
-        "total_nominal": 173023800.0,
-        "ticket_promedio": 655393.0,
-        "cuota_promedio": 54616.0,
-        "pct_ventas_global": 13.6,
+        "total_ventas": 265,
+        "total_nominal": 173551800.0,
+        "ticket_promedio": 654912.0,
+        "cuota_promedio": 54576.0,
+        "pct_ventas_global": 13.7,
         "pct_nominal_global": 23.2,
         "aprobadas": 39,
-        "pct_aprob": 14.8,
-        "asesores_unicos": 103,
-        "pct_penetracion_asesores": 39.5,
+        "pct_aprob": 14.7,
+        "asesores_unicos": 104,
+        "pct_penetracion_asesores": 39.7,
         "ventas_directos": 204,
-        "ventas_distribuidores": 60,
-        "pct_directos": 77.3,
+        "ventas_distribuidores": 61,
+        "pct_directos": 77.0,
         "nominal_directos": 140734560.0,
-        "nominal_distribuidores": 32289240.0
+        "nominal_distribuidores": 32817240.0
       },
       "subplanes": [
         {
           "plan": "RM Oro",
-          "ventas": 139,
-          "nominal": 118922400.0,
-          "pct_ventas": 52.7,
-          "pct_nominal": 68.7,
-          "ticket_promedio": 855557.0,
-          "cuota_promedio": 71296.0,
+          "ventas": 140,
+          "nominal": 119450400.0,
+          "pct_ventas": 52.8,
+          "pct_nominal": 68.8,
+          "ticket_promedio": 853217.0,
+          "cuota_promedio": 71101.0,
           "aprobadas": 10,
-          "pct_aprob": 7.2
+          "pct_aprob": 7.1
         },
         {
           "plan": "Celestial con Adicional",
           "ventas": 72,
           "nominal": 29928240.0,
-          "pct_ventas": 27.3,
-          "pct_nominal": 17.3,
+          "pct_ventas": 27.2,
+          "pct_nominal": 17.2,
           "ticket_promedio": 415670.0,
           "cuota_promedio": 34639.0,
           "aprobadas": 20,
@@ -225781,7 +225827,7 @@ const PRODUCTOS_DATA = {
           "plan": "Celestial Standar",
           "ventas": 30,
           "nominal": 9999360.0,
-          "pct_ventas": 11.4,
+          "pct_ventas": 11.3,
           "pct_nominal": 5.8,
           "ticket_promedio": 333312.0,
           "cuota_promedio": 27776.0,
@@ -225882,6 +225928,18 @@ const PRODUCTOS_DATA = {
           "top_asesor": "Luisa Maria Soto Valencia"
         },
         {
+          "regional": "Caldas",
+          "ventas_prod": 17,
+          "nominal_prod": 11446200.0,
+          "total_ventas_reg": 84,
+          "total_nominal_reg": 29195400.0,
+          "pct_ventas_mix": 20.2,
+          "pct_nominal_mix": 39.2,
+          "ticket_promedio": 673306.0,
+          "cuota_promedio": 56109.0,
+          "top_asesor": "Victoria Catalina Lafont Alvarez"
+        },
+        {
           "regional": "Risaralda",
           "ventas_prod": 17,
           "nominal_prod": 8274000.0,
@@ -225904,18 +225962,6 @@ const PRODUCTOS_DATA = {
           "ticket_promedio": 336282.0,
           "cuota_promedio": 28024.0,
           "top_asesor": "Leydi Carolina Gil Benavides"
-        },
-        {
-          "regional": "Caldas",
-          "ventas_prod": 16,
-          "nominal_prod": 10918200.0,
-          "total_ventas_reg": 83,
-          "total_nominal_reg": 28667400.0,
-          "pct_ventas_mix": 19.3,
-          "pct_nominal_mix": 38.1,
-          "ticket_promedio": 682388.0,
-          "cuota_promedio": 56866.0,
-          "top_asesor": "Victoria Catalina Lafont Alvarez"
         },
         {
           "regional": "Atlantico",
@@ -225957,10 +226003,10 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Centro",
           "ventas_prod": 9,
           "nominal_prod": 5418600.0,
-          "total_ventas_reg": 159,
-          "total_nominal_reg": 65671800.0,
-          "pct_ventas_mix": 5.7,
-          "pct_nominal_mix": 8.3,
+          "total_ventas_reg": 160,
+          "total_nominal_reg": 66055800.0,
+          "pct_ventas_mix": 5.6,
+          "pct_nominal_mix": 8.2,
           "ticket_promedio": 602067.0,
           "cuota_promedio": 50172.0,
           "top_asesor": "Alba Rocio Rodriguez"
@@ -226120,14 +226166,14 @@ const PRODUCTOS_DATA = {
           "zona": "Manizales",
           "regional": "Caldas",
           "director": "Siuly García",
-          "ventas_prod": 15,
-          "nominal_prod": 9545400.0,
-          "total_ventas_zona": 47,
-          "total_nominal_zona": 16386000.0,
-          "pct_ventas_mix": 31.9,
-          "pct_nominal_mix": 58.3,
-          "ticket_promedio": 636360.0,
-          "cuota_promedio": 53030.0
+          "ventas_prod": 16,
+          "nominal_prod": 10073400.0,
+          "total_ventas_zona": 48,
+          "total_nominal_zona": 16914000.0,
+          "pct_ventas_mix": 33.3,
+          "pct_nominal_mix": 59.6,
+          "ticket_promedio": 629588.0,
+          "cuota_promedio": 52466.0
         },
         {
           "zona": "Cali",
@@ -226161,10 +226207,10 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 9,
           "nominal_prod": 5418600.0,
-          "total_ventas_zona": 117,
-          "total_nominal_zona": 48237000.0,
-          "pct_ventas_mix": 7.7,
-          "pct_nominal_mix": 11.2,
+          "total_ventas_zona": 118,
+          "total_nominal_zona": 48621000.0,
+          "pct_ventas_mix": 7.6,
+          "pct_nominal_mix": 11.1,
           "ticket_promedio": 602067.0,
           "cuota_promedio": 50172.0
         },
@@ -226381,23 +226427,23 @@ const PRODUCTOS_DATA = {
         {
           "director": "Siuly García",
           "regionales": "Caldas, Quindio, Risaralda, Valle Norte",
-          "ventas_prod": 50,
-          "nominal_prod": 30152400.0,
-          "total_ventas_dir": 490,
-          "total_nominal_dir": 156126600.0,
-          "pct_ventas_mix": 10.2,
-          "pct_nominal_mix": 19.3,
-          "ticket_promedio": 603048.0,
-          "cuota_promedio": 50254.0,
-          "asesores_vendiendo": 27
+          "ventas_prod": 51,
+          "nominal_prod": 30680400.0,
+          "total_ventas_dir": 491,
+          "total_nominal_dir": 156654600.0,
+          "pct_ventas_mix": 10.4,
+          "pct_nominal_mix": 19.6,
+          "ticket_promedio": 601576.0,
+          "cuota_promedio": 50131.0,
+          "asesores_vendiendo": 28
         },
         {
           "director": "Diana Romero",
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 47,
           "nominal_prod": 19963200.0,
-          "total_ventas_dir": 350,
-          "total_nominal_dir": 136732200.0,
+          "total_ventas_dir": 351,
+          "total_nominal_dir": 137116200.0,
           "pct_ventas_mix": 13.4,
           "pct_nominal_mix": 14.6,
           "ticket_promedio": 424749.0,
@@ -227917,6 +227963,24 @@ const PRODUCTOS_DATA = {
           "pos": 81
         },
         {
+          "cedula": "30298364",
+          "nombre": "Consuelo Quiroga Tangarife",
+          "tipo": "Distri. Autorizados",
+          "regional": "Caldas",
+          "zona": "Manizales",
+          "director": "Siuly García",
+          "ventas_prod": 1,
+          "nominal_prod": 528000.0,
+          "ticket_promedio": 528000.0,
+          "cuota_promedio": 44000.0,
+          "subplan_ppal": "RM Oro",
+          "total_ventas_asesor": 1,
+          "pct_mix_asesor": 100.0,
+          "aprobadas": 0,
+          "pct_aprob": 0.0,
+          "pos": 82
+        },
+        {
           "cedula": "1110511228",
           "nombre": "Yesica Alejandra Peralta Ruiz",
           "tipo": "Asesor Directo",
@@ -227932,7 +227996,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 7.1,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 82
+          "pos": 83
         },
         {
           "cedula": "22117806",
@@ -227950,7 +228014,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 16.7,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 83
+          "pos": 84
         },
         {
           "cedula": "15932522",
@@ -227968,7 +228032,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 7.7,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 84
+          "pos": 85
         },
         {
           "cedula": "1061712650",
@@ -227986,7 +228050,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 85
+          "pos": 86
         },
         {
           "cedula": "29704772",
@@ -228004,7 +228068,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 20.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 86
+          "pos": 87
         },
         {
           "cedula": "24587409",
@@ -228022,7 +228086,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 87
+          "pos": 88
         },
         {
           "cedula": "1044801198",
@@ -228040,7 +228104,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 33.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 88
+          "pos": 89
         },
         {
           "cedula": "22526887",
@@ -228058,7 +228122,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 20.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 89
+          "pos": 90
         },
         {
           "cedula": "16276244",
@@ -228076,7 +228140,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 90
+          "pos": 91
         },
         {
           "cedula": "1012348035",
@@ -228094,7 +228158,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 16.7,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 91
+          "pos": 92
         },
         {
           "cedula": "22565703",
@@ -228112,7 +228176,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 9.1,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 92
+          "pos": 93
         },
         {
           "cedula": "71368776",
@@ -228130,7 +228194,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 93
+          "pos": 94
         },
         {
           "cedula": "1127077715",
@@ -228148,7 +228212,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 8.3,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 94
+          "pos": 95
         },
         {
           "cedula": "1107094382",
@@ -228166,7 +228230,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 100.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 95
+          "pos": 96
         },
         {
           "cedula": "1059474678",
@@ -228184,7 +228248,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 20.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 96
+          "pos": 97
         },
         {
           "cedula": "11319427",
@@ -228202,7 +228266,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 5.6,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 97
+          "pos": 98
         },
         {
           "cedula": "30238050",
@@ -228220,7 +228284,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 100.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 98
+          "pos": 99
         },
         {
           "cedula": "24318548",
@@ -228238,7 +228302,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 14.3,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 99
+          "pos": 100
         },
         {
           "cedula": "31565303",
@@ -228256,7 +228320,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 9.1,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 100
+          "pos": 101
         },
         {
           "cedula": "38140758",
@@ -228274,7 +228338,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 9.1,
           "aprobadas": 1,
           "pct_aprob": 100.0,
-          "pos": 101
+          "pos": 102
         },
         {
           "cedula": "91252904",
@@ -228292,7 +228356,7 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 100.0,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 102
+          "pos": 103
         },
         {
           "cedula": "29675956",
@@ -228310,14 +228374,14 @@ const PRODUCTOS_DATA = {
           "pct_mix_asesor": 6.2,
           "aprobadas": 0,
           "pct_aprob": 0.0,
-          "pos": 103
+          "pos": 104
         }
       ]
     },
     "global_info": {
-      "total_ventas_mes": 1938,
-      "total_nominal_mes": 746433600.0,
-      "total_asesores_mes": 261
+      "total_ventas_mes": 1940,
+      "total_nominal_mes": 747345600.0,
+      "total_asesores_mes": 262
     }
   },
   "anterior": {
@@ -236864,25 +236928,25 @@ const PRODUCTOS_DATA = {
   "comparativa": {
     "RENACER_MASCOTAS": {
       "producto_nombre": "Renacer Mascotas",
-      "ventas_act": 157,
+      "ventas_act": 158,
       "ventas_ant": 490,
-      "delta_ventas": -333,
-      "pct_crecimiento_ventas": -68.0,
-      "nominal_act": 127218000.0,
+      "delta_ventas": -332,
+      "pct_crecimiento_ventas": -67.8,
+      "nominal_act": 127746000.0,
       "nominal_ant": 383462400.0,
-      "delta_nominal": -256244400.0,
-      "pct_crecimiento_nominal": -66.8,
-      "ticket_act": 810306.0,
+      "delta_nominal": -255716400.0,
+      "pct_crecimiento_nominal": -66.7,
+      "ticket_act": 808519.0,
       "ticket_ant": 782576.0,
-      "delta_ticket": 27730.0,
-      "cuota_act": 67526.0,
+      "delta_ticket": 25943.0,
+      "cuota_act": 67377.0,
       "cuota_ant": 65215.0,
-      "delta_cuota": 2311.0,
+      "delta_cuota": 2162.0,
       "aprobadas_act": 14,
       "aprobadas_ant": 288,
       "pct_aprob_act": 8.9,
       "pct_aprob_ant": 58.8,
-      "asesores_act": 58,
+      "asesores_act": 59,
       "asesores_ant": 86
     },
     "CELESTIAL": {
@@ -236933,25 +236997,25 @@ const PRODUCTOS_DATA = {
     },
     "TODOS": {
       "producto_nombre": "Todos los Productos Clave",
-      "ventas_act": 264,
+      "ventas_act": 265,
       "ventas_ant": 799,
-      "delta_ventas": -535,
-      "pct_crecimiento_ventas": -67.0,
-      "nominal_act": 173023800.0,
+      "delta_ventas": -534,
+      "pct_crecimiento_ventas": -66.8,
+      "nominal_act": 173551800.0,
       "nominal_ant": 593083324.0,
-      "delta_nominal": -420059524.0,
-      "pct_crecimiento_nominal": -70.8,
-      "ticket_act": 655393.0,
+      "delta_nominal": -419531524.0,
+      "pct_crecimiento_nominal": -70.7,
+      "ticket_act": 654912.0,
       "ticket_ant": 742282.0,
-      "delta_ticket": -86889.0,
-      "cuota_act": 54616.0,
+      "delta_ticket": -87370.0,
+      "cuota_act": 54576.0,
       "cuota_ant": 61857.0,
-      "delta_cuota": -7241.0,
+      "delta_cuota": -7281.0,
       "aprobadas_act": 39,
       "aprobadas_ant": 459,
-      "pct_aprob_act": 14.8,
+      "pct_aprob_act": 14.7,
       "pct_aprob_ant": 57.4,
-      "asesores_act": 103,
+      "asesores_act": 104,
       "asesores_ant": 155
     }
   }
