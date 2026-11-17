@@ -5530,8 +5530,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-17 00:19:58';
-const TIMESTAMP_ACTUALIZACION = 1794892798;
+const ULTIMA_ACTUALIZACION = '2026-11-17 00:25:48';
+const TIMESTAMP_ACTUALIZACION = 1794893148;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -237646,7 +237646,7 @@ const PRODUCTOS_DATA = {
 
                 
 
-                container.insertBefore(group, container.lastElementChild);
+                if (container) container.insertBefore(group, container.lastElementChild);
 
                 
 
@@ -237702,9 +237702,10 @@ const PRODUCTOS_DATA = {
 
             });
 
-            document.getElementById('date-start').addEventListener('change', (e) => { state.dateRange.start = e.target.value; applyFilters(); });
-
-            document.getElementById('date-end').addEventListener('change', (e) => { state.dateRange.end = e.target.value; applyFilters(); });
+            const elDateStart = document.getElementById('date-start');
+            if (elDateStart) elDateStart.addEventListener('change', (e) => { state.dateRange.start = e.target.value; applyFilters(); });
+            const elDateEnd = document.getElementById('date-end');
+            if (elDateEnd) elDateEnd.addEventListener('change', (e) => { state.dateRange.end = e.target.value; applyFilters(); });
 
             
 
