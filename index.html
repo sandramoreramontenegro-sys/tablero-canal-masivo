@@ -5322,13 +5322,13 @@
             </div>
 
             <!-- Desglose por Sub-Planes / Variantes -->
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 0.4px;">
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 16px; margin-bottom: 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div style="font-size: 0.78rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 0.4px;">
                         📌 Mix y Desglose por Sub-Plan / Variante:
                     </div>
                 </div>
-                <div id="prod-subplanes-container" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <div id="prod-subplanes-container" style="display: flex; gap: 8px; flex-wrap: wrap;">
                     <!-- Rendered by JS -->
                 </div>
             </div>
@@ -5510,8 +5510,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 22:54:59';
-const TIMESTAMP_ACTUALIZACION = 1794887699;
+const ULTIMA_ACTUALIZACION = '2026-11-16 22:57:56';
+const TIMESTAMP_ACTUALIZACION = 1794887876;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -246278,24 +246278,24 @@ function renderProductosSubplanes(subplanes) {
     if (!container) return;
 
     if (!subplanes || subplanes.length === 0) {
-        container.innerHTML = '<div style="color: #64748b; font-size: 0.85rem; padding: 10px;">No hay desglose disponible para este producto en el período seleccionado.</div>';
+        container.innerHTML = '<div style="color: #64748b; font-size: 0.78rem; padding: 6px;">No hay desglose disponible para este producto en el período seleccionado.</div>';
         return;
     }
 
     let html = '';
     subplanes.forEach(sp => {
         html += `
-            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 190px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                    <span style="font-weight: 800; font-size: 0.88rem; color: #1e293b;">${sp.plan}</span>
-                    <span style="background: #e0f2fe; color: #0284c7; font-weight: 800; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px;">${formatPercent(sp.pct_ventas)}</span>
+            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 7px 12px; flex: 1; min-width: 150px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+                    <span style="font-weight: 800; font-size: 0.8rem; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${sp.plan}</span>
+                    <span style="background: #e0f2fe; color: #0284c7; font-weight: 800; font-size: 0.7rem; padding: 1px 6px; border-radius: 10px;">${formatPercent(sp.pct_ventas)}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: baseline;">
-                    <span style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">${sp.ventas.toLocaleString('es-CO')} <span style="font-size: 0.75rem; font-weight: 600; color: #64748b;">ventas</span></span>
-                    <span style="font-size: 0.85rem; font-weight: 700; color: #10b981;">${formatMoney(sp.nominal)}</span>
+                    <span style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">${sp.ventas.toLocaleString('es-CO')} <span style="font-size: 0.7rem; font-weight: 600; color: #64748b;">und</span></span>
+                    <span style="font-size: 0.76rem; font-weight: 700; color: #10b981;">${formatMoney(sp.nominal)}</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.74rem; color: #64748b; margin-top: 6px; border-top: 1px dashed #e2e8f0; padding-top: 5px;">
-                    <span>Cuota Prom: <b>${formatMoney(sp.cuota_promedio || Math.round((sp.ticket_promedio || 0) / 12))}</b></span>
+                <div style="display: flex; justify-content: space-between; font-size: 0.68rem; color: #64748b; margin-top: 3px; border-top: 1px dashed #e2e8f0; padding-top: 3px;">
+                    <span>Cuota: <b>${formatMoney(sp.cuota_promedio || Math.round((sp.ticket_promedio || 0) / 12))}</b></span>
                     <span>Aprob: <b style="color: #0284c7;">${formatPercent(sp.pct_aprob)}</b></span>
                 </div>
             </div>
