@@ -5283,12 +5283,13 @@
         <!-- Vista Normal: KPIs, Desglose, Rankings y Asesores -->
         <div id="prod-view-normal">
             <!-- Tarjetas de KPIs Ejecutivos -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 22px;">
-                <!-- KPI 1: Ventas Totales -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 22px;">
+                <!-- KPI 1: Ventas Totales y Desglose Directos / Distribuidores -->
                 <div class="prod-kpi-card">
                     <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">📦 Contratos Vendidos</div>
                     <div id="prod-kpi-ventas" style="font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
-                    <div id="prod-kpi-pct-ventas" style="font-size: 0.75rem; color: #0284c7; font-weight: 700;">--% de la venta global</div>
+                    <div id="prod-kpi-ventas-desglose" style="font-size: 0.78rem; font-weight: 700; color: #1e293b; margin-bottom: 2px;">-- Directos / -- Distri</div>
+                    <div id="prod-kpi-pct-ventas" style="font-size: 0.74rem; color: #0284c7; font-weight: 600;">--% de la venta global</div>
                 </div>
 
                 <!-- KPI 2: Valor Nominal Bruto -->
@@ -5298,7 +5299,7 @@
                     <div id="prod-kpi-pct-nominal" style="font-size: 0.75rem; color: #10b981; font-weight: 700;">--% de la venta nominal</div>
                 </div>
 
-                <!-- KPI 3: Ticket Promedio -->
+                <!-- KPI 3: Valor de Cuota Promedio -->
                 <div class="prod-kpi-card" style="border-top: 4px solid #8b5cf6;">
                     <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">🏷️ Valor de Cuota Promedio</div>
                     <div id="prod-kpi-ticket" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
@@ -5314,16 +5315,9 @@
 
                 <!-- KPI 5: Asesores con Venta -->
                 <div class="prod-kpi-card" style="border-top: 4px solid #f59e0b;">
-                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">👥 Fuerza con Venta</div>
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">👥 Asesores con Venta</div>
                     <div id="prod-kpi-asesores" style="font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
                     <div id="prod-kpi-penetracion" style="font-size: 0.75rem; color: #d97706; font-weight: 700;">--% penetración comercial</div>
-                </div>
-
-                <!-- KPI 6: Mix de Canales -->
-                <div class="prod-kpi-card" style="border-top: 4px solid #ec4899;">
-                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">⚖️ Directos vs Distri</div>
-                    <div id="prod-kpi-canal" style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">-- / --</div>
-                    <div id="prod-kpi-canal-pct" style="font-size: 0.75rem; color: #db2777; font-weight: 700;">--% venta en nómina directa</div>
                 </div>
             </div>
 
@@ -5516,8 +5510,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 22:43:30';
-const TIMESTAMP_ACTUALIZACION = 1794887010;
+const ULTIMA_ACTUALIZACION = '2026-11-16 22:49:14';
+const TIMESTAMP_ACTUALIZACION = 1794887354;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -246191,6 +246185,11 @@ function renderProductosDashboard() {
     const kpis = prodData.kpis;
     const elVentas = document.getElementById('prod-kpi-ventas');
     if (elVentas) elVentas.innerText = kpis.total_ventas.toLocaleString('es-CO');
+
+    const elVentasDesglose = document.getElementById('prod-kpi-ventas-desglose');
+    if (elVentasDesglose) {
+        elVentasDesglose.innerText = `${kpis.ventas_directos} Directos / ${kpis.ventas_distribuidores} Distribuidores`;
+    }
 
     const elPctVentas = document.getElementById('prod-kpi-pct-ventas');
     if (elPctVentas) elPctVentas.innerText = `${formatPercent(kpis.pct_ventas_global)} de la venta global del mes`;
