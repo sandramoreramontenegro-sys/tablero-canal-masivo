@@ -1138,6 +1138,49 @@
         /* ========================================== */
         /* ESTILOS DEL MÓDULO REINCIDENCIA ANUAL     */
         /* ========================================== */
+        /* Tarjetas KPI Interactivas de Reincidencia */
+        .reinc-kpi-card {
+            cursor: pointer;
+            position: relative;
+            user-select: none;
+            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reinc-kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12) !important;
+        }
+        .reinc-kpi-card:active {
+            transform: translateY(-1px);
+        }
+        .reinc-kpi-card.active-kpi {
+            box-shadow: 0 0 0 3px #4338ca, 0 10px 24px rgba(67, 56, 202, 0.28) !important;
+            transform: translateY(-3px);
+            background: #ffffff !important;
+        }
+        .reinc-card-hint {
+            margin-top: 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .reinc-kpi-card:hover .reinc-card-hint {
+            color: #1e1b4b;
+        }
+        .reinc-kpi-card.active-kpi .reinc-card-hint {
+            color: #4338ca;
+            font-weight: 800;
+        }
+        .reinc-rank-row-clickable {
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .reinc-rank-row-clickable:hover {
+            background: #f1f5f9 !important;
+        }
         .reinc-tipo-pill {
             padding: 6px 14px;
             border-radius: 6px;
@@ -4568,44 +4611,49 @@
             </div>
         </div>
 
-        <!-- Tarjetas KPIs Reincidencia (5 cards) -->
+        <!-- Tarjetas KPIs Reincidencia (5 cards) Interactivas -->
         <div class="kpi-banner-grid has-5-cards" style="margin-bottom: 20px;">
             <!-- 1. Total Reincidentes -->
-            <div class="card-pill kpi-llevamos">
+            <div class="card-pill kpi-llevamos reinc-kpi-card" id="reinc-card-all" onclick="selectReincKpiCard('ALL')" title="Haz clic para ver todos los asesores reincidentes">
                 <span class="pill-badge" style="background: #4338ca;">TOTAL REINCIDENTES</span>
                 <div class="pill-number" id="reinc-kpi-total" style="color: #312e81;">0</div>
                 <div class="pill-sub">Con 1 o más meses sin cumplir</div>
                 <div style="margin-top: 6px; font-size: 0.68rem; font-weight: 800; color: #475569;" id="reinc-kpi-sub-breakdown">
                     -- Directos / -- Distribuidores
                 </div>
+                <div class="reinc-card-hint" id="reinc-hint-all">👆 Tocar para ver todos</div>
             </div>
 
             <!-- 2. Casos Críticos (6+ meses) -->
-            <div class="card-pill" style="border-left: 5px solid #dc2626;">
+            <div class="card-pill reinc-kpi-card" id="reinc-card-critica" onclick="selectReincKpiCard('CRITICA')" style="border-left: 5px solid #dc2626;" title="Haz clic para ver solo los casos críticos (6+ meses)">
                 <span class="pill-badge" style="background: #dc2626;">🚨 CRÍTICOS (6+ MESES)</span>
                 <div class="pill-number" id="reinc-kpi-criticos" style="color: #b91c1c;">0</div>
                 <div class="pill-sub">Máxima severidad en el año</div>
+                <div class="reinc-card-hint" id="reinc-hint-critica">👆 Tocar para ver críticos</div>
             </div>
 
             <!-- 3. Racha Consecutiva Activa -->
-            <div class="card-pill" style="border-left: 5px solid #ea580c;">
+            <div class="card-pill reinc-kpi-card" id="reinc-card-consecutivo" onclick="selectReincKpiCard('CONSECUTIVO')" style="border-left: 5px solid #ea580c;" title="Haz clic para ver asesores con 3+ meses consecutivos sin cumplir">
                 <span class="pill-badge" style="background: #ea580c;">⚠️ CONSECUTIVOS ACTIVOS</span>
                 <div class="pill-number" id="reinc-kpi-consecutivos" style="color: #c2410c;">0</div>
                 <div class="pill-sub">Racha activa (3+ seguidos a Oct)</div>
+                <div class="reinc-card-hint" id="reinc-hint-consecutivo">👆 Tocar para ver racha</div>
             </div>
 
             <!-- 4. Moderados (3-5 meses) -->
-            <div class="card-pill" style="border-left: 5px solid #d97706;">
+            <div class="card-pill reinc-kpi-card" id="reinc-card-moderada" onclick="selectReincKpiCard('MODERADA')" style="border-left: 5px solid #d97706;" title="Haz clic para ver casos moderados (3 a 5 meses)">
                 <span class="pill-badge" style="background: #d97706;">🟡 MODERADOS (3-5 MESES)</span>
                 <div class="pill-number" id="reinc-kpi-moderados" style="color: #b45309;">0</div>
                 <div class="pill-sub">En riesgo de criticidad</div>
+                <div class="reinc-card-hint" id="reinc-hint-moderada">👆 Tocar para ver moderados</div>
             </div>
 
-            <!-- 5. Promedio de Meses -->
-            <div class="card-pill" style="border-left: 5px solid #0284c7;">
-                <span class="pill-badge" style="background: #0284c7;">📊 INTENSIDAD ANUAL</span>
-                <div class="pill-number" id="reinc-kpi-promedio" style="color: #0369a1;">0.0</div>
-                <div class="pill-sub">Promedio de meses por asesor</div>
+            <!-- 5. Leves (1-2 meses) / Promedio -->
+            <div class="card-pill reinc-kpi-card" id="reinc-card-leve" onclick="selectReincKpiCard('LEVE')" style="border-left: 5px solid #0284c7;" title="Haz clic para ver casos leves (1 a 2 meses)">
+                <span class="pill-badge" style="background: #0284c7;">🟢 LEVES (1-2 MESES)</span>
+                <div class="pill-number" id="reinc-kpi-leves" style="color: #0369a1;">0</div>
+                <div class="pill-sub" id="reinc-kpi-prom-sub">Promedio: 0.0 meses</div>
+                <div class="reinc-card-hint" id="reinc-hint-leve">👆 Tocar para ver leves</div>
             </div>
         </div>
 
@@ -4751,11 +4799,12 @@
         </div>
 
         <!-- TABLA PRINCIPAL DE ASESORES REINCIDENTES -->
-        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);">
+        <div id="reinc-tabla-asesores-container" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); scroll-margin-top: 80px;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
                 <div>
                     <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #1e293b; display: flex; align-items: center; gap: 8px;">
                         <span>📋</span> LISTADO DETALLADO DE ASESORES REINCIDENTES
+                        <span id="reinc-active-filter-badge" style="display: none; background: #e0e7ff; color: #3730a3; padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 800; margin-left: 8px;"></span>
                     </h3>
                     <p style="margin: 3px 0 0 0; font-size: 0.78rem; color: #64748b;" id="reinc-table-count-label">
                         Cargando asesores...
@@ -229209,6 +229258,45 @@ const REINCIDENCIA_DATA = {
             renderReincidenciaDashboard();
         }
 
+        function selectReincKpiCard(kpiType) {
+            const nivelSelect = document.getElementById('reinc-filter-nivel');
+            if (nivelSelect) {
+                // Si hace clic en la misma que ya está activa y no es ALL, vuelve a ALL (toggle)
+                if (nivelSelect.value === kpiType && kpiType !== 'ALL') {
+                    nivelSelect.value = 'ALL';
+                } else {
+                    nivelSelect.value = kpiType;
+                }
+            }
+            renderReincidenciaDashboard();
+
+            // Scroll suave directo hacia la tabla de asesores para que aparezcan de inmediato
+            setTimeout(() => {
+                const tbl = document.getElementById('reinc-tabla-asesores-container');
+                if (tbl) {
+                    tbl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 60);
+        }
+
+        function filtrarReincPor(campo, valor) {
+            if (campo === 'regional') {
+                const el = document.getElementById('reinc-filter-regional');
+                if (el) el.value = valor;
+            } else if (campo === 'zona') {
+                const el = document.getElementById('reinc-filter-zona');
+                if (el) el.value = valor;
+            } else if (campo === 'director') {
+                const el = document.getElementById('reinc-filter-director');
+                if (el) el.value = valor;
+            }
+            renderReincidenciaDashboard();
+            setTimeout(() => {
+                const tbl = document.getElementById('reinc-tabla-asesores-container');
+                if (tbl) tbl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 60);
+        }
+
         function renderReincidenciaDashboard() {
             if (typeof REINCIDENCIA_DATA === 'undefined' || !REINCIDENCIA_DATA) return;
 
@@ -229233,13 +229321,9 @@ const REINCIDENCIA_DATA = {
             const dirVal = (document.getElementById('reinc-filter-director') ? document.getElementById('reinc-filter-director').value : 'ALL');
             const searchVal = (document.getElementById('reinc-filter-search') ? document.getElementById('reinc-filter-search').value.trim().toLowerCase() : '');
 
-            // Filtrar asesores
-            let filtered = allAsesores.filter(a => {
+            // 1. Filtrar base para KPIs (responde a Tipo, Regional, Zona, Director, Buscador)
+            let baseSubset = allAsesores.filter(a => {
                 if (reincSelectedTipo !== 'ALL' && a.tipo !== reincSelectedTipo) return false;
-                if (nivelVal === 'CRITICA' && a.criticidad !== 'CRITICA') return false;
-                if (nivelVal === 'CONSECUTIVO' && a.consecutivos_actuales < 3) return false;
-                if (nivelVal === 'MODERADA' && a.criticidad !== 'MODERADA') return false;
-                if (nivelVal === 'LEVE' && a.criticidad !== 'LEVE') return false;
                 if (regVal !== 'ALL' && a.regional !== regVal) return false;
                 if (zonVal !== 'ALL' && a.zona !== zonVal) return false;
                 if (dirVal !== 'ALL' && a.director !== dirVal) return false;
@@ -229251,14 +229335,15 @@ const REINCIDENCIA_DATA = {
                 return true;
             });
 
-            // Actualizar Tarjetas de KPIs con el subset filtrado
-            const kpiTotal = filtered.length;
-            const kpiDir = filtered.filter(a => a.tipo === 'DIRECTO').length;
-            const kpiDis = filtered.filter(a => a.tipo === 'DISTRIBUIDOR').length;
-            const kpiCrit = filtered.filter(a => a.criticidad === 'CRITICA').length;
-            const kpiConsec = filtered.filter(a => a.consecutivos_actuales >= 3).length;
-            const kpiMod = filtered.filter(a => a.criticidad === 'MODERADA').length;
-            const kpiProm = kpiTotal > 0 ? (filtered.reduce((acc, a) => acc + a.meses_incumplidos, 0) / kpiTotal).toFixed(1) : '0.0';
+            // Conteo real para cada tarjeta KPI
+            const kpiTotal = baseSubset.length;
+            const kpiDir = baseSubset.filter(a => a.tipo === 'DIRECTO').length;
+            const kpiDis = baseSubset.filter(a => a.tipo === 'DISTRIBUIDOR').length;
+            const kpiCrit = baseSubset.filter(a => a.criticidad === 'CRITICA').length;
+            const kpiConsec = baseSubset.filter(a => a.consecutivos_actuales >= 3).length;
+            const kpiMod = baseSubset.filter(a => a.criticidad === 'MODERADA').length;
+            const kpiLeve = baseSubset.filter(a => a.criticidad === 'LEVE').length;
+            const kpiProm = kpiTotal > 0 ? (baseSubset.reduce((acc, a) => acc + a.meses_incumplidos, 0) / kpiTotal).toFixed(1) : '0.0';
 
             const elKpiTot = document.getElementById('reinc-kpi-total');
             if (elKpiTot) elKpiTot.innerText = kpiTotal;
@@ -229270,8 +229355,44 @@ const REINCIDENCIA_DATA = {
             if (elKpiConsec) elKpiConsec.innerText = kpiConsec;
             const elKpiMod = document.getElementById('reinc-kpi-moderados');
             if (elKpiMod) elKpiMod.innerText = kpiMod;
-            const elKpiProm = document.getElementById('reinc-kpi-promedio');
-            if (elKpiProm) elKpiProm.innerText = kpiProm;
+            const elKpiLeves = document.getElementById('reinc-kpi-leves');
+            if (elKpiLeves) elKpiLeves.innerText = kpiLeve;
+            const elKpiPromSub = document.getElementById('reinc-kpi-prom-sub');
+            if (elKpiPromSub) elKpiPromSub.innerText = `Promedio: ${kpiProm} meses`;
+
+            // Sincronizar estado visual activo en las tarjetas KPI
+            const kpiCardsConfig = [
+                { id: 'reinc-card-all', hintId: 'reinc-hint-all', key: 'ALL', hintText: '👆 Tocar para ver todos', activeText: '✓ Viendo todos los asesores' },
+                { id: 'reinc-card-critica', hintId: 'reinc-hint-critica', key: 'CRITICA', hintText: '👆 Tocar para ver críticos', activeText: '✓ Viendo críticos (6+ meses)' },
+                { id: 'reinc-card-consecutivo', hintId: 'reinc-hint-consecutivo', key: 'CONSECUTIVO', hintText: '👆 Tocar para ver racha', activeText: '✓ Viendo racha activa' },
+                { id: 'reinc-card-moderada', hintId: 'reinc-hint-moderada', key: 'MODERADA', hintText: '👆 Tocar para ver moderados', activeText: '✓ Viendo moderados (3-5 meses)' },
+                { id: 'reinc-card-leve', hintId: 'reinc-hint-leve', key: 'LEVE', hintText: '👆 Tocar para ver leves', activeText: '✓ Viendo leves (1-2 meses)' }
+            ];
+
+            kpiCardsConfig.forEach(c => {
+                const cardEl = document.getElementById(c.id);
+                const hintEl = document.getElementById(c.hintId);
+                const isActive = (nivelVal === c.key);
+                if (cardEl) {
+                    if (isActive) {
+                        cardEl.classList.add('active-kpi');
+                    } else {
+                        cardEl.classList.remove('active-kpi');
+                    }
+                }
+                if (hintEl) {
+                    hintEl.innerHTML = isActive ? `<span>✓</span> <b>${c.activeText}</b>` : c.hintText;
+                }
+            });
+
+            // 2. Filtrar para la tabla y rankings según nivelVal
+            let filtered = baseSubset.filter(a => {
+                if (nivelVal === 'CRITICA' && a.criticidad !== 'CRITICA') return false;
+                if (nivelVal === 'CONSECUTIVO' && a.consecutivos_actuales < 3) return false;
+                if (nivelVal === 'MODERADA' && a.criticidad !== 'MODERADA') return false;
+                if (nivelVal === 'LEVE' && a.criticidad !== 'LEVE') return false;
+                return true;
+            });
 
             // Renderizar Rankings
             renderReincRankings(filtered);
@@ -229292,13 +229413,31 @@ const REINCIDENCIA_DATA = {
                 return isAsc ? (vA - vB) : (vB - vA);
             });
 
-            // Renderizar Tabla de Asesores
-            const tbody = document.getElementById('reinc-table-tbody');
+            // Actualizar etiqueta del contador y badge de filtro activo
             const countLabel = document.getElementById('reinc-table-count-label');
+            const activeBadge = document.getElementById('reinc-active-filter-badge');
+            
+            let filterDesc = '';
+            if (nivelVal === 'CRITICA') filterDesc = 'Filtrando: 🚨 Críticos (6+ meses)';
+            else if (nivelVal === 'CONSECUTIVO') filterDesc = 'Filtrando: ⚠️ Racha Activa (3+ seguidos)';
+            else if (nivelVal === 'MODERADA') filterDesc = 'Filtrando: 🟡 Moderados (3 a 5 meses)';
+            else if (nivelVal === 'LEVE') filterDesc = 'Filtrando: 🟢 Leves (1 a 2 meses)';
+
+            if (activeBadge) {
+                if (filterDesc) {
+                    activeBadge.style.display = 'inline-block';
+                    activeBadge.innerText = filterDesc;
+                } else {
+                    activeBadge.style.display = 'none';
+                }
+            }
+
             if (countLabel) {
                 countLabel.innerText = `Mostrando ${filtered.length} asesores reincidentes según los filtros aplicados.`;
             }
 
+            // Renderizar Tabla de Asesores
+            const tbody = document.getElementById('reinc-table-tbody');
             if (!tbody) return;
             tbody.innerHTML = '';
 
@@ -229307,75 +229446,73 @@ const REINCIDENCIA_DATA = {
                 return;
             }
 
-            filtered.forEach((a, idx) => {
-                const tr = document.createElement('tr');
-                tr.style.borderBottom = '1px solid #f1f5f9';
+            const rowsHtml = filtered.map((a, idx) => {
+                const tipoBadge = a.tipo === 'DIRECTO' 
+                    ? '<span style="background: #e0e7ff; color: #3730a3; padding: 2px 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem;">DIRECTO</span>'
+                    : '<span style="background: #fef3c7; color: #92400e; padding: 2px 8px; border-radius: 10px; font-weight: 800; font-size: 0.7rem;">DISTRIBUIDOR</span>';
 
-                // Badge Tipo
-                const isDir = a.tipo === 'DIRECTO';
-                const badgeTipo = isDir
-                    ? `<span style="background: #ede9fe; color: #6d28d9; padding: 2.5px 7px; border-radius: 4px; font-weight: 800; font-size: 0.7rem;">DIRECTO</span>`
-                    : `<span style="background: #fef3c7; color: #b45309; padding: 2.5px 7px; border-radius: 4px; font-weight: 800; font-size: 0.7rem;">DISTRIBUIDOR</span>`;
-
-                // Badge Meses Incumplidos
-                let badgeMesesColor = '#f59e0b';
-                let badgeMesesBg = '#fef3c7';
-                let badgeMesesText = '#92400e';
-                if (a.meses_incumplidos >= 6) {
-                    badgeMesesColor = '#ef4444';
-                    badgeMesesBg = '#fee2e2';
-                    badgeMesesText = '#991b1b';
-                } else if (a.meses_incumplidos <= 2) {
-                    badgeMesesColor = '#10b981';
-                    badgeMesesBg = '#dcfce7';
-                    badgeMesesText = '#166534';
-                }
-
-                const badgeMeses = `<span style="display: inline-block; min-width: 32px; padding: 3px 8px; border-radius: 999px; background: ${badgeMesesBg}; color: ${badgeMesesText}; font-weight: 900; font-size: 0.85rem; border: 1.5px solid ${badgeMesesColor}; text-align: center;">${a.meses_incumplidos}</span>`;
-
-                // Badge Consecutivos
-                let badgePatron = '';
-                if (a.consecutivos_actuales >= 3) {
-                    badgePatron = `<span style="background: #fee2e2; color: #b91c1c; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.7rem; border: 1px solid #fca5a5;">🚨 ${a.consecutivos_actuales} meses seguidos (a Oct)</span>`;
-                } else if (a.consecutivos_actuales === 2) {
-                    badgePatron = `<span style="background: #ffedd5; color: #c2410c; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.7rem; border: 1px solid #fdba74;">⚠️ 2 meses seguidos</span>`;
-                } else if (a.max_consecutivos >= 3) {
-                    badgePatron = `<span style="background: #fef9c3; color: #854d0e; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.7rem;">Discontinuo (máx ${a.max_consecutivos} seg.)</span>`;
+                let patronBadge = '';
+                if (a.criticidad === 'CRITICA') {
+                    patronBadge = `<span style="background: #fee2e2; color: #991b1b; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.72rem; display: inline-flex; align-items: center; gap: 4px;">🚨 Crítico (${a.meses_incumplidos}m)</span>`;
+                } else if (a.consecutivos_actuales >= 3) {
+                    patronBadge = `<span style="background: #ffedd5; color: #9a3412; padding: 3px 8px; border-radius: 6px; font-weight: 800; font-size: 0.72rem; display: inline-flex; align-items: center; gap: 4px;">⚠️ Racha (${a.consecutivos_actuales}m seguidos)</span>`;
+                } else if (a.criticidad === 'MODERADA') {
+                    patronBadge = `<span style="background: #fef3c7; color: #b45309; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.72rem;">🟡 Moderado (${a.meses_incumplidos}m)</span>`;
                 } else {
-                    badgePatron = `<span style="color: #64748b; font-size: 0.72rem; font-weight: 600;">Discontinuo</span>`;
+                    patronBadge = `<span style="background: #f1f5f9; color: #475569; padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 0.72rem;">🟢 Leve (${a.meses_incumplidos}m)</span>`;
                 }
 
-                // Generar los 10 chips de meses (Ene a Oct)
-                const chipsHtml = (a.historial || []).map(h => {
-                    if (!h.has_data) {
-                        return `<span class="month-chip nodata" title="${h.mes}: Sin datos">-<span style="font-size:0.5rem; color:#94a3b8;">${h.mes}</span></span>`;
+                // Generar chips mes a mes
+                const chipsHtml = (a.historial || []).map(m => {
+                    let cls = 'nodata';
+                    let symb = '-';
+                    let tt = `${m.mes}: Sin datos`;
+                    if (m.evaluado) {
+                        if (m.cumplio) {
+                            cls = 'cumplio';
+                            symb = '✓';
+                            tt = `${m.mes}: CUMPLIÓ (${(m.cumpl_pct*100).toFixed(1)}% - Cantado: $${m.cantado.toLocaleString('es-CO')})`;
+                        } else {
+                            cls = 'incumplio';
+                            symb = '✗';
+                            tt = `${m.mes}: INCUMPLIÓ (${(m.cumpl_pct*100).toFixed(1)}% - Cantado: $${m.cantado.toLocaleString('es-CO')})`;
+                        }
                     }
-                    if (h.cumplio) {
-                        return `<span class="month-chip cumplio" title="${h.mes}: Cumplió (${h.raw_pct} - $${Math.round(h.valor).toLocaleString('es-CO')})">✓<span style="font-size:0.5rem; font-weight:700;">${h.mes}</span></span>`;
-                    } else {
-                        return `<span class="month-chip incumplio" title="${h.mes}: No cumplió (${h.raw_pct} - $${Math.round(h.valor).toLocaleString('es-CO')})">✕<span style="font-size:0.5rem; font-weight:700;">${h.mes}</span></span>`;
-                    }
+                    return `<span class="month-chip ${cls}" title="${tt}">
+                        <span style="font-size: 0.52rem; opacity: 0.85;">${m.abrev}</span>
+                        <span>${symb}</span>
+                    </span>`;
                 }).join('');
 
-                tr.innerHTML = `
-                    <td style="text-align: center; font-weight: 800; color: #94a3b8; font-size: 0.75rem;">${idx + 1}</td>
-                    <td>
-                        <div style="font-weight: 800; color: #1e293b;">${a.nombre}</div>
-                        <div style="font-size: 0.7rem; color: #64748b;">CC ${a.cedula || 'S/N'}</div>
-                    </td>
-                    <td style="text-align: center;">${badgeTipo}</td>
-                    <td style="font-weight: 600; color: #334155;">${a.director}</td>
-                    <td>
-                        <div style="font-weight: 700; color: #1e3a8a;">${a.regional}</div>
-                        <div style="font-size: 0.7rem; color: #64748b;">${a.zona}</div>
-                    </td>
-                    <td style="text-align: center;">${badgeMeses}</td>
-                    <td style="text-align: center;">${badgePatron}</td>
-                    <td style="text-align: center; white-space: nowrap;">${chipsHtml}</td>
+                return `
+                    <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s ease;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                        <td style="padding: 10px 12px; text-align: center; font-weight: 800; color: #94a3b8;">${idx + 1}</td>
+                        <td style="padding: 10px 12px;">
+                            <div style="font-weight: 800; color: #1e293b;">${a.nombre}</div>
+                            <div style="font-size: 0.72rem; color: #64748b;">CC: ${a.cedula}</div>
+                        </td>
+                        <td style="padding: 10px 12px; text-align: center;">${tipoBadge}</td>
+                        <td style="padding: 10px 12px; font-weight: 700; color: #334155;">${a.director}</td>
+                        <td style="padding: 10px 12px;">
+                            <div style="font-weight: 700; color: #1e293b;">${a.regional}</div>
+                            <div style="font-size: 0.72rem; color: #64748b;">${a.zona}</div>
+                        </td>
+                        <td style="padding: 10px 12px; text-align: center;">
+                            <span style="display: inline-block; min-width: 32px; padding: 4px 8px; border-radius: 8px; background: #fee2e2; color: #991b1b; font-weight: 900; font-size: 0.9rem;">
+                                ${a.meses_incumplidos}
+                            </span>
+                        </td>
+                        <td style="padding: 10px 12px; text-align: center;">${patronBadge}</td>
+                        <td style="padding: 10px 12px; text-align: center; white-space: nowrap;">
+                            <div style="display: inline-flex; align-items: center; justify-content: center; gap: 2px;">
+                                ${chipsHtml}
+                            </div>
+                        </td>
+                    </tr>
                 `;
+            }).join('');
 
-                tbody.appendChild(tr);
-            });
+            tbody.innerHTML = rowsHtml;
         }
 
         function renderReincRankings(filteredList) {
@@ -229408,14 +229545,14 @@ const REINCIDENCIA_DATA = {
                 if (a.criticidad === 'CRITICA') dirMap[a.director].crit++;
             });
 
-            // Render Regional Tbody
+            // Render Regional Tbody (Clickeable)
             const rList = Object.values(regMap).sort((a, b) => b.total - a.total);
             const rTbody = document.getElementById('reinc-rank-regional-tbody');
             if (rTbody) {
                 rTbody.innerHTML = rList.slice(0, 10).map((r, i) => `
-                    <tr>
+                    <tr class="reinc-rank-row-clickable" onclick="filtrarReincPor('regional', '${r.name}')" title="Haz clic para ver asesores de ${r.name}">
                         <td style="font-weight: 800; color: #94a3b8;">${i + 1}</td>
-                        <td style="font-weight: 700;">${r.name}</td>
+                        <td style="font-weight: 700; color: #1e3a8a;">${r.name} <span style="font-size: 0.65rem; opacity: 0.6;">🔍</span></td>
                         <td style="text-align: center; font-weight: 800; color: #1e3a8a;">${r.total}</td>
                         <td style="text-align: center; font-size: 0.72rem; color: #64748b;">${r.dir}D / ${r.dis}Ds</td>
                         <td style="text-align: center; font-weight: 700; color: #b91c1c;">${r.crit}</td>
@@ -229423,14 +229560,14 @@ const REINCIDENCIA_DATA = {
                 `).join('') || '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">Sin datos</td></tr>';
             }
 
-            // Render Zona Tbody
+            // Render Zona Tbody (Clickeable)
             const zList = Object.values(zonMap).sort((a, b) => b.total - a.total);
             const zTbody = document.getElementById('reinc-rank-zona-tbody');
             if (zTbody) {
                 zTbody.innerHTML = zList.slice(0, 10).map((z, i) => `
-                    <tr>
+                    <tr class="reinc-rank-row-clickable" onclick="filtrarReincPor('zona', '${z.name}')" title="Haz clic para ver asesores de ${z.name}">
                         <td style="font-weight: 800; color: #94a3b8;">${i + 1}</td>
-                        <td style="font-weight: 700;">${z.name}</td>
+                        <td style="font-weight: 700; color: #5b21b6;">${z.name} <span style="font-size: 0.65rem; opacity: 0.6;">🔍</span></td>
                         <td style="font-size: 0.72rem; color: #64748b;">${z.reg}</td>
                         <td style="text-align: center; font-weight: 800; color: #5b21b6;">${z.total}</td>
                         <td style="text-align: center; font-weight: 700; color: #b91c1c;">${z.crit}</td>
@@ -229438,14 +229575,14 @@ const REINCIDENCIA_DATA = {
                 `).join('') || '<tr><td colspan="5" style="text-align:center;color:#94a3b8;">Sin datos</td></tr>';
             }
 
-            // Render Director Tbody
+            // Render Director Tbody (Clickeable)
             const dList = Object.values(dirMap).sort((a, b) => b.total - a.total);
             const dTbody = document.getElementById('reinc-rank-director-tbody');
             if (dTbody) {
-                dTbody.innerHTML = dList.map((d, i) => `
-                    <tr>
+                dTbody.innerHTML = dList.slice(0, 10).map((d, i) => `
+                    <tr class="reinc-rank-row-clickable" onclick="filtrarReincPor('director', '${d.name}')" title="Haz clic para ver asesores de ${d.name}">
                         <td style="font-weight: 800; color: #94a3b8;">${i + 1}</td>
-                        <td style="font-weight: 700;">${d.name}</td>
+                        <td style="font-weight: 700; color: #92400e;">${d.name} <span style="font-size: 0.65rem; opacity: 0.6;">🔍</span></td>
                         <td style="text-align: center; font-weight: 800; color: #92400e;">${d.total}</td>
                         <td style="text-align: center; font-size: 0.72rem; color: #64748b;">${d.dir}D / ${d.dis}Ds</td>
                         <td style="text-align: center; font-weight: 700; color: #b91c1c;">${d.crit}</td>
@@ -229454,31 +229591,104 @@ const REINCIDENCIA_DATA = {
             }
         }
 
+        function limpiarFiltrosReincidencia() {
+            reincSelectedTipo = 'ALL';
+            setReincTipoFilter('ALL');
+            const elNivel = document.getElementById('reinc-filter-nivel');
+            if (elNivel) elNivel.value = 'ALL';
+            const elReg = document.getElementById('reinc-filter-regional');
+            if (elReg) elReg.value = 'ALL';
+            const elZon = document.getElementById('reinc-filter-zona');
+            if (elZon) elZon.value = 'ALL';
+            const elDir = document.getElementById('reinc-filter-director');
+            if (elDir) elDir.value = 'ALL';
+            const elSearch = document.getElementById('reinc-filter-search');
+            if (elSearch) elSearch.value = '';
+            renderReincidenciaDashboard();
+        }
+
+        function sortReincidencia(column) {
+            if (reincCurrentSort.column === column) {
+                reincCurrentSort.dir = (reincCurrentSort.dir === 'asc') ? 'desc' : 'asc';
+            } else {
+                reincCurrentSort.column = column;
+                reincCurrentSort.dir = 'desc';
+            }
+            renderReincidenciaDashboard();
+        }
+
         function exportarReincidenciaCSV() {
             if (typeof REINCIDENCIA_DATA === 'undefined' || !REINCIDENCIA_DATA) return;
-            const asesores = REINCIDENCIA_DATA.asesores || [];
-            if (asesores.length === 0) {
-                alert('No hay datos para exportar.');
-                return;
-            }
+            const allAsesores = REINCIDENCIA_DATA.asesores || [];
+            const nivelVal = (document.getElementById('reinc-filter-nivel') ? document.getElementById('reinc-filter-nivel').value : 'ALL');
+            const regVal = (document.getElementById('reinc-filter-regional') ? document.getElementById('reinc-filter-regional').value : 'ALL');
+            const zonVal = (document.getElementById('reinc-filter-zona') ? document.getElementById('reinc-filter-zona').value : 'ALL');
+            const dirVal = (document.getElementById('reinc-filter-director') ? document.getElementById('reinc-filter-director').value : 'ALL');
+            const searchVal = (document.getElementById('reinc-filter-search') ? document.getElementById('reinc-filter-search').value.trim().toLowerCase() : '');
 
-            let csv = '\uFEFF'; // BOM para tildes y caracteres en Excel
-            csv += 'Rank,Asesor,Cedula,Tipo,Director,Regional,Zona,Meses_Incumplidos_Col_AV,Racha_Consecutiva_Oct,Max_Consecutivos,Criticidad,Ene,Feb,Mar,Abr,May,Jun,Jul,Ago,Sep,Oct\n';
-
-            asesores.forEach((a, i) => {
-                const mesesRow = (a.historial || []).map(h => h.has_data ? (h.cumplio ? 'CUMPLIÓ' : h.raw_pct) : 'N/A').join(',');
-                csv += `"${i + 1}","${a.nombre}","${a.cedula}","${a.tipo}","${a.director}","${a.regional}","${a.zona}","${a.meses_incumplidos}","${a.consecutivos_actuales}","${a.max_consecutivos}","${a.criticidad_label}",${mesesRow}\n`;
+            let filtered = allAsesores.filter(a => {
+                if (reincSelectedTipo !== 'ALL' && a.tipo !== reincSelectedTipo) return false;
+                if (nivelVal === 'CRITICA' && a.criticidad !== 'CRITICA') return false;
+                if (nivelVal === 'CONSECUTIVO' && a.consecutivos_actuales < 3) return false;
+                if (nivelVal === 'MODERADA' && a.criticidad !== 'MODERADA') return false;
+                if (nivelVal === 'LEVE' && a.criticidad !== 'LEVE') return false;
+                if (regVal !== 'ALL' && a.regional !== regVal) return false;
+                if (zonVal !== 'ALL' && a.zona !== zonVal) return false;
+                if (dirVal !== 'ALL' && a.director !== dirVal) return false;
+                if (searchVal) {
+                    const matchNom = a.nombre.toLowerCase().includes(searchVal);
+                    const matchCed = a.cedula.toLowerCase().includes(searchVal);
+                    if (!matchNom && !matchCed) return false;
+                }
+                return true;
             });
 
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const headers = ['#', 'Nombre Asesor', 'Cédula', 'Tipo Asesor', 'Director', 'Regional', 'Zona', 'Meses Incumplidos (Col AV)', 'Criticidad', 'Racha Actual Consecutiva'];
+            const mesesNombres = (REINCIDENCIA_DATA.meses || []).map(m => m.nombre);
+            mesesNombres.forEach(m => headers.push(`% Cumpl ${m}`, `Cantado ${m}`));
+
+            const rows = [headers.join(';')];
+
+            filtered.forEach((a, i) => {
+                const r = [
+                    i + 1,
+                    `"${a.nombre}"`,
+                    `"${a.cedula}"`,
+                    `"${a.tipo}"`,
+                    `"${a.director}"`,
+                    `"${a.regional}"`,
+                    `"${a.zona}"`,
+                    a.meses_incumplidos,
+                    `"${a.criticidad}"`,
+                    a.consecutivos_actuales
+                ];
+                (a.historial || []).forEach(m => {
+                    r.push(m.evaluado ? (m.cumpl_pct*100).toFixed(1) + '%' : 'N/A');
+                    r.push(m.evaluado ? m.cantado : 'N/A');
+                });
+                rows.push(r.join(';'));
+            });
+
+            const csvContent = "\uFEFF" + rows.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.setAttribute('href', url);
-            link.setAttribute('download', `Reincidencia_Incumplimiento_Asesores_${new Date().toISOString().slice(0, 10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reincidencia_asesores_${new Date().toISOString().slice(0,10)}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
         }
+
+        window.initReincidenciaDashboard = initReincidenciaDashboard;
+        window.renderReincidenciaDashboard = renderReincidenciaDashboard;
+        window.selectReincKpiCard = selectReincKpiCard;
+        window.filtrarReincPor = filtrarReincPor;
+        window.setReincTipoFilter = setReincTipoFilter;
+        window.limpiarFiltrosReincidencia = limpiarFiltrosReincidencia;
+        window.sortReincidencia = sortReincidencia;
+        window.exportarReincidenciaCSV = exportarReincidenciaCSV;
 
 </script>
 
