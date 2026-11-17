@@ -5530,8 +5530,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-17 15:26:42';
-const TIMESTAMP_ACTUALIZACION = 1794947202;
+const ULTIMA_ACTUALIZACION = '2026-11-17 15:32:41';
+const TIMESTAMP_ACTUALIZACION = 1794947561;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -31922,6 +31922,20 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Distri. Autorizados"
+  },
+  {
+    "ASESOR PLANILLA": "RUDY PASTRANA ORTIZ",
+    "FECHA DE LA VENTA": "2026-04-11",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SEM 15",
+    "DIA": "SÁBADO",
+    "NOMINAL VENTA": 252000.0,
+    "VALOR ANUAL": 252000.0,
+    "REGIONAL": "Tolima Sur",
+    "ZONA": "Girardot",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Distri. Autorizados"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -36229,11 +36243,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Tolima Sur",
     "ZONA": "Girardot",
     "PRESUPUESTO": 4800000.0,
-    "LLEVAMOS": 0.0,
-    "CANTIDAD DE VENTAS": 0,
-    "NOS FALTA": 4800000.0,
-    "DEBEMOS HACER DIARIO": 436364.0,
-    "CUMPLIMIENTO": 0.0,
+    "LLEVAMOS": 252000.0,
+    "CANTIDAD DE VENTAS": 1,
+    "NOS FALTA": 4548000.0,
+    "DEBEMOS HACER DIARIO": 413455.0,
+    "CUMPLIMIENTO": 5.0,
     "APROBADO": 0.0,
     "TIPO DE ASESOR": "DISTRIBUIDOR AUTORIZADO"
   },
@@ -42018,13 +42032,13 @@ const CANTADAS_ROWS = [
     "SEMILLERO",
     "9%",
     "$4,800,000",
-    "",
-    "",
-    "$4,800,000",
-    "$436,364",
-    "0%",
-    "$0",
-    "0%"
+    "$252,000",
+    "1",
+    "$4,548,000",
+    "$413,455",
+    "5%",
+    "$483,000",
+    "10%"
   ],
   [
     "Angélica Mur",
@@ -141663,9 +141677,9 @@ const ROTACION_DATA = {
           "nombre": "Noviembre",
           "mes_num": 11,
           "ingresos": 19,
-          "activados": 11,
-          "en_induccion": 8,
-          "tasa_activacion": 57.9
+          "activados": 12,
+          "en_induccion": 7,
+          "tasa_activacion": 63.2
         }
       }
     },
@@ -141749,9 +141763,9 @@ const ROTACION_DATA = {
           "nombre": "Noviembre",
           "mes_num": 11,
           "ingresos": 19,
-          "activados": 11,
-          "en_induccion": 8,
-          "tasa_activacion": 57.9
+          "activados": 12,
+          "en_induccion": 7,
+          "tasa_activacion": 63.2
         }
       }
     }
@@ -141824,7 +141838,7 @@ const ROTACION_DATA = {
           "total_ingresos": 12,
           "retenidos": 5,
           "desertaron": 2,
-          "nuevos_activos": 3,
+          "nuevos_activos": 4,
           "tasa_retencion": 71.4,
           "tasa_desercion": 28.6,
           "semaforo": "🟡 ALERTA"
@@ -142032,7 +142046,7 @@ const ROTACION_DATA = {
           "total_ingresos": 12,
           "retenidos": 5,
           "desertaron": 2,
-          "nuevos_activos": 3,
+          "nuevos_activos": 4,
           "tasa_retencion": 71.4,
           "tasa_desercion": 28.6,
           "semaforo": "🟡 ALERTA"
@@ -144083,13 +144097,13 @@ const ROTACION_DATA = {
       "director": "Angélica Mur",
       "ventas_antep": 0,
       "ventas_ant": 0,
-      "ventas_act": 0,
-      "total_ventas": 0,
+      "ventas_act": 1,
+      "total_ventas": 1,
       "in_pres_act": true,
       "in_pres_ant": true,
-      "estado": "NUEVO EN INDUCCIÓN",
-      "badge_type": "induccion",
-      "diagnostico": "En período de entrenamiento / sin venta aún"
+      "estado": "NUEVO CON VENTA",
+      "badge_type": "nuevo-venta",
+      "diagnostico": "Arranque exitoso (1 ventas en su 1er mes)"
     },
     {
       "cedula": "1064426549",
@@ -183248,7 +183262,7 @@ const QUINCENA1_DATA_ACT = {
     "total_cumplieron": 7,
     "pct_cumplieron_global": 2.1,
     "total_presupuesto": 2234100000.0,
-    "total_ventas_q1": 696117600.0,
+    "total_ventas_q1": 696369600.0,
     "ventas_q1_cumplidores": 38726400.0
   },
   "pivot_directores": [
@@ -183660,11 +183674,11 @@ const QUINCENA1_DATA_ACT = {
                   "zona": "Girardot",
                   "tipo": "Distribuidor Autorizado",
                   "presupuesto": 4800000.0,
-                  "ventas_q1": 0.0,
-                  "cant_q1": 0,
+                  "ventas_q1": 252000.0,
+                  "cant_q1": 1,
                   "cumple": false,
-                  "pct_cumplimiento": 0.0,
-                  "diferencia": -4800000.0
+                  "pct_cumplimiento": 5.2,
+                  "diferencia": -4548000.0
                 },
                 {
                   "nombre": "JOHAN PACHON",
@@ -188392,8 +188406,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 8.3,
       "pct_global": 0.3,
       "presupuesto_total": 84100000.0,
-      "ventas_q1_total": 26315400.0,
-      "pct_venta_meta": 31.3,
+      "ventas_q1_total": 26567400.0,
+      "pct_venta_meta": 31.6,
       "asesores_cumplieron": [
         "LEIDY CAROLINA GIL BENAVIDES"
       ]
@@ -188607,8 +188621,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 8.3,
       "pct_global": 0.3,
       "presupuesto_total": 84100000.0,
-      "ventas_q1_total": 26315400.0,
-      "pct_venta_meta": 31.3,
+      "ventas_q1_total": 26567400.0,
+      "pct_venta_meta": 31.6,
       "asesores_cumplieron": [
         "LEIDY CAROLINA GIL BENAVIDES"
       ]
@@ -188859,8 +188873,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 8.8,
       "pct_global": 0.9,
       "presupuesto_total": 245100000.0,
-      "ventas_q1_total": 86656200.0,
-      "pct_venta_meta": 35.4,
+      "ventas_q1_total": 86908200.0,
+      "pct_venta_meta": 35.5,
       "asesores_cumplieron": [
         "DIANA MARCELA MONTIEL BOCANEGRA",
         "CAROL NATALIA LOPEZ  OCAMPO",
@@ -193248,11 +193262,11 @@ const QUINCENA1_DATA_ACT = {
       "zona": "Girardot",
       "tipo": "Distribuidor Autorizado",
       "presupuesto": 4800000.0,
-      "ventas_q1": 0.0,
-      "cant_q1": 0,
+      "ventas_q1": 252000.0,
+      "cant_q1": 1,
       "cumple": false,
-      "pct_cumplimiento": 0.0,
-      "diferencia": -4800000.0
+      "pct_cumplimiento": 5.2,
+      "diferencia": -4548000.0
     },
     {
       "nombre": "LUIS ALEXANDER VARGAS ARCILA",
@@ -221120,12 +221134,12 @@ const PRODUCTOS_DATA = {
         "total_nominal": 120960000.0,
         "ticket_promedio": 817297.0,
         "cuota_promedio": 68108.0,
-        "pct_ventas_global": 7.9,
+        "pct_ventas_global": 7.8,
         "pct_nominal_global": 16.7,
         "aprobadas": 14,
         "pct_aprob": 9.5,
         "asesores_unicos": 56,
-        "pct_penetracion_asesores": 21.9,
+        "pct_penetracion_asesores": 21.8,
         "ventas_directos": 122,
         "ventas_distribuidores": 26,
         "pct_directos": 82.4,
@@ -221363,8 +221377,8 @@ const PRODUCTOS_DATA = {
           "regional": "Tolima Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 92,
-          "total_nominal_reg": 27594600.0,
+          "total_ventas_reg": 93,
+          "total_nominal_reg": 27846600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -221586,8 +221600,8 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 92,
-          "total_nominal_zona": 27594600.0,
+          "total_ventas_zona": 93,
+          "total_nominal_zona": 27846600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -221782,8 +221796,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 302,
-          "total_nominal_dir": 91214400.0,
+          "total_ventas_dir": 303,
+          "total_nominal_dir": 91466400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -222813,7 +222827,7 @@ const PRODUCTOS_DATA = {
         "aprobadas": 25,
         "pct_aprob": 25.0,
         "asesores_unicos": 46,
-        "pct_penetracion_asesores": 18.0,
+        "pct_penetracion_asesores": 17.9,
         "ventas_directos": 73,
         "ventas_distribuidores": 27,
         "pct_directos": 73.0,
@@ -222872,10 +222886,10 @@ const PRODUCTOS_DATA = {
           "regional": "Tolima Sur",
           "ventas_prod": 16,
           "nominal_prod": 5512800.0,
-          "total_ventas_reg": 92,
-          "total_nominal_reg": 27594600.0,
-          "pct_ventas_mix": 17.4,
-          "pct_nominal_mix": 20.0,
+          "total_ventas_reg": 93,
+          "total_nominal_reg": 27846600.0,
+          "pct_ventas_mix": 17.2,
+          "pct_nominal_mix": 19.8,
           "ticket_promedio": 344550.0,
           "cuota_promedio": 28712.0,
           "top_asesor": "Leydi Carolina Gil Benavides"
@@ -223081,10 +223095,10 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 16,
           "nominal_prod": 5512800.0,
-          "total_ventas_zona": 92,
-          "total_nominal_zona": 27594600.0,
-          "pct_ventas_mix": 17.4,
-          "pct_nominal_mix": 20.0,
+          "total_ventas_zona": 93,
+          "total_nominal_zona": 27846600.0,
+          "pct_ventas_mix": 17.2,
+          "pct_nominal_mix": 19.8,
           "ticket_promedio": 344550.0,
           "cuota_promedio": 28712.0
         },
@@ -223394,10 +223408,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 29,
           "nominal_prod": 10834800.0,
-          "total_ventas_dir": 302,
-          "total_nominal_dir": 91214400.0,
+          "total_ventas_dir": 303,
+          "total_nominal_dir": 91466400.0,
           "pct_ventas_mix": 9.6,
-          "pct_nominal_mix": 11.9,
+          "pct_nominal_mix": 11.8,
           "ticket_promedio": 373614.0,
           "cuota_promedio": 31134.0,
           "asesores_vendiendo": 11
@@ -224503,8 +224517,8 @@ const PRODUCTOS_DATA = {
           "regional": "Tolima Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 92,
-          "total_nominal_reg": 27594600.0,
+          "total_ventas_reg": 93,
+          "total_nominal_reg": 27846600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -224660,8 +224674,8 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 92,
-          "total_nominal_zona": 27594600.0,
+          "total_ventas_zona": 93,
+          "total_nominal_zona": 27846600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -224882,8 +224896,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 302,
-          "total_nominal_dir": 91214400.0,
+          "total_ventas_dir": 303,
+          "total_nominal_dir": 91466400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -224993,7 +225007,7 @@ const PRODUCTOS_DATA = {
         "aprobadas": 39,
         "pct_aprob": 15.5,
         "asesores_unicos": 100,
-        "pct_penetracion_asesores": 39.1,
+        "pct_penetracion_asesores": 38.9,
         "ventas_directos": 196,
         "ventas_distribuidores": 56,
         "pct_directos": 77.8,
@@ -225143,10 +225157,10 @@ const PRODUCTOS_DATA = {
           "regional": "Tolima Sur",
           "ventas_prod": 16,
           "nominal_prod": 5512800.0,
-          "total_ventas_reg": 92,
-          "total_nominal_reg": 27594600.0,
-          "pct_ventas_mix": 17.4,
-          "pct_nominal_mix": 20.0,
+          "total_ventas_reg": 93,
+          "total_nominal_reg": 27846600.0,
+          "pct_ventas_mix": 17.2,
+          "pct_nominal_mix": 19.8,
           "ticket_promedio": 344550.0,
           "cuota_promedio": 28712.0,
           "top_asesor": "Leydi Carolina Gil Benavides"
@@ -225355,10 +225369,10 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 16,
           "nominal_prod": 5512800.0,
-          "total_ventas_zona": 92,
-          "total_nominal_zona": 27594600.0,
-          "pct_ventas_mix": 17.4,
-          "pct_nominal_mix": 20.0,
+          "total_ventas_zona": 93,
+          "total_nominal_zona": 27846600.0,
+          "pct_ventas_mix": 17.2,
+          "pct_nominal_mix": 19.8,
           "ticket_promedio": 344550.0,
           "cuota_promedio": 28712.0
         },
@@ -225668,10 +225682,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 29,
           "nominal_prod": 10834800.0,
-          "total_ventas_dir": 302,
-          "total_nominal_dir": 91214400.0,
+          "total_ventas_dir": 303,
+          "total_nominal_dir": 91466400.0,
           "pct_ventas_mix": 9.6,
-          "pct_nominal_mix": 11.9,
+          "pct_nominal_mix": 11.8,
           "ticket_promedio": 373614.0,
           "cuota_promedio": 31134.0,
           "asesores_vendiendo": 11
@@ -227507,9 +227521,9 @@ const PRODUCTOS_DATA = {
       ]
     },
     "global_info": {
-      "total_ventas_mes": 1885,
-      "total_nominal_mes": 723910800.0,
-      "total_asesores_mes": 256
+      "total_ventas_mes": 1886,
+      "total_nominal_mes": 724162800.0,
+      "total_asesores_mes": 257
     }
   },
   "anterior": {
