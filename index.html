@@ -5294,7 +5294,7 @@
 
                 <!-- KPI 2: Valor Nominal Bruto -->
                 <div class="prod-kpi-card" style="border-top: 4px solid #10b981;">
-                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">💰 Facturación Nominal</div>
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">💰 Nominal</div>
                     <div id="prod-kpi-nominal" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
                     <div id="prod-kpi-pct-nominal" style="font-size: 0.75rem; color: #10b981; font-weight: 700;">--% de la venta nominal</div>
                 </div>
@@ -5510,8 +5510,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 22:49:19';
-const TIMESTAMP_ACTUALIZACION = 1794887359;
+const ULTIMA_ACTUALIZACION = '2026-11-16 22:52:11';
+const TIMESTAMP_ACTUALIZACION = 1794887531;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -246198,7 +246198,7 @@ function renderProductosDashboard() {
     if (elNominal) elNominal.innerText = formatMoney(kpis.total_nominal);
 
     const elPctNom = document.getElementById('prod-kpi-pct-nominal');
-    if (elPctNom) elPctNom.innerText = `${formatPercent(kpis.pct_nominal_global)} de la facturación global`;
+    if (elPctNom) elPctNom.innerText = `${formatPercent(kpis.pct_nominal_global)} del total nominal global`;
 
     const elTicket = document.getElementById('prod-kpi-ticket');
     if (elTicket) elTicket.innerText = formatMoney(kpis.cuota_promedio || Math.round((kpis.ticket_promedio || 0) / 12));
