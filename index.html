@@ -1442,6 +1442,158 @@
             background: #f8fafc;
         }
 
+    
+        /* ========================================== */
+        /* ESTILOS: COMPORTAMIENTO POR PRODUCTOS      */
+        /* ========================================== */
+        .prod-period-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1.5px solid #cbd5e1;
+            background: #ffffff;
+            color: #475569;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .prod-period-btn:hover {
+            border-color: #0284c7;
+            color: #0284c7;
+            background: #f0f9ff;
+        }
+        .prod-period-btn.active {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.28);
+        }
+        .prod-selector-card {
+            flex: 1;
+            min-width: 220px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+            user-select: none;
+        }
+        .prod-selector-card:hover {
+            transform: translateY(-3px);
+            border-color: #38bdf8;
+            box-shadow: 0 8px 18px rgba(2, 132, 199, 0.12);
+        }
+        .prod-selector-card.active {
+            border-color: #0284c7;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.25), 0 8px 18px rgba(2, 132, 199, 0.15);
+            transform: translateY(-2px);
+        }
+        .prod-kpi-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .prod-kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+        .prod-kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #0284c7;
+        }
+        .prod-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .prod-table th {
+            background: #1e293b;
+            color: #ffffff;
+            padding: 11px 12px;
+            font-weight: 700;
+            text-align: center !important;
+            vertical-align: middle !important;
+            font-size: 0.74rem;
+            letter-spacing: 0.3px;
+            border: 1px solid #334155;
+            white-space: nowrap;
+        }
+        .prod-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #f1f5f9;
+            text-align: center !important;
+            vertical-align: middle !important;
+            color: #334155;
+        }
+        .prod-table tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .prod-table tbody tr:hover td {
+            background-color: #f0fdf4 !important;
+        }
+        .prod-subtab-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .prod-subtab-btn:hover {
+            background: #e2e8f0;
+            color: #1e293b;
+        }
+        .prod-subtab-btn.active {
+            background: #1e293b;
+            color: #ffffff;
+            border-color: #1e293b;
+            box-shadow: 0 3px 8px rgba(30, 41, 59, 0.2);
+        }
+        .prod-filter-pill {
+            padding: 7px 16px;
+            border-radius: 20px;
+            border: 1.5px solid #cbd5e1;
+            background: #ffffff;
+            color: #475569;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .prod-filter-pill:hover {
+            border-color: #0284c7;
+            color: #0284c7;
+        }
+        .prod-filter-pill.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+        }
+
     </style>
 
 </head>
@@ -1499,6 +1651,9 @@
         </button>
         <button class="tab-btn" id="tab-btn-reincidencia" onclick="switchTab('reincidencia')">
             <span>🔁</span> REINCIDENCIA
+        </button>
+        <button class="tab-btn" id="tab-btn-productos" onclick="switchTab('productos')">
+            <span>📦</span> COMPORTAMIENTO POR PRODUCTOS
         </button>
     </div>
 
@@ -5037,11 +5192,332 @@
         </div>
     </div>
 
+    
+    <!-- ========================================== -->
+    <!-- PESTAÑA: COMPORTAMIENTO POR PRODUCTOS      -->
+    <!-- ========================================== -->
+    <div id="tab-productos" class="tab-content">
+        <!-- Banner Encabezado -->
+        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0369a1 100%); padding: 20px 28px; border-radius: 14px; margin-bottom: 22px; box-shadow: 0 8px 24px rgba(2, 132, 199, 0.16); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <span style="font-size: 2.2rem; line-height: 1;">📦</span>
+                <div>
+                    <h2 style="margin: 0; font-size: 1.65rem; font-weight: 800; color: #ffffff !important; letter-spacing: -0.3px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">COMPORTAMIENTO POR PRODUCTOS</h2>
+                    <p style="margin: 4px 0 0 0; font-size: 0.88rem; color: #93c5fd; font-weight: 500;">Medición comercial estratégica de Renacer Mascotas, Celestial y Títulos. Penetración, mix de ventas y rankings por Regional, Zona, Director y Asesores.</p>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" onclick="exportarProductosCSV()" style="background: #ffffff; color: #0369a1; border: none; font-weight: 700; padding: 10px 20px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); transition: all 0.2s;" onmouseover="this.style.background='#f0f9ff'" onmouseout="this.style.background='#ffffff'">
+                    <span>📥</span> Exportar a Excel (CSV)
+                </button>
+            </div>
+        </div>
+
+        <!-- Barra de Control: Selector de Período -->
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 0.5px;">🗓️ Período de Análisis:</span>
+                <button type="button" class="prod-period-btn active" id="prod-period-actual" onclick="switchProductosPeriodo('actual')">
+                    <span>📅</span> Mes Actual
+                </button>
+                <button type="button" class="prod-period-btn" id="prod-period-anterior" onclick="switchProductosPeriodo('anterior')">
+                    <span>🗓️</span> Mes Anterior
+                </button>
+                <button type="button" class="prod-period-btn" id="prod-period-comparativa" onclick="switchProductosPeriodo('comparativa')">
+                    <span>📊</span> Comparativa MoM (Mes Actual vs Anterior)
+                </button>
+            </div>
+            <div id="prod-period-summary-badge" style="font-size: 0.82rem; font-weight: 700; color: #0369a1; background: #e0f2fe; padding: 6px 14px; border-radius: 20px; border: 1px solid #bae6fd;">
+                Cargando datos...
+            </div>
+        </div>
+
+        <!-- Selector de Producto (4 Opciones Estratégicas) -->
+        <div style="margin-bottom: 22px;">
+            <div style="font-size: 0.82rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;">
+                🎯 Seleccione el Producto a Evaluar:
+            </div>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <!-- Card Renacer Mascotas -->
+                <div class="prod-selector-card active" id="prod-card-RENACER_MASCOTAS" onclick="switchProducto('RENACER_MASCOTAS')">
+                    <span style="font-size: 2rem;">🐾</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 800; font-size: 0.96rem; color: #0f172a;">RENACER MASCOTAS</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">RM Oro, Plata, Bronce, Mascotas Plus</div>
+                        <div id="prod-badge-RENACER_MASCOTAS" style="font-size: 0.78rem; font-weight: 700; color: #0284c7; margin-top: 4px;">-- ventas</div>
+                    </div>
+                </div>
+
+                <!-- Card Celestial -->
+                <div class="prod-selector-card" id="prod-card-CELESTIAL" onclick="switchProducto('CELESTIAL')">
+                    <span style="font-size: 2rem;">✨</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 800; font-size: 0.96rem; color: #0f172a;">CELESTIAL</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Con Adicional, Standar, Solo Adicional</div>
+                        <div id="prod-badge-CELESTIAL" style="font-size: 0.78rem; font-weight: 700; color: #0284c7; margin-top: 4px;">-- ventas</div>
+                    </div>
+                </div>
+
+                <!-- Card Títulos -->
+                <div class="prod-selector-card" id="prod-card-TITULOS" onclick="switchProducto('TITULOS')">
+                    <span style="font-size: 2rem;">📜</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 800; font-size: 0.96rem; color: #0f172a;">TÍTULOS</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Planes Título de Inversión / Contratos</div>
+                        <div id="prod-badge-TITULOS" style="font-size: 0.78rem; font-weight: 700; color: #0284c7; margin-top: 4px;">-- ventas</div>
+                    </div>
+                </div>
+
+                <!-- Card Consolidado -->
+                <div class="prod-selector-card" id="prod-card-TODOS" onclick="switchProducto('TODOS')">
+                    <span style="font-size: 2rem;">🌐</span>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 800; font-size: 0.96rem; color: #0f172a;">TODOS LOS PRODUCTOS</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Consolidado de los 3 Productos Clave</div>
+                        <div id="prod-badge-TODOS" style="font-size: 0.78rem; font-weight: 700; color: #0284c7; margin-top: 4px;">-- ventas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista Normal: KPIs, Desglose, Rankings y Asesores -->
+        <div id="prod-view-normal">
+            <!-- Tarjetas de KPIs Ejecutivos -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 22px;">
+                <!-- KPI 1: Ventas Totales -->
+                <div class="prod-kpi-card">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">📦 Contratos Vendidos</div>
+                    <div id="prod-kpi-ventas" style="font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
+                    <div id="prod-kpi-pct-ventas" style="font-size: 0.75rem; color: #0284c7; font-weight: 700;">--% de la venta global</div>
+                </div>
+
+                <!-- KPI 2: Valor Nominal Bruto -->
+                <div class="prod-kpi-card" style="border-top: 4px solid #10b981;">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">💰 Facturación Nominal</div>
+                    <div id="prod-kpi-nominal" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
+                    <div id="prod-kpi-pct-nominal" style="font-size: 0.75rem; color: #10b981; font-weight: 700;">--% de la venta nominal</div>
+                </div>
+
+                <!-- KPI 3: Ticket Promedio -->
+                <div class="prod-kpi-card" style="border-top: 4px solid #8b5cf6;">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">🏷️ Ticket Promedio</div>
+                    <div id="prod-kpi-ticket" style="font-size: 1.45rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
+                    <div style="font-size: 0.75rem; color: #64748b; font-weight: 600;">Promedio por contrato vendido</div>
+                </div>
+
+                <!-- KPI 4: Aprobación -->
+                <div class="prod-kpi-card" style="border-top: 4px solid #06b6d4;">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">✅ Tasa de Aprobación</div>
+                    <div id="prod-kpi-aprob" style="font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--%</div>
+                    <div id="prod-kpi-aprob-count" style="font-size: 0.75rem; color: #0284c7; font-weight: 700;">-- contratos aprobados</div>
+                </div>
+
+                <!-- KPI 5: Asesores con Venta -->
+                <div class="prod-kpi-card" style="border-top: 4px solid #f59e0b;">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">👥 Fuerza con Venta</div>
+                    <div id="prod-kpi-asesores" style="font-size: 1.8rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">--</div>
+                    <div id="prod-kpi-penetracion" style="font-size: 0.75rem; color: #d97706; font-weight: 700;">--% penetración comercial</div>
+                </div>
+
+                <!-- KPI 6: Mix de Canales -->
+                <div class="prod-kpi-card" style="border-top: 4px solid #ec4899;">
+                    <div style="font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase;">⚖️ Directos vs Distri</div>
+                    <div id="prod-kpi-canal" style="font-size: 1.35rem; font-weight: 800; color: #0f172a; margin: 6px 0 2px 0;">-- / --</div>
+                    <div id="prod-kpi-canal-pct" style="font-size: 0.75rem; color: #db2777; font-weight: 700;">--% venta en nómina directa</div>
+                </div>
+            </div>
+
+            <!-- Desglose por Sub-Planes / Variantes -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px 20px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div style="font-size: 0.85rem; font-weight: 800; color: #1e293b; text-transform: uppercase; letter-spacing: 0.4px;">
+                        📌 Mix y Desglose por Sub-Plan / Variante:
+                    </div>
+                </div>
+                <div id="prod-subplanes-container" style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Rankings por Regional, Zona y Director (Tabs) -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1e293b;">📊 RANKING DE COMERCIALIZACIÓN Y PENETRACIÓN</h3>
+                        <p style="margin: 3px 0 0 0; font-size: 0.78rem; color: #64748b;">Participación de este producto frente al total de ventas de cada Regional, Zona y Director.</p>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="prod-subtab-btn active" id="prod-subtab-regional" onclick="switchProductosRankingTab('regional')">
+                            🏛️ Por Regional
+                        </button>
+                        <button type="button" class="prod-subtab-btn" id="prod-subtab-zona" onclick="switchProductosRankingTab('zona')">
+                            📍 Por Zona
+                        </button>
+                        <button type="button" class="prod-subtab-btn" id="prod-subtab-director" onclick="switchProductosRankingTab('director')">
+                            👔 Por Director
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabla Ranking Regional -->
+                <div id="prod-ranking-regional-box" style="overflow-x: auto;">
+                    <table class="prod-table" id="prod-table-regional">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th>Regional</th>
+                                <th>Ventas Producto</th>
+                                <th>Total Ventas Regional</th>
+                                <th>% Mix en Ventas</th>
+                                <th>Nominal Producto ($)</th>
+                                <th>Total Nominal Regional ($)</th>
+                                <th>% Mix Facturación</th>
+                                <th>Ticket Promedio</th>
+                                <th>Top Asesor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prod-table-regional-tbody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Tabla Ranking Zona -->
+                <div id="prod-ranking-zona-box" style="overflow-x: auto; display: none;">
+                    <table class="prod-table" id="prod-table-zona">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th>Zona</th>
+                                <th>Regional</th>
+                                <th>Director</th>
+                                <th>Ventas Producto</th>
+                                <th>Total Ventas Zona</th>
+                                <th>% Mix en Ventas</th>
+                                <th>Nominal Producto ($)</th>
+                                <th>Total Nominal Zona ($)</th>
+                                <th>% Mix Facturación</th>
+                                <th>Ticket Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prod-table-zona-tbody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Tabla Ranking Director -->
+                <div id="prod-ranking-director-box" style="overflow-x: auto; display: none;">
+                    <table class="prod-table" id="prod-table-director">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th>Director</th>
+                                <th>Regionales</th>
+                                <th>Ventas Producto</th>
+                                <th>Total Ventas Director</th>
+                                <th>% Mix en Ventas</th>
+                                <th>Nominal Producto ($)</th>
+                                <th>Total Nominal Director ($)</th>
+                                <th>% Mix Facturación</th>
+                                <th>Ticket Promedio</th>
+                                <th>Asesores con Venta</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prod-table-director-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabla Ranking Top Asesores -->
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 16px;">
+                    <div>
+                        <h3 style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1e293b;">🏆 ASESORES QUE MÁS VENDEN EL PRODUCTO</h3>
+                        <p style="margin: 3px 0 0 0; font-size: 0.78rem; color: #64748b;">Ranking individual con desglose de sub-plan líder y participación en su venta total.</p>
+                    </div>
+
+                    <!-- Filtros Asesores: Búsqueda y Tipo -->
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <input type="text" id="prod-asesor-search" oninput="filtrarProductosAsesores()" placeholder="🔍 Buscar asesor, cédula, zona o director..." style="padding: 8px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; min-width: 240px; outline: none; transition: all 0.2s;" onfocus="this.style.borderColor='#0284c7'" onblur="this.style.borderColor='#cbd5e1'">
+                        
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="prod-filter-pill active" id="prod-filter-tipo-todos" onclick="setProductosTipoFilter('todos')">
+                                Todos (<span id="prod-count-tipo-todos">0</span>)
+                            </button>
+                            <button type="button" class="prod-filter-pill" id="prod-filter-tipo-directo" onclick="setProductosTipoFilter('directo')">
+                                👤 Directos (<span id="prod-count-tipo-directo">0</span>)
+                            </button>
+                            <button type="button" class="prod-filter-pill" id="prod-filter-tipo-distribuidor" onclick="setProductosTipoFilter('distribuidor')">
+                                🏢 Distribuidores (<span id="prod-count-tipo-distribuidor">0</span>)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="prod-table" id="prod-table-asesores">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th>Nombre Asesor</th>
+                                <th>Cédula</th>
+                                <th>Tipo Asesor</th>
+                                <th>Regional</th>
+                                <th>Zona</th>
+                                <th>Director</th>
+                                <th>Ventas Producto</th>
+                                <th>Valor Nominal ($)</th>
+                                <th>Ticket Promedio</th>
+                                <th>Sub-Plan Principal</th>
+                                <th>Total Ventas Asesor</th>
+                                <th>% Mix Asesor</th>
+                                <th>Aprobación</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prod-table-asesores-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista Comparativa MoM (Mes Actual vs Anterior) -->
+        <div id="prod-view-comparativa" style="display: none;">
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 22px; box-shadow: 0 2px 6px rgba(0,0,0,0.03);">
+                <div style="margin-bottom: 18px;">
+                    <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: #1e293b;">📊 COMPARATIVA MES ACTUAL VS MES ANTERIOR (MoM)</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 0.84rem; color: #64748b;">Evaluación del ritmo comercial, crecimiento de ventas y variación en facturación para los 3 productos estratégicos.</p>
+                </div>
+
+                <div id="prod-comparativa-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <!-- Rendered by JS -->
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="prod-table" id="prod-table-comparativa">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Ventas Mes Actual</th>
+                                <th>Ventas Mes Anterior</th>
+                                <th>Variación Ventas (MoM)</th>
+                                <th>Nominal Mes Actual</th>
+                                <th>Nominal Mes Anterior</th>
+                                <th>Variación Nominal (MoM)</th>
+                                <th>Ticket Promedio Actual</th>
+                                <th>Ticket Promedio Anterior</th>
+                                <th>Asesores Activos (Act vs Ant)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prod-table-comparativa-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 21:58:26';
-const TIMESTAMP_ACTUALIZACION = 1794884306;
+const ULTIMA_ACTUALIZACION = '2026-11-16 22:04:14';
+const TIMESTAMP_ACTUALIZACION = 1794884654;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -28898,6 +29374,90 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Distri. Autorizados"
+  },
+  {
+    "ASESOR PLANILLA": "VICTOR ARBOLEDA",
+    "FECHA DE LA VENTA": "2026-12-11",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SEM 50",
+    "DIA": "VIERNES",
+    "NOMINAL VENTA": 273600.0,
+    "VALOR ANUAL": 273600.0,
+    "REGIONAL": "Valle Norte",
+    "ZONA": "Cartago",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "YISENIA BERNAL PEREZ",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 456000.0,
+    "VALOR ANUAL": 456000.0,
+    "REGIONAL": "Quindio",
+    "ZONA": "Armenia",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "VICTOR ARBOLEDA",
+    "FECHA DE LA VENTA": "2026-12-11",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SEM 50",
+    "DIA": "VIERNES",
+    "NOMINAL VENTA": 254400.0,
+    "VALOR ANUAL": 254400.0,
+    "REGIONAL": "Valle Norte",
+    "ZONA": "Cartago",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "YISENIA BERNAL PEREZ",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 38400.0,
+    "VALOR ANUAL": 38400.0,
+    "REGIONAL": "Quindio",
+    "ZONA": "Armenia",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "YISENIA BERNAL PEREZ",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 272400.0,
+    "VALOR ANUAL": 272400.0,
+    "REGIONAL": "Quindio",
+    "ZONA": "Armenia",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "VICTOR ARBOLEDA",
+    "FECHA DE LA VENTA": "2026-12-11",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SEM 50",
+    "DIA": "VIERNES",
+    "NOMINAL VENTA": 292800.0,
+    "VALOR ANUAL": 292800.0,
+    "REGIONAL": "Valle Norte",
+    "ZONA": "Cartago",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -32113,11 +32673,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Quindio",
     "ZONA": "Armenia",
     "PRESUPUESTO": 12300000.0,
-    "LLEVAMOS": 2068800.0,
-    "CANTIDAD DE VENTAS": 9,
-    "NOS FALTA": 10231200.0,
-    "DEBEMOS HACER DIARIO": 930109.0,
-    "CUMPLIMIENTO": 17.0,
+    "LLEVAMOS": 2895600.0,
+    "CANTIDAD DE VENTAS": 13,
+    "NOS FALTA": 9404400.0,
+    "DEBEMOS HACER DIARIO": 854945.0,
+    "CUMPLIMIENTO": 24.0,
     "APROBADO": 0.0,
     "TIPO DE ASESOR": "CONTRATO DIRECTO"
   },
@@ -32715,11 +33275,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Valle Norte",
     "ZONA": "Cartago",
     "PRESUPUESTO": 12300000.0,
-    "LLEVAMOS": 4555200.0,
-    "CANTIDAD DE VENTAS": 13,
-    "NOS FALTA": 7744800.0,
-    "DEBEMOS HACER DIARIO": 704073.0,
-    "CUMPLIMIENTO": 37.0,
+    "LLEVAMOS": 5102400.0,
+    "CANTIDAD DE VENTAS": 15,
+    "NOS FALTA": 7197600.0,
+    "DEBEMOS HACER DIARIO": 654327.0,
+    "CUMPLIMIENTO": 41.0,
     "APROBADO": 1942800.0,
     "TIPO DE ASESOR": "CONTRATO DIRECTO"
   },
@@ -37654,13 +38214,13 @@ const CANTADAS_ROWS = [
     "MASTER",
     "13%",
     "$12,300,000",
-    "$2,068,800",
-    "9",
-    "$10,231,200",
-    "$930,109",
-    "17%",
-    "$3,965,200",
-    "32%"
+    "$2,895,600",
+    "13",
+    "$9,404,400",
+    "$854,945",
+    "24%",
+    "$5,549,900",
+    "45%"
   ],
   [
     "Diana Romero",
@@ -38385,13 +38945,13 @@ const CANTADAS_ROWS = [
     "MASTER",
     "13%",
     "$12,300,000",
-    "$4,555,200",
-    "13",
-    "$7,744,800",
-    "$704,073",
-    "37%",
-    "$8,730,800",
-    "71%"
+    "$5,102,400",
+    "15",
+    "$7,197,600",
+    "$654,327",
+    "41%",
+    "$9,779,600",
+    "80%"
   ],
   [
     "Yuli Patricia López",
@@ -219407,6 +219967,7 @@ const REINCIDENCIA_DATA = {
     }
   ]
 };
+const PRODUCTOS_DATA = {};
 
 </script>
 
@@ -219461,6 +220022,16 @@ const REINCIDENCIA_DATA = {
                     initReincidenciaDashboard();
                 } else {
                     renderReincidenciaDashboard();
+                }
+            } else if (tab === 'productos') {
+                const btn = document.getElementById('tab-btn-productos');
+                if (btn) btn.classList.add('active');
+                const t = document.getElementById('tab-productos');
+                if (t) t.classList.add('active');
+                if (!isProductosInitialized) {
+                    initProductosDashboard();
+                } else {
+                    renderProductosDashboard();
                 }
             } else if (tab === 'presupuesto') {
                 const btn = document.getElementById('tab-btn-actual') || document.querySelectorAll('.tab-btn')[0];
@@ -230406,6 +230977,603 @@ const REINCIDENCIA_DATA = {
         window.limpiarFiltrosReincidencia = limpiarFiltrosReincidencia;
         window.sortReincidencia = sortReincidencia;
         window.exportarReincidenciaCSV = exportarReincidenciaCSV;
+
+
+
+/* ========================================== */
+/* MOTOR COMPORTAMIENTO POR PRODUCTOS         */
+/* ========================================== */
+
+let currentProductosPeriodo = 'actual'; // 'actual', 'anterior', 'comparativa'
+let currentProductoKey = 'RENACER_MASCOTAS'; // 'RENACER_MASCOTAS', 'CELESTIAL', 'TITULOS', 'TODOS'
+let currentProductosRankingTab = 'regional'; // 'regional', 'zona', 'director'
+let currentProductosTipoFilter = 'todos'; // 'todos', 'directo', 'distribuidor'
+let isProductosInitialized = false;
+
+const PRODUCTOS_CONFIG = {
+    'RENACER_MASCOTAS': {
+        name: 'Renacer Mascotas',
+        icon: '🐾',
+        color: '#0284c7',
+        subtext: 'RM Oro, Plata, Bronce, Mascotas Plus'
+    },
+    'CELESTIAL': {
+        name: 'Celestial',
+        icon: '✨',
+        color: '#6366f1',
+        subtext: 'Con Adicional, Standar, Solo Adicional'
+    },
+    'TITULOS': {
+        name: 'Títulos',
+        icon: '📜',
+        color: '#8b5cf6',
+        subtext: 'Planes Título'
+    },
+    'TODOS': {
+        name: 'Todos los Productos Clave',
+        icon: '🌐',
+        color: '#0f172a',
+        subtext: 'Consolidado Estratégico (3 Productos)'
+    }
+};
+
+function formatMoney(amount) {
+    if (isNaN(amount) || amount === null || amount === undefined) return '$ 0';
+    return '$ ' + Math.round(amount).toLocaleString('es-CO');
+}
+
+function formatPercent(pct) {
+    if (isNaN(pct) || pct === null || pct === undefined) return '0.0%';
+    return Number(pct).toFixed(1) + '%';
+}
+
+function initProductosDashboard() {
+    if (typeof PRODUCTOS_DATA === 'undefined' || !PRODUCTOS_DATA) {
+        console.warn('PRODUCTOS_DATA no está definido.');
+        return;
+    }
+    renderProductosDashboard();
+    isProductosInitialized = true;
+}
+
+function switchProductosPeriodo(periodo) {
+    currentProductosPeriodo = periodo;
+    
+    // Toggle active period buttons
+    document.querySelectorAll('.prod-period-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById('prod-period-' + periodo);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    const viewNormal = document.getElementById('prod-view-normal');
+    const viewComp = document.getElementById('prod-view-comparativa');
+
+    if (periodo === 'comparativa') {
+        if (viewNormal) viewNormal.style.display = 'none';
+        if (viewComp) viewComp.style.display = 'block';
+        renderProductosComparativa();
+    } else {
+        if (viewNormal) viewNormal.style.display = 'block';
+        if (viewComp) viewComp.style.display = 'none';
+        renderProductosDashboard();
+    }
+}
+
+function switchProducto(prodKey) {
+    currentProductoKey = prodKey;
+    document.querySelectorAll('.prod-selector-card').forEach(c => c.classList.remove('active'));
+    const activeCard = document.getElementById('prod-card-' + prodKey);
+    if (activeCard) activeCard.classList.add('active');
+
+    // Reset advisor filter search
+    const searchInput = document.getElementById('prod-asesor-search');
+    if (searchInput) searchInput.value = '';
+    currentProductosTipoFilter = 'todos';
+    document.querySelectorAll('.prod-filter-pill').forEach(p => p.classList.remove('active'));
+    const pilTodos = document.getElementById('prod-filter-tipo-todos');
+    if (pilTodos) pilTodos.classList.add('active');
+
+    renderProductosDashboard();
+}
+
+function switchProductosRankingTab(tabKey) {
+    currentProductosRankingTab = tabKey;
+    document.querySelectorAll('.prod-subtab-btn').forEach(b => b.classList.remove('active'));
+    const activeSub = document.getElementById('prod-subtab-' + tabKey);
+    if (activeSub) activeSub.classList.add('active');
+
+    const boxReg = document.getElementById('prod-ranking-regional-box');
+    const boxZon = document.getElementById('prod-ranking-zona-box');
+    const boxDir = document.getElementById('prod-ranking-director-box');
+
+    if (boxReg) boxReg.style.display = tabKey === 'regional' ? 'block' : 'none';
+    if (boxZon) boxZon.style.display = tabKey === 'zona' ? 'block' : 'none';
+    if (boxDir) boxDir.style.display = tabKey === 'director' ? 'block' : 'none';
+}
+
+function setProductosTipoFilter(tipo) {
+    currentProductosTipoFilter = tipo;
+    document.querySelectorAll('.prod-filter-pill').forEach(p => p.classList.remove('active'));
+    const activePill = document.getElementById('prod-filter-tipo-' + tipo);
+    if (activePill) activePill.classList.add('active');
+    filtrarProductosAsesores();
+}
+
+function renderProductosDashboard() {
+    if (typeof PRODUCTOS_DATA === 'undefined' || !PRODUCTOS_DATA) return;
+    const periodKey = (currentProductosPeriodo === 'comparativa') ? 'actual' : currentProductosPeriodo;
+    const periodData = PRODUCTOS_DATA[periodKey];
+    if (!periodData) return;
+
+    // 1. Update Selector Badges with total counts in this period
+    ['RENACER_MASCOTAS', 'CELESTIAL', 'TITULOS', 'TODOS'].forEach(k => {
+        const badge = document.getElementById('prod-badge-' + k);
+        if (badge && periodData[k]) {
+            const v = periodData[k].kpis.total_ventas;
+            const n = periodData[k].kpis.total_nominal;
+            badge.innerText = `${v.toLocaleString('es-CO')} ventas (${formatMoney(n)})`;
+        }
+    });
+
+    // 2. Update Period Summary Badge
+    const sumBadge = document.getElementById('prod-period-summary-badge');
+    if (sumBadge && periodData.global_info) {
+        const mesNombre = (periodKey === 'actual') ? 'Mes Actual' : 'Mes Anterior';
+        sumBadge.innerHTML = `📌 <b>${mesNombre}</b>: ${periodData.global_info.total_ventas_mes.toLocaleString('es-CO')} ventas totales canal (${formatMoney(periodData.global_info.total_nominal_mes)})`;
+    }
+
+    // 3. Current Product Data
+    const prodData = periodData[currentProductoKey];
+    if (!prodData) return;
+
+    // 4. Render KPIs
+    const kpis = prodData.kpis;
+    const elVentas = document.getElementById('prod-kpi-ventas');
+    if (elVentas) elVentas.innerText = kpis.total_ventas.toLocaleString('es-CO');
+
+    const elPctVentas = document.getElementById('prod-kpi-pct-ventas');
+    if (elPctVentas) elPctVentas.innerText = `${formatPercent(kpis.pct_ventas_global)} de la venta global del mes`;
+
+    const elNominal = document.getElementById('prod-kpi-nominal');
+    if (elNominal) elNominal.innerText = formatMoney(kpis.total_nominal);
+
+    const elPctNom = document.getElementById('prod-kpi-pct-nominal');
+    if (elPctNom) elPctNom.innerText = `${formatPercent(kpis.pct_nominal_global)} de la facturación global`;
+
+    const elTicket = document.getElementById('prod-kpi-ticket');
+    if (elTicket) elTicket.innerText = formatMoney(kpis.ticket_promedio);
+
+    const elAprob = document.getElementById('prod-kpi-aprob');
+    if (elAprob) elAprob.innerText = formatPercent(kpis.pct_aprob);
+
+    const elAprobCount = document.getElementById('prod-kpi-aprob-count');
+    if (elAprobCount) elAprobCount.innerText = `${kpis.aprobadas.toLocaleString('es-CO')} contratos aprobados`;
+
+    const elAsesores = document.getElementById('prod-kpi-asesores');
+    if (elAsesores) elAsesores.innerText = kpis.asesores_unicos.toLocaleString('es-CO');
+
+    const elPen = document.getElementById('prod-kpi-penetracion');
+    if (elPen) elPen.innerText = `${formatPercent(kpis.pct_penetracion_asesores)} penetración comercial`;
+
+    const elCanal = document.getElementById('prod-kpi-canal');
+    if (elCanal) elCanal.innerText = `${kpis.ventas_directos} Directos / ${kpis.ventas_distribuidores} Distri`;
+
+    const elCanalPct = document.getElementById('prod-kpi-canal-pct');
+    if (elCanalPct) elCanalPct.innerText = `${formatPercent(kpis.pct_directos)} nómina directa (${formatMoney(kpis.nominal_directos)})`;
+
+    // 5. Render Subplanes
+    renderProductosSubplanes(prodData.subplanes);
+
+    // 6. Render Entity Rankings
+    renderProductosRankings(prodData);
+
+    // 7. Render Asesores
+    filtrarProductosAsesores();
+}
+
+function renderProductosSubplanes(subplanes) {
+    const container = document.getElementById('prod-subplanes-container');
+    if (!container) return;
+
+    if (!subplanes || subplanes.length === 0) {
+        container.innerHTML = '<div style="color: #64748b; font-size: 0.85rem; padding: 10px;">No hay desglose disponible para este producto en el período seleccionado.</div>';
+        return;
+    }
+
+    let html = '';
+    subplanes.forEach(sp => {
+        html += `
+            <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 190px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <span style="font-weight: 800; font-size: 0.88rem; color: #1e293b;">${sp.plan}</span>
+                    <span style="background: #e0f2fe; color: #0284c7; font-weight: 800; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px;">${formatPercent(sp.pct_ventas)}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <span style="font-size: 1.35rem; font-weight: 800; color: #0f172a;">${sp.ventas.toLocaleString('es-CO')} <span style="font-size: 0.75rem; font-weight: 600; color: #64748b;">ventas</span></span>
+                    <span style="font-size: 0.85rem; font-weight: 700; color: #10b981;">${formatMoney(sp.nominal)}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.74rem; color: #64748b; margin-top: 6px; border-top: 1px dashed #e2e8f0; padding-top: 5px;">
+                    <span>Ticket: <b>${formatMoney(sp.ticket_promedio)}</b></span>
+                    <span>Aprob: <b style="color: #0284c7;">${formatPercent(sp.pct_aprob)}</b></span>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+function renderProductosRankings(prodData) {
+    // 1. Ranking Regional
+    const tbodyReg = document.getElementById('prod-table-regional-tbody');
+    if (tbodyReg && prodData.ranking_regional) {
+        if (prodData.ranking_regional.length === 0) {
+            tbodyReg.innerHTML = '<tr><td colspan="10" style="padding: 20px; color: #64748b;">No hay datos registrados.</td></tr>';
+        } else {
+            let htmlReg = '';
+            prodData.ranking_regional.forEach((r, idx) => {
+                const barWidth = Math.min(100, Math.max(0, r.pct_ventas_mix));
+                const badgeColor = idx === 0 ? '#fef08a; color: #854d0e; font-weight: 800;' : idx === 1 ? '#e2e8f0; color: #334155;' : idx === 2 ? '#ffedd5; color: #9a3412;' : '#f1f5f9; color: #475569;';
+                htmlReg += `
+                    <tr>
+                        <td><span style="display: inline-block; width: 24px; height: 24px; line-height: 24px; border-radius: 50%; background: ${badgeColor}; font-size: 0.75rem;">${idx + 1}</span></td>
+                        <td style="font-weight: 800; color: #1e293b; text-align: left !important; padding-left: 15px;">${r.regional}</td>
+                        <td style="font-weight: 800; color: #0284c7; font-size: 0.95rem;">${r.ventas_prod.toLocaleString('es-CO')}</td>
+                        <td>${r.total_ventas_reg.toLocaleString('es-CO')}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <div style="width: 60px; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: ${barWidth}%; height: 100%; background: #0284c7; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: 800; color: #0f172a; min-width: 42px;">${formatPercent(r.pct_ventas_mix)}</span>
+                            </div>
+                        </td>
+                        <td style="font-weight: 700; color: #10b981;">${formatMoney(r.nominal_prod)}</td>
+                        <td>${formatMoney(r.total_nominal_reg)}</td>
+                        <td style="font-weight: 700; color: #1e293b;">${formatPercent(r.pct_nominal_mix)}</td>
+                        <td style="font-weight: 600;">${formatMoney(r.ticket_promedio)}</td>
+                        <td style="font-weight: 600; color: #4338ca;">${r.top_asesor || '-'}</td>
+                    </tr>
+                `;
+            });
+            tbodyReg.innerHTML = htmlReg;
+        }
+    }
+
+    // 2. Ranking Zona
+    const tbodyZon = document.getElementById('prod-table-zona-tbody');
+    if (tbodyZon && prodData.ranking_zona) {
+        if (prodData.ranking_zona.length === 0) {
+            tbodyZon.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #64748b;">No hay datos registrados.</td></tr>';
+        } else {
+            let htmlZon = '';
+            prodData.ranking_zona.forEach((z, idx) => {
+                const barWidth = Math.min(100, Math.max(0, z.pct_ventas_mix));
+                htmlZon += `
+                    <tr>
+                        <td>${idx + 1}</td>
+                        <td style="font-weight: 800; color: #1e293b; text-align: left !important; padding-left: 15px;">${z.zona}</td>
+                        <td>${z.regional || '-'}</td>
+                        <td style="font-weight: 600;">${z.director || '-'}</td>
+                        <td style="font-weight: 800; color: #0284c7;">${z.ventas_prod.toLocaleString('es-CO')}</td>
+                        <td>${z.total_ventas_zona.toLocaleString('es-CO')}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <div style="width: 50px; height: 6px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: ${barWidth}%; height: 100%; background: #0284c7; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: 800;">${formatPercent(z.pct_ventas_mix)}</span>
+                            </div>
+                        </td>
+                        <td style="font-weight: 700; color: #10b981;">${formatMoney(z.nominal_prod)}</td>
+                        <td>${formatMoney(z.total_nominal_zona)}</td>
+                        <td style="font-weight: 700;">${formatPercent(z.pct_nominal_mix)}</td>
+                        <td>${formatMoney(z.ticket_promedio)}</td>
+                    </tr>
+                `;
+            });
+            tbodyZon.innerHTML = htmlZon;
+        }
+    }
+
+    // 3. Ranking Director
+    const tbodyDir = document.getElementById('prod-table-director-tbody');
+    if (tbodyDir && prodData.ranking_director) {
+        if (prodData.ranking_director.length === 0) {
+            tbodyDir.innerHTML = '<tr><td colspan="11" style="padding: 20px; color: #64748b;">No hay datos registrados.</td></tr>';
+        } else {
+            let htmlDir = '';
+            prodData.ranking_director.forEach((d, idx) => {
+                const barWidth = Math.min(100, Math.max(0, d.pct_ventas_mix));
+                const badgeColor = idx === 0 ? '#fef08a; color: #854d0e; font-weight: 800;' : idx === 1 ? '#e2e8f0; color: #334155;' : idx === 2 ? '#ffedd5; color: #9a3412;' : '#f1f5f9; color: #475569;';
+                htmlDir += `
+                    <tr>
+                        <td><span style="display: inline-block; width: 24px; height: 24px; line-height: 24px; border-radius: 50%; background: ${badgeColor}; font-size: 0.75rem;">${idx + 1}</span></td>
+                        <td style="font-weight: 800; color: #1e293b; text-align: left !important; padding-left: 15px;">${d.director}</td>
+                        <td style="font-size: 0.76rem; color: #64748b;">${d.regionales || '-'}</td>
+                        <td style="font-weight: 800; color: #0284c7; font-size: 0.95rem;">${d.ventas_prod.toLocaleString('es-CO')}</td>
+                        <td>${d.total_ventas_dir.toLocaleString('es-CO')}</td>
+                        <td>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <div style="width: 60px; height: 7px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: ${barWidth}%; height: 100%; background: #0284c7; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: 800; color: #0f172a; min-width: 42px;">${formatPercent(d.pct_ventas_mix)}</span>
+                            </div>
+                        </td>
+                        <td style="font-weight: 700; color: #10b981;">${formatMoney(d.nominal_prod)}</td>
+                        <td>${formatMoney(d.total_nominal_dir)}</td>
+                        <td style="font-weight: 700; color: #1e293b;">${formatPercent(d.pct_nominal_mix)}</td>
+                        <td style="font-weight: 600;">${formatMoney(d.ticket_promedio)}</td>
+                        <td style="font-weight: 800; color: #d97706;">${d.asesores_vendiendo} asesores</td>
+                    </tr>
+                `;
+            });
+            tbodyDir.innerHTML = htmlDir;
+        }
+    }
+}
+
+function filtrarProductosAsesores() {
+    if (typeof PRODUCTOS_DATA === 'undefined' || !PRODUCTOS_DATA) return;
+    const periodKey = (currentProductosPeriodo === 'comparativa') ? 'actual' : currentProductosPeriodo;
+    const periodData = PRODUCTOS_DATA[periodKey];
+    if (!periodData) return;
+    const prodData = periodData[currentProductoKey];
+    if (!prodData || !prodData.ranking_asesores) return;
+
+    const allAsesores = prodData.ranking_asesores;
+
+    // Update pill counters
+    const countTodos = allAsesores.length;
+    const countDirectos = allAsesores.filter(a => a.tipo.toLowerCase().includes('directo')).length;
+    const countDistri = countTodos - countDirectos;
+
+    const elCT = document.getElementById('prod-count-tipo-todos');
+    if (elCT) elCT.innerText = countTodos;
+    const elCD = document.getElementById('prod-count-tipo-directo');
+    if (elCD) elCD.innerText = countDirectos;
+    const elCB = document.getElementById('prod-count-tipo-distribuidor');
+    if (elCB) elCB.innerText = countDistri;
+
+    // Filter by type
+    let filtered = allAsesores;
+    if (currentProductosTipoFilter === 'directo') {
+        filtered = filtered.filter(a => a.tipo.toLowerCase().includes('directo'));
+    } else if (currentProductosTipoFilter === 'distribuidor') {
+        filtered = filtered.filter(a => !a.tipo.toLowerCase().includes('directo'));
+    }
+
+    // Filter by search text
+    const searchVal = (document.getElementById('prod-asesor-search')?.value || '').trim().toLowerCase();
+    if (searchVal) {
+        filtered = filtered.filter(a => 
+            a.nombre.toLowerCase().includes(searchVal) ||
+            a.cedula.toLowerCase().includes(searchVal) ||
+            a.regional.toLowerCase().includes(searchVal) ||
+            a.zona.toLowerCase().includes(searchVal) ||
+            a.director.toLowerCase().includes(searchVal) ||
+            a.subplan_ppal.toLowerCase().includes(searchVal)
+        );
+    }
+
+    const tbody = document.getElementById('prod-table-asesores-tbody');
+    if (!tbody) return;
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="14" style="padding: 24px; color: #64748b;">No se encontraron asesores con los criterios de búsqueda.</td></tr>';
+        return;
+    }
+
+    let html = '';
+    filtered.forEach((a, idx) => {
+        const isDir = a.tipo.toLowerCase().includes('directo');
+        const tipoBadge = isDir 
+            ? '<span style="background: #fee2e2; color: #991b1b; font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 12px; border: 1px solid #fecaca;">👤 Directo</span>'
+            : '<span style="background: #e0e7ff; color: #3730a3; font-weight: 700; font-size: 0.72rem; padding: 3px 8px; border-radius: 12px; border: 1px solid #c7d2fe;">🏢 Distri</span>';
+
+        const aprobColor = a.pct_aprob >= 70 ? '#10b981' : a.pct_aprob >= 40 ? '#f59e0b' : '#ef4444';
+
+        html += `
+            <tr>
+                <td><span style="font-weight: 800; color: #64748b;">#${idx + 1}</span></td>
+                <td style="font-weight: 800; color: #1e293b; text-align: left !important; padding-left: 15px;">${a.nombre}</td>
+                <td style="font-family: monospace; font-size: 0.78rem; color: #64748b;">${a.cedula}</td>
+                <td>${tipoBadge}</td>
+                <td>${a.regional}</td>
+                <td>${a.zona}</td>
+                <td style="font-weight: 600;">${a.director}</td>
+                <td style="font-weight: 800; font-size: 1rem; color: #0284c7;">${a.ventas_prod}</td>
+                <td style="font-weight: 700; color: #10b981;">${formatMoney(a.nominal_prod)}</td>
+                <td style="font-size: 0.78rem;">${formatMoney(a.ticket_promedio)}</td>
+                <td><span style="background: #f1f5f9; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 0.75rem; color: #334155;">${a.subplan_ppal}</span></td>
+                <td style="font-weight: 700;">${a.total_ventas_asesor}</td>
+                <td><span style="font-weight: 800; color: #0f172a;">${formatPercent(a.pct_mix_asesor)}</span></td>
+                <td><span style="font-weight: 800; color: ${aprobColor};">${formatPercent(a.pct_aprob)}</span> <span style="font-size: 0.72rem; color: #64748b;">(${a.aprobadas})</span></td>
+            </tr>
+        `;
+    });
+    tbody.innerHTML = html;
+}
+
+function renderProductosComparativa() {
+    if (typeof PRODUCTOS_DATA === 'undefined' || !PRODUCTOS_DATA || !PRODUCTOS_DATA.comparativa) return;
+    const comp = PRODUCTOS_DATA.comparativa;
+
+    // 1. Render 4 MoM summary cards
+    const gridCards = document.getElementById('prod-comparativa-cards-grid');
+    if (gridCards) {
+        let cardsHtml = '';
+        ['RENACER_MASCOTAS', 'CELESTIAL', 'TITULOS', 'TODOS'].forEach(k => {
+            const item = comp[k];
+            if (!item) return;
+            const cfg = PRODUCTOS_CONFIG[k] || { icon: '📦', name: k };
+            const isPos = item.delta_ventas >= 0;
+            const varColor = isPos ? '#10b981' : '#ef4444';
+            const varIcon = isPos ? '▲ +' : '▼ ';
+            const isPosNom = item.delta_nominal >= 0;
+            const varNomColor = isPosNom ? '#10b981' : '#ef4444';
+            const varNomIcon = isPosNom ? '▲ +' : '▼ ';
+
+            cardsHtml += `
+                <div style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); border-top: 4px solid ${cfg.color};">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-weight: 800; font-size: 0.95rem; color: #0f172a;">${cfg.icon} ${cfg.name}</span>
+                        <span style="background: ${isPos ? '#dcfce7' : '#fee2e2'}; color: ${varColor}; font-weight: 800; font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;">
+                            ${varIcon}${formatPercent(Math.abs(item.pct_crecimiento_ventas))}
+                        </span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; border-top: 1px dashed #e2e8f0; padding-top: 10px;">
+                        <div>
+                            <div style="font-size: 0.72rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Mes Actual</div>
+                            <div style="font-size: 1.35rem; font-weight: 800; color: #0284c7;">${item.ventas_act.toLocaleString('es-CO')} <span style="font-size: 0.75rem; color: #64748b;">und</span></div>
+                            <div style="font-size: 0.78rem; font-weight: 700; color: #10b981;">${formatMoney(item.nominal_act)}</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.72rem; color: #64748b; font-weight: 700; text-transform: uppercase;">Mes Anterior</div>
+                            <div style="font-size: 1.35rem; font-weight: 800; color: #475569;">${item.ventas_ant.toLocaleString('es-CO')} <span style="font-size: 0.75rem; color: #64748b;">und</span></div>
+                            <div style="font-size: 0.78rem; font-weight: 700; color: #64748b;">${formatMoney(item.nominal_ant)}</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; font-size: 0.74rem; color: #64748b;">
+                        <span>Var Nominal: <b style="color: ${varNomColor};">${varNomIcon}${formatMoney(Math.abs(item.delta_nominal))}</b></span>
+                        <span>Asesores: <b>${item.asesores_act} vs ${item.asesores_ant}</b></span>
+                    </div>
+                </div>
+            `;
+        });
+        gridCards.innerHTML = cardsHtml;
+    }
+
+    // 2. Render MoM table
+    const tbody = document.getElementById('prod-table-comparativa-tbody');
+    if (tbody) {
+        let html = '';
+        ['RENACER_MASCOTAS', 'CELESTIAL', 'TITULOS', 'TODOS'].forEach(k => {
+            const item = comp[k];
+            if (!item) return;
+            const cfg = PRODUCTOS_CONFIG[k] || { icon: '📦', name: k };
+            const isPos = item.delta_ventas >= 0;
+            const varColor = isPos ? '#10b981' : '#ef4444';
+            const varIcon = isPos ? '▲ +' : '▼ ';
+            const isPosNom = item.delta_nominal >= 0;
+            const varNomColor = isPosNom ? '#10b981' : '#ef4444';
+            const varNomIcon = isPosNom ? '▲ +' : '▼ ';
+
+            html += `
+                <tr>
+                    <td style="font-weight: 800; color: #0f172a; text-align: left !important; padding-left: 15px;">${cfg.icon} ${cfg.name}</td>
+                    <td style="font-weight: 800; color: #0284c7; font-size: 0.95rem;">${item.ventas_act.toLocaleString('es-CO')}</td>
+                    <td style="font-weight: 700; color: #475569;">${item.ventas_ant.toLocaleString('es-CO')}</td>
+                    <td>
+                        <span style="background: ${isPos ? '#dcfce7' : '#fee2e2'}; color: ${varColor}; font-weight: 800; padding: 3px 8px; border-radius: 12px; font-size: 0.78rem;">
+                            ${varIcon}${Math.abs(item.delta_ventas)} (${formatPercent(Math.abs(item.pct_crecimiento_ventas))})
+                        </span>
+                    </td>
+                    <td style="font-weight: 700; color: #10b981;">${formatMoney(item.nominal_act)}</td>
+                    <td style="font-weight: 700; color: #64748b;">${formatMoney(item.nominal_ant)}</td>
+                    <td>
+                        <span style="font-weight: 800; color: ${varNomColor};">
+                            ${varNomIcon}${formatMoney(Math.abs(item.delta_nominal))} (${formatPercent(Math.abs(item.pct_crecimiento_nominal))})
+                        </span>
+                    </td>
+                    <td style="font-weight: 600;">${formatMoney(item.ticket_act)}</td>
+                    <td style="font-weight: 600; color: #64748b;">${formatMoney(item.ticket_ant)}</td>
+                    <td style="font-weight: 700; color: #4338ca;">${item.asesores_act} vs ${item.asesores_ant}</td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+}
+
+function exportarProductosCSV() {
+    if (typeof PRODUCTOS_DATA === 'undefined' || !PRODUCTOS_DATA) {
+        alert('No hay datos disponibles para exportar.');
+        return;
+    }
+
+    const periodKey = (currentProductosPeriodo === 'comparativa') ? 'actual' : currentProductosPeriodo;
+    const periodData = PRODUCTOS_DATA[periodKey];
+    if (!periodData) return;
+
+    const prodData = periodData[currentProductoKey];
+    if (!prodData || !prodData.ranking_asesores) return;
+
+    const prodName = PRODUCTOS_CONFIG[currentProductoKey]?.name || currentProductoKey;
+    const mesNombre = (periodKey === 'actual') ? 'Mes_Actual' : 'Mes_Anterior';
+
+    let csvContent = '\uFEFF'; // UTF-8 BOM
+    csvContent += `REPORTE COMPORTAMIENTO POR PRODUCTOS - ${prodName.toUpperCase()}\n`;
+    csvContent += `Periodo: ${mesNombre}\n`;
+    csvContent += `Ventas Totales Producto: ${prodData.kpis.total_ventas}\n`;
+    csvContent += `Valor Nominal Producto: ${prodData.kpis.total_nominal}\n`;
+    csvContent += `Ticket Promedio: ${prodData.kpis.ticket_promedio}\n\n`;
+
+    // Asesores Table
+    csvContent += 'RANKING DE ASESORES\n';
+    csvContent += 'Ranking;Nombre Asesor;Cedula;Tipo Asesor;Regional;Zona;Director;Ventas Producto;Valor Nominal;Ticket Promedio;SubPlan Principal;Total Ventas Asesor;% Mix Asesor;Aprobadas;% Aprobacion\n';
+
+    prodData.ranking_asesores.forEach((a, idx) => {
+        csvContent += [
+            idx + 1,
+            `"${a.nombre}"`,
+            `"${a.cedula}"`,
+            `"${a.tipo}"`,
+            `"${a.regional}"`,
+            `"${a.zona}"`,
+            `"${a.director}"`,
+            a.ventas_prod,
+            a.nominal_prod,
+            a.ticket_promedio,
+            `"${a.subplan_ppal}"`,
+            a.total_ventas_asesor,
+            a.pct_mix_asesor,
+            a.aprobadas,
+            a.pct_aprob
+        ].join(';') + '\n';
+    });
+
+    csvContent += '\nRANKING POR REGIONAL\n';
+    csvContent += 'Ranking;Regional;Ventas Producto;Total Ventas Regional;% Mix Ventas;Nominal Producto;Total Nominal Regional;% Mix Facturacion;Ticket Promedio;Top Asesor\n';
+    prodData.ranking_regional.forEach((r, idx) => {
+        csvContent += [
+            idx + 1,
+            `"${r.regional}"`,
+            r.ventas_prod,
+            r.total_ventas_reg,
+            r.pct_ventas_mix,
+            r.nominal_prod,
+            r.total_nominal_reg,
+            r.pct_nominal_mix,
+            r.ticket_promedio,
+            `"${r.top_asesor}"`
+        ].join(';') + '\n';
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `Reporte_Productos_${currentProductoKey}_${mesNombre}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Expose functions to window
+window.initProductosDashboard = initProductosDashboard;
+window.switchProductosPeriodo = switchProductosPeriodo;
+window.switchProducto = switchProducto;
+window.switchProductosRankingTab = switchProductosRankingTab;
+window.setProductosTipoFilter = setProductosTipoFilter;
+window.renderProductosDashboard = renderProductosDashboard;
+window.renderProductosSubplanes = renderProductosSubplanes;
+window.renderProductosRankings = renderProductosRankings;
+window.filtrarProductosAsesores = filtrarProductosAsesores;
+window.renderProductosComparativa = renderProductosComparativa;
+window.exportarProductosCSV = exportarProductosCSV;
+
 
 </script>
 
