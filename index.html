@@ -4117,448 +4117,338 @@
     <!-- ========================================== -->
     <!-- PESTAÑA 4: ROTACIÓN DE FUERZA COMERCIAL    -->
     <!-- ========================================== -->
-    <div id="tab-rotacion" class="tab-content">
+        <div id="tab-rotacion" class="tab-content">
 
-        <!-- Selector de Grupo / Segmentación -->
-        <div class="rotacion-group-selector" style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; background: #ffffff; padding: 16px 20px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; align-items: center; justify-content: space-between;">
+        <!-- Selector de Grupo / Segmentación y Periodo Dinámico -->
+        <div class="rotacion-group-selector" style="display: flex; gap: 14px; margin-bottom: 24px; flex-wrap: wrap; background: #ffffff; padding: 18px 22px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; align-items: center; justify-content: space-between;">
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                <span style="font-weight: 800; font-size: 0.88rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 8px;">Segmentación:</span>
+                <span style="font-weight: 800; font-size: 0.88rem; color: #1e293b; text-transform: uppercase; letter-spacing: 0.5px; margin-right: 6px;">Segmentación:</span>
                 <button class="rot-group-btn active" id="rot-btn-total" onclick="setRotacionGroup('total')">👥 FUERZA COMERCIAL TOTAL</button>
-                <button class="rot-group-btn" id="rot-btn-directos" onclick="setRotacionGroup('directos')">🏢 SOLO DIRECTOS</button>
-                <button class="rot-group-btn" id="rot-btn-distribuidores" onclick="setRotacionGroup('distribuidores')">🤝 SOLO DISTRIBUIDORES</button>
+                <button class="rot-group-btn" id="rot-btn-directos" onclick="setRotacionGroup('directos')">👤 SOLO DIRECTOS</button>
+                <button class="rot-group-btn" id="rot-btn-distribuidores" onclick="setRotacionGroup('distribuidores')">🏢 SOLO DISTRIBUIDORES</button>
             </div>
-            <div style="font-size: 0.85rem; color: #64748b; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                <span>📅 Análisis Cohortes:</span> <strong style="color: #0f172a; background: #f1f5f9; padding: 4px 10px; border-radius: 6px;">Julio, Agosto, Septiembre, Octubre 2026</strong>
-            </div>
-        </div>
-
-        <!-- Tarjetas KPI Principales -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px;">
-            <!-- KPI 1: Fuerza Activa -->
-            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-left: 5px solid #2563eb;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                    <span style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Fuerza Comercial Activa</span>
-                    <span style="font-size: 1.3rem;">👥</span>
-                </div>
-                <div id="rot-kpi-fuerza-activa" style="font-size: 1.9rem; font-weight: 900; color: #0f172a; margin-bottom: 4px;">348</div>
-                <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 8px;">Activos en Octubre vs <span id="rot-kpi-fuerza-ant" style="font-weight: 700; color: #334155;">329</span> en Septiembre</div>
-                <div id="rot-kpi-crecimiento-badge" style="display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: #dcfce7; color: #15803d;">
-                    +19 Asesores (+5.8% Crecimiento)
-                </div>
-            </div>
-
-            <!-- KPI 2: Ingresos vs Salidas -->
-            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-left: 5px solid #059669;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                    <span style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Ingresos vs Salidas (Mes)</span>
-                    <span style="font-size: 1.3rem;">🔄</span>
-                </div>
-                <div style="font-size: 1.7rem; font-weight: 900; color: #0f172a; margin-bottom: 4px;">
-                    <span id="rot-kpi-entradas" style="color: #059669;">+41</span> / <span id="rot-kpi-salidas" style="color: #dc2626;">-22</span>
-                </div>
-                <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 8px;">Tasa de Reposición: <strong id="rot-kpi-reposicion" style="color: #059669;">177.3%</strong></div>
-                <div id="rot-kpi-reposicion-badge" style="display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: #dcfce7; color: #15803d;">
-                    Fuerza en Expansión Neta
-                </div>
-            </div>
-
-            <!-- KPI 3: Sostenimiento a 90 Días -->
-            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-left: 5px solid #7c3aed;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                    <span style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Sostenimiento a 90 Días</span>
-                    <span style="font-size: 1.3rem;">🛡️</span>
-                </div>
-                <div id="rot-kpi-sost-90d" style="font-size: 1.9rem; font-weight: 900; color: #7c3aed; margin-bottom: 4px;">52.6 %</div>
-                <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 8px;">Retención cohorte Julio: <strong id="rot-kpi-sost-90d-detalle" style="color: #334155;">20 de 38</strong> asesores</div>
-                <div style="display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: #fee2e2; color: #b91c1c;">
-                    Deserción a 90d: <span id="rot-kpi-des-90d">47.4%</span>
-                </div>
-            </div>
-
-            <!-- KPI 4: Deserción Mes 1 y Mes 2 -->
-            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-left: 5px solid #f59e0b;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                    <span style="font-size: 0.82rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Deserción Mes 1 y Mes 2</span>
-                    <span style="font-size: 1.3rem;">📉</span>
-                </div>
-                <div style="font-size: 1.6rem; font-weight: 900; color: #0f172a; margin-bottom: 4px;">
-                    M1: <span id="rot-kpi-des-m1" style="color: #f59e0b;">25.5%</span> | M2: <span id="rot-kpi-des-m2" style="color: #dc2626;">44.3%</span>
-                </div>
-                <div style="font-size: 0.8rem; color: #64748b; margin-bottom: 8px;">Sostenimiento: M1 (<strong id="rot-kpi-sost-m1">74.5%</strong>) | M2 (<strong id="rot-kpi-sost-m2">55.7%</strong>)</div>
-                <div style="display: inline-block; font-size: 0.75rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: #fef3c7; color: #b45309;">
-                    Mayor quiebre en Mes 2 (60 Días)
-                </div>
+            <div style="font-size: 0.86rem; color: #475569; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span>📅 Ventana Dinámica de 3 Meses:</span>
+                <strong id="rot-badge-periodo" style="color: #0f172a; background: #f1f5f9; padding: 6px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.86rem;">
+                    Cargando meses...
+                </strong>
+                <span id="rot-kpi-crecimiento-badge" style="display: inline-block; font-size: 0.78rem; font-weight: 800; padding: 5px 12px; border-radius: 8px; background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0;">
+                    Fuerza Activa: --
+                </span>
             </div>
         </div>
 
-        <!-- Banner de Diagnóstico Estratégico Ejecutivo -->
-        <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 14px; padding: 20px 24px; color: #ffffff; margin-bottom: 24px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); border: 1px solid #334155;">
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                <span style="font-size: 1.4rem;">💡</span>
-                <h3 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px;">
-                    Diagnóstico Estratégico: ¿La fuerza comercial está creciendo realmente o solo reemplaza retiros?
-                </h3>
+        <!-- 3 Tarjetas de Cohorte (Mes Antepenúltimo, Mes Anterior, Mes Actual) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-bottom: 24px;">
+            
+            <!-- Tarjeta 1: Cohorte Mes Antepenúltimo -->
+            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid #e2e8f0; border-top: 5px solid #2563eb; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div>
+                        <span style="font-size: 0.72rem; font-weight: 800; color: #2563eb; text-transform: uppercase; letter-spacing: 0.5px; background: #eff6ff; padding: 3px 8px; border-radius: 6px;">Evaluación a 60-90 Días</span>
+                        <h3 id="rot-title-antep" style="margin: 6px 0 0 0; font-size: 1.15rem; font-weight: 900; color: #0f172a;">COHORTE MES ANTEPENÚLTIMO</h3>
+                    </div>
+                    <span style="font-size: 1.8rem;">📦</span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+                    <div>
+                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Ingresaron</span>
+                        <div id="rot-antep-ingresos" style="font-size: 2rem; font-weight: 900; color: #0f172a;">--</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <span style="font-size: 0.8rem; color: #15803d; font-weight: 700;">🟢 Retenidos</span>
+                        <div id="rot-antep-retenidos" style="font-size: 1.5rem; font-weight: 900; color: #15803d;">--</div>
+                        <div id="rot-antep-pct-ret" style="font-size: 0.75rem; font-weight: 800; color: #15803d;">--%</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.8rem; color: #dc2626; font-weight: 700;">🔴 Desertaron</span>
+                        <div id="rot-antep-desertaron" style="font-size: 1.5rem; font-weight: 900; color: #dc2626;">--</div>
+                        <div id="rot-antep-pct-des" style="font-size: 0.75rem; font-weight: 800; color: #dc2626;">--%</div>
+                    </div>
+                </div>
+
+                <!-- Barra de Progreso Visual Bicolor -->
+                <div style="background: #fee2e2; border-radius: 8px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 14px; display: flex;">
+                    <div id="rot-antep-bar-ret" style="background: linear-gradient(90deg, #10b981 0%, #059669 100%); height: 100%; width: 75%; transition: width 0.4s ease;"></div>
+                    <div id="rot-antep-bar-des" style="background: #ef4444; height: 100%; width: 25%; transition: width 0.4s ease;"></div>
+                </div>
+
+                <!-- Evolución de Ventas Mes a Mes -->
+                <div style="background: #f8fafc; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #f1f5f9;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 6px; text-transform: uppercase;">Curva de Sostenimiento en Ventas:</div>
+                    <div style="display: flex; justify-content: space-around; font-size: 0.82rem; font-weight: 800;">
+                        <div style="text-align: center;"><span style="color: #64748b; font-size: 0.72rem; display: block;">Mes Ingreso</span><span id="rot-antep-v-m1" style="color: #0284c7;">--</span> vendieron</div>
+                        <div style="color: #cbd5e1; font-weight: 400;">➔</div>
+                        <div style="text-align: center;"><span style="color: #64748b; font-size: 0.72rem; display: block;">Mes Siguiente</span><span id="rot-antep-v-m2" style="color: #0284c7;">--</span> vendieron</div>
+                        <div style="color: #cbd5e1; font-weight: 400;">➔</div>
+                        <div style="text-align: center;"><span style="color: #64748b; font-size: 0.72rem; display: block;">Mes Actual</span><span id="rot-antep-v-m3" style="color: #10b981;">--</span> activos</div>
+                    </div>
+                </div>
+
+                <div id="rot-antep-desc" style="font-size: 0.76rem; color: #64748b; line-height: 1.35;">
+                    Asesores con más de 60 días en la empresa evaluados por continuidad de ventas en los últimos dos meses.
+                </div>
             </div>
-            <div id="rot-diagnostico-texto" style="font-size: 0.92rem; line-height: 1.6; color: #e2e8f0;">
-                <!-- Rellenado dinámicamente -->
+
+            <!-- Tarjeta 2: Cohorte Mes Anterior -->
+            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid #e2e8f0; border-top: 5px solid #059669; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div>
+                        <span style="font-size: 0.72rem; font-weight: 800; color: #059669; text-transform: uppercase; letter-spacing: 0.5px; background: #ecfdf5; padding: 3px 8px; border-radius: 6px;">Sostenimiento a 30-60 Días</span>
+                        <h3 id="rot-title-ant" style="margin: 6px 0 0 0; font-size: 1.15rem; font-weight: 900; color: #0f172a;">COHORTE MES ANTERIOR</h3>
+                    </div>
+                    <span style="font-size: 1.8rem;">🎯</span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+                    <div>
+                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Ingresaron</span>
+                        <div id="rot-ant-ingresos" style="font-size: 2rem; font-weight: 900; color: #0f172a;">--</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <span style="font-size: 0.8rem; color: #15803d; font-weight: 700;">🟢 Retenidos</span>
+                        <div id="rot-ant-retenidos" style="font-size: 1.5rem; font-weight: 900; color: #15803d;">--</div>
+                        <div id="rot-ant-pct-ret" style="font-size: 0.75rem; font-weight: 800; color: #15803d;">--%</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.8rem; color: #dc2626; font-weight: 700;">🔴 Deserción Temprana</span>
+                        <div id="rot-ant-desertaron" style="font-size: 1.5rem; font-weight: 900; color: #dc2626;">--</div>
+                        <div id="rot-ant-pct-des" style="font-size: 0.75rem; font-weight: 800; color: #dc2626;">--%</div>
+                    </div>
+                </div>
+
+                <!-- Barra de Progreso Visual Bicolor -->
+                <div style="background: #fee2e2; border-radius: 8px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 14px; display: flex;">
+                    <div id="rot-ant-bar-ret" style="background: linear-gradient(90deg, #10b981 0%, #059669 100%); height: 100%; width: 88%; transition: width 0.4s ease;"></div>
+                    <div id="rot-ant-bar-des" style="background: #ef4444; height: 100%; width: 12%; transition: width 0.4s ease;"></div>
+                </div>
+
+                <!-- Evolución de Ventas Mes a Mes -->
+                <div style="background: #f8fafc; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #f1f5f9;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 6px; text-transform: uppercase;">Curva de Sostenimiento en Ventas:</div>
+                    <div style="display: flex; justify-content: space-around; font-size: 0.82rem; font-weight: 800;">
+                        <div style="text-align: center;"><span style="color: #64748b; font-size: 0.72rem; display: block;">Mes Ingreso</span><span id="rot-ant-v-m1" style="color: #0284c7;">--</span> vendieron</div>
+                        <div style="color: #cbd5e1; font-weight: 400;">➔</div>
+                        <div style="text-align: center;"><span style="color: #64748b; font-size: 0.72rem; display: block;">Mes Actual</span><span id="rot-ant-v-m2" style="color: #10b981;">--</span> activos con venta</div>
+                    </div>
+                </div>
+
+                <div id="rot-ant-desc" style="font-size: 0.76rem; color: #64748b; line-height: 1.35;">
+                    Asesores incorporados en el mes anterior que lograron superar la rampa inicial y se mantienen activos este mes.
+                </div>
             </div>
+
+            <!-- Tarjeta 3: Cohorte Mes Actual -->
+            <div class="kpi-card" style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 2px solid #e2e8f0; border-top: 5px solid #d97706; position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div>
+                        <span style="font-size: 0.72rem; font-weight: 800; color: #d97706; text-transform: uppercase; letter-spacing: 0.5px; background: #fef3c7; padding: 3px 8px; border-radius: 6px;">Nuevos Ingresos (&lt; 30 Días)</span>
+                        <h3 id="rot-title-act" style="margin: 6px 0 0 0; font-size: 1.15rem; font-weight: 900; color: #0f172a;">COHORTE MES ACTUAL</h3>
+                    </div>
+                    <span style="font-size: 1.8rem;">🚀</span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;">
+                    <div>
+                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 600;">Ingresos Recientes</span>
+                        <div id="rot-act-ingresos" style="font-size: 2rem; font-weight: 900; color: #0f172a;">--</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <span style="font-size: 0.8rem; color: #0284c7; font-weight: 700;">🔵 Con 1ra Venta</span>
+                        <div id="rot-act-activados" style="font-size: 1.5rem; font-weight: 900; color: #0284c7;">--</div>
+                        <div id="rot-act-pct-act" style="font-size: 0.75rem; font-weight: 800; color: #0284c7;">--%</div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.8rem; color: #64748b; font-weight: 700;">⚪ En Inducción</span>
+                        <div id="rot-act-induccion" style="font-size: 1.5rem; font-weight: 900; color: #64748b;">--</div>
+                        <div id="rot-act-pct-ind" style="font-size: 0.75rem; font-weight: 800; color: #64748b;">--%</div>
+                    </div>
+                </div>
+
+                <!-- Barra de Progreso Visual Bicolor -->
+                <div style="background: #e2e8f0; border-radius: 8px; height: 12px; width: 100%; overflow: hidden; margin-bottom: 14px; display: flex;">
+                    <div id="rot-act-bar-act" style="background: linear-gradient(90deg, #38bdf8 0%, #0284c7 100%); height: 100%; width: 55%; transition: width 0.4s ease;"></div>
+                    <div id="rot-act-bar-ind" style="background: #cbd5e1; height: 100%; width: 45%; transition: width 0.4s ease;"></div>
+                </div>
+
+                <!-- Indicador de Velocidad de Arranque -->
+                <div style="background: #f8fafc; border-radius: 10px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #f1f5f9;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; margin-bottom: 4px; text-transform: uppercase;">Velocidad de Arranque Comercial:</div>
+                    <div style="font-size: 0.82rem; font-weight: 700; color: #334155;">
+                        <strong id="rot-act-status-txt" style="color: #0284c7;">-- de --</strong> asesores ya facturaron su primer contrato este mes.
+                    </div>
+                </div>
+
+                <div id="rot-act-desc" style="font-size: 0.76rem; color: #64748b; line-height: 1.35;">
+                    Monitoreo en tiempo real del personal recién incorporado para acelerar el acompañamiento y evitar deserción temprana.
+                </div>
+            </div>
+
         </div>
 
-        <!-- Gráficas de Curva Lineal -->
+        <!-- 2 Gráficas Claras y Comprensibles -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 20px; margin-bottom: 24px;">
-            <!-- Gráfica 1: Curva de Sostenimiento vs Deserción -->
+            
+            <!-- Gráfica 1: Retención vs Deserción por Mes de Ingreso -->
             <div style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <div>
-                        <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">📈 Curva de Supervivencia y Deserción a 30, 60 y 90 Días</h4>
-                        <span style="font-size: 0.8rem; color: #64748b;">Evolución del sostenimiento frente al desgaste por mes de permanencia</span>
+                        <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">📊 Retención vs Deserción por Mes de Ingreso</h4>
+                        <span style="font-size: 0.8rem; color: #64748b;">Comparativa clara del volumen de asesores retenidos frente a deserciones por cohorte</span>
                     </div>
                 </div>
-                <div style="position: relative; height: 280px; width: 100%;">
-                    <canvas id="rotChartCurva"></canvas>
+                <div style="position: relative; height: 290px; width: 100%;">
+                    <canvas id="rotChartBarras"></canvas>
                 </div>
             </div>
 
-            <!-- Gráfica 2: Comparativa Directos vs Distribuidores -->
+            <!-- Gráfica 2: Maduración Comercial de la Cohorte Antepenúltima -->
             <div style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <div>
-                        <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">⚖️ Comparativa de Retención: Directos vs Distribuidores</h4>
-                        <span style="font-size: 0.8rem; color: #64748b;">Curvas paralelas de sostenimiento según modelo de contratación</span>
+                        <h4 id="rot-chart2-title" style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">📈 Curva de Actividad en Ventas de Nuevos Ingresos</h4>
+                        <span id="rot-chart2-sub" style="font-size: 0.8rem; color: #64748b;">Comportamiento mes a mes de los asesores que ingresaron hace 3 meses</span>
                     </div>
                 </div>
-                <div style="position: relative; height: 280px; width: 100%;">
-                    <canvas id="rotChartCanales"></canvas>
+                <div style="position: relative; height: 290px; width: 100%;">
+                    <canvas id="rotChartEvolucion"></canvas>
                 </div>
             </div>
+
         </div>
 
-        <!-- Gráfica 3: Cohortes y Dinámica Mensual -->
+        <!-- Rankings de Retención por Director y por Regional -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 20px; margin-bottom: 24px;">
+            
+            <!-- Ranking Directores -->
+            <div style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+                    <span style="font-size: 1.3rem;">👔</span>
+                    <div>
+                        <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">Diagnóstico de Retención por Director</h4>
+                        <span style="font-size: 0.78rem; color: #64748b;">Evaluación del éxito en retención de los nuevos asesores reclutados</span>
+                    </div>
+                </div>
+                <div style="max-height: 320px; overflow-y: auto;">
+                    <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
+                        <thead>
+                            <tr style="background: #f8fafc; color: #475569; position: sticky; top: 0;">
+                                <th style="text-align: left; padding: 10px;">Director</th>
+                                <th style="text-align: center; padding: 10px;">Ingresos</th>
+                                <th style="text-align: center; padding: 10px;">Retenidos</th>
+                                <th style="text-align: center; padding: 10px;">Desertaron</th>
+                                <th style="text-align: center; padding: 10px;">% Retención</th>
+                                <th style="text-align: center; padding: 10px;">Semáforo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rotRankDirectorBody">
+                            <!-- Inyectado por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Ranking Regionales -->
+            <div style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+                    <span style="font-size: 1.3rem;">🏛️</span>
+                    <div>
+                        <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">Diagnóstico de Retención por Regional</h4>
+                        <span style="font-size: 0.78rem; color: #64748b;">Comportamiento geográfico de reclutamiento y sostenimiento</span>
+                    </div>
+                </div>
+                <div style="max-height: 320px; overflow-y: auto;">
+                    <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
+                        <thead>
+                            <tr style="background: #f8fafc; color: #475569; position: sticky; top: 0;">
+                                <th style="text-align: left; padding: 10px;">Regional</th>
+                                <th style="text-align: center; padding: 10px;">Ingresos</th>
+                                <th style="text-align: center; padding: 10px;">Retenidos</th>
+                                <th style="text-align: center; padding: 10px;">Desertaron</th>
+                                <th style="text-align: center; padding: 10px;">% Retención</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rotRankRegionalBody">
+                            <!-- Inyectado por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tabla Nominal Detallada de Asesores -->
         <div style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 24px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
                 <div>
-                    <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">📊 Dinámica de Ingresos vs Asesores Retenidos por Cohorte</h4>
-                    <span style="font-size: 0.8rem; color: #64748b;">Comportamiento individual de cada grupo mensual de reclutamiento (Julio - Octubre)</span>
+                    <h4 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: #0f172a;">📋 Detalle Nominal de Asesores por Cohorte de Ingreso</h4>
+                    <span id="rotTableCount" style="font-size: 0.8rem; color: #64748b;">Mostrando 0 de 0 asesores evaluados</span>
                 </div>
-            </div>
-            <div style="position: relative; height: 260px; width: 100%;">
-                <canvas id="rotChartCohortes"></canvas>
-            </div>
-        </div>
 
-        <!-- Rankings de Mayor Rotación / Deserción -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-bottom: 24px;">
-            <!-- Ranking Regional -->
-            <div style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-                    <span style="font-size: 1.2rem;">🏛️</span>
-                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #0f172a;">Mayor Deserción por Regional</h4>
-                </div>
-                <div style="max-height: 280px; overflow-y: auto;">
-                    <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
-                        <thead>
-                            <tr style="background: #f8fafc; color: #475569;">
-                                <th>Regional</th>
-                                <th style="text-align: center;">Ingresos</th>
-                                <th style="text-align: center;">Desertaron</th>
-                                <th style="text-align: center;">% Deserción</th>
-                                <th style="text-align: center;">Sost. 90d</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rotRankRegTbody"></tbody>
-                    </table>
+                <!-- Filtros rápidos por Estado -->
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="rot-status-pills">
+                    <button class="prod-filter-pill active" id="rot-pill-all" onclick="setRotacionStatusFilter('ALL')">Todos</button>
+                    <button class="prod-filter-pill" id="rot-pill-activo" onclick="setRotacionStatusFilter('RETENIDO ACTIVO')" style="border-color:#15803d; color:#15803d;">🟢 Retenidos Activos</button>
+                    <button class="prod-filter-pill" id="rot-pill-riesgo" onclick="setRotacionStatusFilter('RETENIDO EN RIESGO')" style="border-color:#d97706; color:#d97706;">🟡 En Riesgo</button>
+                    <button class="prod-filter-pill" id="rot-pill-deserto" onclick="setRotacionStatusFilter('DESERT')" style="border-color:#dc2626; color:#dc2626;">🔴 Desertaron</button>
+                    <button class="prod-filter-pill" id="rot-pill-nuevo-venta" onclick="setRotacionStatusFilter('NUEVO CON VENTA')" style="border-color:#0284c7; color:#0284c7;">🔵 Nuevos con Venta</button>
+                    <button class="prod-filter-pill" id="rot-pill-induccion" onclick="setRotacionStatusFilter('NUEVO EN INDUCCIÓN')" style="border-color:#64748b; color:#64748b;">⚪ En Inducción</button>
                 </div>
             </div>
 
-            <!-- Ranking Zona -->
-            <div style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-                    <span style="font-size: 1.2rem;">📍</span>
-                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #0f172a;">Mayor Deserción por Zona</h4>
-                </div>
-                <div style="max-height: 280px; overflow-y: auto;">
-                    <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
-                        <thead>
-                            <tr style="background: #f8fafc; color: #475569;">
-                                <th>Zona</th>
-                                <th>Regional</th>
-                                <th style="text-align: center;">Ingresos</th>
-                                <th style="text-align: center;">Desertaron</th>
-                                <th style="text-align: center;">% Deserción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rotRankZonaTbody"></tbody>
-                    </table>
-                </div>
+            <!-- Filtros desplegables y Buscador -->
+            <div style="display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0;">
+                <input type="text" id="rot-filter-search" oninput="applyRotacionFilters()" placeholder="🔍 Buscar por nombre, cédula, zona o director..." style="padding: 8px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; min-width: 250px; outline: none;">
+                
+                <select id="rot-filter-cohorte" onchange="applyRotacionFilters()" style="padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; background: #ffffff;">
+                    <option value="">Todas las Cohortes</option>
+                </select>
+
+                <select id="rot-filter-reg" onchange="applyRotacionFilters()" style="padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; background: #ffffff;">
+                    <option value="">Todas las Regionales</option>
+                </select>
+
+                <select id="rot-filter-zona" onchange="applyRotacionFilters()" style="padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; background: #ffffff;">
+                    <option value="">Todas las Zonas</option>
+                </select>
+
+                <select id="rot-filter-dir" onchange="applyRotacionFilters()" style="padding: 8px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; background: #ffffff;">
+                    <option value="">Todos los Directores</option>
+                </select>
+
+                <button onclick="resetRotacionFilters()" style="padding: 8px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.82rem; font-weight: 700; color: #475569; cursor: pointer;">
+                    🔄 Limpiar Filtros
+                </button>
             </div>
 
-            <!-- Ranking Director -->
-            <div style="background: #ffffff; border-radius: 14px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-                    <span style="font-size: 1.2rem;">👤</span>
-                    <h4 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #0f172a;">Mayor Deserción por Director</h4>
-                </div>
-                <div style="max-height: 280px; overflow-y: auto;">
-                    <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
-                        <thead>
-                            <tr style="background: #f8fafc; color: #475569;">
-                                <th>Director / Coord.</th>
-                                <th style="text-align: center;">Ingresos</th>
-                                <th style="text-align: center;">Desertaron</th>
-                                <th style="text-align: center;">% Deserción</th>
-                            </tr>
-                        </thead>
-                        <tbody id="rotRankDirTbody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabla Detallada con Filtros -->
-        <div style="background: #ffffff; border-radius: 14px; padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 30px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
-                <div>
-                    <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">📋 Detalle Individual y Seguimiento de Asesores</h4>
-                    <span style="font-size: 0.82rem; color: #64748b;">Listado completo de asesores ingresados desde Julio con seguimiento de permanencia y estado</span>
-                </div>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <span id="rotTableCount" style="font-size: 0.85rem; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 6px 14px; border-radius: 8px; border: 1px solid #bfdbfe;">
-                        Mostrando 0 asesores
-                    </span>
-                </div>
-            </div>
-
-            <!-- Filtros de la Tabla -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; background: #f8fafc; padding: 14px; border-radius: 10px; border: 1px solid #e2e8f0;">
-                <div>
-                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Regional</label>
-                    <select id="rot-filter-reg" onchange="applyRotacionFilters()" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.82rem;">
-                        <option value="">Todas las Regionales</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Zona</label>
-                    <select id="rot-filter-zona" onchange="applyRotacionFilters()" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.82rem;">
-                        <option value="">Todas las Zonas</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Director / Coordinador</label>
-                    <select id="rot-filter-dir" onchange="applyRotacionFilters()" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.82rem;">
-                        <option value="">Todos los Directores</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Cohorte de Ingreso</label>
-                    <select id="rot-filter-cohorte" onchange="applyRotacionFilters()" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.82rem;">
-                        <option value="">Todas las Cohortes</option>
-                        <option value="Julio">Julio</option>
-                        <option value="Agosto">Agosto</option>
-                        <option value="Septiembre">Septiembre</option>
-                        <option value="Octubre">Octubre</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Estado</label>
-                    <select id="rot-filter-estado" onchange="applyRotacionFilters()" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.82rem;">
-                        <option value="">Todos los Estados</option>
-                        <option value="ACTIVO">Solo Activos</option>
-                        <option value="DESERTÓ">Solo Desertaron</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size: 0.75rem; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">Buscar Asesor / Cédula</label>
-                    <input type="text" id="rot-table-search" oninput="applyRotacionFilters()" placeholder="Buscar por nombre o cédula..." style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.82rem;">
-                </div>
-                <div style="display: flex; align-items: flex-end;">
-                    <button onclick="resetRotacionFilters()" style="width: 100%; padding: 8px 12px; background: #e2e8f0; color: #334155; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; font-size: 0.82rem;">
-                        🔄 Limpiar Filtros
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tabla HTML -->
-            <div style="overflow-x: auto;">
-                <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
+            <div style="overflow-x: auto; max-height: 480px; overflow-y: auto;">
+                <table class="table-custom" style="width: 100%; font-size: 0.82rem; min-width: 1050px;">
                     <thead>
-                        <tr style="background: #1B365D; color: #ffffff;">
-                            <th style="width: 45px; text-align: center;">#</th>
-                            <th onclick="sortRotacionTable('nombre')" style="cursor: pointer;">Nombre Asesor ↕</th>
-                            <th onclick="sortRotacionTable('cedula')" style="cursor: pointer; text-align: center;">Cédula ↕</th>
-                            <th onclick="sortRotacionTable('fecha_ingreso')" style="cursor: pointer; text-align: center;">Fecha Ingreso ↕</th>
-                            <th onclick="sortRotacionTable('cohorte')" style="cursor: pointer; text-align: center;">Cohorte ↕</th>
-                            <th onclick="sortRotacionTable('tipo')" style="cursor: pointer; text-align: center;">Tipo Contrato ↕</th>
-                            <th onclick="sortRotacionTable('regional')" style="cursor: pointer; text-align: center;">Regional ↕</th>
-                            <th onclick="sortRotacionTable('zona')" style="cursor: pointer; text-align: center;">Zona ↕</th>
-                            <th onclick="sortRotacionTable('director')" style="cursor: pointer; text-align: center;">Director / Coord. ↕</th>
-                            <th onclick="sortRotacionTable('estado')" style="cursor: pointer; text-align: center;">Estado ↕</th>
-                            <th style="text-align: center;">Permanencia / Retiro</th>
+                        <tr style="background: #f8fafc; color: #475569; position: sticky; top: 0; z-index: 5;">
+                            <th onclick="sortRotacionTable('nombre')" style="cursor: pointer; text-align: left; padding: 10px;">Asesor / Cédula ⇕</th>
+                            <th onclick="sortRotacionTable('tipo')" style="cursor: pointer; text-align: center; padding: 10px;">Tipo ⇕</th>
+                            <th onclick="sortRotacionTable('fecha_ingreso')" style="cursor: pointer; text-align: center; padding: 10px;">Fecha Ingreso ⇕</th>
+                            <th onclick="sortRotacionTable('cohorte')" style="cursor: pointer; text-align: center; padding: 10px;">Cohorte ⇕</th>
+                            <th onclick="sortRotacionTable('regional')" style="cursor: pointer; text-align: left; padding: 10px;">Regional / Zona ⇕</th>
+                            <th onclick="sortRotacionTable('director')" style="cursor: pointer; text-align: left; padding: 10px;">Director ⇕</th>
+                            <th id="rot-th-v-antep" style="text-align: center; padding: 10px;">Ventas M-2</th>
+                            <th id="rot-th-v-ant" style="text-align: center; padding: 10px;">Ventas M-1</th>
+                            <th id="rot-th-v-act" style="text-align: center; padding: 10px;">Ventas Mes Actual</th>
+                            <th onclick="sortRotacionTable('total_ventas')" style="cursor: pointer; text-align: center; padding: 10px;">Total Ventas ⇕</th>
+                            <th onclick="sortRotacionTable('estado')" style="cursor: pointer; text-align: center; padding: 10px;">Estado Comercial ⇕</th>
+                            <th style="text-align: left; padding: 10px;">Diagnóstico</th>
                         </tr>
                     </thead>
-                    <tbody id="rotacionTbody"></tbody>
+                    <tbody id="rotacionTbody">
+                        <!-- Inyectado por JS -->
+                    </tbody>
                 </table>
             </div>
         </div>
 
     </div>
 
-
-    <div id="tab-ventas" class="tab-content">
-
-        
-
-        <!-- Filtros Reporte Ventas -->
-
-        <div class="filters-container" id="filters-container">
-
-            <div class="filter-group date-filter">
-
-                <label>Rango de Fecha</label>
-
-                <div style="display: flex; gap: 5px;">
-
-                    <input type="date" id="date-start">
-
-                    <input type="date" id="date-end">
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- KPIs Ventas -->
-
-        <div class="kpi-banner-grid">
-
-            <div class="card-pill kpi-llevamos">
-
-                <span class="pill-badge">CANTIDAD DE VENTAS</span>
-
-                <div class="pill-number" id="kpi-count">0</div>
-
-                <div class="pill-sub">Total contratos registrados</div>
-
-            </div>
-
-            <div class="card-pill kpi-presupuesto">
-
-                <span class="pill-badge">NOMINAL VENTA</span>
-
-                <div class="pill-number" id="kpi-nominal">$ 0</div>
-
-                <div class="pill-sub">Venta nominal acumulada</div>
-
-            </div>
-
-            <div class="card-pill kpi-cumpl">
-
-                <span class="pill-badge">VALOR ANUAL ACUMULADO</span>
-
-                <div class="pill-number" id="kpi-anual">$ 0</div>
-
-                <div class="pill-sub">Valor anualizado de cartera</div>
-
-            </div>
-
-            <div class="card-pill kpi-falta">
-
-                <span class="pill-badge">TICKET PROMEDIO</span>
-
-                <div class="pill-number" id="kpi-ticket">$ 0</div>
-
-                <div class="pill-sub">Promedio nominal por contrato</div>
-
-            </div>
-
-        </div>
-
-        <!-- Gráficos Ventas -->
-
-        <div class="charts-grid">
-
-            <div class="chart-container">
-
-                <h3>Tendencia Mensual (Nominal Venta)</h3>
-
-                <div style="height: 300px; position: relative;">
-
-                    <canvas id="trendChart"></canvas>
-
-                </div>
-
-            </div>
-
-            <div class="chart-container">
-
-                <h3>Ventas por Día de la Semana</h3>
-
-                <div style="height: 300px; position: relative;">
-
-                    <canvas id="dayChart"></canvas>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="chart-container">
-
-            <h3>Top 10 Asesores por Nominal Venta</h3>
-
-            <div style="height: 300px; position: relative;">
-
-                <canvas id="asesorChart"></canvas>
-
-            </div>
-
-        </div>
-
-        <!-- Tabla Ventas -->
-
-        <div class="table-container">
-
-            <h3>Consolidado por Asesor (Ventas)</h3>
-
-            <div class="table-wrapper">
-
-                <table id="dataTable">
-
-                    <thead>
-
-                        <tr>
-
-                            <th data-sort="asesor">Asesor Planilla ↕</th>
-
-                            <th data-sort="count" class="num">Cant. Ventas ↕</th>
-
-                            <th data-sort="nominal" class="num">Nominal Venta ↕</th>
-
-                            <th data-sort="anual" class="num">Valor Anual ↕</th>
-
-                            <th data-sort="ticket" class="num">Ticket Promedio ↕</th>
-
-                            <th data-sort="participacion" class="num">Part. Nominal (%) ↕</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody></tbody>
-
-                    <tfoot></tfoot>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    
-    <!-- ========================================== -->
     <!-- PESTAÑA 5: EFECTIVIDAD POR SECTORES (PLANES DE TRABAJO) -->
     <!-- ========================================== -->
     <div id="tab-sectores" class="tab-content">
@@ -5640,8 +5530,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-16 23:57:12';
-const TIMESTAMP_ACTUALIZACION = 1794891432;
+const ULTIMA_ACTUALIZACION = '2026-11-17 00:01:02';
+const TIMESTAMP_ACTUALIZACION = 1794891662;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -241494,12 +241384,17 @@ const PRODUCTOS_DATA = {
         // ==========================================
         let currentRotGroup = 'total'; // 'total', 'directos', 'distribuidores'
         isRotacionInitialized = false;
+                // ==========================================
+        // VARIABLES Y FUNCIONES DE ROTACIÓN DINÁMICA
+        // ==========================================
         let rawRotacionAdvisors = [];
         let filteredRotacionAdvisors = [];
-        let rotacionSortState = { col: 'fecha_ingreso', asc: false };
-        let rotChartCurvaInstance = null;
-        let rotChartCanalesInstance = null;
-        let rotChartCohortesInstance = null;
+        let isRotacionInitialized = false;
+        let currentRotGroup = 'total';
+        let currentRotStatusFilter = 'ALL';
+        let rotChartBarrasInstance = null;
+        let rotChartEvolucionInstance = null;
+        let rotacionSortState = { col: 'nombre', asc: true };
 
         function initRotacion() {
             if (typeof ROTACION_DATA !== 'undefined' && ROTACION_DATA.asesores_detalle) {
@@ -241509,17 +241404,40 @@ const PRODUCTOS_DATA = {
             }
             isRotacionInitialized = true;
 
+            // Nombres dinámicos de los 3 meses
+            const p = (typeof ROTACION_DATA !== 'undefined' && ROTACION_DATA.periodo) ? ROTACION_DATA.periodo : null;
+            if (p) {
+                const thM2 = document.getElementById('rot-th-v-antep');
+                const thM1 = document.getElementById('rot-th-v-ant');
+                const thM0 = document.getElementById('rot-th-v-act');
+                if (thM2) thM2.innerText = `Vts ${p.antepenultimo.nombre}`;
+                if (thM1) thM1.innerText = `Vts ${p.anterior.nombre}`;
+                if (thM0) thM0.innerText = `Vts ${p.actual.nombre}`;
+            }
+
             // Llenar selects de filtros
-            const regSet = new Set(), zonaSet = new Set(), dirSet = new Set();
+            const cohorteSet = new Set(), regSet = new Set(), zonaSet = new Set(), dirSet = new Set();
             rawRotacionAdvisors.forEach(a => {
+                if (a.cohorte) cohorteSet.add(a.cohorte);
                 if (a.regional && a.regional !== 'SIN REGIONAL') regSet.add(a.regional);
                 if (a.zona && a.zona !== 'SIN ZONA') zonaSet.add(a.zona);
                 if (a.director && a.director !== 'SIN DIRECTOR') dirSet.add(a.director);
             });
 
+            const selCohorte = document.getElementById('rot-filter-cohorte');
             const selReg = document.getElementById('rot-filter-reg');
             const selZona = document.getElementById('rot-filter-zona');
             const selDir = document.getElementById('rot-filter-dir');
+
+            if (selCohorte) {
+                selCohorte.innerHTML = '<option value="">Todas las Cohortes</option>';
+                [...cohorteSet].forEach(val => {
+                    const opt = document.createElement('option');
+                    opt.value = val;
+                    opt.innerText = `Cohorte ${val}`;
+                    selCohorte.appendChild(opt);
+                });
+            }
 
             if (selReg) {
                 selReg.innerHTML = '<option value="">Todas las Regionales</option>';
@@ -241562,271 +241480,216 @@ const PRODUCTOS_DATA = {
             renderRotacionDashboard();
         }
 
+        function setRotacionStatusFilter(status) {
+            currentRotStatusFilter = status;
+            document.querySelectorAll('#rot-status-pills .prod-filter-pill').forEach(btn => btn.classList.remove('active'));
+            
+            let btnId = 'rot-pill-all';
+            if (status === 'RETENIDO ACTIVO') btnId = 'rot-pill-activo';
+            else if (status === 'RETENIDO EN RIESGO') btnId = 'rot-pill-riesgo';
+            else if (status === 'DESERT') btnId = 'rot-pill-deserto';
+            else if (status === 'NUEVO CON VENTA') btnId = 'rot-pill-nuevo-venta';
+            else if (status === 'NUEVO EN INDUCCIÓN') btnId = 'rot-pill-induccion';
+            
+            const btn = document.getElementById(btnId);
+            if (btn) btn.classList.add('active');
+
+            applyRotacionFilters();
+        }
+
         function renderRotacionDashboard() {
             if (typeof ROTACION_DATA === 'undefined') return;
 
-            const sum = ROTACION_DATA.summary[currentRotGroup] || ROTACION_DATA.summary['total'];
+            const p = ROTACION_DATA.periodo;
+            const sum = (ROTACION_DATA.summary && ROTACION_DATA.summary[currentRotGroup]) 
+                ? ROTACION_DATA.summary[currentRotGroup] 
+                : ROTACION_DATA.summary['total'];
 
-            // 1. KPIs
-            const elFuerza = document.getElementById('rot-kpi-fuerza-activa');
-            if (elFuerza) elFuerza.innerText = sum.fuerza_activa_actual;
+            if (!sum || !p) return;
 
-            const elFuerzaAnt = document.getElementById('rot-kpi-fuerza-ant');
-            if (elFuerzaAnt) elFuerzaAnt.innerText = sum.fuerza_activa_ant;
+            // 1. Periodo Dinámico Header
+            const elPeriodo = document.getElementById('rot-badge-periodo');
+            if (elPeriodo) {
+                elPeriodo.innerText = `${p.antepenultimo.nombre} ➔ ${p.anterior.nombre} ➔ ${p.actual.nombre} ${p.year}`;
+            }
 
             const elCrecBadge = document.getElementById('rot-kpi-crecimiento-badge');
             if (elCrecBadge) {
                 const sign = sum.crecimiento_neto >= 0 ? '+' : '';
-                elCrecBadge.innerText = `${sign}${sum.crecimiento_neto} Asesores (${sign}${sum.crecimiento_pct}% Crecimiento)`;
+                elCrecBadge.innerText = `Fuerza Activa: ${sum.fuerza_activa_actual} asesores (${sign}${sum.crecimiento_neto} / ${sign}${sum.crecimiento_pct}%)`;
                 if (sum.crecimiento_neto >= 0) {
                     elCrecBadge.style.background = '#dcfce7';
                     elCrecBadge.style.color = '#15803d';
+                    elCrecBadge.style.borderColor = '#bbf7d0';
                 } else {
                     elCrecBadge.style.background = '#fee2e2';
                     elCrecBadge.style.color = '#b91c1c';
+                    elCrecBadge.style.borderColor = '#fecaca';
                 }
             }
 
-            const elEntradas = document.getElementById('rot-kpi-entradas');
-            if (elEntradas) elEntradas.innerText = `+${sum.entradas_mes}`;
+            const coh = sum.cohortes;
 
-            const elSalidas = document.getElementById('rot-kpi-salidas');
-            if (elSalidas) elSalidas.innerText = `-${sum.salidas_mes}`;
+            // 2. Tarjeta 1: Cohorte Antepenúltimo
+            const cAntep = coh.antepenultimo;
+            const tAntep = document.getElementById('rot-title-antep');
+            if (tAntep) tAntep.innerText = `COHORTE ${cAntep.nombre.toUpperCase()}`;
+            
+            const elAntepIng = document.getElementById('rot-antep-ingresos');
+            if (elAntepIng) elAntepIng.innerText = cAntep.ingresos;
 
-            const elRepo = document.getElementById('rot-kpi-reposicion');
-            if (elRepo) elRepo.innerText = `${sum.tasa_reposicion}%`;
+            const elAntepRet = document.getElementById('rot-antep-retenidos');
+            if (elAntepRet) elAntepRet.innerText = cAntep.retenidos;
 
-            const elRepoBadge = document.getElementById('rot-kpi-reposicion-badge');
-            if (elRepoBadge) {
-                if (sum.tasa_reposicion >= 100) {
-                    elRepoBadge.innerText = 'Fuerza en Expansión Neta';
-                    elRepoBadge.style.background = '#dcfce7';
-                    elRepoBadge.style.color = '#15803d';
-                } else {
-                    elRepoBadge.innerText = 'Reposición Menor a Salidas';
-                    elRepoBadge.style.background = '#fee2e2';
-                    elRepoBadge.style.color = '#b91c1c';
-                }
+            const elAntepPctRet = document.getElementById('rot-antep-pct-ret');
+            if (elAntepPctRet) elAntepPctRet.innerText = `${cAntep.tasa_retencion}%`;
+
+            const elAntepDes = document.getElementById('rot-antep-desertaron');
+            if (elAntepDes) elAntepDes.innerText = cAntep.desertaron;
+
+            const elAntepPctDes = document.getElementById('rot-antep-pct-des');
+            if (elAntepPctDes) elAntepPctDes.innerText = `${cAntep.tasa_desercion}%`;
+
+            const barAntepRet = document.getElementById('rot-antep-bar-ret');
+            const barAntepDes = document.getElementById('rot-antep-bar-des');
+            if (barAntepRet) barAntepRet.style.width = `${cAntep.tasa_retencion}%`;
+            if (barAntepDes) barAntepDes.style.width = `${cAntep.tasa_desercion}%`;
+
+            if (cAntep.evolucion_ventas) {
+                const elVM1 = document.getElementById('rot-antep-v-m1');
+                const elVM2 = document.getElementById('rot-antep-v-m2');
+                const elVM3 = document.getElementById('rot-antep-v-m3');
+                if (elVM1) elVM1.innerText = cAntep.evolucion_ventas.mes_1;
+                if (elVM2) elVM2.innerText = cAntep.evolucion_ventas.mes_2;
+                if (elVM3) elVM3.innerText = cAntep.evolucion_ventas.mes_3;
             }
 
-            const elSost90 = document.getElementById('rot-kpi-sost-90d');
-            if (elSost90) elSost90.innerText = `${sum.sostenimiento_90d}%`;
-
-            const elSost90Det = document.getElementById('rot-kpi-sost-90d-detalle');
-            if (elSost90Det) {
-                const m3 = sum.curva.m3;
-                elSost90Det.innerText = `${m3.activos} de ${m3.base}`;
+            const elAntepDesc = document.getElementById('rot-antep-desc');
+            if (elAntepDesc) {
+                elAntepDesc.innerHTML = `Asesores incorporados en <strong>${cAntep.nombre}</strong> con más de 60 días: <strong>${cAntep.retenidos} continúan vendiendo o activos</strong> (${cAntep.tasa_retencion}%), y <strong>${cAntep.desertaron} no registraron ventas</strong> en los últimos dos meses.`;
             }
 
-            const elDes90 = document.getElementById('rot-kpi-des-90d');
-            if (elDes90) elDes90.innerText = `${sum.desercion_90d}%`;
+            // 3. Tarjeta 2: Cohorte Anterior
+            const cAnt = coh.anterior;
+            const tAnt = document.getElementById('rot-title-ant');
+            if (tAnt) tAnt.innerText = `COHORTE ${cAnt.nombre.toUpperCase()}`;
 
-            const elDesM1 = document.getElementById('rot-kpi-des-m1');
-            if (elDesM1) elDesM1.innerText = `${sum.curva.m1.desercion}%`;
+            const elAntIng = document.getElementById('rot-ant-ingresos');
+            if (elAntIng) elAntIng.innerText = cAnt.ingresos;
 
-            const elDesM2 = document.getElementById('rot-kpi-des-m2');
-            if (elDesM2) elDesM2.innerText = `${sum.curva.m2.desercion}%`;
+            const elAntRet = document.getElementById('rot-ant-retenidos');
+            if (elAntRet) elAntRet.innerText = cAnt.retenidos;
 
-            const elSostM1 = document.getElementById('rot-kpi-sost-m1');
-            if (elSostM1) elSostM1.innerText = `${sum.curva.m1.sostenimiento}%`;
+            const elAntPctRet = document.getElementById('rot-ant-pct-ret');
+            if (elAntPctRet) elAntPctRet.innerText = `${cAnt.tasa_retencion}%`;
 
-            const elSostM2 = document.getElementById('rot-kpi-sost-m2');
-            if (elSostM2) elSostM2.innerText = `${sum.curva.m2.sostenimiento}%`;
+            const elAntDes = document.getElementById('rot-ant-desertaron');
+            if (elAntDes) elAntDes.innerText = cAnt.desertaron;
 
-            // 2. Banner de Diagnóstico Estratégico
-            const diagEl = document.getElementById('rot-diagnostico-texto');
-            if (diagEl) {
-                if (currentRotGroup === 'total') {
-                    diagEl.innerHTML = `
-                        <p style="margin: 0 0 8px 0;">
-                            <strong>Sí, la fuerza comercial total está en crecimiento neto (+19 asesores, +5.8%):</strong> En el último mes se incorporaron <strong>${sum.entradas_mes} asesores</strong> frente a <strong>${sum.salidas_mes} salidas</strong>, logrando una tasa de reposición de <strong>${sum.tasa_reposicion}%</strong> (por cada 10 retiros, se integran casi 18 nuevos asesores).
-                        </p>
-                        <p style="margin: 0;">
-                            El análisis a 90 días revela un <strong>sostenimiento del ${sum.sostenimiento_90d}%</strong> en el tercer mes. La mayor zona de desgaste o quiebre se concentra entre los 30 y 60 días (deserción acumulada de <strong>${sum.curva.m2.desercion}%</strong> al Mes 2), lo que señala la necesidad de fortalecer el acompañamiento temprano en el cierre de sus primeras ventas.
-                        </p>
-                    `;
-                } else if (currentRotGroup === 'directos') {
-                    diagEl.innerHTML = `
-                        <p style="margin: 0 0 8px 0;">
-                            <strong>Contrato Directo representa la base consolidada y de máxima retención:</strong> Cuenta con <strong>${sum.fuerza_activa_actual} asesores activos</strong>, registrando una estabilidad extraordinaria con un sostenimiento a 90 días del <strong>${sum.sostenimiento_90d}%</strong> (deserción de apenas ${sum.desercion_90d}%).
-                        </p>
-                        <p style="margin: 0;">
-                            En el último mes solo se presentaron <strong>2 salidas</strong> (rotación mínima del 1.3%). Este canal no busca volumen masivo de rotación sino retención prolongada y alta productividad continua.
-                        </p>
-                    `;
-                } else {
-                    diagEl.innerHTML = `
-                        <p style="margin: 0 0 8px 0;">
-                            <strong>Distribuidor Autorizado es el motor de captación y volumen comercial:</strong> La fuerza activa creció a <strong>${sum.fuerza_activa_actual} asesores</strong> (+10.6%), impulsada por <strong>${sum.entradas_mes} nuevas incorporaciones</strong> frente a <strong>${sum.salidas_mes} salidas</strong> (tasa de reposición del <strong>${sum.tasa_reposicion}%</strong>).
-                        </p>
-                        <p style="margin: 0;">
-                            Este canal presenta una dinámica natural de mayor rotación inicial: la deserción alcanza <strong>${sum.curva.m1.desercion}%</strong> en el primer mes y <strong>${sum.curva.m2.desercion}%</strong> a los 60 días, estabilizándose a 90 días con un sostenimiento del <strong>${sum.sostenimiento_90d}%</strong>.
-                        </p>
-                    `;
-                }
+            const elAntPctDes = document.getElementById('rot-ant-pct-des');
+            if (elAntPctDes) elAntPctDes.innerText = `${cAnt.tasa_desercion}%`;
+
+            const barAntRet = document.getElementById('rot-ant-bar-ret');
+            const barAntDes = document.getElementById('rot-ant-bar-des');
+            if (barAntRet) barAntRet.style.width = `${cAnt.tasa_retencion}%`;
+            if (barAntDes) barAntDes.style.width = `${cAnt.tasa_desercion}%`;
+
+            if (cAnt.evolucion_ventas) {
+                const elAntVM1 = document.getElementById('rot-ant-v-m1');
+                const elAntVM2 = document.getElementById('rot-ant-v-m2');
+                if (elAntVM1) elAntVM1.innerText = cAnt.evolucion_ventas.mes_1;
+                if (elAntVM2) elAntVM2.innerText = cAnt.evolucion_ventas.mes_2;
             }
 
-            // 3. Renderizar Gráficas
+            const elAntDesc = document.getElementById('rot-ant-desc');
+            if (elAntDesc) {
+                elAntDesc.innerHTML = `Asesores incorporados en <strong>${cAnt.nombre}</strong>: <strong>${cAnt.retenidos} siguen activos</strong> (${cAnt.tasa_retencion}%) frente a <strong>${cAnt.desertaron} deserciones tempranas</strong> en su segundo mes.`;
+            }
+
+            // 4. Tarjeta 3: Cohorte Actual
+            const cAct = coh.actual;
+            const tAct = document.getElementById('rot-title-act');
+            if (tAct) tAct.innerText = `COHORTE ${cAct.nombre.toUpperCase()}`;
+
+            const elActIng = document.getElementById('rot-act-ingresos');
+            if (elActIng) elActIng.innerText = cAct.ingresos;
+
+            const elActAct = document.getElementById('rot-act-activados');
+            if (elActAct) elActAct.innerText = cAct.activados;
+
+            const elActPctAct = document.getElementById('rot-act-pct-act');
+            if (elActPctAct) elActPctAct.innerText = `${cAct.tasa_activacion}%`;
+
+            const elActInd = document.getElementById('rot-act-induccion');
+            if (elActInd) elActInd.innerText = cAct.en_induccion;
+
+            const elActPctInd = document.getElementById('rot-act-pct-ind');
+            if (elActPctInd) elActPctInd.innerText = `${roundTo1(100 - cAct.tasa_activacion)}%`;
+
+            const barActAct = document.getElementById('rot-act-bar-act');
+            const barActInd = document.getElementById('rot-act-bar-ind');
+            if (barActAct) barActAct.style.width = `${cAct.tasa_activacion}%`;
+            if (barActInd) barActInd.style.width = `${roundTo1(100 - cAct.tasa_activacion)}%`;
+
+            const elActStatusTxt = document.getElementById('rot-act-status-txt');
+            if (elActStatusTxt) {
+                elActStatusTxt.innerText = `${cAct.activados} de ${cAct.ingresos}`;
+            }
+
+            const elActDesc = document.getElementById('rot-act-desc');
+            if (elActDesc) {
+                elActDesc.innerHTML = `Ingresos de <strong>${cAct.nombre}</strong> (&lt; 30 días): <strong>${cAct.activados} asesores</strong> ya lograron su primera venta (${cAct.tasa_activacion}%), mientras <strong>${cAct.en_induccion}</strong> continúan en rampa de inducción.`;
+            }
+
+            // 5. Renderizar Gráficas, Rankings y Tabla
             renderRotacionCharts();
-
-            // 4. Renderizar Rankings
             renderRotacionRankings();
-
-            // 5. Aplicar Filtros y Renderizar Tabla
             applyRotacionFilters();
+        }
+
+        function roundTo1(num) {
+            return Math.round(num * 10) / 10;
         }
 
         function renderRotacionCharts() {
             if (typeof Chart === 'undefined' || typeof ROTACION_DATA === 'undefined') return;
 
-            const sum = ROTACION_DATA.summary[currentRotGroup] || ROTACION_DATA.summary['total'];
-            const sumTot = ROTACION_DATA.summary['total'];
-            const sumDir = ROTACION_DATA.summary['directos'];
-            const sumDis = ROTACION_DATA.summary['distribuidores'];
+            const p = ROTACION_DATA.periodo;
+            const sum = (ROTACION_DATA.summary && ROTACION_DATA.summary[currentRotGroup]) 
+                ? ROTACION_DATA.summary[currentRotGroup] 
+                : ROTACION_DATA.summary['total'];
 
-            // Gráfica 1: Curva de Sostenimiento vs Deserción
-            const ctxCurva = document.getElementById('rotChartCurva');
-            if (ctxCurva) {
-                if (rotChartCurvaInstance) rotChartCurvaInstance.destroy();
-                rotChartCurvaInstance = new Chart(ctxCurva, {
-                    type: 'line',
-                    data: {
-                        labels: ['Ingreso (Día 0)', 'Mes 1 (30 Días)', 'Mes 2 (60 Días)', 'Mes 3 (90 Días)'],
-                        datasets: [
-                            {
-                                label: '% Sostenimiento (Retención)',
-                                data: [100, sum.curva.m1.sostenimiento, sum.curva.m2.sostenimiento, sum.curva.m3.sostenimiento],
-                                borderColor: '#10b981',
-                                backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                                borderWidth: 3,
-                                fill: true,
-                                tension: 0.35,
-                                pointBackgroundColor: '#10b981',
-                                pointRadius: 5
-                            },
-                            {
-                                label: '% Deserción Acumulada',
-                                data: [0, sum.curva.m1.desercion, sum.curva.m2.desercion, sum.curva.m3.desercion],
-                                borderColor: '#ef4444',
-                                backgroundColor: 'rgba(239, 68, 68, 0.08)',
-                                borderWidth: 3,
-                                fill: true,
-                                tension: 0.35,
-                                pointBackgroundColor: '#ef4444',
-                                pointRadius: 5
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'top', labels: { font: { weight: 'bold', size: 11 } } },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(ctx) { return `${ctx.dataset.label}: ${ctx.raw}%`; }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                min: 0,
-                                max: 100,
-                                ticks: { callback: v => v + '%' }
-                            }
-                        }
-                    }
-                });
-            }
+            if (!sum || !p) return;
 
-            // Gráfica 2: Comparativa Canales
-            const ctxCanales = document.getElementById('rotChartCanales');
-            if (ctxCanales) {
-                if (rotChartCanalesInstance) rotChartCanalesInstance.destroy();
-                rotChartCanalesInstance = new Chart(ctxCanales, {
-                    type: 'line',
-                    data: {
-                        labels: ['Ingreso (Día 0)', 'Mes 1 (30 Días)', 'Mes 2 (60 Días)', 'Mes 3 (90 Días)'],
-                        datasets: [
-                            {
-                                label: 'Solo Directos (% Retención)',
-                                data: [100, sumDir.curva.m1.sostenimiento, sumDir.curva.m2.sostenimiento, sumDir.curva.m3.sostenimiento],
-                                borderColor: '#2563eb',
-                                backgroundColor: 'transparent',
-                                borderWidth: 3,
-                                tension: 0.3,
-                                pointBackgroundColor: '#2563eb',
-                                pointRadius: 5
-                            },
-                            {
-                                label: 'Solo Distribuidores (% Retención)',
-                                data: [100, sumDis.curva.m1.sostenimiento, sumDis.curva.m2.sostenimiento, sumDis.curva.m3.sostenimiento],
-                                borderColor: '#f59e0b',
-                                backgroundColor: 'transparent',
-                                borderWidth: 3,
-                                tension: 0.3,
-                                pointBackgroundColor: '#f59e0b',
-                                pointRadius: 5
-                            },
-                            {
-                                label: 'Promedio Total (% Retención)',
-                                data: [100, sumTot.curva.m1.sostenimiento, sumTot.curva.m2.sostenimiento, sumTot.curva.m3.sostenimiento],
-                                borderColor: '#64748b',
-                                borderDash: [5, 5],
-                                backgroundColor: 'transparent',
-                                borderWidth: 2,
-                                tension: 0.3,
-                                pointBackgroundColor: '#64748b',
-                                pointRadius: 4
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'top', labels: { font: { weight: 'bold', size: 11 } } },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(ctx) { return `${ctx.dataset.label}: ${ctx.raw}%`; }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                min: 0,
-                                max: 100,
-                                ticks: { callback: v => v + '%' }
-                            }
-                        }
-                    }
-                });
-            }
+            const cAntep = sum.cohortes.antepenultimo;
+            const cAnt = sum.cohortes.anterior;
+            const cAct = sum.cohortes.actual;
 
-            // Gráfica 3: Dinámica por Cohorte
-            const ctxCohortes = document.getElementById('rotChartCohortes');
-            if (ctxCohortes) {
-                if (rotChartCohortesInstance) rotChartCohortesInstance.destroy();
-                const cohLabels = ROTACION_DATA.cohortes.map(c => c.cohorte);
-                const cohIngresos = ROTACION_DATA.cohortes.map(c => c.total_ingresos);
-                const cohActivos = ROTACION_DATA.cohortes.map(c => c.activos_oct);
-                const cohDesertores = ROTACION_DATA.cohortes.map(c => c.total_ingresos - c.activos_oct);
-
-                rotChartCohortesInstance = new Chart(ctxCohortes, {
+            // Gráfica 1: Barras Apiladas Retención vs Deserción
+            const ctxBarras = document.getElementById('rotChartBarras');
+            if (ctxBarras) {
+                if (rotChartBarrasInstance) rotChartBarrasInstance.destroy();
+                rotChartBarrasInstance = new Chart(ctxBarras, {
                     type: 'bar',
                     data: {
-                        labels: cohLabels,
+                        labels: [`Cohorte ${cAntep.nombre}`, `Cohorte ${cAnt.nombre}`, `Cohorte ${cAct.nombre}`],
                         datasets: [
                             {
-                                label: 'Asesores Activos en Octubre',
-                                data: cohActivos,
+                                label: '🟢 Retenidos / Con Venta',
+                                data: [cAntep.retenidos, cAnt.retenidos, cAct.activados],
                                 backgroundColor: '#10b981',
                                 borderRadius: 6
                             },
                             {
-                                label: 'Asesores que Desertaron',
-                                data: cohDesertores,
+                                label: '🔴 Desertaron / Sin Ventas',
+                                data: [cAntep.desertaron, cAnt.desertaron, 0],
                                 backgroundColor: '#ef4444',
+                                borderRadius: 6
+                            },
+                            {
+                                label: '⚪ En Inducción Reciente',
+                                data: [0, 0, cAct.en_induccion],
+                                backgroundColor: '#94a3b8',
                                 borderRadius: 6
                             }
                         ]
@@ -241840,17 +241703,72 @@ const PRODUCTOS_DATA = {
                                 callbacks: {
                                     afterBody: function(items) {
                                         const idx = items[0].dataIndex;
-                                        const tot = cohIngresos[idx];
-                                        const act = cohActivos[idx];
-                                        const pct = ((act / tot) * 100).toFixed(1);
-                                        return `Total Ingresos: ${tot} | Tasa Supervivencia: ${pct}%`;
+                                        if (idx === 0) return `Tasa Retención: ${cAntep.tasa_retencion}%`;
+                                        if (idx === 1) return `Tasa Retención: ${cAnt.tasa_retencion}%`;
+                                        if (idx === 2) return `Arranque Rápido: ${cAct.tasa_activacion}%`;
                                     }
                                 }
                             }
                         },
                         scales: {
                             x: { stacked: true },
-                            y: { stacked: true, beginAtZero: true }
+                            y: { stacked: true, beginAtZero: true, title: { display: true, text: 'Cantidad de Asesores' } }
+                        }
+                    }
+                });
+            }
+
+            // Gráfica 2: Maduración Comercial de la Cohorte Antepenúltima
+            const ctxEvolucion = document.getElementById('rotChartEvolucion');
+            const elCh2Title = document.getElementById('rot-chart2-title');
+            const elCh2Sub = document.getElementById('rot-chart2-sub');
+            if (elCh2Title) elCh2Title.innerText = `📈 Sostenimiento de Ventas Cohorte ${cAntep.nombre}`;
+            if (elCh2Sub) elCh2Sub.innerText = `Evolución de asesores activos con venta a lo largo de 3 meses (${cAntep.nombre} ➔ ${cAnt.nombre} ➔ ${cAct.nombre})`;
+
+            if (ctxEvolucion && cAntep.evolucion_ventas) {
+                if (rotChartEvolucionInstance) rotChartEvolucionInstance.destroy();
+                rotChartEvolucionInstance = new Chart(ctxEvolucion, {
+                    type: 'bar',
+                    data: {
+                        labels: [
+                            `Mes 1: ${cAntep.nombre} (Ingreso)`, 
+                            `Mes 2: ${cAnt.nombre} (+30 días)`, 
+                            `Mes 3: ${cAct.nombre} (+60 días)`
+                        ],
+                        datasets: [
+                            {
+                                label: 'Asesores Activos con Venta',
+                                data: [
+                                    cAntep.evolucion_ventas.mes_1, 
+                                    cAntep.evolucion_ventas.mes_2, 
+                                    cAntep.evolucion_ventas.mes_3
+                                ],
+                                backgroundColor: ['#0284c7', '#38bdf8', '#10b981'],
+                                borderRadius: 8,
+                                barThickness: 45
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(ctx) {
+                                        const pct = roundTo1(ctx.raw / cAntep.ingresos * 100);
+                                        return `${ctx.raw} asesores activos (${pct}% de la cohorte)`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: Math.max(cAntep.ingresos + 5, 20),
+                                title: { display: true, text: 'Asesores que Vendieron' }
+                            }
                         }
                     }
                 });
@@ -241858,85 +241776,100 @@ const PRODUCTOS_DATA = {
         }
 
         function renderRotacionRankings() {
-            if (typeof ROTACION_DATA === 'undefined') return;
+            if (typeof ROTACION_DATA === 'undefined' || !ROTACION_DATA.rankings) return;
 
-            const rData = ROTACION_DATA.rankings[currentRotGroup] || ROTACION_DATA.rankings['total'];
+            const ranks = (ROTACION_DATA.rankings[currentRotGroup]) 
+                ? ROTACION_DATA.rankings[currentRotGroup] 
+                : ROTACION_DATA.rankings['total'];
 
-            // 1. Regional
-            const regTbody = document.getElementById('rotRankRegTbody');
-            if (regTbody) {
-                regTbody.innerHTML = '';
-                rData.por_regional.slice(0, 10).forEach((r, idx) => {
-                    const sostTxt = r.sost_90d !== null && r.sost_90d !== 'N/A' ? `${r.sost_90d}%` : '<span style="color:#94a3b8;">-</span>';
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${r.regional}</strong></td>
-                        <td style="text-align: center;">${r.total_ingresos}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 700;">${r.desertaron}</td>
-                        <td style="text-align: center;"><span style="background:#fee2e2; color:#b91c1c; font-weight:800; padding:2px 6px; border-radius:4px;">${r.tasa_desercion}%</span></td>
-                        <td style="text-align: center; color: #047857; font-weight: 700;">${sostTxt}</td>
-                    `;
-                    regTbody.appendChild(tr);
-                });
+            if (!ranks) return;
+
+            // 1. Directores
+            const tbDir = document.getElementById('rotRankDirectorBody');
+            if (tbDir) {
+                tbDir.innerHTML = '';
+                const dirs = ranks.por_director || [];
+                if (!dirs.length) {
+                    tbDir.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:15px; color:#64748b;">Sin datos para este segmento.</td></tr>';
+                } else {
+                    dirs.forEach(d => {
+                        const tr = document.createElement('tr');
+                        const isEx = d.semaforo.includes('EXCELENTE');
+                        const isAl = d.semaforo.includes('ALERTA');
+                        const bgSem = isEx ? '#dcfce7' : (isAl ? '#fef3c7' : '#fee2e2');
+                        const colSem = isEx ? '#15803d' : (isAl ? '#b45309' : '#b91c1c');
+
+                        tr.innerHTML = `
+                            <td style="font-weight: 800; color: #0f172a; padding: 9px 10px;">${d.director}</td>
+                            <td style="text-align: center; font-weight: 700; color: #334155; padding: 9px 10px;">${d.total_ingresos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #15803d; padding: 9px 10px;">${d.retenidos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #dc2626; padding: 9px 10px;">${d.desertaron}</td>
+                            <td style="text-align: center; font-weight: 900; color: #0f172a; padding: 9px 10px;">${d.tasa_retencion}%</td>
+                            <td style="text-align: center; padding: 9px 10px;">
+                                <span style="font-size: 0.72rem; font-weight: 800; padding: 3px 8px; border-radius: 6px; background: ${bgSem}; color: ${colSem};">
+                                    ${d.semaforo}
+                                </span>
+                            </td>
+                        `;
+                        tbDir.appendChild(tr);
+                    });
+                }
             }
 
-            // 2. Zona
-            const zonaTbody = document.getElementById('rotRankZonaTbody');
-            if (zonaTbody) {
-                zonaTbody.innerHTML = '';
-                rData.por_zona.slice(0, 10).forEach(z => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${z.zona}</strong></td>
-                        <td style="color: #64748b;">${z.regional}</td>
-                        <td style="text-align: center;">${z.total_ingresos}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 700;">${z.desertaron}</td>
-                        <td style="text-align: center;"><span style="background:#fee2e2; color:#b91c1c; font-weight:800; padding:2px 6px; border-radius:4px;">${z.tasa_desercion}%</span></td>
-                    `;
-                    zonaTbody.appendChild(tr);
-                });
-            }
-
-            // 3. Director
-            const dirTbody = document.getElementById('rotRankDirTbody');
-            if (dirTbody) {
-                dirTbody.innerHTML = '';
-                rData.por_director.slice(0, 10).forEach(d => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${d.director}</strong></td>
-                        <td style="text-align: center;">${d.total_ingresos}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 700;">${d.desertaron}</td>
-                        <td style="text-align: center;"><span style="background:#fee2e2; color:#b91c1c; font-weight:800; padding:2px 6px; border-radius:4px;">${d.tasa_desercion}%</span></td>
-                    `;
-                    dirTbody.appendChild(tr);
-                });
+            // 2. Regionales
+            const tbReg = document.getElementById('rotRankRegionalBody');
+            if (tbReg) {
+                tbReg.innerHTML = '';
+                const regs = ranks.por_regional || [];
+                if (!regs.length) {
+                    tbReg.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:15px; color:#64748b;">Sin datos para este segmento.</td></tr>';
+                } else {
+                    regs.forEach(r => {
+                        const tr = document.createElement('tr');
+                        const colRet = r.tasa_retencion >= 80 ? '#15803d' : (r.tasa_retencion >= 60 ? '#b45309' : '#dc2626');
+                        tr.innerHTML = `
+                            <td style="font-weight: 800; color: #0f172a; padding: 9px 10px;">${r.regional}</td>
+                            <td style="text-align: center; font-weight: 700; color: #334155; padding: 9px 10px;">${r.total_ingresos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #15803d; padding: 9px 10px;">${r.retenidos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #dc2626; padding: 9px 10px;">${r.desertaron}</td>
+                            <td style="text-align: center; font-weight: 900; color: ${colRet}; padding: 9px 10px;">${r.tasa_retencion}%</td>
+                        `;
+                        tbReg.appendChild(tr);
+                    });
+                }
             }
         }
 
         function applyRotacionFilters() {
-            const selReg = document.getElementById('rot-filter-reg') ? document.getElementById('rot-filter-reg').value : '';
-            const selZona = document.getElementById('rot-filter-zona') ? document.getElementById('rot-filter-zona').value : '';
-            const selDir = document.getElementById('rot-filter-dir') ? document.getElementById('rot-filter-dir').value : '';
-            const selCohorte = document.getElementById('rot-filter-cohorte') ? document.getElementById('rot-filter-cohorte').value : '';
-            const selEstado = document.getElementById('rot-filter-estado') ? document.getElementById('rot-filter-estado').value : '';
-            const searchTxt = document.getElementById('rot-table-search') ? document.getElementById('rot-table-search').value.toLowerCase().trim() : '';
+            const query = (document.getElementById('rot-filter-search')?.value || '').toLowerCase().trim();
+            const cohorte = document.getElementById('rot-filter-cohorte')?.value || '';
+            const regional = document.getElementById('rot-filter-reg')?.value || '';
+            const zona = document.getElementById('rot-filter-zona')?.value || '';
+            const director = document.getElementById('rot-filter-dir')?.value || '';
 
             filteredRotacionAdvisors = rawRotacionAdvisors.filter(a => {
+                // Segmentación canal
                 if (currentRotGroup === 'directos' && a.tipo !== 'DIRECTO') return false;
                 if (currentRotGroup === 'distribuidores' && a.tipo !== 'DISTRIBUIDOR') return false;
 
-                if (selReg && a.regional !== selReg) return false;
-                if (selZona && a.zona !== selZona) return false;
-                if (selDir && a.director !== selDir) return false;
-                if (selCohorte && a.cohorte !== selCohorte) return false;
-                if (selEstado && a.estado !== selEstado) return false;
-
-                if (searchTxt) {
-                    const matchNom = a.nombre.toLowerCase().includes(searchTxt);
-                    const matchCed = a.cedula.includes(searchTxt);
-                    if (!matchNom && !matchCed) return false;
+                // Estado pill filter
+                if (currentRotStatusFilter !== 'ALL') {
+                    if (currentRotStatusFilter === 'DESERT' && !a.estado.includes('DESERT')) return false;
+                    else if (currentRotStatusFilter !== 'DESERT' && a.estado !== currentRotStatusFilter) return false;
                 }
+
+                // Dropdowns
+                if (cohorte && a.cohorte !== cohorte) return false;
+                if (regional && a.regional !== regional) return false;
+                if (zona && a.zona !== zona) return false;
+                if (director && a.director !== director) return false;
+
+                // Search query
+                if (query) {
+                    const str = `${a.nombre} ${a.cedula} ${a.zona} ${a.regional} ${a.director}`.toLowerCase();
+                    if (!str.includes(query)) return false;
+                }
+
                 return true;
             });
 
@@ -241944,13 +241877,19 @@ const PRODUCTOS_DATA = {
         }
 
         function resetRotacionFilters() {
-            if (document.getElementById('rot-filter-reg')) document.getElementById('rot-filter-reg').value = '';
-            if (document.getElementById('rot-filter-zona')) document.getElementById('rot-filter-zona').value = '';
-            if (document.getElementById('rot-filter-dir')) document.getElementById('rot-filter-dir').value = '';
-            if (document.getElementById('rot-filter-cohorte')) document.getElementById('rot-filter-cohorte').value = '';
-            if (document.getElementById('rot-filter-estado')) document.getElementById('rot-filter-estado').value = '';
-            if (document.getElementById('rot-table-search')) document.getElementById('rot-table-search').value = '';
-            applyRotacionFilters();
+            const elSearch = document.getElementById('rot-filter-search');
+            const elCoh = document.getElementById('rot-filter-cohorte');
+            const elReg = document.getElementById('rot-filter-reg');
+            const elZon = document.getElementById('rot-filter-zona');
+            const elDir = document.getElementById('rot-filter-dir');
+
+            if (elSearch) elSearch.value = '';
+            if (elCoh) elCoh.value = '';
+            if (elReg) elReg.value = '';
+            if (elZon) elZon.value = '';
+            if (elDir) elDir.value = '';
+
+            setRotacionStatusFilter('ALL');
         }
 
         function sortRotacionTable(col) {
@@ -241980,1174 +241919,63 @@ const PRODUCTOS_DATA = {
             });
 
             if (countEl) {
-                countEl.innerText = `Mostrando ${rows.length} de ${rawRotacionAdvisors.length} asesores`;
+                countEl.innerText = `Mostrando ${rows.length} de ${rawRotacionAdvisors.length} asesores evaluados`;
             }
 
             tbody.innerHTML = '';
             if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="11" style="text-align:center; padding:25px; color:#64748b;">No se encontraron asesores con los criterios seleccionados.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="12" style="text-align:center; padding:30px; color:#64748b;">No se encontraron asesores con los criterios seleccionados.</td></tr>';
                 return;
             }
 
-            rows.forEach((r, idx) => {
+            rows.forEach(r => {
                 const tr = document.createElement('tr');
+                
+                // Tipo badge
                 const badgeTipo = r.tipo === 'DIRECTO'
-                    ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:6px; border:1px solid #bfdbfe;">DIRECTO</span>'
-                    : '<span style="background:#fef3c7; color:#92400e; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:6px; border:1px solid #fde68a;">DISTRIBUIDOR</span>';
+                    ? '<span style="background:#fee2e2; color:#dc2626; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; border:1px solid #fca5a5;">DIRECTO</span>'
+                    : '<span style="background:#eef2ff; color:#4f46e5; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; border:1px solid #c7d2fe;">DISTRIBUIDOR</span>';
 
-                const badgeEstado = r.estado === 'ACTIVO'
-                    ? '<span style="background:#dcfce7; color:#15803d; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:6px; border:1px solid #bbf7d0;">ACTIVO</span>'
-                    : '<span style="background:#fee2e2; color:#b91c1c; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:6px; border:1px solid #fecdd3;">DESERTÓ</span>';
+                // Estado badge
+                let bgEst = '#f1f5f9', colEst = '#475569', bdrEst = '#cbd5e1';
+                if (r.estado === 'RETENIDO ACTIVO') {
+                    bgEst = '#dcfce7'; colEst = '#15803d'; bdrEst = '#86efac';
+                } else if (r.estado === 'RETENIDO EN RIESGO') {
+                    bgEst = '#fef3c7'; colEst = '#b45309'; bdrEst = '#fde68a';
+                } else if (r.estado.includes('DESERT')) {
+                    bgEst = '#fee2e2'; colEst = '#b91c1c'; bdrEst = '#fca5a5';
+                } else if (r.estado === 'NUEVO CON VENTA') {
+                    bgEst = '#e0f2fe'; colEst = '#0369a1'; bdrEst = '#7dd3fc';
+                } else if (r.estado === 'NUEVO EN INDUCCIÓN') {
+                    bgEst = '#f1f5f9'; colEst = '#475569'; bdrEst = '#cbd5e1';
+                }
+
+                const badgeEstado = `<span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">${r.estado}</span>`;
 
                 tr.innerHTML = `
-                    <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
-                    <td><strong>${r.nombre}</strong></td>
-                    <td style="text-align: center; font-family: monospace; color: #334155;">${r.cedula}</td>
-                    <td style="text-align: center; color: #475569;">${r.fecha_ingreso}</td>
-                    <td style="text-align: center;"><span style="background:#f1f5f9; color:#334155; font-weight:700; padding:2px 8px; border-radius:4px; font-size:0.75rem;">${r.cohorte}</span></td>
-                    <td style="text-align: center;">${badgeTipo}</td>
-                    <td style="text-align: center;">${r.regional}</td>
-                    <td style="text-align: center; color: #64748b;">${r.zona}</td>
-                    <td style="text-align: center;">${r.director}</td>
-                    <td style="text-align: center;">${badgeEstado}</td>
-                    <td style="text-align: center; font-size: 0.78rem; color: #475569;">${r.permanencia}</td>
+                    <td style="padding: 10px;">
+                        <strong style="color:#0f172a; display:block; font-size:0.84rem;">${r.nombre}</strong>
+                        <span style="color:#64748b; font-size:0.74rem;">CC: ${r.cedula}</span>
+                    </td>
+                    <td style="text-align: center; padding: 10px;">${badgeTipo}</td>
+                    <td style="text-align: center; font-weight: 600; color: #334155; padding: 10px;">${r.fecha_ingreso}</td>
+                    <td style="text-align: center; font-weight: 700; color: #0284c7; padding: 10px;">${r.cohorte}</td>
+                    <td style="padding: 10px;">
+                        <span style="font-weight: 700; color: #0f172a; display:block;">${r.regional}</span>
+                        <span style="font-size: 0.74rem; color: #64748b;">${r.zona}</span>
+                    </td>
+                    <td style="padding: 10px; font-weight: 700; color: #334155;">${r.director}</td>
+                    <td style="text-align: center; font-weight: 700; color: #0284c7; padding: 10px;">${r.ventas_antep}</td>
+                    <td style="text-align: center; font-weight: 700; color: #0284c7; padding: 10px;">${r.ventas_ant}</td>
+                    <td style="text-align: center; font-weight: 800; color: #10b981; padding: 10px;">${r.ventas_act}</td>
+                    <td style="text-align: center; font-weight: 900; color: #0f172a; padding: 10px;">${r.total_ventas}</td>
+                    <td style="text-align: center; padding: 10px;">${badgeEstado}</td>
+                    <td style="padding: 10px; font-size: 0.75rem; color: #475569;">${r.diagnostico}</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-
-        // ==========================================
-        // 📉 BAJA PRODUCTIVIDAD (< 3 VENTAS) - MES ACTUAL
-        // ==========================================
-        let bpActualSort = { col: 'CANTIDAD DE VENTAS', asc: true };
-        let bpAntSort = { col: 'CANTIDAD DE VENTAS', asc: true };
-
-        function renderBajaProductividadDashboard() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
-
-            // Tomar en cuenta los filtros activos de regional, zona y director
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
-
-            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
-                return true;
-            });
-
-            const total = baseAdvisors.length;
-            const under3 = baseAdvisors.filter(a => (a['CANTIDAD DE VENTAS'] || 0) < 3);
-            const countU3 = under3.length;
-            const countProd = total - countU3;
-            const pctU3 = total > 0 ? ((countU3 / total) * 100).toFixed(1) : '0.0';
-            const pctProd = total > 0 ? ((countProd / total) * 100).toFixed(1) : '0.0';
-
-            // Actualizar Badge y KPIs
-            const bGlobal = document.getElementById('bp-badge-global');
-            if (bGlobal) bGlobal.innerText = `${countU3} Asesores (${pctU3}%)`;
-
-            const elU3 = document.getElementById('bp-kpi-total-u3');
-            if (elU3) elU3.innerText = countU3;
-            const elU3Sub = document.getElementById('bp-kpi-total-u3-sub');
-            if (elU3Sub) elU3Sub.innerHTML = `Representa el <strong style="color: #dc2626;">${pctU3}%</strong> de ${total} asesores`;
-
-            const elProd = document.getElementById('bp-kpi-total-prod');
-            if (elProd) elProd.innerText = countProd;
-            const elProdSub = document.getElementById('bp-kpi-total-prod-sub');
-            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con ≥ 3 ventas`;
-
-            // Rankings
-            renderBajaProdTablesActual();
-            renderBajaProdAsesoresTableActual();
-        }
-
-        function renderBajaProdTablesActual() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
-
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
-
-            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
-                return true;
-            });
-
-            // Mapas
-            const regMap = {}, zonaMap = {}, dirMap = {};
-            baseAdvisors.forEach(a => {
-                const reg = a.REGIONAL || 'SIN REGIONAL';
-                const zona = a.ZONA || 'SIN ZONA';
-                const dire = a.DIRECTOR || 'SIN DIRECTOR';
-                const cv = a['CANTIDAD DE VENTAS'] || 0;
-                const isU3 = cv < 3;
-
-                if (!regMap[reg]) regMap[reg] = { total: 0, under3: 0 };
-                regMap[reg].total++;
-                if (isU3) regMap[reg].under3++;
-
-                if (!zonaMap[zona]) zonaMap[zona] = { regional: reg, total: 0, under3: 0 };
-                zonaMap[zona].total++;
-                if (isU3) zonaMap[zona].under3++;
-
-                if (!dirMap[dire]) dirMap[dire] = { total: 0, under3: 0 };
-                dirMap[dire].total++;
-                if (isU3) dirMap[dire].under3++;
-            });
-
-            // Listas ordenadas
-            const regList = Object.entries(regMap).map(([k, v]) => ({
-                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
-            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
-
-            const zonaList = Object.entries(zonaMap).map(([k, v]) => ({
-                name: k, regional: v.regional, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
-            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
-
-            const dirList = Object.entries(dirMap).map(([k, v]) => ({
-                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
-            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
-
-            // KPIs top reg & dir
-            if (regList.length > 0) {
-                const topR = regList[0];
-                const elTopR = document.getElementById('bp-kpi-top-reg');
-                if (elTopR) elTopR.innerText = topR.name;
-                const elTopRSub = document.getElementById('bp-kpi-top-reg-sub');
-                if (elTopRSub) elTopRSub.innerHTML = `${topR.under3} asesores (<strong style="color: #dc2626;">${topR.pct.toFixed(1)}%</strong> de ${topR.total})`;
-            }
-            if (dirList.length > 0) {
-                const topD = dirList[0];
-                const elTopD = document.getElementById('bp-kpi-top-dir');
-                if (elTopD) elTopD.innerText = topD.name;
-                const elTopDSub = document.getElementById('bp-kpi-top-dir-sub');
-                if (elTopDSub) elTopDSub.innerHTML = `${topD.under3} asesores (<strong style="color: #dc2626;">${topD.pct.toFixed(1)}%</strong> de ${topD.total})`;
-            }
-
-            // Render Tablas
-            const sReg = document.getElementById('bp-search-reg') ? document.getElementById('bp-search-reg').value.toLowerCase().trim() : '';
-            const sZona = document.getElementById('bp-search-zona') ? document.getElementById('bp-search-zona').value.toLowerCase().trim() : '';
-            const sDir = document.getElementById('bp-search-dir') ? document.getElementById('bp-search-dir').value.toLowerCase().trim() : '';
-
-            const tbReg = document.getElementById('bpRegTbody');
-            if (tbReg) {
-                tbReg.innerHTML = '';
-                regList.filter(r => !sReg || r.name.toLowerCase().includes(sReg)).forEach(r => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${r.name}</strong></td>
-                        <td style="text-align: center;">${r.total}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${r.under3}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${r.pct.toFixed(1)}%</span></td>
-                    `;
-                    tbReg.appendChild(tr);
-                });
-            }
-
-            const tbZona = document.getElementById('bpZonaTbody');
-            if (tbZona) {
-                tbZona.innerHTML = '';
-                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona)).forEach(z => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${z.name}</strong></td>
-                        <td style="color: #64748b;">${z.regional}</td>
-                        <td style="text-align: center;">${z.total}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${z.under3}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
-                    `;
-                    tbZona.appendChild(tr);
-                });
-            }
-
-            const tbDir = document.getElementById('bpDirTbody');
-            if (tbDir) {
-                tbDir.innerHTML = '';
-                dirList.filter(d => !sDir || d.name.toLowerCase().includes(sDir)).forEach(d => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${d.name}</strong></td>
-                        <td style="text-align: center;">${d.total}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${d.under3}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${d.pct.toFixed(1)}%</span></td>
-                    `;
-                    tbDir.appendChild(tr);
-                });
-            }
-        }
-
-        function sortBajaProdActual(col) {
-            if (bpActualSort.col === col) {
-                bpActualSort.asc = !bpActualSort.asc;
-            } else {
-                bpActualSort.col = col;
-                bpActualSort.asc = true;
-            }
-            renderBajaProdAsesoresTableActual();
-        }
-
-        function renderBajaProdAsesoresTableActual() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
-
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
-            const searchTxt = document.getElementById('bp-search-asesor') ? document.getElementById('bp-search-asesor').value.toLowerCase().trim() : '';
-
-            let rows = PRESUPUESTO_DATA.filter(a => {
-                if ((a['CANTIDAD DE VENTAS'] || 0) >= 3) return false;
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
-                if (searchTxt) {
-                    const mNom = (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt);
-                    const mReg = (a.REGIONAL || '').toLowerCase().includes(searchTxt);
-                    const mZona = (a.ZONA || '').toLowerCase().includes(searchTxt);
-                    const mDir = (a.DIRECTOR || '').toLowerCase().includes(searchTxt);
-                    if (!mNom && !mReg && !mZona && !mDir) return false;
-                }
-                return true;
-            });
-
-            const sc = bpActualSort.col;
-            const asc = bpActualSort.asc;
-            rows.sort((a, b) => {
-                let vA = a[sc] !== undefined ? a[sc] : 0;
-                let vB = b[sc] !== undefined ? b[sc] : 0;
-                if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
-                return asc ? (vA - vB) : (vB - vA);
-            });
-
-            const sub = document.getElementById('bp-table-sub');
-            if (sub) sub.innerText = `Mostrando ${rows.length} asesores con menos de 3 ventas`;
-
-            const tbody = document.getElementById('bpAsesoresTbody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:25px; color:#64748b;">No se encontraron asesores con &lt; 3 ventas en este filtro.</td></tr>';
-                return;
-            }
-
-            rows.forEach((r, idx) => {
-                const tr = document.createElement('tr');
-                const cv = r['CANTIDAD DE VENTAS'] || 0;
-                const badgeVentas = cv === 0
-                    ? '<span style="background:#fee2e2; color:#991b1b; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fecdd3;">0 ventas</span>'
-                    : (cv === 1
-                        ? '<span style="background:#fef3c7; color:#b45309; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fde68a;">1 venta</span>'
-                        : '<span style="background:#ffedd5; color:#c2410c; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fed7aa;">2 ventas</span>');
-
-                const tipoBadge = r['TIPO DE ASESOR'] === 'CONTRATO DIRECTO'
-                    ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DIRECTO</span>'
-                    : '<span style="background:#f1f5f9; color:#475569; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DISTRIBUIDOR</span>';
-
-                tr.innerHTML = `
-                    <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
-                    <td><strong>${r['NOMBRE ASESOR']}</strong></td>
-                    <td style="text-align: center;">${tipoBadge}</td>
-                    <td style="text-align: center;">${r.REGIONAL}</td>
-                    <td style="text-align: center; color: #64748b;">${r.ZONA}</td>
-                    <td style="text-align: center;">${r.DIRECTOR}</td>
-                    <td style="text-align: center;">${badgeVentas}</td>
-                    <td class="num" style="text-align: center; color: #1e40af;">${formatter.format(r.LLEVAMOS || 0)}</td>
-                    <td class="num" style="text-align: center; color: #334155;">${formatter.format(r.PRESUPUESTO || 0)}</td>
-                    <td style="text-align: center; font-weight: 800; color: ${r.CUMPLIMIENTO >= 100 ? '#059669' : '#dc2626'};">${r.CUMPLIMIENTO}%</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // =========================================================================
-        // 🛑 MÓDULO: ANÁLISIS DE ASESORES SIN VENTAS (0 VENTAS) - MES ACTUAL
-        // =========================================================================
-        let currentCeroVentasTipo = 'todos'; // 'todos' | 'directo' | 'distri'
-        let currentCeroVentasCriterio = 'cantidad'; // 'cantidad' (mayor número de asesores) | 'impacto' (mayor % de impacto sobre el total del equipo)
-        let currentCeroVentasDrilldown = { type: null, value: null };
-        let currentCeroVentasSubTab = 'all'; // 'all' | 'reg' | 'zona' | 'dir'
-        let czAsesoresSortState = { col: 'PRESUPUESTO', asc: false };
-
-        function switchCeroVentasCriterio(criterio) {
-            currentCeroVentasCriterio = criterio;
-            const btnCant = document.getElementById('btn-cz-criterio-cantidad');
-            const btnImp = document.getElementById('btn-cz-criterio-impacto');
-            const desc = document.getElementById('cz-criterio-desc');
-
-            if (btnCant) btnCant.classList.toggle('active', criterio === 'cantidad');
-            if (btnImp) btnImp.classList.toggle('active', criterio === 'impacto');
-
-            if (desc) {
-                if (criterio === 'impacto') {
-                    desc.innerHTML = 'Organizado de <strong>mayor a menor % de impacto</strong> (% de asesores con 0 ventas frente al total de su equipo).';
-                } else {
-                    desc.innerHTML = 'Organizado de <strong>mayor a menor cantidad absoluta</strong> de asesores con 0 ventas.';
-                }
-            }
-
-            renderCeroVentasTables();
-        }
-
-        function switchCeroVentasTipo(tipo) {
-            currentCeroVentasTipo = tipo;
-            const btnTodos = document.getElementById('btn-cz-tipo-todos');
-            const btnDir = document.getElementById('btn-cz-tipo-directo');
-            const btnDis = document.getElementById('btn-cz-tipo-distri');
-
-            if (btnTodos) btnTodos.classList.toggle('active', tipo === 'todos');
-            if (btnDir) btnDir.classList.toggle('active', tipo === 'directo');
-            if (btnDis) btnDis.classList.toggle('active', tipo === 'distri');
-
-            renderCeroVentasDashboard();
-        }
-
-        function switchCeroVentasSubTab(tab) {
-            currentCeroVentasSubTab = tab;
-            const btnAll = document.getElementById('btn-cz-sub-all');
-            const btnReg = document.getElementById('btn-cz-sub-reg');
-            const btnZona = document.getElementById('btn-cz-sub-zona');
-            const btnDir = document.getElementById('btn-cz-sub-dir');
-
-            if (btnAll) btnAll.classList.toggle('active', tab === 'all');
-            if (btnReg) btnReg.classList.toggle('active', tab === 'reg');
-            if (btnZona) btnZona.classList.toggle('active', tab === 'zona');
-            if (btnDir) btnDir.classList.toggle('active', tab === 'dir');
-
-            const cardReg = document.getElementById('cz-card-reg');
-            const cardZona = document.getElementById('cz-card-zona');
-            const cardDir = document.getElementById('cz-card-dir');
-            const grid = document.getElementById('cz-rankings-grid');
-
-            if (tab === 'all') {
-                if (cardReg) cardReg.style.display = 'block';
-                if (cardZona) cardZona.style.display = 'block';
-                if (cardDir) cardDir.style.display = 'block';
-                if (grid) grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(360px, 1fr))';
-            } else if (tab === 'reg') {
-                if (cardReg) cardReg.style.display = 'block';
-                if (cardZona) cardZona.style.display = 'none';
-                if (cardDir) cardDir.style.display = 'none';
-                if (grid) grid.style.gridTemplateColumns = '1fr';
-            } else if (tab === 'zona') {
-                if (cardReg) cardReg.style.display = 'none';
-                if (cardZona) cardZona.style.display = 'block';
-                if (cardDir) cardDir.style.display = 'none';
-                if (grid) grid.style.gridTemplateColumns = '1fr';
-            } else if (tab === 'dir') {
-                if (cardReg) cardReg.style.display = 'none';
-                if (cardZona) cardZona.style.display = 'none';
-                if (cardDir) cardDir.style.display = 'block';
-                if (grid) grid.style.gridTemplateColumns = '1fr';
-            }
-        }
-
-        function drillDownCeroVentas(type, value) {
-            currentCeroVentasDrilldown = { type, value };
-            const banner = document.getElementById('cz-active-drilldown-banner');
-            const bText = document.getElementById('cz-active-drilldown-text');
-            if (banner && bText) {
-                if (type && value) {
-                    banner.style.display = 'inline-flex';
-                    const label = type === 'regional' ? '🏢 Regional' : (type === 'zona' ? '📍 Zona' : '👤 Director');
-                    bText.innerHTML = `🎯 Filtrando asesores por ${label}: <strong>${value}</strong>`;
-                } else {
-                    banner.style.display = 'none';
-                }
-            }
-            renderCeroVentasAsesoresTable();
-
-            const elTable = document.getElementById('cz-table-sub');
-            if (elTable) {
-                elTable.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        }
-
-        function clearCeroVentasDrilldown() {
-            currentCeroVentasDrilldown = { type: null, value: null };
-            const banner = document.getElementById('cz-active-drilldown-banner');
-            if (banner) banner.style.display = 'none';
-            renderCeroVentasAsesoresTable();
-        }
-
-        function sortCeroVentasAsesores(col) {
-            if (czAsesoresSortState.col === col) {
-                czAsesoresSortState.asc = !czAsesoresSortState.asc;
-            } else {
-                czAsesoresSortState.col = col;
-                czAsesoresSortState.asc = (col === 'NOMBRE ASESOR' || col === 'REGIONAL' || col === 'ZONA' || col === 'DIRECTOR' || col === 'TIPO DE ASESOR');
-            }
-            renderCeroVentasAsesoresTable();
-        }
-
-        function renderCeroVentasDashboard() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
-
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
-
-            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
-                if (selReg && (a.REGIONAL || '').toUpperCase() !== selReg) return false;
-                if (selZona && (a.ZONA || '').toUpperCase() !== selZona) return false;
-                if (selDir && (a.DIRECTOR || '').toUpperCase() !== selDir) return false;
-                return true;
-            });
-
-            const zeroAdvisorsAll = baseAdvisors.filter(a => (a['CANTIDAD DE VENTAS'] || 0) === 0);
-            const directosZeroAll = zeroAdvisorsAll.filter(a => (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO'));
-            const distriZeroAll = zeroAdvisorsAll.filter(a => !(a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO'));
-
-            const elCTodos = document.getElementById('cz-count-tipo-todos');
-            const elCDir = document.getElementById('cz-count-tipo-directo');
-            const elCDis = document.getElementById('cz-count-tipo-distri');
-            if (elCTodos) elCTodos.innerText = zeroAdvisorsAll.length;
-            if (elCDir) elCDir.innerText = directosZeroAll.length;
-            if (elCDis) elCDis.innerText = distriZeroAll.length;
-
-            let activeZeroAdvisors = zeroAdvisorsAll;
-            if (currentCeroVentasTipo === 'directo') {
-                activeZeroAdvisors = directosZeroAll;
-            } else if (currentCeroVentasTipo === 'distri') {
-                activeZeroAdvisors = distriZeroAll;
-            }
-
-            const totalEquipo = baseAdvisors.length;
-            const countZero = activeZeroAdvisors.length;
-            const pctZero = totalEquipo > 0 ? ((countZero / totalEquipo) * 100).toFixed(1) : '0.0';
-
-            const bGlobal = document.getElementById('cz-badge-global');
-            if (bGlobal) {
-                bGlobal.innerText = `${countZero} Asesores (${pctZero}% del equipo)`;
-            }
-
-            const elTot = document.getElementById('cz-kpi-total');
-            const elTotSub = document.getElementById('cz-kpi-total-sub');
-            if (elTot) elTot.innerText = countZero;
-            if (elTotSub) elTotSub.innerHTML = `Representa el <strong style="color: #dc2626;">${pctZero}%</strong> de ${totalEquipo} asesores`;
-
-            const elDirKpi = document.getElementById('cz-kpi-directos');
-            const elDirKpiSub = document.getElementById('cz-kpi-directos-sub');
-            const metaDirectosZero = directosZeroAll.reduce((acc, a) => acc + (a.PRESUPUESTO || 0), 0);
-            if (elDirKpi) elDirKpi.innerText = directosZeroAll.length;
-            if (elDirKpiSub) elDirKpiSub.innerHTML = `Meta en riesgo: <strong>${formatter.format(metaDirectosZero)}</strong>`;
-
-            const elDisKpi = document.getElementById('cz-kpi-distri');
-            const elDisKpiSub = document.getElementById('cz-kpi-distri-sub');
-            const metaDistriZero = distriZeroAll.reduce((acc, a) => acc + (a.PRESUPUESTO || 0), 0);
-            if (elDisKpi) elDisKpi.innerText = distriZeroAll.length;
-            if (elDisKpiSub) elDisKpiSub.innerHTML = `Meta en riesgo: <strong>${formatter.format(metaDistriZero)}</strong>`;
-
-            renderCeroVentasTables();
-            renderCeroVentasAsesoresTable();
-        }
-
-        function renderCeroVentasTables() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
-
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
-
-            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
-                if (selReg && (a.REGIONAL || '').toUpperCase() !== selReg) return false;
-                if (selZona && (a.ZONA || '').toUpperCase() !== selZona) return false;
-                if (selDir && (a.DIRECTOR || '').toUpperCase() !== selDir) return false;
-                return true;
-            });
-
-            const regMap = {}, zonaMap = {}, dirMap = {};
-
-            baseAdvisors.forEach(a => {
-                const reg = a.REGIONAL || 'SIN REGIONAL';
-                const zona = a.ZONA || 'SIN ZONA';
-                const dire = a.DIRECTOR || 'SIN DIRECTOR';
-                const isZero = (a['CANTIDAD DE VENTAS'] || 0) === 0;
-                const isDirecto = (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO');
-
-                if (currentCeroVentasTipo === 'directo' && !isDirecto) return;
-                if (currentCeroVentasTipo === 'distri' && isDirecto) return;
-
-                if (!regMap[reg]) regMap[reg] = { name: reg, total: 0, zero: 0, directosZero: 0, distriZero: 0 };
-                regMap[reg].total++;
-                if (isZero) {
-                    regMap[reg].zero++;
-                    if (isDirecto) regMap[reg].directosZero++;
-                    else regMap[reg].distriZero++;
-                }
-
-                if (!zonaMap[zona]) zonaMap[zona] = { name: zona, regional: reg, total: 0, zero: 0, directosZero: 0, distriZero: 0 };
-                zonaMap[zona].total++;
-                if (isZero) {
-                    zonaMap[zona].zero++;
-                    if (isDirecto) zonaMap[zona].directosZero++;
-                    else zonaMap[zona].distriZero++;
-                }
-
-                if (!dirMap[dire]) dirMap[dire] = { name: dire, total: 0, zero: 0, directosZero: 0, distriZero: 0 };
-                dirMap[dire].total++;
-                if (isZero) {
-                    dirMap[dire].zero++;
-                    if (isDirecto) dirMap[dire].directosZero++;
-                    else dirMap[dire].distriZero++;
-                }
-            });
-
-            const isImpacto = currentCeroVentasCriterio === 'impacto';
-
-            let regList = Object.values(regMap).map(v => ({
-                ...v,
-                pct: v.total > 0 ? (v.zero / v.total * 100) : 0
-            }));
-
-            let zonaList = Object.values(zonaMap).map(v => ({
-                ...v,
-                pct: v.total > 0 ? (v.zero / v.total * 100) : 0
-            }));
-
-            let dirList = Object.values(dirMap).map(v => ({
-                ...v,
-                pct: v.total > 0 ? (v.zero / v.total * 100) : 0
-            }));
-
-            if (isImpacto) {
-                // Ordenar de MAYOR a MENOR por % de impacto sobre el total del equipo
-                regList.sort((a, b) => b.pct - a.pct || b.zero - a.zero);
-                zonaList.sort((a, b) => b.pct - a.pct || b.zero - a.zero);
-                dirList.sort((a, b) => b.pct - a.pct || b.zero - a.zero);
-            } else {
-                // Ordenar de MAYOR a MENOR por cantidad absoluta de asesores con 0 ventas
-                regList.sort((a, b) => b.zero - a.zero || b.pct - a.pct);
-                zonaList.sort((a, b) => b.zero - a.zero || b.pct - a.pct);
-                dirList.sort((a, b) => b.zero - a.zero || b.pct - a.pct);
-            }
-
-            // Actualizar encabezados y títulos descriptivos
-            const kpiTitleReg = document.getElementById('cz-kpi-top-reg-title');
-            const kpiTitleDir = document.getElementById('cz-kpi-top-dir-title');
-            if (kpiTitleReg) kpiTitleReg.innerText = isImpacto ? 'Regional con Mayor % de Impacto' : 'Regional con Mayor 0 Ventas';
-            if (kpiTitleDir) kpiTitleDir.innerText = isImpacto ? 'Director con Mayor % de Impacto' : 'Director con Mayor 0 Ventas';
-
-            const titleReg = document.getElementById('cz-title-reg');
-            const subReg = document.getElementById('cz-sub-reg');
-            const titleZona = document.getElementById('cz-title-zona');
-            const subZona = document.getElementById('cz-sub-zona');
-            const titleDir = document.getElementById('cz-title-dir');
-            const subDir = document.getElementById('cz-sub-dir');
-
-            if (titleReg) titleReg.innerHTML = isImpacto ? '<span>🏢</span> Regionales con Mayor % de Impacto en 0 Ventas' : '<span>🏢</span> Regionales con Más Asesores en 0 Ventas';
-            if (subReg) subReg.innerText = isImpacto ? 'Organizado de mayor a menor por % de asesores en 0 ventas sobre el total del equipo' : 'Haz clic en una regional para filtrar el detalle de asesores';
-
-            if (titleZona) titleZona.innerHTML = isImpacto ? '<span>📍</span> Zonas con Mayor % de Impacto en 0 Ventas' : '<span>📍</span> Zonas con Más Asesores en 0 Ventas';
-            if (subZona) subZona.innerText = isImpacto ? 'Organizado de mayor a menor por % de asesores en 0 ventas sobre el total del equipo' : 'Haz clic en una zona para filtrar el detalle de asesores';
-
-            if (titleDir) titleDir.innerHTML = isImpacto ? '<span>👤</span> Directores con Mayor % de Impacto en 0 Ventas' : '<span>👤</span> Directores con Más Asesores en 0 Ventas';
-            if (subDir) subDir.innerText = isImpacto ? 'Organizado de mayor a menor por % de asesores en 0 ventas sobre el total del equipo' : 'Haz clic en un director para filtrar el detalle de asesores';
-
-            if (regList.length > 0) {
-                const topR = regList[0];
-                const elTopR = document.getElementById('cz-kpi-top-reg');
-                const elTopRSub = document.getElementById('cz-kpi-top-reg-sub');
-                if (elTopR) elTopR.innerText = topR.name;
-                if (elTopRSub) {
-                    if (isImpacto) {
-                        elTopRSub.innerHTML = `<strong style="color: #dc2626;">${topR.pct.toFixed(1)}% del equipo</strong> (${topR.zero} de ${topR.total} asesores)`;
-                    } else {
-                        elTopRSub.innerHTML = `<strong>${topR.zero}</strong> asesores en 0 (${topR.pct.toFixed(1)}% del equipo)`;
-                    }
-                }
-            }
-            if (dirList.length > 0) {
-                const topD = dirList[0];
-                const elTopD = document.getElementById('cz-kpi-top-dir');
-                const elTopDSub = document.getElementById('cz-kpi-top-dir-sub');
-                if (elTopD) elTopD.innerText = topD.name;
-                if (elTopDSub) {
-                    if (isImpacto) {
-                        elTopDSub.innerHTML = `<strong style="color: #7e22ce;">${topD.pct.toFixed(1)}% del equipo</strong> (${topD.zero} de ${topD.total} asesores)`;
-                    } else {
-                        elTopDSub.innerHTML = `<strong>${topD.zero}</strong> asesores en 0 (${topD.pct.toFixed(1)}% del equipo)`;
-                    }
-                }
-            }
-
-            const sReg = document.getElementById('cz-search-reg') ? document.getElementById('cz-search-reg').value.toLowerCase().trim() : '';
-            const sZona = document.getElementById('cz-search-zona') ? document.getElementById('cz-search-zona').value.toLowerCase().trim() : '';
-            const sDir = document.getElementById('cz-search-dir') ? document.getElementById('cz-search-dir').value.toLowerCase().trim() : '';
-
-            // 1. Tabla Regional
-            const tbReg = document.getElementById('czRegTbody');
-            const tfReg = document.getElementById('czRegTfoot');
-            if (tbReg) {
-                tbReg.innerHTML = '';
-                const filteredRegs = regList.filter(r => !sReg || r.name.toLowerCase().includes(sReg));
-                if (!filteredRegs.length) {
-                    tbReg.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-muted);">Sin datos</td></tr>';
-                } else {
-                    filteredRegs.forEach((r, idx) => {
-                        const tr = document.createElement('tr');
-                        tr.style.cursor = 'pointer';
-                        tr.title = `Haz clic para ver los asesores de ${r.name}`;
-                        tr.onclick = () => drillDownCeroVentas('regional', r.name);
-                        const isSelected = currentCeroVentasDrilldown.type === 'regional' && currentCeroVentasDrilldown.value === r.name;
-                        if (isSelected) tr.style.background = '#fef2f2';
-
-                        const rankBadge = idx === 0 ? 'background: #be123c; color: #fff;' : 'background: #fee2e2; color: #9f1239;';
-                        tr.innerHTML = `
-                            <td style="text-align: center;"><span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; ${rankBadge}">#${idx+1}</span></td>
-                            <td><strong style="color: #1e3a8a;">${r.name}</strong></td>
-                            <td style="text-align: center;">${r.total}</td>
-                            <td style="text-align: center;"><span style="background: #fee2e2; color: #991b1b; font-weight: 800; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${r.directosZero}</span></td>
-                            <td style="text-align: center;"><span style="background: #ffedd5; color: #9a3412; font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${r.distriZero}</span></td>
-                            <td style="text-align: center; ${isImpacto ? 'color: #64748b; font-weight: 700;' : 'color: #dc2626; font-weight: 800; font-size: 0.92rem;'}">${r.zero}</td>
-                            <td style="text-align: center;"><span style="${isImpacto ? 'background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: #ffffff; font-weight: 800; padding: 3px 9px; border-radius: 6px; box-shadow: 0 1px 3px rgba(220,38,38,0.25);' : 'background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;'}">${r.pct.toFixed(1)}%</span></td>
-                        `;
-                        tbReg.appendChild(tr);
-                    });
-                }
-                if (tfReg) {
-                    const totA = filteredRegs.reduce((acc, r) => acc + r.total, 0);
-                    const totDir = filteredRegs.reduce((acc, r) => acc + r.directosZero, 0);
-                    const totDis = filteredRegs.reduce((acc, r) => acc + r.distriZero, 0);
-                    const totZ = filteredRegs.reduce((acc, r) => acc + r.zero, 0);
-                    const totPct = totA > 0 ? (totZ / totA * 100) : 0;
-                    tfReg.innerHTML = `
-                        <tr style="background: #fff1f2; font-weight: 800; border-top: 2px solid #be123c;">
-                            <td colspan="2" style="text-align: center; color: #881337;">TOTAL (${filteredRegs.length})</td>
-                            <td style="text-align: center;">${totA}</td>
-                            <td style="text-align: center; color: #991b1b;">${totDir}</td>
-                            <td style="text-align: center; color: #9a3412;">${totDis}</td>
-                            <td style="text-align: center; color: #dc2626;">${totZ}</td>
-                            <td style="text-align: center; color: #b91c1c;">${totPct.toFixed(1)}%</td>
-                        </tr>
-                    `;
-                }
-            }
-
-            // 2. Tabla Zona
-            const tbZona = document.getElementById('czZonaTbody');
-            const tfZona = document.getElementById('czZonaTfoot');
-            if (tbZona) {
-                tbZona.innerHTML = '';
-                const filteredZonas = zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona));
-                if (!filteredZonas.length) {
-                    tbZona.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:15px; color:var(--text-muted);">Sin datos</td></tr>';
-                } else {
-                    filteredZonas.forEach((z, idx) => {
-                        const tr = document.createElement('tr');
-                        tr.style.cursor = 'pointer';
-                        tr.title = `Haz clic para ver los asesores de ${z.name}`;
-                        tr.onclick = () => drillDownCeroVentas('zona', z.name);
-                        const isSelected = currentCeroVentasDrilldown.type === 'zona' && currentCeroVentasDrilldown.value === z.name;
-                        if (isSelected) tr.style.background = '#fff7ed';
-
-                        const rankBadge = idx === 0 ? 'background: #c2410c; color: #fff;' : 'background: #ffedd5; color: #9a3412;';
-                        tr.innerHTML = `
-                            <td style="text-align: center;"><span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; ${rankBadge}">#${idx+1}</span></td>
-                            <td><strong style="color: #1e3a8a;">${z.name}</strong></td>
-                            <td style="color: var(--text-muted); font-size: 0.75rem;">${z.regional}</td>
-                            <td style="text-align: center;">${z.total}</td>
-                            <td style="text-align: center;"><span style="background: #fee2e2; color: #991b1b; font-weight: 800; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${z.directosZero}</span></td>
-                            <td style="text-align: center;"><span style="background: #ffedd5; color: #9a3412; font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${z.distriZero}</span></td>
-                            <td style="text-align: center; ${isImpacto ? 'color: #64748b; font-weight: 700;' : 'color: #ea580c; font-weight: 800; font-size: 0.92rem;'}">${z.zero}</td>
-                            <td style="text-align: center;"><span style="${isImpacto ? 'background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); color: #ffffff; font-weight: 800; padding: 3px 9px; border-radius: 6px; box-shadow: 0 1px 3px rgba(234,88,12,0.25);' : 'background: #ffedd5; color: #9a3412; font-weight: 800; padding: 2px 8px; border-radius: 6px;'}">${z.pct.toFixed(1)}%</span></td>
-                        `;
-                        tbZona.appendChild(tr);
-                    });
-                }
-                if (tfZona) {
-                    const totA = filteredZonas.reduce((acc, z) => acc + z.total, 0);
-                    const totDir = filteredZonas.reduce((acc, z) => acc + z.directosZero, 0);
-                    const totDis = filteredZonas.reduce((acc, z) => acc + z.distriZero, 0);
-                    const totZ = filteredZonas.reduce((acc, z) => acc + z.zero, 0);
-                    const totPct = totA > 0 ? (totZ / totA * 100) : 0;
-                    tfZona.innerHTML = `
-                        <tr style="background: #fff7ed; font-weight: 800; border-top: 2px solid #ea580c;">
-                            <td colspan="3" style="text-align: center; color: #7c2d12;">TOTAL (${filteredZonas.length})</td>
-                            <td style="text-align: center;">${totA}</td>
-                            <td style="text-align: center; color: #991b1b;">${totDir}</td>
-                            <td style="text-align: center; color: #9a3412;">${totDis}</td>
-                            <td style="text-align: center; color: #ea580c;">${totZ}</td>
-                            <td style="text-align: center; color: #c2410c;">${totPct.toFixed(1)}%</td>
-                        </tr>
-                    `;
-                }
-            }
-
-            // 3. Tabla Director
-            const tbDir = document.getElementById('czDirTbody');
-            const tfDir = document.getElementById('czDirTfoot');
-            if (tbDir) {
-                tbDir.innerHTML = '';
-                const filteredDirs = dirList.filter(d => !sDir || d.name.toLowerCase().includes(sDir));
-                if (!filteredDirs.length) {
-                    tbDir.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-muted);">Sin datos</td></tr>';
-                } else {
-                    filteredDirs.forEach((d, idx) => {
-                        const tr = document.createElement('tr');
-                        tr.style.cursor = 'pointer';
-                        tr.title = `Haz clic para ver los asesores de ${d.name}`;
-                        tr.onclick = () => drillDownCeroVentas('director', d.name);
-                        const isSelected = currentCeroVentasDrilldown.type === 'director' && currentCeroVentasDrilldown.value === d.name;
-                        if (isSelected) tr.style.background = '#faf5ff';
-
-                        const rankBadge = idx === 0 ? 'background: #7e22ce; color: #fff;' : 'background: #f3e8ff; color: #6b21a8;';
-                        tr.innerHTML = `
-                            <td style="text-align: center;"><span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; ${rankBadge}">#${idx+1}</span></td>
-                            <td><strong style="color: #1e3a8a;">${d.name}</strong></td>
-                            <td style="text-align: center;">${d.total}</td>
-                            <td style="text-align: center;"><span style="background: #fee2e2; color: #991b1b; font-weight: 800; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${d.directosZero}</span></td>
-                            <td style="text-align: center;"><span style="background: #ffedd5; color: #9a3412; font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${d.distriZero}</span></td>
-                            <td style="text-align: center; ${isImpacto ? 'color: #64748b; font-weight: 700;' : 'color: #7e22ce; font-weight: 800; font-size: 0.92rem;'}">${d.zero}</td>
-                            <td style="text-align: center;"><span style="${isImpacto ? 'background: linear-gradient(135deg, #7e22ce 0%, #581c87 100%); color: #ffffff; font-weight: 800; padding: 3px 9px; border-radius: 6px; box-shadow: 0 1px 3px rgba(126,34,206,0.25);' : 'background: #f3e8ff; color: #6b21a8; font-weight: 800; padding: 2px 8px; border-radius: 6px;'}">${d.pct.toFixed(1)}%</span></td>
-                        `;
-                        tbDir.appendChild(tr);
-                    });
-                }
-                if (tfDir) {
-                    const totA = filteredDirs.reduce((acc, d) => acc + d.total, 0);
-                    const totDir = filteredDirs.reduce((acc, d) => acc + d.directosZero, 0);
-                    const totDis = filteredDirs.reduce((acc, d) => acc + d.distriZero, 0);
-                    const totZ = filteredDirs.reduce((acc, d) => acc + d.zero, 0);
-                    const totPct = totA > 0 ? (totZ / totA * 100) : 0;
-                    tfDir.innerHTML = `
-                        <tr style="background: #faf5ff; font-weight: 800; border-top: 2px solid #7e22ce;">
-                            <td colspan="2" style="text-align: center; color: #581c87;">TOTAL (${filteredDirs.length})</td>
-                            <td style="text-align: center;">${totA}</td>
-                            <td style="text-align: center; color: #991b1b;">${totDir}</td>
-                            <td style="text-align: center; color: #9a3412;">${totDis}</td>
-                            <td style="text-align: center; color: #7e22ce;">${totZ}</td>
-                            <td style="text-align: center; color: #6b21a8;">${totPct.toFixed(1)}%</td>
-                        </tr>
-                    `;
-                }
-            }
-        }
-
-        function renderCeroVentasAsesoresTable() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
-
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
-            const searchTxt = document.getElementById('cz-search-asesor') ? document.getElementById('cz-search-asesor').value.toLowerCase().trim() : '';
-
-            let rows = PRESUPUESTO_DATA.filter(a => (a['CANTIDAD DE VENTAS'] || 0) === 0);
-
-            if (selReg) rows = rows.filter(a => (a.REGIONAL || '').toUpperCase() === selReg);
-            if (selZona) rows = rows.filter(a => (a.ZONA || '').toUpperCase() === selZona);
-            if (selDir) rows = rows.filter(a => (a.DIRECTOR || '').toUpperCase() === selDir);
-
-            if (currentCeroVentasTipo === 'directo') {
-                rows = rows.filter(a => (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO'));
-            } else if (currentCeroVentasTipo === 'distri') {
-                rows = rows.filter(a => !(a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO'));
-            }
-
-            if (currentCeroVentasDrilldown.type && currentCeroVentasDrilldown.value) {
-                const dt = currentCeroVentasDrilldown.type;
-                const dv = currentCeroVentasDrilldown.value.toUpperCase();
-                if (dt === 'regional') rows = rows.filter(a => (a.REGIONAL || '').toUpperCase() === dv);
-                else if (dt === 'zona') rows = rows.filter(a => (a.ZONA || '').toUpperCase() === dv);
-                else if (dt === 'director') rows = rows.filter(a => (a.DIRECTOR || '').toUpperCase() === dv);
-            }
-
-            if (searchTxt) {
-                rows = rows.filter(a =>
-                    (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt) ||
-                    (a.REGIONAL || '').toLowerCase().includes(searchTxt) ||
-                    (a.ZONA || '').toLowerCase().includes(searchTxt) ||
-                    (a.DIRECTOR || '').toLowerCase().includes(searchTxt) ||
-                    (a['TIPO DE ASESOR'] || '').toLowerCase().includes(searchTxt)
-                );
-            }
-
-            const sc = czAsesoresSortState.col;
-            const asc = czAsesoresSortState.asc;
-            rows.sort((a, b) => {
-                let vA = a[sc] !== undefined ? a[sc] : 0;
-                let vB = b[sc] !== undefined ? b[sc] : 0;
-                if (typeof vA === 'string') {
-                    return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
-                }
-                if (vA !== vB) {
-                    return asc ? (vA - vB) : (vB - vA);
-                }
-                return (b.PRESUPUESTO || 0) - (a.PRESUPUESTO || 0);
-            });
-
-            const tbody = document.getElementById('czAsesoresTbody');
-            const tfoot = document.getElementById('czAsesoresTfoot');
-            if (!tbody) return;
-
-            tbody.innerHTML = '';
-            if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; padding: 25px; color: var(--text-muted);">No se encontraron asesores con los criterios seleccionados.</td></tr>';
-            } else {
-                rows.forEach((a, idx) => {
-                    const tr = document.createElement('tr');
-                    const isDirecto = (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO');
-
-                    if (isDirecto) {
-                        tr.style.background = '#fff5f5';
-                        tr.style.borderLeft = '3.5px solid #dc2626';
-                    }
-
-                    const tipoBadge = isDirecto
-                        ? `<span style="background: #fee2e2; color: #991b1b; border: 1.5px solid #ef4444; font-weight: 800; padding: 3px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 4px; font-size: 0.74rem;">🚨 DIRECTO EN ALERTA</span>`
-                        : `<span style="background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-weight: 700; padding: 2px 7px; border-radius: 6px; font-size: 0.74rem;">DISTRIBUIDOR</span>`;
-
-                    tr.innerHTML = `
-                        <td style="text-align: center; font-weight: 700; color: #64748b;">#${idx+1}</td>
-                        <td><strong>${a['NOMBRE ASESOR']}</strong></td>
-                        <td style="text-align: center;">${tipoBadge}</td>
-                        <td style="text-align: center;">${a.REGIONAL || '-'}</td>
-                        <td style="text-align: center; color: var(--text-muted);">${a.ZONA || '-'}</td>
-                        <td style="text-align: center;">${a.DIRECTOR || '-'}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 900; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">0</span></td>
-                        <td class="num" style="text-align: center; color: #64748b;">$ 0</td>
-                        <td class="num" style="text-align: center; font-weight: 800; color: ${isDirecto ? '#991b1b' : '#1e3a8a'};">${formatter.format(a.PRESUPUESTO || 0)}</td>
-                        <td class="num" style="text-align: center; color: #dc2626; font-weight: 700;">- ${formatter.format(a.PRESUPUESTO || 0)}</td>
-                        <td class="num" style="text-align: center;"><span class="badge badge-baja" style="background: #fee2e2; color: #991b1b; font-weight: 800;">0.0 %</span></td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            }
-
-            if (tfoot) {
-                const totPres = rows.reduce((acc, a) => acc + (a.PRESUPUESTO || 0), 0);
-                const directosCount = rows.filter(a => (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECTO')).length;
-                const distriCount = rows.length - directosCount;
-                tfoot.innerHTML = `
-                    <tr style="background: #eff6ff; font-weight: 800; border-top: 2px solid #1B365D;">
-                        <td colspan="2" style="text-align: left; padding-left: 12px; color: #1B365D;">TOTAL (${rows.length} Asesores en 0 Ventas)</td>
-                        <td style="text-align: center; font-size: 0.78rem;"><span style="color: #991b1b;">${directosCount} Directos</span> / <span style="color: #047857;">${distriCount} Distri</span></td>
-                        <td colspan="3"></td>
-                        <td style="text-align: center; color: #b91c1c;">0</td>
-                        <td class="num" style="text-align: center;">$ 0</td>
-                        <td class="num" style="text-align: center; color: #dc2626;">${formatter.format(totPres)}</td>
-                        <td class="num" style="text-align: center; color: #dc2626;">- ${formatter.format(totPres)}</td>
-                        <td class="num" style="text-align: center;"><span class="badge badge-baja">0.0 %</span></td>
-                    </tr>
-                `;
-            }
-        }
-
-        // ==========================================
-        // 📉 BAJA PRODUCTIVIDAD (< 3 VENTAS) - MES ANTERIOR
-        // ==========================================
-        function renderAntBajaProductividadDashboard() {
-            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
-
-            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
-
-            let baseAdvisors = PRESUPUESTO_DATA_ANT.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
-                return true;
-            });
-
-            const total = baseAdvisors.length;
-            const under3 = baseAdvisors.filter(a => (a['CANTIDAD DE VENTAS'] || 0) < 3);
-            const countU3 = under3.length;
-            const countProd = total - countU3;
-            const pctU3 = total > 0 ? ((countU3 / total) * 100).toFixed(1) : '0.0';
-            const pctProd = total > 0 ? ((countProd / total) * 100).toFixed(1) : '0.0';
-
-            const bGlobal = document.getElementById('ant-bp-badge-global');
-            if (bGlobal) bGlobal.innerText = `${countU3} Asesores (${pctU3}%)`;
-
-            const elU3 = document.getElementById('ant-bp-kpi-total-u3');
-            if (elU3) elU3.innerText = countU3;
-            const elU3Sub = document.getElementById('ant-bp-kpi-total-u3-sub');
-            if (elU3Sub) elU3Sub.innerHTML = `Representa el <strong style="color: #dc2626;">${pctU3}%</strong> de ${total} asesores`;
-
-            const elProd = document.getElementById('ant-bp-kpi-total-prod');
-            if (elProd) elProd.innerText = countProd;
-            const elProdSub = document.getElementById('ant-bp-kpi-total-prod-sub');
-            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con ≥ 3 ventas`;
-
-            renderBajaProdTablesAnt();
-            renderBajaProdAsesoresTableAnt();
-        }
-
-        function renderBajaProdTablesAnt() {
-            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
-
-            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
-
-            let baseAdvisors = PRESUPUESTO_DATA_ANT.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
-                return true;
-            });
-
-            const regMap = {}, zonaMap = {}, dirMap = {};
-            baseAdvisors.forEach(a => {
-                const reg = a.REGIONAL || 'SIN REGIONAL';
-                const zona = a.ZONA || 'SIN ZONA';
-                const dire = a.DIRECTOR || 'SIN DIRECTOR';
-                const cv = a['CANTIDAD DE VENTAS'] || 0;
-                const isU3 = cv < 3;
-
-                if (!regMap[reg]) regMap[reg] = { total: 0, under3: 0 };
-                regMap[reg].total++;
-                if (isU3) regMap[reg].under3++;
-
-                if (!zonaMap[zona]) zonaMap[zona] = { regional: reg, total: 0, under3: 0 };
-                zonaMap[zona].total++;
-                if (isU3) zonaMap[zona].under3++;
-
-                if (!dirMap[dire]) dirMap[dire] = { total: 0, under3: 0 };
-                dirMap[dire].total++;
-                if (isU3) dirMap[dire].under3++;
-            });
-
-            const regList = Object.entries(regMap).map(([k, v]) => ({
-                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
-            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
-
-            const zonaList = Object.entries(zonaMap).map(([k, v]) => ({
-                name: k, regional: v.regional, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
-            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
-
-            const dirList = Object.entries(dirMap).map(([k, v]) => ({
-                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
-            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
-
-            if (regList.length > 0) {
-                const topR = regList[0];
-                const elTopR = document.getElementById('ant-bp-kpi-top-reg');
-                if (elTopR) elTopR.innerText = topR.name;
-                const elTopRSub = document.getElementById('ant-bp-kpi-top-reg-sub');
-                if (elTopRSub) elTopRSub.innerHTML = `${topR.under3} asesores (<strong style="color: #dc2626;">${topR.pct.toFixed(1)}%</strong> de ${topR.total})`;
-            }
-            if (dirList.length > 0) {
-                const topD = dirList[0];
-                const elTopD = document.getElementById('ant-bp-kpi-top-dir');
-                if (elTopD) elTopD.innerText = topD.name;
-                const elTopDSub = document.getElementById('ant-bp-kpi-top-dir-sub');
-                if (elTopDSub) elTopDSub.innerHTML = `${topD.under3} asesores (<strong style="color: #dc2626;">${topD.pct.toFixed(1)}%</strong> de ${topD.total})`;
-            }
-
-            const sReg = document.getElementById('ant-bp-search-reg') ? document.getElementById('ant-bp-search-reg').value.toLowerCase().trim() : '';
-            const sZona = document.getElementById('ant-bp-search-zona') ? document.getElementById('ant-bp-search-zona').value.toLowerCase().trim() : '';
-            const sDir = document.getElementById('ant-bp-search-dir') ? document.getElementById('ant-bp-search-dir').value.toLowerCase().trim() : '';
-
-            const tbReg = document.getElementById('antBpRegTbody');
-            if (tbReg) {
-                tbReg.innerHTML = '';
-                regList.filter(r => !sReg || r.name.toLowerCase().includes(sReg)).forEach(r => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${r.name}</strong></td>
-                        <td style="text-align: center;">${r.total}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${r.under3}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${r.pct.toFixed(1)}%</span></td>
-                    `;
-                    tbReg.appendChild(tr);
-                });
-            }
-
-            const tbZona = document.getElementById('antBpZonaTbody');
-            if (tbZona) {
-                tbZona.innerHTML = '';
-                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona)).forEach(z => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${z.name}</strong></td>
-                        <td style="color: #64748b;">${z.regional}</td>
-                        <td style="text-align: center;">${z.total}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${z.under3}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
-                    `;
-                    tbZona.appendChild(tr);
-                });
-            }
-
-            const tbDir = document.getElementById('antBpDirTbody');
-            if (tbDir) {
-                tbDir.innerHTML = '';
-                dirList.filter(d => !sDir || d.name.toLowerCase().includes(sDir)).forEach(d => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${d.name}</strong></td>
-                        <td style="text-align: center;">${d.total}</td>
-                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${d.under3}</td>
-                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${d.pct.toFixed(1)}%</span></td>
-                    `;
-                    tbDir.appendChild(tr);
-                });
-            }
-        }
-
-        function sortBajaProdAnt(col) {
-            if (bpAntSort.col === col) {
-                bpAntSort.asc = !bpAntSort.asc;
-            } else {
-                bpAntSort.col = col;
-                bpAntSort.asc = true;
-            }
-            renderBajaProdAsesoresTableAnt();
-        }
-
-        function renderBajaProdAsesoresTableAnt() {
-            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
-
-            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
-            const searchTxt = document.getElementById('ant-bp-search-asesor') ? document.getElementById('ant-bp-search-asesor').value.toLowerCase().trim() : '';
-
-            let rows = PRESUPUESTO_DATA_ANT.filter(a => {
-                if ((a['CANTIDAD DE VENTAS'] || 0) >= 3) return false;
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
-                if (searchTxt) {
-                    const mNom = (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt);
-                    const mReg = (a.REGIONAL || '').toLowerCase().includes(searchTxt);
-                    const mZona = (a.ZONA || '').toLowerCase().includes(searchTxt);
-                    const mDir = (a.DIRECTOR || '').toLowerCase().includes(searchTxt);
-                    if (!mNom && !mReg && !mZona && !mDir) return false;
-                }
-                return true;
-            });
-
-            const sc = bpAntSort.col;
-            const asc = bpAntSort.asc;
-            rows.sort((a, b) => {
-                let vA = a[sc] !== undefined ? a[sc] : 0;
-                let vB = b[sc] !== undefined ? b[sc] : 0;
-                if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
-                return asc ? (vA - vB) : (vB - vA);
-            });
-
-            const sub = document.getElementById('ant-bp-table-sub');
-            if (sub) sub.innerText = `Mostrando ${rows.length} asesores con menos de 3 ventas`;
-
-            const tbody = document.getElementById('antBpAsesoresTbody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            if (!rows.length) {
-                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:25px; color:#64748b;">No se encontraron asesores con &lt; 3 ventas en este filtro.</td></tr>';
-                return;
-            }
-
-            rows.forEach((r, idx) => {
-                const tr = document.createElement('tr');
-                const cv = r['CANTIDAD DE VENTAS'] || 0;
-                const badgeVentas = cv === 0
-                    ? '<span style="background:#fee2e2; color:#991b1b; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fecdd3;">0 ventas</span>'
-                    : (cv === 1
-                        ? '<span style="background:#fef3c7; color:#b45309; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fde68a;">1 venta</span>'
-                        : '<span style="background:#ffedd5; color:#c2410c; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fed7aa;">2 ventas</span>');
-
-                const tipoBadge = r['TIPO DE ASESOR'] === 'CONTRATO DIRECTO'
-                    ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DIRECTO</span>'
-                    : '<span style="background:#f1f5f9; color:#475569; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DISTRIBUIDOR</span>';
-
-                tr.innerHTML = `
-                    <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
-                    <td><strong>${r['NOMBRE ASESOR']}</strong></td>
-                    <td style="text-align: center;">${tipoBadge}</td>
-                    <td style="text-align: center;">${r.REGIONAL}</td>
-                    <td style="text-align: center; color: #64748b;">${r.ZONA}</td>
-                    <td style="text-align: center;">${r.DIRECTOR}</td>
-                    <td style="text-align: center;">${badgeVentas}</td>
-                    <td class="num" style="text-align: center; color: #1e40af;">${formatter.format(r.LLEVAMOS || 0)}</td>
-                    <td class="num" style="text-align: center; color: #334155;">${formatter.format(r.PRESUPUESTO || 0)}</td>
-                    <td style="text-align: center; font-weight: 800; color: ${r.CUMPLIMIENTO >= 100 ? '#059669' : '#dc2626'};">${r.CUMPLIMIENTO}%</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-
-        // ==========================================
-        // 🗺️ EFECTIVIDAD POR SECTORES (PLANES DE TRABAJO)
-        // ==========================================
-        isSectoresInitialized = false;
-        let sectoresActivePeriod = 'ANT'; // 'ANT' (Mes Anterior) o 'ANTEP' (Mes Antepenúltimo)
-        let sectoresSortState = { col: 'pct_efectividad', asc: false };
-        let currentSectoresList = [];
-
-        function getSectoresData() {
-            if (sectoresActivePeriod === 'ANTEP') {
-                if (typeof SECTORES_DATA_ANTEP !== 'undefined' && SECTORES_DATA_ANTEP && SECTORES_DATA_ANTEP.length > 0) {
-                    return SECTORES_DATA_ANTEP;
-                }
-            }
-            return (typeof SECTORES_DATA_ANT !== 'undefined' && SECTORES_DATA_ANT) ? SECTORES_DATA_ANT : [];
-        }
-
-        function setSectoresPeriod(period) {
-            sectoresActivePeriod = period;
-            const btnAnt = document.getElementById('sec-btn-period-ant');
-            const btnAntep = document.getElementById('sec-btn-period-antep');
-
-            if (period === 'ANTEP') {
-                if (btnAntep) {
-                    btnAntep.style.background = '#ffffff';
-                    btnAntep.style.color = '#1B365D';
-                    btnAntep.style.borderColor = '#ffffff';
-                    btnAntep.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
-                }
-                if (btnAnt) {
-                    btnAnt.style.background = 'rgba(255,255,255,0.15)';
-                    btnAnt.style.color = '#ffffff';
-                    btnAnt.style.borderColor = 'rgba(255,255,255,0.3)';
-                    btnAnt.style.boxShadow = 'none';
-                }
-            } else {
-                if (btnAnt) {
-                    btnAnt.style.background = '#ffffff';
-                    btnAnt.style.color = '#1B365D';
-                    btnAnt.style.borderColor = '#ffffff';
-                    btnAnt.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
-                }
-                if (btnAntep) {
-                    btnAntep.style.background = 'rgba(255,255,255,0.15)';
-                    btnAntep.style.color = '#ffffff';
-                    btnAntep.style.borderColor = 'rgba(255,255,255,0.3)';
-                    btnAntep.style.boxShadow = 'none';
-                }
-            }
-
-            updateSectoresDropdowns();
-            clearSectoresFilters();
-        }
-
-        function updateSectoresDropdowns() {
-            const data = getSectoresData();
-            const selReg = document.getElementById('sec-filter-regional');
-            const selDir = document.getElementById('sec-filter-director');
-
-            if (selReg) {
-                const regs = Array.from(new Set(data.map(d => d.REGIONAL).filter(Boolean))).sort();
-                selReg.innerHTML = '<option value="ALL">Todas las Regionales</option>';
-                regs.forEach(r => selReg.innerHTML += `<option value="${r}">${r}</option>`);
-            }
-
-            if (selDir) {
-                const dirs = Array.from(new Set(data.map(d => d.DIRECTOR).filter(d => d && d !== 'Sin Director'))).sort();
-                selDir.innerHTML = '<option value="ALL">Todos los Directores</option>';
-                dirs.forEach(d => selDir.innerHTML += `<option value="${d}">${d}</option>`);
-            }
-
-            populateSectoresZonas('ALL');
-        }
 
         function initSectoresDashboard() {
             const data = getSectoresData();
