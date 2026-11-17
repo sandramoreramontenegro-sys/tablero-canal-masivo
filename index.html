@@ -242142,6 +242142,84 @@ const PRODUCTOS_DATA = {
         }
 
 
+        // ==========================================
+        // 🗺️ LÓGICA DEL MAPA DE CALOR: SECTORES
+        // ==========================================
+        let sectoresActivePeriod = 'ANT'; // 'ANT' o 'ANTEP'
+        let currentSectoresList = [];
+        let sectoresSortState = { col: 'pct_efectividad', asc: false };
+
+        function getSectoresData() {
+            if (sectoresActivePeriod === 'ANTEP') {
+                return (typeof SECTORES_DATA_ANTEP !== 'undefined' && Array.isArray(SECTORES_DATA_ANTEP)) ? SECTORES_DATA_ANTEP : [];
+            }
+            return (typeof SECTORES_DATA_ANT !== 'undefined' && Array.isArray(SECTORES_DATA_ANT)) ? SECTORES_DATA_ANT : [];
+        }
+
+        function setSectoresPeriod(period) {
+            sectoresActivePeriod = period;
+            const btnAnt = document.getElementById('sec-btn-period-ant');
+            const btnAntep = document.getElementById('sec-btn-period-antep');
+
+            if (period === 'ANTEP') {
+                if (btnAntep) {
+                    btnAntep.style.background = '#ffffff';
+                    btnAntep.style.color = '#1B365D';
+                    btnAntep.style.borderColor = '#ffffff';
+                    btnAntep.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+                }
+                if (btnAnt) {
+                    btnAnt.style.background = 'rgba(255,255,255,0.15)';
+                    btnAnt.style.color = '#ffffff';
+                    btnAnt.style.borderColor = 'rgba(255,255,255,0.3)';
+                    btnAnt.style.boxShadow = 'none';
+                }
+            } else {
+                if (btnAnt) {
+                    btnAnt.style.background = '#ffffff';
+                    btnAnt.style.color = '#1B365D';
+                    btnAnt.style.borderColor = '#ffffff';
+                    btnAnt.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+                }
+                if (btnAntep) {
+                    btnAntep.style.background = 'rgba(255,255,255,0.15)';
+                    btnAntep.style.color = '#ffffff';
+                    btnAntep.style.borderColor = 'rgba(255,255,255,0.3)';
+                    btnAntep.style.boxShadow = 'none';
+                }
+            }
+
+            updateSectoresDropdowns();
+            clearSectoresFilters();
+        }
+
+        function updateSectoresDropdowns() {
+            const data = getSectoresData();
+            if (!data || data.length === 0) return;
+
+            const selReg = document.getElementById('sec-filter-regional');
+            const selDir = document.getElementById('sec-filter-director');
+
+            const regionales = Array.from(new Set(data.map(d => d.REGIONAL).filter(Boolean))).sort();
+            const directores = Array.from(new Set(data.map(d => d.DIRECTOR).filter(Boolean).filter(d => d !== 'Sin Director'))).sort();
+
+            if (selReg) {
+                const currentReg = selReg.value || 'ALL';
+                selReg.innerHTML = '<option value="ALL">Todas las Regionales</option>';
+                regionales.forEach(r => selReg.innerHTML += `<option value="${r}">${r}</option>`);
+                selReg.value = regionales.includes(currentReg) ? currentReg : 'ALL';
+            }
+
+            if (selDir) {
+                const currentDir = selDir.value || 'ALL';
+                selDir.innerHTML = '<option value="ALL">Todos los Directores</option>';
+                directores.forEach(d => selDir.innerHTML += `<option value="${d}">${d}</option>`);
+                selDir.value = directores.includes(currentDir) ? currentDir : 'ALL';
+            }
+
+            populateSectoresZonas(selReg ? selReg.value : 'ALL');
+        }
+
         function initSectoresDashboard() {
             const data = getSectoresData();
             if (!data || data.length === 0) {
