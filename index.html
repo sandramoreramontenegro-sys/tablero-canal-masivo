@@ -5530,8 +5530,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-17 00:14:12';
-const TIMESTAMP_ACTUALIZACION = 1794892452;
+const ULTIMA_ACTUALIZACION = '2026-11-17 00:19:58';
+const TIMESTAMP_ACTUALIZACION = 1794892798;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -241401,14 +241401,12 @@ const PRODUCTOS_DATA = {
                 // ==========================================
         // VARIABLES Y FUNCIONES DE ROTACIÓN DINÁMICA
         // ==========================================
-        let rawRotacionAdvisors = [];
-        let filteredRotacionAdvisors = [];
-        let isRotacionInitialized = false;
-        let currentRotGroup = 'total';
-        let currentRotStatusFilter = 'ALL';
-        let rotChartBarrasInstance = null;
-        let rotChartEvolucionInstance = null;
-        let rotacionSortState = { col: 'nombre', asc: true };
+        var rawRotacionAdvisors = [];
+        var filteredRotacionAdvisors = [];
+        var currentRotStatusFilter = 'ALL';
+        var rotChartBarrasInstance = null;
+        var rotChartEvolucionInstance = null;
+        var rotacionSortState = { col: 'nombre', asc: true };
 
         function initRotacion() {
             if (typeof ROTACION_DATA !== 'undefined' && ROTACION_DATA.asesores_detalle) {
