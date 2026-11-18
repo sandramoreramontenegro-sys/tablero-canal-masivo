@@ -1724,6 +1724,113 @@
             box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4) !important;
         }
 
+    
+        /* ========================================== */
+        /* 👥 ESTILOS CENSO Y CONTEO DE ASESORES       */
+        /* ========================================== */
+        .cruce-mode-pill.censo {
+            border-color: #0284c7;
+            color: #0369a1;
+            background: #f0f9ff;
+        }
+        .cruce-mode-pill.censo:hover {
+            background: #e0f2fe;
+            border-color: #0284c7;
+            color: #0c4a6e;
+        }
+        .cruce-mode-pill.censo.active {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;
+            color: #ffffff !important;
+            border-color: #0284c7 !important;
+            box-shadow: 0 3px 8px rgba(2, 132, 199, 0.35) !important;
+        }
+        .censo-tab-btn {
+            padding: 7px 14px;
+            font-size: 0.80rem;
+            font-weight: 700;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #475569;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+        .censo-tab-btn:hover {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+        .censo-tab-btn.active {
+            background: #1B365D;
+            color: #ffffff;
+            border-color: #1B365D;
+            box-shadow: 0 2px 6px rgba(27, 54, 93, 0.25);
+        }
+        .censo-tipo-chip {
+            padding: 5px 12px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            border-radius: 20px;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .censo-tipo-chip:hover {
+            background: #f8fafc;
+            color: #334155;
+        }
+        .censo-tipo-chip.active {
+            background: #0284c7;
+            color: #ffffff;
+            border-color: #0284c7;
+            box-shadow: 0 2px 5px rgba(2, 132, 199, 0.3);
+        }
+        .censo-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: inherit;
+        }
+        .censo-table th {
+            background: #1e293b;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.77rem;
+            padding: 10px 12px;
+            text-align: center;
+            letter-spacing: 0.3px;
+            border: 1px solid #334155;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+        .censo-table th:hover {
+            background: #334155;
+        }
+        .censo-table td {
+            padding: 9px 12px;
+            font-size: 0.82rem;
+            color: #334155;
+            border: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        .censo-table tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .censo-table tbody tr:hover {
+            background: #f0f9ff;
+        }
+        .censo-table tfoot td {
+            background: #f1f5f9;
+            font-weight: 900;
+            color: #0f172a;
+            border-top: 2px solid #cbd5e1;
+            padding: 10px 12px;
+        }
+
     </style>
 
 </head>
@@ -2341,6 +2448,18 @@
                         <button type="button" id="btn-asesor-general" class="cruce-mode-pill active" onclick="switchAsesorMode('general')">
                             <span>📊</span> CUMPLIMIENTO GENERAL
                         </button>
+                        <button type="button" id="btn-asesor-censo" class="cruce-mode-pill censo" onclick="switchAsesorMode('censo')" title="Ver censo oficial de asesores activos, desglose global, por regional, zona y director">
+                            <span>👥</span> CONTEO ASESORES ACTIVOS (<span id="censo-badge-total">329</span>)
+                        </button>
+                        <div id="censo-mini-summary" style="display: inline-flex; align-items: center; gap: 7px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 5px 12px; border-radius: 6px; font-size: 0.77rem; color: #475569; font-weight: 700;">
+                            <span>🏢 Global: <strong id="censo-mini-total" style="color: #0f172a;">329</strong></span>
+                            <span style="color: #cbd5e1;">•</span>
+                            <span id="censo-mini-dir" style="color: #0284c7; font-weight: 800;">146 Directos</span>
+                            <span style="color: #cbd5e1;">•</span>
+                            <span id="censo-mini-dis" style="color: #7c3aed; font-weight: 800;">183 Distri</span>
+                            <span style="color: #cbd5e1;">•</span>
+                            <span style="color: #059669; font-weight: 800;">17 Reg / 24 Zonas / 7 Dir</span>
+                        </div>
                         <button type="button" id="btn-asesor-efectividad" class="cruce-mode-pill efectividad" style="display: none;" onclick="switchAsesorMode('efectividad')">
                             <span>✅</span> EFECTIVIDAD DE CONFIRMACIÓN POR ASESOR
                         </button>
@@ -2606,6 +2725,9 @@
 
                     </div>
                 </div>
+
+                <!-- 👥 CONTENEDOR CENSO Y CONTEO DE ASESORES ACTIVOS (MES ACTUAL) -->
+                <div id="asesor-censo-container" style="display: none; margin-top: 10px; margin-bottom: 25px;"></div>
 
                 <!-- CONTENEDOR BAJA PRODUCTIVIDAD: ASESORES CON < 3 VENTAS (MES ACTUAL) -->
         <div id="cruce-bajaprod-container" style="display: none; margin-bottom: 25px;">
@@ -3283,7 +3405,10 @@
 
         <!-- CONTENEDOR GRID: TABLAS DE CRUCE MES ANTERIOR -->
         
-        <!-- CONTENEDOR BAJA PRODUCTIVIDAD: ASESORES CON < 3 VENTAS (MES ANTERIOR) -->
+        <!-- 👥 CONTENEDOR CENSO Y CONTEO DE ASESORES ACTIVOS (MES ANTERIOR) -->
+                <div id="ant-asesor-censo-container" style="display: none; margin-top: 10px; margin-bottom: 25px;"></div>
+
+                <!-- CONTENEDOR BAJA PRODUCTIVIDAD: ASESORES CON < 3 VENTAS (MES ANTERIOR) -->
         <div id="ant-cruce-bajaprod-container" style="display: none; margin-bottom: 25px;">
             <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 12px; padding: 18px 24px; color: #ffffff; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-left: 6px solid #ef4444; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <div>
@@ -3626,6 +3751,16 @@
                         <button type="button" id="btn-ant-asesor-general" class="cruce-mode-pill active" onclick="switchAsesorModeAnt('general')">
                             <span>📊</span> CUMPLIMIENTO GENERAL
                         </button>
+                        <button type="button" id="btn-ant-asesor-censo" class="cruce-mode-pill censo" onclick="switchAsesorModeAnt('censo')" title="Ver censo oficial de asesores activos del mes anterior">
+                            <span>👥</span> CONTEO ASESORES ACTIVOS (<span id="ant-censo-badge-total">353</span>)
+                        </button>
+                        <div id="ant-censo-mini-summary" style="display: inline-flex; align-items: center; gap: 7px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 5px 12px; border-radius: 6px; font-size: 0.77rem; color: #475569; font-weight: 700;">
+                            <span>🏢 Global: <strong id="ant-censo-mini-total" style="color: #0f172a;">353</strong></span>
+                            <span style="color: #cbd5e1;">•</span>
+                            <span id="ant-censo-mini-dir" style="color: #0284c7; font-weight: 800;">150 Directos</span>
+                            <span style="color: #cbd5e1;">•</span>
+                            <span id="ant-censo-mini-dis" style="color: #7c3aed; font-weight: 800;">203 Distri</span>
+                        </div>
                         <button type="button" id="btn-ant-asesor-efectividad" class="cruce-mode-pill efectividad" onclick="switchAsesorModeAnt('efectividad')" style="display: none;">
                             <span>✅</span> EFECTIVIDAD DE CONFIRMACIÓN
                         </button>
@@ -237986,6 +238121,9 @@ const PRODUCTOS_DATA = {
             }
 
             const btnGen = document.getElementById('btn-asesor-general');
+            const btnCenso = document.getElementById('btn-asesor-censo');
+            if (btnCenso) btnCenso.classList.toggle('active', mode === 'censo');
+            const censoContainer = document.getElementById('asesor-censo-container');
             const btnEf = document.getElementById('btn-asesor-efectividad');
             const btnProy = document.getElementById('btn-asesor-proyeccion');
             const btnNo = document.getElementById('btn-asesor-nocumplen');
@@ -243057,6 +243195,9 @@ const PRODUCTOS_DATA = {
         function switchAsesorModeAnt(mode) {
             currentAsesorModeAnt = mode;
             const btnGen = document.getElementById('btn-ant-asesor-general');
+            const btnCensoAnt = document.getElementById('btn-ant-asesor-censo');
+            if (btnCensoAnt) btnCensoAnt.classList.toggle('active', mode === 'censo');
+            const censoContainerAnt = document.getElementById('ant-asesor-censo-container');
             const btnEf = document.getElementById('btn-ant-asesor-efectividad');
             const btnNc = document.getElementById('btn-ant-asesor-nocumplen');
             const btnConc = document.getElementById('btn-ant-asesor-concentracion');
@@ -246652,6 +246793,7 @@ const PRODUCTOS_DATA = {
             }
         } catch (e) {}
 
+        updateCensoBadges();
         verificarEstadoServidor();
         setInterval(verificarEstadoServidor, 15000);
 
@@ -246664,6 +246806,734 @@ const PRODUCTOS_DATA = {
         window.addEventListener('focus', () => {
             verificarEstadoServidor();
         });
+
+
+        
+        // ==========================================
+        // 👥 MOTOR DE CENSO Y CONTEO DE ASESORES
+        // ==========================================
+        let censoState = {
+            period: 'ACT', // 'ACT' o 'ANT'
+            tab: 'regional', // 'regional', 'zona', 'director', 'asesores'
+            tipo: 'ALL',     // 'ALL', 'DIRECTO', 'DISTRIBUIDOR'
+            search: '',
+            sortCol: 'total',
+            sortAsc: false
+        };
+
+        function getCensoRawData(period) {
+            if (period === 'ANT') {
+                return (typeof PRESUPUESTO_DATA_ANT !== 'undefined' && Array.isArray(PRESUPUESTO_DATA_ANT)) ? PRESUPUESTO_DATA_ANT : [];
+            }
+            return (typeof PRESUPUESTO_DATA !== 'undefined' && Array.isArray(PRESUPUESTO_DATA)) ? PRESUPUESTO_DATA : [];
+        }
+
+        function normalizarAsesoresCenso(rawList) {
+            return rawList.map((r, idx) => {
+                const nom = (r['NOMBRE ASESOR'] || '').trim();
+                const reg = (r['REGIONAL'] || 'Sin Regional').trim();
+                const zon = (r['ZONA'] || 'Sin Zona').trim();
+                const dir = (r['DIRECTOR'] || 'Sin Director').trim();
+                const tRaw = (r['TIPO DE ASESOR'] || '').toUpperCase();
+                const tipo = tRaw.includes('DIRECT') ? 'DIRECTO' : 'DISTRIBUIDOR';
+                const presupuesto = r['PRESUPUESTO'] || 0;
+                const ventas = r['CANTIDAD DE VENTAS'] || 0;
+                const cedula = r['CEDULA'] || r['CÉDULA'] || r['CÉDULA ASESOR'] || '';
+                return { idx: idx + 1, nom, reg, zon, dir, tipo, presupuesto, ventas, cedula };
+            });
+        }
+
+        function updateCensoBadges() {
+            try {
+                if (typeof PRESUPUESTO_DATA !== 'undefined' && Array.isArray(PRESUPUESTO_DATA)) {
+                    const tot = PRESUPUESTO_DATA.length;
+                    const dir = PRESUPUESTO_DATA.filter(d => (d['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT')).length;
+                    const dis = tot - dir;
+                    const bPill = document.getElementById('censo-badge-total');
+                    if (bPill) bPill.innerText = tot;
+                    const mTot = document.getElementById('censo-mini-total');
+                    if (mTot) mTot.innerText = tot;
+                    const mDir = document.getElementById('censo-mini-dir');
+                    if (mDir) mDir.innerText = `${dir} Directos`;
+                    const mDis = document.getElementById('censo-mini-dis');
+                    if (mDis) mDis.innerText = `${dis} Distri`;
+                }
+                if (typeof PRESUPUESTO_DATA_ANT !== 'undefined' && Array.isArray(PRESUPUESTO_DATA_ANT)) {
+                    const tot = PRESUPUESTO_DATA_ANT.length;
+                    const dir = PRESUPUESTO_DATA_ANT.filter(d => (d['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT')).length;
+                    const dis = tot - dir;
+                    const bPillAnt = document.getElementById('ant-censo-badge-total');
+                    if (bPillAnt) bPillAnt.innerText = tot;
+                    const mTotAnt = document.getElementById('ant-censo-mini-total');
+                    if (mTotAnt) mTotAnt.innerText = tot;
+                    const mDirAnt = document.getElementById('ant-censo-mini-dir');
+                    if (mDirAnt) mDirAnt.innerText = `${dir} Directos`;
+                    const mDisAnt = document.getElementById('ant-censo-mini-dis');
+                    if (mDisAnt) mDisAnt.innerText = `${dis} Distri`;
+                }
+            } catch(e) {}
+        }
+
+        function renderCensoDashboard(period) {
+            censoState.period = period || 'ACT';
+            const containerId = censoState.period === 'ACT' ? 'asesor-censo-container' : 'ant-asesor-censo-container';
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const rawList = getCensoRawData(censoState.period);
+            const allAdvisors = normalizarAsesoresCenso(rawList);
+
+            // Conteos globales
+            const totalGlobal = allAdvisors.length;
+            const directosGlobal = allAdvisors.filter(a => a.tipo === 'DIRECTO').length;
+            const distrisGlobal = totalGlobal - directosGlobal;
+            const pctDirectos = totalGlobal > 0 ? ((directosGlobal / totalGlobal) * 100).toFixed(1) : 0;
+            const pctDistri = totalGlobal > 0 ? ((distrisGlobal / totalGlobal) * 100).toFixed(1) : 0;
+
+            const setReg = new Set(allAdvisors.map(a => a.reg).filter(Boolean));
+            const setZon = new Set(allAdvisors.map(a => a.zon).filter(Boolean));
+            const setDir = new Set(allAdvisors.map(a => a.dir).filter(Boolean).filter(d => d !== 'Sin Director'));
+
+            const periodLabel = censoState.period === 'ACT' ? 'MES ACTUAL' : 'MES ANTERIOR';
+            const switchBackFn = censoState.period === 'ACT' ? "switchAsesorMode('general')" : "switchAsesorModeAnt('general')";
+
+            container.innerHTML = `
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px;">
+                    <!-- Cabecera Ejecutiva -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <h3 style="margin: 0; color: #1B365D; font-size: 1.15rem; font-weight: 800; letter-spacing: 0.3px;">
+                                    👥 CENSO Y CONTEO DE FUERZA COMERCIAL ACTIVA (${periodLabel})
+                                </h3>
+                                <span style="background: #e0f2fe; color: #0369a1; font-weight: 800; font-size: 0.75rem; padding: 3px 9px; border-radius: 12px; border: 1px solid #bae6fd;">
+                                    ${totalGlobal} Asesores
+                                </span>
+                            </div>
+                            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 0.82rem;">
+                                Conteo oficial de la fuerza comercial activa: distribución global, por Regional, por Zona y por Director comercial, clasificada por Contrato Directo y Distribuidores.
+                            </p>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <button type="button" onclick="exportCensoCSV()" class="cruce-view-btn" style="background: #0284c7; color: #ffffff; border: none; padding: 7px 14px; font-weight: 700; font-size: 0.80rem; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(2,132,199,0.25);">
+                                📥 Exportar Censo a CSV
+                            </button>
+                            <button type="button" onclick="${switchBackFn}" class="cruce-view-btn" style="background: #f8fafc; color: #334155; border: 1px solid #cbd5e1; padding: 7px 14px; font-weight: 700; font-size: 0.80rem; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                                📊 Volver a Cumplimiento
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4 Tarjetas KPIs Superiores -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
+                        <!-- KPI 1: Total Global -->
+                        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #1e40af; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.74rem; font-weight: 800; color: #64748b; text-transform: uppercase;">👥 Total Asesores Activos</span>
+                                <span style="font-size: 1.2rem;">🏢</span>
+                            </div>
+                            <div style="font-size: 1.9rem; font-weight: 900; color: #0f172a; margin: 6px 0 2px 0;">${totalGlobal}</div>
+                            <div style="font-size: 0.75rem; color: #1e40af; font-weight: 700;">100% Fuerza Comercial Presupuestada</div>
+                        </div>
+
+                        <!-- KPI 2: Directos -->
+                        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #0284c7; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.74rem; font-weight: 800; color: #64748b; text-transform: uppercase;">👔 Contrato Directo (Nómina)</span>
+                                <span style="font-size: 1.2rem;">💼</span>
+                            </div>
+                            <div style="font-size: 1.9rem; font-weight: 900; color: #0284c7; margin: 6px 0 2px 0;">${directosGlobal}</div>
+                            <div style="font-size: 0.75rem; color: #0369a1; font-weight: 700;">${pctDirectos}% de la fuerza total</div>
+                        </div>
+
+                        <!-- KPI 3: Distribuidores -->
+                        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #7c3aed; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.74rem; font-weight: 800; color: #64748b; text-transform: uppercase;">🏢 Distribuidores Autorizados</span>
+                                <span style="font-size: 1.2rem;">🤝</span>
+                            </div>
+                            <div style="font-size: 1.9rem; font-weight: 900; color: #7c3aed; margin: 6px 0 2px 0;">${distrisGlobal}</div>
+                            <div style="font-size: 0.75rem; color: #6d28d9; font-weight: 700;">${pctDistri}% de la fuerza total</div>
+                        </div>
+
+                        <!-- KPI 4: Cobertura -->
+                        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-top: 4px solid #059669; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.74rem; font-weight: 800; color: #64748b; text-transform: uppercase;">🗺️ Cobertura Nacional</span>
+                                <span style="font-size: 1.2rem;">📍</span>
+                            </div>
+                            <div style="font-size: 1.35rem; font-weight: 900; color: #059669; margin: 8px 0 2px 0;">
+                                ${setReg.size} Reg • ${setZon.size} Zonas
+                            </div>
+                            <div style="font-size: 0.75rem; color: #047857; font-weight: 700;">Lideradas por ${setDir.size} Directores</div>
+                        </div>
+                    </div>
+
+                    <!-- Fila de Controles: Pestañas de Agrupación, Filtro de Tipo y Buscador -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: #f8fafc; padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0; margin-bottom: 16px;">
+                        <!-- Tabs de Agrupación -->
+                        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            <button type="button" class="censo-tab-btn ${censoState.tab === 'regional' ? 'active' : ''}" onclick="switchCensoTab('regional')">
+                                🏛️ Por Regional (${setReg.size})
+                            </button>
+                            <button type="button" class="censo-tab-btn ${censoState.tab === 'zona' ? 'active' : ''}" onclick="switchCensoTab('zona')">
+                                📍 Por Zona (${setZon.size})
+                            </button>
+                            <button type="button" class="censo-tab-btn ${censoState.tab === 'director' ? 'active' : ''}" onclick="switchCensoTab('director')">
+                                👔 Por Director (${setDir.size})
+                            </button>
+                            <button type="button" class="censo-tab-btn ${censoState.tab === 'asesores' ? 'active' : ''}" onclick="switchCensoTab('asesores')">
+                                📋 Lista de Asesores (${totalGlobal})
+                            </button>
+                        </div>
+
+                        <!-- Filtro de Tipo y Buscador -->
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <!-- Chips de Tipo -->
+                            <div style="display: flex; align-items: center; gap: 4px; background: #ffffff; padding: 3px; border-radius: 20px; border: 1px solid #cbd5e1;">
+                                <button type="button" class="censo-tipo-chip ${censoState.tipo === 'ALL' ? 'active' : ''}" onclick="setCensoTipo('ALL')">
+                                    Todos (${totalGlobal})
+                                </button>
+                                <button type="button" class="censo-tipo-chip ${censoState.tipo === 'DIRECTO' ? 'active' : ''}" onclick="setCensoTipo('DIRECTO')">
+                                    👔 Directos (${directosGlobal})
+                                </button>
+                                <button type="button" class="censo-tipo-chip ${censoState.tipo === 'DISTRIBUIDOR' ? 'active' : ''}" onclick="setCensoTipo('DISTRIBUIDOR')">
+                                    🏢 Distribuidores (${distrisGlobal})
+                                </button>
+                            </div>
+
+                            <!-- Buscador en tiempo real -->
+                            <div>
+                                <input type="text" id="censo-search-box" value="${censoState.search}" placeholder="🔍 Buscar en tabla..." oninput="onCensoSearch(this)" style="padding: 6px 12px; font-size: 0.82rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff; min-width: 190px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor de la Tabla Activa -->
+                    <div id="${censoState.period === 'ACT' ? 'censo-table-wrapper' : 'ant-censo-table-wrapper'}" style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    </div>
+                </div>
+            `;
+
+            renderCensoTableContent();
+        }
+
+        function switchCensoTab(tab) {
+            censoState.tab = tab;
+            censoState.sortCol = tab === 'asesores' ? 'nom' : 'total';
+            censoState.sortAsc = (tab === 'asesores');
+            renderCensoDashboard(censoState.period);
+        }
+
+        function setCensoTipo(tipo) {
+            censoState.tipo = tipo;
+            renderCensoDashboard(censoState.period);
+        }
+
+        function onCensoSearch(input) {
+            censoState.search = input.value.trim().toLowerCase();
+            renderCensoTableContent();
+        }
+
+        function sortCensoTable(col) {
+            if (censoState.sortCol === col) {
+                censoState.sortAsc = !censoState.sortAsc;
+            } else {
+                censoState.sortCol = col;
+                censoState.sortAsc = (col === 'name' || col === 'nom' || col === 'reg' || col === 'zon' || col === 'dir');
+            }
+            renderCensoTableContent();
+        }
+
+        function renderCensoTableContent() {
+            const wrapperId = censoState.period === 'ACT' ? 'censo-table-wrapper' : 'ant-censo-table-wrapper';
+            const wrapper = document.getElementById(wrapperId);
+            if (!wrapper) return;
+
+            const rawList = getCensoRawData(censoState.period);
+            const all = normalizarAsesoresCenso(rawList);
+            const totalNacional = all.length;
+
+            const filterTipo = censoState.tipo;
+            const search = censoState.search;
+
+            // 1. VISTA POR REGIONAL
+            if (censoState.tab === 'regional') {
+                const regMap = {};
+                all.forEach(a => {
+                    if (!regMap[a.reg]) {
+                        regMap[a.reg] = { name: a.reg, directos: 0, distri: 0, total: 0, directores: new Set(), zonas: new Set() };
+                    }
+                    if (a.tipo === 'DIRECTO') regMap[a.reg].directos++;
+                    else regMap[a.reg].distri++;
+                    regMap[a.reg].total++;
+                    if (a.dir && a.dir !== 'Sin Director') regMap[a.reg].directores.add(a.dir);
+                    if (a.zon) regMap[a.reg].zonas.add(a.zon);
+                });
+
+                let list = Object.values(regMap);
+
+                // Filtrar por tipo si está activo
+                if (filterTipo === 'DIRECTO') list = list.filter(r => r.directos > 0);
+                if (filterTipo === 'DISTRIBUIDOR') list = list.filter(r => r.distri > 0);
+
+                // Filtrar por búsqueda
+                if (search) {
+                    list = list.filter(r => 
+                        r.name.toLowerCase().includes(search) || 
+                        Array.from(r.directores).join(' ').toLowerCase().includes(search) ||
+                        Array.from(r.zonas).join(' ').toLowerCase().includes(search)
+                    );
+                }
+
+                // Ordenar
+                const sc = censoState.sortCol;
+                const asc = censoState.sortAsc;
+                list.sort((a, b) => {
+                    let vA = a[sc] !== undefined ? a[sc] : (sc === 'name' ? a.name : a.total);
+                    let vB = b[sc] !== undefined ? b[sc] : (sc === 'name' ? b.name : b.total);
+                    if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                    return asc ? (vA - vB) : (vB - vA);
+                });
+
+                let sumTot = 0, sumDir = 0, sumDis = 0;
+                let rowsHtml = '';
+                list.forEach((r, idx) => {
+                    const displayTotal = filterTipo === 'DIRECTO' ? r.directos : (filterTipo === 'DISTRIBUIDOR' ? r.distri : r.total);
+                    sumTot += r.total;
+                    sumDir += r.directos;
+                    sumDis += r.distri;
+
+                    const pctNac = totalNacional > 0 ? ((r.total / totalNacional) * 100).toFixed(1) : 0;
+                    const pctDir = r.total > 0 ? ((r.directos / r.total) * 100).toFixed(1) : 0;
+                    const pctDis = r.total > 0 ? ((r.distri / r.total) * 100).toFixed(1) : 0;
+                    const dirsStr = Array.from(r.directores).sort().join(', ') || 'N/A';
+                    const zonasCount = r.zonas.size;
+
+                    rowsHtml += `
+                        <tr>
+                            <td style="text-align: center; font-weight: 700; color: #64748b;">#${idx + 1}</td>
+                            <td style="font-weight: 800; color: #1B365D; font-size: 0.88rem;">${r.name}</td>
+                            <td style="font-size: 0.78rem; color: #334155;">${dirsStr}</td>
+                            <td style="text-align: center; font-size: 0.78rem; color: #64748b;">${zonasCount} Zonas</td>
+                            <td style="text-align: center; font-weight: 800; color: #0284c7; background: #f0f9ff;">${r.directos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #7c3aed; background: #faf5ff;">${r.distri}</td>
+                            <td style="text-align: center; font-weight: 900; color: #0f172a; font-size: 0.95rem; background: #f8fafc;">${r.total}</td>
+                            <td style="text-align: center; font-weight: 800; color: #059669;">${pctNac}%</td>
+                            <td style="text-align: center; min-width: 130px;">
+                                <div style="display: flex; height: 14px; border-radius: 4px; overflow: hidden; background: #e2e8f0; width: 120px; margin: 0 auto;">
+                                    <div style="width: ${pctDir}%; background: #0284c7;" title="${r.directos} Directos (${pctDir}%)"></div>
+                                    <div style="width: ${pctDis}%; background: #7c3aed;" title="${r.distri} Distribuidores (${pctDis}%)"></div>
+                                </div>
+                                <div style="font-size: 0.70rem; color: #64748b; margin-top: 3px; font-weight: 600;">${pctDir}% Dir • ${pctDis}% Dis</div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const pctNacTotal = totalNacional > 0 ? ((sumTot / totalNacional) * 100).toFixed(1) : 0;
+                wrapper.innerHTML = `
+                    <table class="censo-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 45px;">#</th>
+                                <th onclick="sortCensoTable('name')">Regional ↕</th>
+                                <th>Directores a Cargo</th>
+                                <th>Zonas</th>
+                                <th onclick="sortCensoTable('directos')">👔 Directos ↕</th>
+                                <th onclick="sortCensoTable('distri')">🏢 Distribuidores ↕</th>
+                                <th onclick="sortCensoTable('total')" style="background: #0f172a;">👥 Total Asesores ↕</th>
+                                <th onclick="sortCensoTable('total')">% Part. Nacional ↕</th>
+                                <th>Mix Directos vs Distri</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml || '<tr><td colspan="9" style="text-align:center; padding:25px; color:#94a3b8;">No hay registros coincidentes.</td></tr>'}</tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align: right; text-transform: uppercase;">Total General (${list.length} Regionales):</td>
+                                <td style="text-align: center; color: #0284c7; font-size: 0.92rem;">${sumDir}</td>
+                                <td style="text-align: center; color: #7c3aed; font-size: 0.92rem;">${sumDis}</td>
+                                <td style="text-align: center; color: #0f172a; font-size: 1.05rem;">${sumTot}</td>
+                                <td style="text-align: center; color: #059669; font-size: 0.92rem;">${pctNacTotal}%</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
+                return;
+            }
+
+            // 2. VISTA POR ZONA
+            if (censoState.tab === 'zona') {
+                const zonMap = {};
+                all.forEach(a => {
+                    const key = `${a.reg}__${a.zon}`;
+                    if (!zonMap[key]) {
+                        zonMap[key] = { name: a.zon, reg: a.reg, directos: 0, distri: 0, total: 0, directores: new Set() };
+                    }
+                    if (a.tipo === 'DIRECTO') zonMap[key].directos++;
+                    else zonMap[key].distri++;
+                    zonMap[key].total++;
+                    if (a.dir && a.dir !== 'Sin Director') zonMap[key].directores.add(a.dir);
+                });
+
+                let list = Object.values(zonMap);
+
+                if (filterTipo === 'DIRECTO') list = list.filter(z => z.directos > 0);
+                if (filterTipo === 'DISTRIBUIDOR') list = list.filter(z => z.distri > 0);
+
+                if (search) {
+                    list = list.filter(z => 
+                        z.name.toLowerCase().includes(search) || 
+                        z.reg.toLowerCase().includes(search) || 
+                        Array.from(z.directores).join(' ').toLowerCase().includes(search)
+                    );
+                }
+
+                const sc = censoState.sortCol;
+                const asc = censoState.sortAsc;
+                list.sort((a, b) => {
+                    let vA = a[sc] !== undefined ? a[sc] : (sc === 'name' ? a.name : a.total);
+                    let vB = b[sc] !== undefined ? b[sc] : (sc === 'name' ? b.name : b.total);
+                    if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                    return asc ? (vA - vB) : (vB - vA);
+                });
+
+                let sumTot = 0, sumDir = 0, sumDis = 0;
+                let rowsHtml = '';
+                list.forEach((z, idx) => {
+                    sumTot += z.total;
+                    sumDir += z.directos;
+                    sumDis += z.distri;
+
+                    const pctNac = totalNacional > 0 ? ((z.total / totalNacional) * 100).toFixed(1) : 0;
+                    const pctDir = z.total > 0 ? ((z.directos / z.total) * 100).toFixed(1) : 0;
+                    const pctDis = z.total > 0 ? ((z.distri / z.total) * 100).toFixed(1) : 0;
+                    const dirsStr = Array.from(z.directores).sort().join(', ') || 'N/A';
+
+                    rowsHtml += `
+                        <tr>
+                            <td style="text-align: center; font-weight: 700; color: #64748b;">#${idx + 1}</td>
+                            <td style="font-weight: 800; color: #1B365D; font-size: 0.88rem;">${z.name}</td>
+                            <td style="font-weight: 700; color: #334155;">${z.reg}</td>
+                            <td style="font-size: 0.78rem; color: #334155;">${dirsStr}</td>
+                            <td style="text-align: center; font-weight: 800; color: #0284c7; background: #f0f9ff;">${z.directos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #7c3aed; background: #faf5ff;">${z.distri}</td>
+                            <td style="text-align: center; font-weight: 900; color: #0f172a; font-size: 0.95rem; background: #f8fafc;">${z.total}</td>
+                            <td style="text-align: center; font-weight: 800; color: #059669;">${pctNac}%</td>
+                            <td style="text-align: center; min-width: 130px;">
+                                <div style="display: flex; height: 14px; border-radius: 4px; overflow: hidden; background: #e2e8f0; width: 120px; margin: 0 auto;">
+                                    <div style="width: ${pctDir}%; background: #0284c7;" title="${z.directos} Directos (${pctDir}%)"></div>
+                                    <div style="width: ${pctDis}%; background: #7c3aed;" title="${z.distri} Distribuidores (${pctDis}%)"></div>
+                                </div>
+                                <div style="font-size: 0.70rem; color: #64748b; margin-top: 3px; font-weight: 600;">${pctDir}% Dir • ${pctDis}% Dis</div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const pctNacTotal = totalNacional > 0 ? ((sumTot / totalNacional) * 100).toFixed(1) : 0;
+                wrapper.innerHTML = `
+                    <table class="censo-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 45px;">#</th>
+                                <th onclick="sortCensoTable('name')">Zona ↕</th>
+                                <th onclick="sortCensoTable('reg')">Regional ↕</th>
+                                <th>Director Comercial</th>
+                                <th onclick="sortCensoTable('directos')">👔 Directos ↕</th>
+                                <th onclick="sortCensoTable('distri')">🏢 Distribuidores ↕</th>
+                                <th onclick="sortCensoTable('total')" style="background: #0f172a;">👥 Total Asesores ↕</th>
+                                <th onclick="sortCensoTable('total')">% Part. Nacional ↕</th>
+                                <th>Mix Directos vs Distri</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml || '<tr><td colspan="9" style="text-align:center; padding:25px; color:#94a3b8;">No hay registros coincidentes.</td></tr>'}</tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align: right; text-transform: uppercase;">Total General (${list.length} Zonas):</td>
+                                <td style="text-align: center; color: #0284c7; font-size: 0.92rem;">${sumDir}</td>
+                                <td style="text-align: center; color: #7c3aed; font-size: 0.92rem;">${sumDis}</td>
+                                <td style="text-align: center; color: #0f172a; font-size: 1.05rem;">${sumTot}</td>
+                                <td style="text-align: center; color: #059669; font-size: 0.92rem;">${pctNacTotal}%</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
+                return;
+            }
+
+            // 3. VISTA POR DIRECTOR
+            if (censoState.tab === 'director') {
+                const dirMap = {};
+                all.forEach(a => {
+                    const key = a.dir || 'Sin Director';
+                    if (!dirMap[key]) {
+                        dirMap[key] = { name: key, directos: 0, distri: 0, total: 0, regionales: new Set(), zonas: new Set() };
+                    }
+                    if (a.tipo === 'DIRECTO') dirMap[key].directos++;
+                    else dirMap[key].distri++;
+                    dirMap[key].total++;
+                    if (a.reg) dirMap[key].regionales.add(a.reg);
+                    if (a.zon) dirMap[key].zonas.add(a.zon);
+                });
+
+                let list = Object.values(dirMap);
+
+                if (filterTipo === 'DIRECTO') list = list.filter(d => d.directos > 0);
+                if (filterTipo === 'DISTRIBUIDOR') list = list.filter(d => d.distri > 0);
+
+                if (search) {
+                    list = list.filter(d => 
+                        d.name.toLowerCase().includes(search) || 
+                        Array.from(d.regionales).join(' ').toLowerCase().includes(search) ||
+                        Array.from(d.zonas).join(' ').toLowerCase().includes(search)
+                    );
+                }
+
+                const sc = censoState.sortCol;
+                const asc = censoState.sortAsc;
+                list.sort((a, b) => {
+                    let vA = a[sc] !== undefined ? a[sc] : (sc === 'name' ? a.name : a.total);
+                    let vB = b[sc] !== undefined ? b[sc] : (sc === 'name' ? b.name : b.total);
+                    if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                    return asc ? (vA - vB) : (vB - vA);
+                });
+
+                let sumTot = 0, sumDir = 0, sumDis = 0;
+                let rowsHtml = '';
+                list.forEach((d, idx) => {
+                    sumTot += d.total;
+                    sumDir += d.directos;
+                    sumDis += d.distri;
+
+                    const pctNac = totalNacional > 0 ? ((d.total / totalNacional) * 100).toFixed(1) : 0;
+                    const pctDir = d.total > 0 ? ((d.directos / d.total) * 100).toFixed(1) : 0;
+                    const pctDis = d.total > 0 ? ((d.distri / d.total) * 100).toFixed(1) : 0;
+                    const regsStr = Array.from(d.regionales).sort().join(', ') || 'N/A';
+                    const zonasCount = d.zonas.size;
+
+                    rowsHtml += `
+                        <tr>
+                            <td style="text-align: center; font-weight: 700; color: #64748b;">#${idx + 1}</td>
+                            <td style="font-weight: 800; color: #1B365D; font-size: 0.90rem;">${d.name}</td>
+                            <td style="font-size: 0.78rem; color: #334155;">${regsStr}</td>
+                            <td style="text-align: center; font-size: 0.78rem; color: #64748b;">${zonasCount} Zonas</td>
+                            <td style="text-align: center; font-weight: 800; color: #0284c7; background: #f0f9ff;">${d.directos}</td>
+                            <td style="text-align: center; font-weight: 800; color: #7c3aed; background: #faf5ff;">${d.distri}</td>
+                            <td style="text-align: center; font-weight: 900; color: #0f172a; font-size: 0.95rem; background: #f8fafc;">${d.total}</td>
+                            <td style="text-align: center; font-weight: 800; color: #059669;">${pctNac}%</td>
+                            <td style="text-align: center; min-width: 130px;">
+                                <div style="display: flex; height: 14px; border-radius: 4px; overflow: hidden; background: #e2e8f0; width: 120px; margin: 0 auto;">
+                                    <div style="width: ${pctDir}%; background: #0284c7;" title="${d.directos} Directos (${pctDir}%)"></div>
+                                    <div style="width: ${pctDis}%; background: #7c3aed;" title="${d.distri} Distribuidores (${pctDis}%)"></div>
+                                </div>
+                                <div style="font-size: 0.70rem; color: #64748b; margin-top: 3px; font-weight: 600;">${pctDir}% Dir • ${pctDis}% Dis</div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const pctNacTotal = totalNacional > 0 ? ((sumTot / totalNacional) * 100).toFixed(1) : 0;
+                wrapper.innerHTML = `
+                    <table class="censo-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 45px;">#</th>
+                                <th onclick="sortCensoTable('name')">Director Comercial ↕</th>
+                                <th>Regionales que Coordina</th>
+                                <th>Zonas</th>
+                                <th onclick="sortCensoTable('directos')">👔 Directos ↕</th>
+                                <th onclick="sortCensoTable('distri')">🏢 Distribuidores ↕</th>
+                                <th onclick="sortCensoTable('total')" style="background: #0f172a;">👥 Total Asesores ↕</th>
+                                <th onclick="sortCensoTable('total')">% Fuerza Total ↕</th>
+                                <th>Mix Directos vs Distri</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml || '<tr><td colspan="9" style="text-align:center; padding:25px; color:#94a3b8;">No hay registros coincidentes.</td></tr>'}</tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align: right; text-transform: uppercase;">Total General (${list.length} Directores):</td>
+                                <td style="text-align: center; color: #0284c7; font-size: 0.92rem;">${sumDir}</td>
+                                <td style="text-align: center; color: #7c3aed; font-size: 0.92rem;">${sumDis}</td>
+                                <td style="text-align: center; color: #0f172a; font-size: 1.05rem;">${sumTot}</td>
+                                <td style="text-align: center; color: #059669; font-size: 0.92rem;">${pctNacTotal}%</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
+                return;
+            }
+
+            // 4. VISTA LISTADO DE ASESORES
+            if (censoState.tab === 'asesores') {
+                let list = [...all];
+
+                if (filterTipo === 'DIRECTO') list = list.filter(a => a.tipo === 'DIRECTO');
+                if (filterTipo === 'DISTRIBUIDOR') list = list.filter(a => a.tipo === 'DISTRIBUIDOR');
+
+                if (search) {
+                    list = list.filter(a => 
+                        a.nom.toLowerCase().includes(search) || 
+                        a.reg.toLowerCase().includes(search) || 
+                        a.zon.toLowerCase().includes(search) || 
+                        a.dir.toLowerCase().includes(search) ||
+                        (a.cedula && a.cedula.toLowerCase().includes(search))
+                    );
+                }
+
+                const sc = censoState.sortCol;
+                const asc = censoState.sortAsc;
+                list.sort((a, b) => {
+                    let vA = a[sc] !== undefined ? a[sc] : a.nom;
+                    let vB = b[sc] !== undefined ? b[sc] : b.nom;
+                    if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                    return asc ? (vA - vB) : (vB - vA);
+                });
+
+                let sumPres = 0, sumVentas = 0;
+                let rowsHtml = '';
+                list.forEach((a, idx) => {
+                    sumPres += a.presupuesto;
+                    sumVentas += a.ventas;
+
+                    const badgeTipo = a.tipo === 'DIRECTO' 
+                        ? '<span style="background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px;">DIRECTO</span>'
+                        : '<span style="background: #f3e8ff; color: #7e22ce; border: 1px solid #e9d5ff; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px;">DISTRIBUIDOR</span>';
+
+                    rowsHtml += `
+                        <tr>
+                            <td style="text-align: center; font-weight: 700; color: #64748b;">#${idx + 1}</td>
+                            <td style="font-weight: 800; color: #0f172a; font-size: 0.85rem;">
+                                ${a.nom}
+                                ${a.cedula ? `<span style="font-size:0.72rem; color:#64748b; font-weight:600; display:block;">CC: ${a.cedula}</span>` : ''}
+                            </td>
+                            <td style="text-align: center;">${badgeTipo}</td>
+                            <td style="font-weight: 700; color: #334155;">${a.reg}</td>
+                            <td style="font-size: 0.80rem; color: #64748b;">${a.zon}</td>
+                            <td style="font-weight: 600; color: #1e40af; font-size: 0.82rem;">${a.dir}</td>
+                            <td style="text-align: right; font-weight: 700; color: #334155;">${formatter.format(a.presupuesto)}</td>
+                            <td style="text-align: center; font-weight: 900; color: ${a.ventas > 0 ? '#15803d' : '#94a3b8'}; background: ${a.ventas > 0 ? '#f0fdf4' : 'transparent'};">${a.ventas}</td>
+                        </tr>
+                    `;
+                });
+
+                wrapper.innerHTML = `
+                    <table class="censo-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 45px;">#</th>
+                                <th onclick="sortCensoTable('nom')">Nombre Asesor ↕</th>
+                                <th onclick="sortCensoTable('tipo')">Tipo Contrato ↕</th>
+                                <th onclick="sortCensoTable('reg')">Regional ↕</th>
+                                <th onclick="sortCensoTable('zon')">Zona ↕</th>
+                                <th onclick="sortCensoTable('dir')">Director Comercial ↕</th>
+                                <th onclick="sortCensoTable('presupuesto')">Presupuesto Asignado ↕</th>
+                                <th onclick="sortCensoTable('ventas')">Ventas Registradas ↕</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHtml || '<tr><td colspan="8" style="text-align:center; padding:25px; color:#94a3b8;">No hay asesores coincidentes con la búsqueda.</td></tr>'}</tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6" style="text-align: right; text-transform: uppercase;">Total Asesores Listados (${list.length}):</td>
+                                <td style="text-align: right; color: #0f172a; font-size: 0.92rem;">${formatter.format(sumPres)}</td>
+                                <td style="text-align: center; color: #15803d; font-size: 1.05rem;">${sumVentas}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                `;
+            }
+        }
+
+        function exportCensoCSV() {
+            const rawList = getCensoRawData(censoState.period);
+            const all = normalizarAsesoresCenso(rawList);
+            const periodTag = censoState.period === 'ACT' ? 'Mes_Actual' : 'Mes_Anterior';
+            const tabTag = censoState.tab;
+
+            let csvContent = '﻿';
+            let fileName = '';
+
+            if (tabTag === 'regional') {
+                fileName = `Censo_Asesores_Por_Regional_${periodTag}_${new Date().toISOString().slice(0, 10)}.csv`;
+                csvContent += 'Regional,Directores a Cargo,Zonas,Directos,Distribuidores,Total Asesores,% Participacion Nacional,% Directos,% Distribuidores
+';
+                const regMap = {};
+                all.forEach(a => {
+                    if (!regMap[a.reg]) regMap[a.reg] = { name: a.reg, directos: 0, distri: 0, total: 0, directores: new Set(), zonas: new Set() };
+                    if (a.tipo === 'DIRECTO') regMap[a.reg].directos++; else regMap[a.reg].distri++;
+                    regMap[a.reg].total++;
+                    if (a.dir) regMap[a.reg].directores.add(a.dir);
+                    if (a.zon) regMap[a.reg].zonas.add(a.zon);
+                });
+                Object.values(regMap).sort((a,b) => b.total - a.total).forEach(r => {
+                    const pctNac = all.length > 0 ? ((r.total / all.length) * 100).toFixed(1) : 0;
+                    const pctDir = r.total > 0 ? ((r.directos / r.total) * 100).toFixed(1) : 0;
+                    const pctDis = r.total > 0 ? ((r.distri / r.total) * 100).toFixed(1) : 0;
+                    const dirsStr = `"${Array.from(r.directores).join('; ')}"`;
+                    const zonStr = `"${Array.from(r.zonas).join('; ')}"`;
+                    csvContent += `"${r.name}",${dirsStr},${zonStr},${r.directos},${r.distri},${r.total},${pctNac}%,${pctDir}%,${pctDis}%
+`;
+                });
+            } else if (tabTag === 'zona') {
+                fileName = `Censo_Asesores_Por_Zona_${periodTag}_${new Date().toISOString().slice(0, 10)}.csv`;
+                csvContent += 'Zona,Regional,Director Comercial,Directos,Distribuidores,Total Asesores,% Participacion Nacional
+';
+                const zonMap = {};
+                all.forEach(a => {
+                    const key = `${a.reg}__${a.zon}`;
+                    if (!zonMap[key]) zonMap[key] = { name: a.zon, reg: a.reg, directos: 0, distri: 0, total: 0, directores: new Set() };
+                    if (a.tipo === 'DIRECTO') zonMap[key].directos++; else zonMap[key].distri++;
+                    zonMap[key].total++;
+                    if (a.dir) zonMap[key].directores.add(a.dir);
+                });
+                Object.values(zonMap).sort((a,b) => b.total - a.total).forEach(z => {
+                    const pctNac = all.length > 0 ? ((z.total / all.length) * 100).toFixed(1) : 0;
+                    const dirsStr = `"${Array.from(z.directores).join('; ')}"`;
+                    csvContent += `"${z.name}","${z.reg}",${dirsStr},${z.directos},${z.distri},${z.total},${pctNac}%
+`;
+                });
+            } else if (tabTag === 'director') {
+                fileName = `Censo_Asesores_Por_Director_${periodTag}_${new Date().toISOString().slice(0, 10)}.csv`;
+                csvContent += 'Director Comercial,Regionales,Zonas,Directos,Distribuidores,Total Asesores,% Fuerza Total
+';
+                const dirMap = {};
+                all.forEach(a => {
+                    const key = a.dir || 'Sin Director';
+                    if (!dirMap[key]) dirMap[key] = { name: key, directos: 0, distri: 0, total: 0, regionales: new Set(), zonas: new Set() };
+                    if (a.tipo === 'DIRECTO') dirMap[key].directos++; else dirMap[key].distri++;
+                    dirMap[key].total++;
+                    if (a.reg) dirMap[key].regionales.add(a.reg);
+                    if (a.zon) dirMap[key].zonas.add(a.zon);
+                });
+                Object.values(dirMap).sort((a,b) => b.total - a.total).forEach(d => {
+                    const pctNac = all.length > 0 ? ((d.total / all.length) * 100).toFixed(1) : 0;
+                    const regsStr = `"${Array.from(d.regionales).join('; ')}"`;
+                    const zonStr = `"${Array.from(d.zonas).join('; ')}"`;
+                    csvContent += `"${d.name}",${regsStr},${zonStr},${d.directos},${d.distri},${d.total},${pctNac}%
+`;
+                });
+            } else {
+                fileName = `Censo_Nominal_Asesores_${periodTag}_${new Date().toISOString().slice(0, 10)}.csv`;
+                csvContent += 'Nombre Asesor,Cedula,Tipo de Contrato,Regional,Zona,Director Comercial,Presupuesto,Ventas
+';
+                all.forEach(a => {
+                    csvContent += `"${a.nom}","${a.cedula}","${a.tipo}","${a.reg}","${a.zon}","${a.dir}",${a.presupuesto},${a.ventas}
+`;
+                });
+            }
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
 
 
         // ==========================================
