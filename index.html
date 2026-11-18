@@ -240463,18 +240463,38 @@ const PRODUCTOS_DATA = {
             }
         }
 
-function renderBajaProductividadDashboard() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
+        // =========================================================================
+        // 📉 BAJA PRODUCTIVIDAD (< 3 VENTAS) - MES ACTUAL
+        // =========================================================================
+        let bpActualSort = { col: 'CANTIDAD DE VENTAS', asc: true };
 
-            // Tomar en cuenta los filtros activos de regional, zona y director
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
+        function getBajaProdFilterValuesActual() {
+            const elReg = document.getElementById('p-asesor-filter-reg') || document.getElementById('p-filter-regional') || document.getElementById('filter-regional');
+            const elZona = document.getElementById('p-asesor-filter-zona') || document.getElementById('p-filter-zona') || document.getElementById('filter-zona');
+            const elDir = document.getElementById('p-asesor-filter-dir') || document.getElementById('p-filter-director') || document.getElementById('filter-director');
 
-            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+            let r = elReg && elReg.value ? elReg.value.trim().toUpperCase() : '';
+            let z = elZona && elZona.value ? elZona.value.trim().toUpperCase() : '';
+            let d = elDir && elDir.value ? elDir.value.trim().toUpperCase() : '';
+
+            if (r.startsWith('TODAS')) r = '';
+            if (z.startsWith('TODAS')) z = '';
+            if (d.startsWith('TODOS')) d = '';
+            return { selReg: r, selZona: z, selDir: d };
+        }
+
+        function renderBajaProductividadDashboard() {
+            const data = (typeof rawPresupuesto !== 'undefined' && rawPresupuesto.length > 0)
+                ? rawPresupuesto
+                : ((typeof PRESUPUESTO_DATA !== 'undefined') ? PRESUPUESTO_DATA : []);
+            if (!data || !data.length) return;
+
+            const { selReg, selZona, selDir } = getBajaProdFilterValuesActual();
+
+            let baseAdvisors = data.filter(a => {
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
                 return true;
             });
 
@@ -240497,33 +240517,34 @@ function renderBajaProductividadDashboard() {
             const elProd = document.getElementById('bp-kpi-total-prod');
             if (elProd) elProd.innerText = countProd;
             const elProdSub = document.getElementById('bp-kpi-total-prod-sub');
-            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con \u2265 3 ventas`;
+            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con ≥ 3 ventas`;
 
-            // Rankings
+            // Rankings y Listado Detallado
             renderBajaProdTablesActual();
             renderBajaProdAsesoresTableActual();
         }
 
         function renderBajaProdTablesActual() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
+            const data = (typeof rawPresupuesto !== 'undefined' && rawPresupuesto.length > 0)
+                ? rawPresupuesto
+                : ((typeof PRESUPUESTO_DATA !== 'undefined') ? PRESUPUESTO_DATA : []);
+            if (!data || !data.length) return;
 
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
+            const { selReg, selZona, selDir } = getBajaProdFilterValuesActual();
 
-            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+            let baseAdvisors = data.filter(a => {
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
                 return true;
             });
 
             // Mapas
             const regMap = {}, zonaMap = {}, dirMap = {};
             baseAdvisors.forEach(a => {
-                const reg = a.REGIONAL || 'SIN REGIONAL';
-                const zona = a.ZONA || 'SIN ZONA';
-                const dire = a.DIRECTOR || 'SIN DIRECTOR';
+                const reg = (a.REGIONAL || 'SIN REGIONAL').trim();
+                const zona = (a.ZONA || 'SIN ZONA').trim();
+                const dire = (a.DIRECTOR || 'SIN DIRECTOR').trim();
                 const cv = a['CANTIDAD DE VENTAS'] || 0;
                 const isU3 = cv < 3;
 
@@ -240592,11 +240613,11 @@ function renderBajaProductividadDashboard() {
             const tbZona = document.getElementById('bpZonaTbody');
             if (tbZona) {
                 tbZona.innerHTML = '';
-                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona)).forEach(z => {
+                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || (z.regional && z.regional.toLowerCase().includes(sZona))).forEach(z => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td><strong>${z.name}</strong></td>
-                        <td style="color: #64748b;">${z.regional}</td>
+                        <td style="text-align: center; color: #64748b;">${z.regional}</td>
                         <td style="text-align: center;">${z.total}</td>
                         <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${z.under3}</td>
                         <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
@@ -240632,30 +240653,32 @@ function renderBajaProductividadDashboard() {
         }
 
         function renderBajaProdAsesoresTableActual() {
-            if (typeof PRESUPUESTO_DATA === 'undefined') return;
+            const data = (typeof rawPresupuesto !== 'undefined' && rawPresupuesto.length > 0)
+                ? rawPresupuesto
+                : ((typeof PRESUPUESTO_DATA !== 'undefined') ? PRESUPUESTO_DATA : []);
+            if (!data || !data.length) return;
 
-            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
+            const { selReg, selZona, selDir } = getBajaProdFilterValuesActual();
             const searchTxt = document.getElementById('bp-search-asesor') ? document.getElementById('bp-search-asesor').value.toLowerCase().trim() : '';
 
-            let rows = PRESUPUESTO_DATA.filter(a => {
+            let rows = data.filter(a => {
                 if ((a['CANTIDAD DE VENTAS'] || 0) >= 3) return false;
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
                 if (searchTxt) {
                     const mNom = (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt);
                     const mReg = (a.REGIONAL || '').toLowerCase().includes(searchTxt);
                     const mZona = (a.ZONA || '').toLowerCase().includes(searchTxt);
                     const mDir = (a.DIRECTOR || '').toLowerCase().includes(searchTxt);
-                    if (!mNom && !mReg && !mZona && !mDir) return false;
+                    const mTipo = (a['TIPO DE ASESOR'] || '').toLowerCase().includes(searchTxt);
+                    if (!mNom && !mReg && !mZona && !mDir && !mTipo) return false;
                 }
                 return true;
             });
 
-            const sc = bpActualSort.col;
-            const asc = bpActualSort.asc;
+            const sc = (bpActualSort && bpActualSort.col) ? bpActualSort.col : 'CANTIDAD DE VENTAS';
+            const asc = (bpActualSort && bpActualSort.asc !== undefined) ? bpActualSort.asc : true;
             rows.sort((a, b) => {
                 let vA = a[sc] !== undefined ? a[sc] : 0;
                 let vB = b[sc] !== undefined ? b[sc] : 0;
@@ -240684,40 +240707,61 @@ function renderBajaProductividadDashboard() {
                         ? '<span style="background:#fef3c7; color:#b45309; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fde68a;">1 venta</span>'
                         : '<span style="background:#ffedd5; color:#c2410c; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fed7aa;">2 ventas</span>');
 
-                const tipoBadge = r['TIPO DE ASESOR'] === 'CONTRATO DIRECTO'
+                const isDirecto = (r['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT');
+                const tipoBadge = isDirecto
                     ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DIRECTO</span>'
                     : '<span style="background:#f1f5f9; color:#475569; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DISTRIBUIDOR</span>';
 
+                const cumpl = (typeof r.CUMPLIMIENTO === 'number') ? r.CUMPLIMIENTO : parseFloat(r.CUMPLIMIENTO || 0);
+
                 tr.innerHTML = `
                     <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
-                    <td><strong>${r['NOMBRE ASESOR']}</strong></td>
+                    <td><strong>${r['NOMBRE ASESOR'] || '-'}</strong></td>
                     <td style="text-align: center;">${tipoBadge}</td>
-                    <td style="text-align: center;">${r.REGIONAL}</td>
-                    <td style="text-align: center; color: #64748b;">${r.ZONA}</td>
-                    <td style="text-align: center;">${r.DIRECTOR}</td>
+                    <td style="text-align: center;">${r.REGIONAL || '-'}</td>
+                    <td style="text-align: center; color: #64748b;">${r.ZONA || '-'}</td>
+                    <td style="text-align: center;">${r.DIRECTOR || '-'}</td>
                     <td style="text-align: center;">${badgeVentas}</td>
                     <td class="num" style="text-align: center; color: #1e40af;">${formatter.format(r.LLEVAMOS || 0)}</td>
                     <td class="num" style="text-align: center; color: #334155;">${formatter.format(r.PRESUPUESTO || 0)}</td>
-                    <td style="text-align: center; font-weight: 800; color: ${r.CUMPLIMIENTO >= 100 ? '#059669' : '#dc2626'};">${r.CUMPLIMIENTO}%</td>
+                    <td style="text-align: center; font-weight: 800; color: ${cumpl >= 100 ? '#059669' : '#dc2626'};">${cumpl.toFixed(1)}%</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        // ==========================================
-        // \ud83d\udcc9 BAJA PRODUCTIVIDAD (< 3 VENTAS) - MES ANTERIOR
-        // ==========================================
+        // =========================================================================
+        // 📉 BAJA PRODUCTIVIDAD (< 3 VENTAS) - MES ANTERIOR
+        // =========================================================================
+        let bpAntSort = { col: 'CANTIDAD DE VENTAS', asc: true };
+
+        function getBajaProdFilterValuesAnt() {
+            const elReg = document.getElementById('ant-asesor-filter-reg') || document.getElementById('ant-filter-regional');
+            const elZona = document.getElementById('ant-asesor-filter-zona') || document.getElementById('ant-filter-zona');
+            const elDir = document.getElementById('ant-asesor-filter-dir') || document.getElementById('ant-filter-director');
+
+            let r = elReg && elReg.value ? elReg.value.trim().toUpperCase() : '';
+            let z = elZona && elZona.value ? elZona.value.trim().toUpperCase() : '';
+            let d = elDir && elDir.value ? elDir.value.trim().toUpperCase() : '';
+
+            if (r.startsWith('TODAS')) r = '';
+            if (z.startsWith('TODAS')) z = '';
+            if (d.startsWith('TODOS')) d = '';
+            return { selReg: r, selZona: z, selDir: d };
+        }
+
         function renderAntBajaProductividadDashboard() {
-            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
+            const data = (typeof PRESUPUESTO_DATA_ANT !== 'undefined' && Array.isArray(PRESUPUESTO_DATA_ANT))
+                ? PRESUPUESTO_DATA_ANT
+                : [];
+            if (!data.length) return;
 
-            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
+            const { selReg, selZona, selDir } = getBajaProdFilterValuesAnt();
 
-            let baseAdvisors = PRESUPUESTO_DATA_ANT.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+            let baseAdvisors = data.filter(a => {
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
                 return true;
             });
 
@@ -240739,31 +240783,32 @@ function renderBajaProductividadDashboard() {
             const elProd = document.getElementById('ant-bp-kpi-total-prod');
             if (elProd) elProd.innerText = countProd;
             const elProdSub = document.getElementById('ant-bp-kpi-total-prod-sub');
-            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con \u2265 3 ventas`;
+            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con ≥ 3 ventas`;
 
             renderBajaProdTablesAnt();
             renderBajaProdAsesoresTableAnt();
         }
 
         function renderBajaProdTablesAnt() {
-            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
+            const data = (typeof PRESUPUESTO_DATA_ANT !== 'undefined' && Array.isArray(PRESUPUESTO_DATA_ANT))
+                ? PRESUPUESTO_DATA_ANT
+                : [];
+            if (!data.length) return;
 
-            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
+            const { selReg, selZona, selDir } = getBajaProdFilterValuesAnt();
 
-            let baseAdvisors = PRESUPUESTO_DATA_ANT.filter(a => {
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+            let baseAdvisors = data.filter(a => {
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
                 return true;
             });
 
             const regMap = {}, zonaMap = {}, dirMap = {};
             baseAdvisors.forEach(a => {
-                const reg = a.REGIONAL || 'SIN REGIONAL';
-                const zona = a.ZONA || 'SIN ZONA';
-                const dire = a.DIRECTOR || 'SIN DIRECTOR';
+                const reg = (a.REGIONAL || 'SIN REGIONAL').trim();
+                const zona = (a.ZONA || 'SIN ZONA').trim();
+                const dire = (a.DIRECTOR || 'SIN DIRECTOR').trim();
                 const cv = a['CANTIDAD DE VENTAS'] || 0;
                 const isU3 = cv < 3;
 
@@ -240829,11 +240874,11 @@ function renderBajaProductividadDashboard() {
             const tbZona = document.getElementById('antBpZonaTbody');
             if (tbZona) {
                 tbZona.innerHTML = '';
-                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona)).forEach(z => {
+                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || (z.regional && z.regional.toLowerCase().includes(sZona))).forEach(z => {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td><strong>${z.name}</strong></td>
-                        <td style="color: #64748b;">${z.regional}</td>
+                        <td style="text-align: center; color: #64748b;">${z.regional}</td>
                         <td style="text-align: center;">${z.total}</td>
                         <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${z.under3}</td>
                         <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
@@ -240869,30 +240914,32 @@ function renderBajaProductividadDashboard() {
         }
 
         function renderBajaProdAsesoresTableAnt() {
-            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
+            const data = (typeof PRESUPUESTO_DATA_ANT !== 'undefined' && Array.isArray(PRESUPUESTO_DATA_ANT))
+                ? PRESUPUESTO_DATA_ANT
+                : [];
+            if (!data.length) return;
 
-            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
-            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
-            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
+            const { selReg, selZona, selDir } = getBajaProdFilterValuesAnt();
             const searchTxt = document.getElementById('ant-bp-search-asesor') ? document.getElementById('ant-bp-search-asesor').value.toLowerCase().trim() : '';
 
-            let rows = PRESUPUESTO_DATA_ANT.filter(a => {
+            let rows = data.filter(a => {
                 if ((a['CANTIDAD DE VENTAS'] || 0) >= 3) return false;
-                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
-                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
-                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
                 if (searchTxt) {
                     const mNom = (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt);
                     const mReg = (a.REGIONAL || '').toLowerCase().includes(searchTxt);
                     const mZona = (a.ZONA || '').toLowerCase().includes(searchTxt);
                     const mDir = (a.DIRECTOR || '').toLowerCase().includes(searchTxt);
-                    if (!mNom && !mReg && !mZona && !mDir) return false;
+                    const mTipo = (a['TIPO DE ASESOR'] || '').toLowerCase().includes(searchTxt);
+                    if (!mNom && !mReg && !mZona && !mDir && !mTipo) return false;
                 }
                 return true;
             });
 
-            const sc = bpAntSort.col;
-            const asc = bpAntSort.asc;
+            const sc = (bpAntSort && bpAntSort.col) ? bpAntSort.col : 'CANTIDAD DE VENTAS';
+            const asc = (bpAntSort && bpAntSort.asc !== undefined) ? bpAntSort.asc : true;
             rows.sort((a, b) => {
                 let vA = a[sc] !== undefined ? a[sc] : 0;
                 let vB = b[sc] !== undefined ? b[sc] : 0;
@@ -240921,26 +240968,28 @@ function renderBajaProductividadDashboard() {
                         ? '<span style="background:#fef3c7; color:#b45309; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fde68a;">1 venta</span>'
                         : '<span style="background:#ffedd5; color:#c2410c; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fed7aa;">2 ventas</span>');
 
-                const tipoBadge = r['TIPO DE ASESOR'] === 'CONTRATO DIRECTO'
+                const isDirecto = (r['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT');
+                const tipoBadge = isDirecto
                     ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DIRECTO</span>'
                     : '<span style="background:#f1f5f9; color:#475569; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DISTRIBUIDOR</span>';
 
+                const cumpl = (typeof r.CUMPLIMIENTO === 'number') ? r.CUMPLIMIENTO : parseFloat(r.CUMPLIMIENTO || 0);
+
                 tr.innerHTML = `
                     <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
-                    <td><strong>${r['NOMBRE ASESOR']}</strong></td>
+                    <td><strong>${r['NOMBRE ASESOR'] || '-'}</strong></td>
                     <td style="text-align: center;">${tipoBadge}</td>
-                    <td style="text-align: center;">${r.REGIONAL}</td>
-                    <td style="text-align: center; color: #64748b;">${r.ZONA}</td>
-                    <td style="text-align: center;">${r.DIRECTOR}</td>
+                    <td style="text-align: center;">${r.REGIONAL || '-'}</td>
+                    <td style="text-align: center; color: #64748b;">${r.ZONA || '-'}</td>
+                    <td style="text-align: center;">${r.DIRECTOR || '-'}</td>
                     <td style="text-align: center;">${badgeVentas}</td>
                     <td class="num" style="text-align: center; color: #1e40af;">${formatter.format(r.LLEVAMOS || 0)}</td>
                     <td class="num" style="text-align: center; color: #334155;">${formatter.format(r.PRESUPUESTO || 0)}</td>
-                    <td style="text-align: center; font-weight: 800; color: ${r.CUMPLIMIENTO >= 100 ? '#059669' : '#dc2626'};">${r.CUMPLIMIENTO}%</td>
+                    <td style="text-align: center; font-weight: 800; color: ${cumpl >= 100 ? '#059669' : '#dc2626'};">${cumpl.toFixed(1)}%</td>
                 `;
                 tbody.appendChild(tr);
             });
         }
-
 
         // =========================================================================
         // 🛑 MÓDULO: ANÁLISIS DE ASESORES SIN VENTAS (0 VENTAS) - MES ACTUAL
