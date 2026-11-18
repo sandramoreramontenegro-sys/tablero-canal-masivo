@@ -1892,6 +1892,9 @@
         <button class="tab-btn" id="tab-btn-productos" onclick="switchTab('productos')">
             <span>📦</span> COMPORTAMIENTO POR PRODUCTOS
         </button>
+        <button class="tab-btn" id="tab-btn-censo" onclick="switchTab('censo')">
+            <span>👥</span> CONTEO ASESORES ACTIVOS
+        </button>
     </div>
 
     <!-- ========================================== -->
@@ -2448,18 +2451,7 @@
                         <button type="button" id="btn-asesor-general" class="cruce-mode-pill active" onclick="switchAsesorMode('general')">
                             <span>📊</span> CUMPLIMIENTO GENERAL
                         </button>
-                        <button type="button" id="btn-asesor-censo" class="cruce-mode-pill censo" onclick="switchAsesorMode('censo')" title="Ver censo oficial de asesores activos, desglose global, por regional, zona y director">
-                            <span>👥</span> CONTEO ASESORES ACTIVOS (<span id="censo-badge-total">329</span>)
-                        </button>
-                        <div id="censo-mini-summary" style="display: inline-flex; align-items: center; gap: 7px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 5px 12px; border-radius: 6px; font-size: 0.77rem; color: #475569; font-weight: 700;">
-                            <span>🏢 Global: <strong id="censo-mini-total" style="color: #0f172a;">329</strong></span>
-                            <span style="color: #cbd5e1;">•</span>
-                            <span id="censo-mini-dir" style="color: #0284c7; font-weight: 800;">146 Directos</span>
-                            <span style="color: #cbd5e1;">•</span>
-                            <span id="censo-mini-dis" style="color: #7c3aed; font-weight: 800;">183 Distri</span>
-                            <span style="color: #cbd5e1;">•</span>
-                            <span style="color: #059669; font-weight: 800;">17 Reg / 24 Zonas / 7 Dir</span>
-                        </div>
+
                         <button type="button" id="btn-asesor-efectividad" class="cruce-mode-pill efectividad" style="display: none;" onclick="switchAsesorMode('efectividad')">
                             <span>✅</span> EFECTIVIDAD DE CONFIRMACIÓN POR ASESOR
                         </button>
@@ -2727,7 +2719,7 @@
                 </div>
 
                 <!-- 👥 CONTENEDOR CENSO Y CONTEO DE ASESORES ACTIVOS (MES ACTUAL) -->
-                <div id="asesor-censo-container" style="display: none; margin-top: 10px; margin-bottom: 25px;"></div>
+                
 
                 <!-- CONTENEDOR BAJA PRODUCTIVIDAD: ASESORES CON < 3 VENTAS (MES ACTUAL) -->
         <div id="cruce-bajaprod-container" style="display: none; margin-bottom: 25px;">
@@ -3406,7 +3398,7 @@
         <!-- CONTENEDOR GRID: TABLAS DE CRUCE MES ANTERIOR -->
         
         <!-- 👥 CONTENEDOR CENSO Y CONTEO DE ASESORES ACTIVOS (MES ANTERIOR) -->
-                <div id="ant-asesor-censo-container" style="display: none; margin-top: 10px; margin-bottom: 25px;"></div>
+                
 
                 <!-- CONTENEDOR BAJA PRODUCTIVIDAD: ASESORES CON < 3 VENTAS (MES ANTERIOR) -->
         <div id="ant-cruce-bajaprod-container" style="display: none; margin-bottom: 25px;">
@@ -3751,16 +3743,7 @@
                         <button type="button" id="btn-ant-asesor-general" class="cruce-mode-pill active" onclick="switchAsesorModeAnt('general')">
                             <span>📊</span> CUMPLIMIENTO GENERAL
                         </button>
-                        <button type="button" id="btn-ant-asesor-censo" class="cruce-mode-pill censo" onclick="switchAsesorModeAnt('censo')" title="Ver censo oficial de asesores activos del mes anterior">
-                            <span>👥</span> CONTEO ASESORES ACTIVOS (<span id="ant-censo-badge-total">353</span>)
-                        </button>
-                        <div id="ant-censo-mini-summary" style="display: inline-flex; align-items: center; gap: 7px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 5px 12px; border-radius: 6px; font-size: 0.77rem; color: #475569; font-weight: 700;">
-                            <span>🏢 Global: <strong id="ant-censo-mini-total" style="color: #0f172a;">353</strong></span>
-                            <span style="color: #cbd5e1;">•</span>
-                            <span id="ant-censo-mini-dir" style="color: #0284c7; font-weight: 800;">150 Directos</span>
-                            <span style="color: #cbd5e1;">•</span>
-                            <span id="ant-censo-mini-dis" style="color: #7c3aed; font-weight: 800;">203 Distri</span>
-                        </div>
+
                         <button type="button" id="btn-ant-asesor-efectividad" class="cruce-mode-pill efectividad" onclick="switchAsesorModeAnt('efectividad')" style="display: none;">
                             <span>✅</span> EFECTIVIDAD DE CONFIRMACIÓN
                         </button>
@@ -5659,6 +5642,13 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PESTAÑA: CONTEO ASESORES ACTIVOS (CENSO)   -->
+    <!-- ========================================== -->
+    <div id="tab-censo" class="tab-content">
+        <div id="censo-tab-container"></div>
     </div>
 
 
@@ -239991,6 +239981,12 @@ const PRODUCTOS_DATA = {
                 } else {
                     renderProductosDashboard();
                 }
+            } else if (tab === 'censo') {
+                const btn = document.getElementById('tab-btn-censo');
+                if (btn) btn.classList.add('active');
+                const t = document.getElementById('tab-censo');
+                if (t) t.classList.add('active');
+                renderCensoDashboard(censoState.period || 'ACT');
             } else if (tab === 'presupuesto') {
                 const btn = document.getElementById('tab-btn-actual') || document.querySelectorAll('.tab-btn')[0];
                 if (btn) btn.classList.add('active');
@@ -250608,10 +250604,14 @@ const PRODUCTOS_DATA = {
             } catch(e) {}
         }
 
+        function switchCensoPeriod(period) {
+            censoState.period = period;
+            renderCensoDashboard(period);
+        }
+
         function renderCensoDashboard(period) {
             censoState.period = period || 'ACT';
-            const containerId = censoState.period === 'ACT' ? 'asesor-censo-container' : 'ant-asesor-censo-container';
-            const container = document.getElementById(containerId);
+            const container = document.getElementById('censo-tab-container') || document.getElementById('tab-censo');
             if (!container) return;
 
             const rawList = getCensoRawData(censoState.period);
@@ -250628,32 +250628,40 @@ const PRODUCTOS_DATA = {
             const setZon = new Set(allAdvisors.map(a => a.zon).filter(Boolean));
             const setDir = new Set(allAdvisors.map(a => a.dir).filter(Boolean).filter(d => d !== 'Sin Director'));
 
+            const totAct = (typeof PRESUPUESTO_DATA !== 'undefined' && Array.isArray(PRESUPUESTO_DATA)) ? PRESUPUESTO_DATA.length : 329;
+            const totAnt = (typeof PRESUPUESTO_DATA_ANT !== 'undefined' && Array.isArray(PRESUPUESTO_DATA_ANT)) ? PRESUPUESTO_DATA_ANT.length : 353;
             const periodLabel = censoState.period === 'ACT' ? 'MES ACTUAL' : 'MES ANTERIOR';
-            const switchBackFn = censoState.period === 'ACT' ? "switchAsesorMode('general')" : "switchAsesorModeAnt('general')";
 
             container.innerHTML = `
-                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 20px;">
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); margin-bottom: 25px;">
                     <!-- Cabecera Ejecutiva -->
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 16px;">
                         <div>
                             <div style="display: flex; align-items: center; gap: 10px;">
-                                <h3 style="margin: 0; color: #1B365D; font-size: 1.15rem; font-weight: 800; letter-spacing: 0.3px;">
+                                <h3 style="margin: 0; color: #1B365D; font-size: 1.25rem; font-weight: 800; letter-spacing: 0.3px;">
                                     👥 CENSO Y CONTEO DE FUERZA COMERCIAL ACTIVA (${periodLabel})
                                 </h3>
-                                <span style="background: #e0f2fe; color: #0369a1; font-weight: 800; font-size: 0.75rem; padding: 3px 9px; border-radius: 12px; border: 1px solid #bae6fd;">
+                                <span style="background: #e0f2fe; color: #0369a1; font-weight: 800; font-size: 0.8rem; padding: 4px 10px; border-radius: 12px; border: 1px solid #bae6fd;">
                                     ${totalGlobal} Asesores
                                 </span>
                             </div>
-                            <p style="margin: 5px 0 0 0; color: #64748b; font-size: 0.82rem;">
-                                Conteo oficial de la fuerza comercial activa: distribución global, por Regional, por Zona y por Director comercial, clasificada por Contrato Directo y Distribuidores.
+                            <p style="margin: 6px 0 0 0; color: #64748b; font-size: 0.86rem;">
+                                Indicador oficial para Directores: cantidad global de asesores activos, clasificación por Contrato Directo y Distribuidores, y desglose por Regional, por Zona y por Director.
                             </p>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <button type="button" onclick="exportCensoCSV()" class="cruce-view-btn" style="background: #0284c7; color: #ffffff; border: none; padding: 7px 14px; font-weight: 700; font-size: 0.80rem; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(2,132,199,0.25);">
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <!-- Selector de Periodo Mes Actual vs Anterior -->
+                            <div style="display: inline-flex; align-items: center; background: #f1f5f9; padding: 4px; border-radius: 8px; border: 1px solid #cbd5e1;">
+                                <button type="button" onclick="switchCensoPeriod('ACT')" style="padding: 7px 16px; border-radius: 6px; border: none; font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; ${censoState.period === 'ACT' ? 'background: #1e40af; color: #ffffff; box-shadow: 0 2px 4px rgba(30,64,175,0.3);' : 'background: transparent; color: #475569;'}">
+                                    🎯 Mes Actual (${totAct})
+                                </button>
+                                <button type="button" onclick="switchCensoPeriod('ANT')" style="padding: 7px 16px; border-radius: 6px; border: none; font-weight: 800; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; ${censoState.period === 'ANT' ? 'background: #1e40af; color: #ffffff; box-shadow: 0 2px 4px rgba(30,64,175,0.3);' : 'background: transparent; color: #475569;'}">
+                                    📅 Mes Anterior (${totAnt})
+                                </button>
+                            </div>
+                            <!-- Botón Exportar CSV -->
+                            <button type="button" onclick="exportCensoCSV()" class="cruce-view-btn" style="background: #0284c7; color: #ffffff; border: none; padding: 8px 16px; font-weight: 700; font-size: 0.82rem; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 6px rgba(2,132,199,0.25);">
                                 📥 Exportar Censo a CSV
-                            </button>
-                            <button type="button" onclick="${switchBackFn}" class="cruce-view-btn" style="background: #f8fafc; color: #334155; border: 1px solid #cbd5e1; padding: 7px 14px; font-weight: 700; font-size: 0.80rem; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-                                📊 Volver a Cumplimiento
                             </button>
                         </div>
                     </div>
@@ -250744,7 +250752,7 @@ const PRODUCTOS_DATA = {
                     </div>
 
                     <!-- Contenedor de la Tabla Activa -->
-                    <div id="${censoState.period === 'ACT' ? 'censo-table-wrapper' : 'ant-censo-table-wrapper'}" style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <div id="censo-table-wrapper" style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
                     </div>
                 </div>
             `;
@@ -250780,8 +250788,7 @@ const PRODUCTOS_DATA = {
         }
 
         function renderCensoTableContent() {
-            const wrapperId = censoState.period === 'ACT' ? 'censo-table-wrapper' : 'ant-censo-table-wrapper';
-            const wrapper = document.getElementById(wrapperId);
+            const wrapper = document.getElementById('censo-table-wrapper') || document.getElementById(censoState.period === 'ACT' ? 'censo-table-wrapper' : 'ant-censo-table-wrapper');
             if (!wrapper) return;
 
             const rawList = getCensoRawData(censoState.period);
