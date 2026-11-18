@@ -239835,6 +239835,1021 @@ const PRODUCTOS_DATA = {
             }
         }
 
+function renderBajaProductividadDashboard() {
+            if (typeof PRESUPUESTO_DATA === 'undefined') return;
+
+            // Tomar en cuenta los filtros activos de regional, zona y director
+            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
+            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
+            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
+
+            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
+                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
+                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
+                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                return true;
+            });
+
+            const total = baseAdvisors.length;
+            const under3 = baseAdvisors.filter(a => (a['CANTIDAD DE VENTAS'] || 0) < 3);
+            const countU3 = under3.length;
+            const countProd = total - countU3;
+            const pctU3 = total > 0 ? ((countU3 / total) * 100).toFixed(1) : '0.0';
+            const pctProd = total > 0 ? ((countProd / total) * 100).toFixed(1) : '0.0';
+
+            // Actualizar Badge y KPIs
+            const bGlobal = document.getElementById('bp-badge-global');
+            if (bGlobal) bGlobal.innerText = `${countU3} Asesores (${pctU3}%)`;
+
+            const elU3 = document.getElementById('bp-kpi-total-u3');
+            if (elU3) elU3.innerText = countU3;
+            const elU3Sub = document.getElementById('bp-kpi-total-u3-sub');
+            if (elU3Sub) elU3Sub.innerHTML = `Representa el <strong style="color: #dc2626;">${pctU3}%</strong> de ${total} asesores`;
+
+            const elProd = document.getElementById('bp-kpi-total-prod');
+            if (elProd) elProd.innerText = countProd;
+            const elProdSub = document.getElementById('bp-kpi-total-prod-sub');
+            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con \u2265 3 ventas`;
+
+            // Rankings
+            renderBajaProdTablesActual();
+            renderBajaProdAsesoresTableActual();
+        }
+
+        function renderBajaProdTablesActual() {
+            if (typeof PRESUPUESTO_DATA === 'undefined') return;
+
+            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
+            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
+            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
+
+            let baseAdvisors = PRESUPUESTO_DATA.filter(a => {
+                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
+                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
+                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                return true;
+            });
+
+            // Mapas
+            const regMap = {}, zonaMap = {}, dirMap = {};
+            baseAdvisors.forEach(a => {
+                const reg = a.REGIONAL || 'SIN REGIONAL';
+                const zona = a.ZONA || 'SIN ZONA';
+                const dire = a.DIRECTOR || 'SIN DIRECTOR';
+                const cv = a['CANTIDAD DE VENTAS'] || 0;
+                const isU3 = cv < 3;
+
+                if (!regMap[reg]) regMap[reg] = { total: 0, under3: 0 };
+                regMap[reg].total++;
+                if (isU3) regMap[reg].under3++;
+
+                if (!zonaMap[zona]) zonaMap[zona] = { regional: reg, total: 0, under3: 0 };
+                zonaMap[zona].total++;
+                if (isU3) zonaMap[zona].under3++;
+
+                if (!dirMap[dire]) dirMap[dire] = { total: 0, under3: 0 };
+                dirMap[dire].total++;
+                if (isU3) dirMap[dire].under3++;
+            });
+
+            // Listas ordenadas
+            const regList = Object.entries(regMap).map(([k, v]) => ({
+                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
+            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
+
+            const zonaList = Object.entries(zonaMap).map(([k, v]) => ({
+                name: k, regional: v.regional, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
+            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
+
+            const dirList = Object.entries(dirMap).map(([k, v]) => ({
+                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
+            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
+
+            // KPIs top reg & dir
+            if (regList.length > 0) {
+                const topR = regList[0];
+                const elTopR = document.getElementById('bp-kpi-top-reg');
+                if (elTopR) elTopR.innerText = topR.name;
+                const elTopRSub = document.getElementById('bp-kpi-top-reg-sub');
+                if (elTopRSub) elTopRSub.innerHTML = `${topR.under3} asesores (<strong style="color: #dc2626;">${topR.pct.toFixed(1)}%</strong> de ${topR.total})`;
+            }
+            if (dirList.length > 0) {
+                const topD = dirList[0];
+                const elTopD = document.getElementById('bp-kpi-top-dir');
+                if (elTopD) elTopD.innerText = topD.name;
+                const elTopDSub = document.getElementById('bp-kpi-top-dir-sub');
+                if (elTopDSub) elTopDSub.innerHTML = `${topD.under3} asesores (<strong style="color: #dc2626;">${topD.pct.toFixed(1)}%</strong> de ${topD.total})`;
+            }
+
+            // Render Tablas
+            const sReg = document.getElementById('bp-search-reg') ? document.getElementById('bp-search-reg').value.toLowerCase().trim() : '';
+            const sZona = document.getElementById('bp-search-zona') ? document.getElementById('bp-search-zona').value.toLowerCase().trim() : '';
+            const sDir = document.getElementById('bp-search-dir') ? document.getElementById('bp-search-dir').value.toLowerCase().trim() : '';
+
+            const tbReg = document.getElementById('bpRegTbody');
+            if (tbReg) {
+                tbReg.innerHTML = '';
+                regList.filter(r => !sReg || r.name.toLowerCase().includes(sReg)).forEach(r => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${r.name}</strong></td>
+                        <td style="text-align: center;">${r.total}</td>
+                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${r.under3}</td>
+                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${r.pct.toFixed(1)}%</span></td>
+                    `;
+                    tbReg.appendChild(tr);
+                });
+            }
+
+            const tbZona = document.getElementById('bpZonaTbody');
+            if (tbZona) {
+                tbZona.innerHTML = '';
+                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona)).forEach(z => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${z.name}</strong></td>
+                        <td style="color: #64748b;">${z.regional}</td>
+                        <td style="text-align: center;">${z.total}</td>
+                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${z.under3}</td>
+                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
+                    `;
+                    tbZona.appendChild(tr);
+                });
+            }
+
+            const tbDir = document.getElementById('bpDirTbody');
+            if (tbDir) {
+                tbDir.innerHTML = '';
+                dirList.filter(d => !sDir || d.name.toLowerCase().includes(sDir)).forEach(d => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${d.name}</strong></td>
+                        <td style="text-align: center;">${d.total}</td>
+                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${d.under3}</td>
+                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${d.pct.toFixed(1)}%</span></td>
+                    `;
+                    tbDir.appendChild(tr);
+                });
+            }
+        }
+
+        function sortBajaProdActual(col) {
+            if (bpActualSort.col === col) {
+                bpActualSort.asc = !bpActualSort.asc;
+            } else {
+                bpActualSort.col = col;
+                bpActualSort.asc = true;
+            }
+            renderBajaProdAsesoresTableActual();
+        }
+
+        function renderBajaProdAsesoresTableActual() {
+            if (typeof PRESUPUESTO_DATA === 'undefined') return;
+
+            const selReg = document.getElementById('filter-regional') ? document.getElementById('filter-regional').value.toUpperCase() : '';
+            const selZona = document.getElementById('filter-zona') ? document.getElementById('filter-zona').value.toUpperCase() : '';
+            const selDir = document.getElementById('filter-director') ? document.getElementById('filter-director').value.toUpperCase() : '';
+            const searchTxt = document.getElementById('bp-search-asesor') ? document.getElementById('bp-search-asesor').value.toLowerCase().trim() : '';
+
+            let rows = PRESUPUESTO_DATA.filter(a => {
+                if ((a['CANTIDAD DE VENTAS'] || 0) >= 3) return false;
+                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
+                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
+                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                if (searchTxt) {
+                    const mNom = (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt);
+                    const mReg = (a.REGIONAL || '').toLowerCase().includes(searchTxt);
+                    const mZona = (a.ZONA || '').toLowerCase().includes(searchTxt);
+                    const mDir = (a.DIRECTOR || '').toLowerCase().includes(searchTxt);
+                    if (!mNom && !mReg && !mZona && !mDir) return false;
+                }
+                return true;
+            });
+
+            const sc = bpActualSort.col;
+            const asc = bpActualSort.asc;
+            rows.sort((a, b) => {
+                let vA = a[sc] !== undefined ? a[sc] : 0;
+                let vB = b[sc] !== undefined ? b[sc] : 0;
+                if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                return asc ? (vA - vB) : (vB - vA);
+            });
+
+            const sub = document.getElementById('bp-table-sub');
+            if (sub) sub.innerText = `Mostrando ${rows.length} asesores con menos de 3 ventas`;
+
+            const tbody = document.getElementById('bpAsesoresTbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (!rows.length) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:25px; color:#64748b;">No se encontraron asesores con &lt; 3 ventas en este filtro.</td></tr>';
+                return;
+            }
+
+            rows.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+                const cv = r['CANTIDAD DE VENTAS'] || 0;
+                const badgeVentas = cv === 0
+                    ? '<span style="background:#fee2e2; color:#991b1b; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fecdd3;">0 ventas</span>'
+                    : (cv === 1
+                        ? '<span style="background:#fef3c7; color:#b45309; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fde68a;">1 venta</span>'
+                        : '<span style="background:#ffedd5; color:#c2410c; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fed7aa;">2 ventas</span>');
+
+                const tipoBadge = r['TIPO DE ASESOR'] === 'CONTRATO DIRECTO'
+                    ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DIRECTO</span>'
+                    : '<span style="background:#f1f5f9; color:#475569; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DISTRIBUIDOR</span>';
+
+                tr.innerHTML = `
+                    <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
+                    <td><strong>${r['NOMBRE ASESOR']}</strong></td>
+                    <td style="text-align: center;">${tipoBadge}</td>
+                    <td style="text-align: center;">${r.REGIONAL}</td>
+                    <td style="text-align: center; color: #64748b;">${r.ZONA}</td>
+                    <td style="text-align: center;">${r.DIRECTOR}</td>
+                    <td style="text-align: center;">${badgeVentas}</td>
+                    <td class="num" style="text-align: center; color: #1e40af;">${formatter.format(r.LLEVAMOS || 0)}</td>
+                    <td class="num" style="text-align: center; color: #334155;">${formatter.format(r.PRESUPUESTO || 0)}</td>
+                    <td style="text-align: center; font-weight: 800; color: ${r.CUMPLIMIENTO >= 100 ? '#059669' : '#dc2626'};">${r.CUMPLIMIENTO}%</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ==========================================
+        // \ud83d\udcc9 BAJA PRODUCTIVIDAD (< 3 VENTAS) - MES ANTERIOR
+        // ==========================================
+        function renderAntBajaProductividadDashboard() {
+            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
+
+            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
+            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
+            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
+
+            let baseAdvisors = PRESUPUESTO_DATA_ANT.filter(a => {
+                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
+                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
+                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                return true;
+            });
+
+            const total = baseAdvisors.length;
+            const under3 = baseAdvisors.filter(a => (a['CANTIDAD DE VENTAS'] || 0) < 3);
+            const countU3 = under3.length;
+            const countProd = total - countU3;
+            const pctU3 = total > 0 ? ((countU3 / total) * 100).toFixed(1) : '0.0';
+            const pctProd = total > 0 ? ((countProd / total) * 100).toFixed(1) : '0.0';
+
+            const bGlobal = document.getElementById('ant-bp-badge-global');
+            if (bGlobal) bGlobal.innerText = `${countU3} Asesores (${pctU3}%)`;
+
+            const elU3 = document.getElementById('ant-bp-kpi-total-u3');
+            if (elU3) elU3.innerText = countU3;
+            const elU3Sub = document.getElementById('ant-bp-kpi-total-u3-sub');
+            if (elU3Sub) elU3Sub.innerHTML = `Representa el <strong style="color: #dc2626;">${pctU3}%</strong> de ${total} asesores`;
+
+            const elProd = document.getElementById('ant-bp-kpi-total-prod');
+            if (elProd) elProd.innerText = countProd;
+            const elProdSub = document.getElementById('ant-bp-kpi-total-prod-sub');
+            if (elProdSub) elProdSub.innerHTML = `Representa el <strong style="color: #059669;">${pctProd}%</strong> con \u2265 3 ventas`;
+
+            renderBajaProdTablesAnt();
+            renderBajaProdAsesoresTableAnt();
+        }
+
+        function renderBajaProdTablesAnt() {
+            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
+
+            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
+            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
+            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
+
+            let baseAdvisors = PRESUPUESTO_DATA_ANT.filter(a => {
+                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
+                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
+                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                return true;
+            });
+
+            const regMap = {}, zonaMap = {}, dirMap = {};
+            baseAdvisors.forEach(a => {
+                const reg = a.REGIONAL || 'SIN REGIONAL';
+                const zona = a.ZONA || 'SIN ZONA';
+                const dire = a.DIRECTOR || 'SIN DIRECTOR';
+                const cv = a['CANTIDAD DE VENTAS'] || 0;
+                const isU3 = cv < 3;
+
+                if (!regMap[reg]) regMap[reg] = { total: 0, under3: 0 };
+                regMap[reg].total++;
+                if (isU3) regMap[reg].under3++;
+
+                if (!zonaMap[zona]) zonaMap[zona] = { regional: reg, total: 0, under3: 0 };
+                zonaMap[zona].total++;
+                if (isU3) zonaMap[zona].under3++;
+
+                if (!dirMap[dire]) dirMap[dire] = { total: 0, under3: 0 };
+                dirMap[dire].total++;
+                if (isU3) dirMap[dire].under3++;
+            });
+
+            const regList = Object.entries(regMap).map(([k, v]) => ({
+                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
+            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
+
+            const zonaList = Object.entries(zonaMap).map(([k, v]) => ({
+                name: k, regional: v.regional, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
+            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
+
+            const dirList = Object.entries(dirMap).map(([k, v]) => ({
+                name: k, total: v.total, under3: v.under3, pct: v.total > 0 ? (v.under3 / v.total * 100) : 0
+            })).sort((a, b) => b.under3 - a.under3 || b.pct - a.pct);
+
+            if (regList.length > 0) {
+                const topR = regList[0];
+                const elTopR = document.getElementById('ant-bp-kpi-top-reg');
+                if (elTopR) elTopR.innerText = topR.name;
+                const elTopRSub = document.getElementById('ant-bp-kpi-top-reg-sub');
+                if (elTopRSub) elTopRSub.innerHTML = `${topR.under3} asesores (<strong style="color: #dc2626;">${topR.pct.toFixed(1)}%</strong> de ${topR.total})`;
+            }
+            if (dirList.length > 0) {
+                const topD = dirList[0];
+                const elTopD = document.getElementById('ant-bp-kpi-top-dir');
+                if (elTopD) elTopD.innerText = topD.name;
+                const elTopDSub = document.getElementById('ant-bp-kpi-top-dir-sub');
+                if (elTopDSub) elTopDSub.innerHTML = `${topD.under3} asesores (<strong style="color: #dc2626;">${topD.pct.toFixed(1)}%</strong> de ${topD.total})`;
+            }
+
+            const sReg = document.getElementById('ant-bp-search-reg') ? document.getElementById('ant-bp-search-reg').value.toLowerCase().trim() : '';
+            const sZona = document.getElementById('ant-bp-search-zona') ? document.getElementById('ant-bp-search-zona').value.toLowerCase().trim() : '';
+            const sDir = document.getElementById('ant-bp-search-dir') ? document.getElementById('ant-bp-search-dir').value.toLowerCase().trim() : '';
+
+            const tbReg = document.getElementById('antBpRegTbody');
+            if (tbReg) {
+                tbReg.innerHTML = '';
+                regList.filter(r => !sReg || r.name.toLowerCase().includes(sReg)).forEach(r => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${r.name}</strong></td>
+                        <td style="text-align: center;">${r.total}</td>
+                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${r.under3}</td>
+                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${r.pct.toFixed(1)}%</span></td>
+                    `;
+                    tbReg.appendChild(tr);
+                });
+            }
+
+            const tbZona = document.getElementById('antBpZonaTbody');
+            if (tbZona) {
+                tbZona.innerHTML = '';
+                zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || z.regional.toLowerCase().includes(sZona)).forEach(z => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${z.name}</strong></td>
+                        <td style="color: #64748b;">${z.regional}</td>
+                        <td style="text-align: center;">${z.total}</td>
+                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${z.under3}</td>
+                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
+                    `;
+                    tbZona.appendChild(tr);
+                });
+            }
+
+            const tbDir = document.getElementById('antBpDirTbody');
+            if (tbDir) {
+                tbDir.innerHTML = '';
+                dirList.filter(d => !sDir || d.name.toLowerCase().includes(sDir)).forEach(d => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${d.name}</strong></td>
+                        <td style="text-align: center;">${d.total}</td>
+                        <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.9rem;">${d.under3}</td>
+                        <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${d.pct.toFixed(1)}%</span></td>
+                    `;
+                    tbDir.appendChild(tr);
+                });
+            }
+        }
+
+        function sortBajaProdAnt(col) {
+            if (bpAntSort.col === col) {
+                bpAntSort.asc = !bpAntSort.asc;
+            } else {
+                bpAntSort.col = col;
+                bpAntSort.asc = true;
+            }
+            renderBajaProdAsesoresTableAnt();
+        }
+
+        function renderBajaProdAsesoresTableAnt() {
+            if (typeof PRESUPUESTO_DATA_ANT === 'undefined') return;
+
+            const selReg = document.getElementById('ant-filter-regional') ? document.getElementById('ant-filter-regional').value.toUpperCase() : '';
+            const selZona = document.getElementById('ant-filter-zona') ? document.getElementById('ant-filter-zona').value.toUpperCase() : '';
+            const selDir = document.getElementById('ant-filter-director') ? document.getElementById('ant-filter-director').value.toUpperCase() : '';
+            const searchTxt = document.getElementById('ant-bp-search-asesor') ? document.getElementById('ant-bp-search-asesor').value.toLowerCase().trim() : '';
+
+            let rows = PRESUPUESTO_DATA_ANT.filter(a => {
+                if ((a['CANTIDAD DE VENTAS'] || 0) >= 3) return false;
+                if (selReg && a.REGIONAL.toUpperCase() !== selReg) return false;
+                if (selZona && a.ZONA.toUpperCase() !== selZona) return false;
+                if (selDir && a.DIRECTOR.toUpperCase() !== selDir) return false;
+                if (searchTxt) {
+                    const mNom = (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt);
+                    const mReg = (a.REGIONAL || '').toLowerCase().includes(searchTxt);
+                    const mZona = (a.ZONA || '').toLowerCase().includes(searchTxt);
+                    const mDir = (a.DIRECTOR || '').toLowerCase().includes(searchTxt);
+                    if (!mNom && !mReg && !mZona && !mDir) return false;
+                }
+                return true;
+            });
+
+            const sc = bpAntSort.col;
+            const asc = bpAntSort.asc;
+            rows.sort((a, b) => {
+                let vA = a[sc] !== undefined ? a[sc] : 0;
+                let vB = b[sc] !== undefined ? b[sc] : 0;
+                if (typeof vA === 'string') return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                return asc ? (vA - vB) : (vB - vA);
+            });
+
+            const sub = document.getElementById('ant-bp-table-sub');
+            if (sub) sub.innerText = `Mostrando ${rows.length} asesores con menos de 3 ventas`;
+
+            const tbody = document.getElementById('antBpAsesoresTbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (!rows.length) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:25px; color:#64748b;">No se encontraron asesores con &lt; 3 ventas en este filtro.</td></tr>';
+                return;
+            }
+
+            rows.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+                const cv = r['CANTIDAD DE VENTAS'] || 0;
+                const badgeVentas = cv === 0
+                    ? '<span style="background:#fee2e2; color:#991b1b; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fecdd3;">0 ventas</span>'
+                    : (cv === 1
+                        ? '<span style="background:#fef3c7; color:#b45309; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fde68a;">1 venta</span>'
+                        : '<span style="background:#ffedd5; color:#c2410c; font-weight:800; padding:3px 10px; border-radius:6px; border:1px solid #fed7aa;">2 ventas</span>');
+
+                const tipoBadge = r['TIPO DE ASESOR'] === 'CONTRATO DIRECTO'
+                    ? '<span style="background:#dbeafe; color:#1e40af; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DIRECTO</span>'
+                    : '<span style="background:#f1f5f9; color:#475569; font-weight:800; font-size:0.72rem; padding:2px 6px; border-radius:4px;">DISTRIBUIDOR</span>';
+
+                tr.innerHTML = `
+                    <td style="text-align: center; color: #64748b; font-weight: 600;">#${idx + 1}</td>
+                    <td><strong>${r['NOMBRE ASESOR']}</strong></td>
+                    <td style="text-align: center;">${tipoBadge}</td>
+                    <td style="text-align: center;">${r.REGIONAL}</td>
+                    <td style="text-align: center; color: #64748b;">${r.ZONA}</td>
+                    <td style="text-align: center;">${r.DIRECTOR}</td>
+                    <td style="text-align: center;">${badgeVentas}</td>
+                    <td class="num" style="text-align: center; color: #1e40af;">${formatter.format(r.LLEVAMOS || 0)}</td>
+                    <td class="num" style="text-align: center; color: #334155;">${formatter.format(r.PRESUPUESTO || 0)}</td>
+                    <td style="text-align: center; font-weight: 800; color: ${r.CUMPLIMIENTO >= 100 ? '#059669' : '#dc2626'};">${r.CUMPLIMIENTO}%</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+
+        // =========================================================================
+        // 🛑 MÓDULO: ANÁLISIS DE ASESORES SIN VENTAS (0 VENTAS) - MES ACTUAL
+        // =========================================================================
+        let currentCeroVentasTipo = 'todos'; // 'todos' | 'directo' | 'distri'
+        let currentCeroVentasCriterio = 'cantidad'; // 'cantidad' | 'impacto'
+        let currentCeroVentasDrilldown = { type: null, value: null };
+        let currentCeroVentasSubTab = 'all'; // 'all' | 'reg' | 'zona' | 'dir'
+        let czAsesoresSortState = { col: 'PRESUPUESTO', asc: false };
+
+        function switchCeroVentasTipo(tipo) {
+            currentCeroVentasTipo = tipo;
+            const btnTodos = document.getElementById('btn-cz-tipo-todos');
+            const btnDir = document.getElementById('btn-cz-tipo-directo');
+            const btnDis = document.getElementById('btn-cz-tipo-distri');
+
+            if (btnTodos) btnTodos.classList.toggle('active', tipo === 'todos');
+            if (btnDir) btnDir.classList.toggle('active', tipo === 'directo');
+            if (btnDis) btnDis.classList.toggle('active', tipo === 'distri');
+
+            renderCeroVentasDashboard();
+        }
+
+        function switchCeroVentasCriterio(crit) {
+            currentCeroVentasCriterio = crit;
+            const btnCant = document.getElementById('btn-cz-criterio-cantidad');
+            const btnImp = document.getElementById('btn-cz-criterio-impacto');
+            if (btnCant) btnCant.classList.toggle('active', crit === 'cantidad');
+            if (btnImp) btnImp.classList.toggle('active', crit === 'impacto');
+            renderCeroVentasTables();
+        }
+
+        function switchCeroVentasSubTab(tab) {
+            currentCeroVentasSubTab = tab;
+            const btnAll = document.getElementById('btn-cz-sub-all');
+            const btnReg = document.getElementById('btn-cz-sub-reg');
+            const btnZona = document.getElementById('btn-cz-sub-zona');
+            const btnDir = document.getElementById('btn-cz-sub-dir');
+
+            if (btnAll) btnAll.classList.toggle('active', tab === 'all');
+            if (btnReg) btnReg.classList.toggle('active', tab === 'reg');
+            if (btnZona) btnZona.classList.toggle('active', tab === 'zona');
+            if (btnDir) btnDir.classList.toggle('active', tab === 'dir');
+
+            const cardReg = document.getElementById('cz-card-reg');
+            const cardZona = document.getElementById('cz-card-zona');
+            const cardDir = document.getElementById('cz-card-dir');
+            const grid = document.getElementById('cz-tables-grid');
+
+            if (tab === 'all') {
+                if (cardReg) cardReg.style.display = 'block';
+                if (cardZona) cardZona.style.display = 'block';
+                if (cardDir) cardDir.style.display = 'block';
+                if (grid) grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(340px, 1fr))';
+            } else if (tab === 'reg') {
+                if (cardReg) cardReg.style.display = 'block';
+                if (cardZona) cardZona.style.display = 'none';
+                if (cardDir) cardDir.style.display = 'none';
+                if (grid) grid.style.gridTemplateColumns = '1fr';
+            } else if (tab === 'zona') {
+                if (cardReg) cardReg.style.display = 'none';
+                if (cardZona) cardZona.style.display = 'block';
+                if (cardDir) cardDir.style.display = 'none';
+                if (grid) grid.style.gridTemplateColumns = '1fr';
+            } else if (tab === 'dir') {
+                if (cardReg) cardReg.style.display = 'none';
+                if (cardZona) cardZona.style.display = 'none';
+                if (cardDir) cardDir.style.display = 'block';
+                if (grid) grid.style.gridTemplateColumns = '1fr';
+            }
+        }
+
+        function drillDownCeroVentas(type, value) {
+            currentCeroVentasDrilldown = { type, value };
+            const banner = document.getElementById('cz-drilldown-banner');
+            const bText = document.getElementById('cz-drilldown-text');
+            if (banner && bText) {
+                const label = type === 'regional' ? 'Regional' : (type === 'zona' ? 'Zona' : 'Director');
+                bText.innerHTML = `Filtrando asesores por ${label}: <strong>${value}</strong>`;
+                banner.style.display = 'flex';
+            }
+            renderCeroVentasTables();
+            renderCeroVentasAsesoresTable();
+            const elTable = document.getElementById('cz-table-asesores-container');
+            if (elTable) elTable.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function clearCeroVentasDrilldown() {
+            currentCeroVentasDrilldown = { type: null, value: null };
+            const banner = document.getElementById('cz-drilldown-banner');
+            if (banner) banner.style.display = 'none';
+            renderCeroVentasTables();
+            renderCeroVentasAsesoresTable();
+        }
+
+        function sortCeroVentasAsesores(col) {
+            if (czAsesoresSortState.col === col) {
+                czAsesoresSortState.asc = !czAsesoresSortState.asc;
+            } else {
+                czAsesoresSortState.col = col;
+                czAsesoresSortState.asc = false;
+            }
+            renderCeroVentasAsesoresTable();
+        }
+
+        function getCeroVentasFilterValues() {
+            const elReg = document.getElementById('p-asesor-filter-reg') || document.getElementById('p-filter-regional') || document.getElementById('filter-regional');
+            const elZona = document.getElementById('p-asesor-filter-zona') || document.getElementById('p-filter-zona') || document.getElementById('filter-zona');
+            const elDir = document.getElementById('p-asesor-filter-dir') || document.getElementById('p-filter-director') || document.getElementById('filter-director');
+
+            let r = elReg && elReg.value ? elReg.value.trim().toUpperCase() : '';
+            let z = elZona && elZona.value ? elZona.value.trim().toUpperCase() : '';
+            let d = elDir && elDir.value ? elDir.value.trim().toUpperCase() : '';
+
+            if (r.startsWith('TODAS')) r = '';
+            if (z.startsWith('TODAS')) z = '';
+            if (d.startsWith('TODOS')) d = '';
+            return { selReg: r, selZona: z, selDir: d };
+        }
+
+        function renderCeroVentasDashboard() {
+            const data = (typeof rawPresupuesto !== 'undefined' && rawPresupuesto.length > 0)
+                ? rawPresupuesto
+                : ((typeof PRESUPUESTO_DATA !== 'undefined') ? PRESUPUESTO_DATA : []);
+            if (!data || !data.length) return;
+
+            const { selReg, selZona, selDir } = getCeroVentasFilterValues();
+
+            let baseAdvisors = data.filter(a => {
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
+                return true;
+            });
+
+            const zeroAdvisorsAll = baseAdvisors.filter(a => (a['CANTIDAD DE VENTAS'] || 0) === 0);
+            const directosZeroAll = zeroAdvisorsAll.filter(a => (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT'));
+            const distriZeroAll = zeroAdvisorsAll.filter(a => !(a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT'));
+
+            const elCTodos = document.getElementById('cz-count-tipo-todos');
+            const elCDir = document.getElementById('cz-count-tipo-directo');
+            const elCDis = document.getElementById('cz-count-tipo-distri');
+            if (elCTodos) elCTodos.innerText = zeroAdvisorsAll.length;
+            if (elCDir) elCDir.innerText = directosZeroAll.length;
+            if (elCDis) elCDis.innerText = distriZeroAll.length;
+
+            let activeZeroAdvisors = zeroAdvisorsAll;
+            if (currentCeroVentasTipo === 'directo') {
+                activeZeroAdvisors = directosZeroAll;
+            } else if (currentCeroVentasTipo === 'distri') {
+                activeZeroAdvisors = distriZeroAll;
+            }
+
+            const totalEquipo = baseAdvisors.length;
+            const countZero = activeZeroAdvisors.length;
+            const pctZero = totalEquipo > 0 ? ((countZero / totalEquipo) * 100).toFixed(1) : '0.0';
+
+            const bGlobal = document.getElementById('cz-badge-global');
+            if (bGlobal) {
+                bGlobal.innerText = `${countZero} Asesores (${pctZero}% del equipo)`;
+            }
+
+            const elTot = document.getElementById('cz-kpi-total');
+            const elTotSub = document.getElementById('cz-kpi-total-sub');
+            if (elTot) elTot.innerText = countZero;
+            if (elTotSub) elTotSub.innerHTML = `Representa el <strong style="color: #dc2626;">${pctZero}%</strong> de ${totalEquipo} asesores`;
+
+            const elDirKpi = document.getElementById('cz-kpi-directos');
+            const elDirKpiSub = document.getElementById('cz-kpi-directos-sub');
+            const metaDirectosZero = directosZeroAll.reduce((acc, a) => acc + (a.PRESUPUESTO || 0), 0);
+            if (elDirKpi) elDirKpi.innerText = directosZeroAll.length;
+            if (elDirKpiSub) elDirKpiSub.innerHTML = `Meta en riesgo: <strong>${formatter.format(metaDirectosZero)}</strong>`;
+
+            const elDisKpi = document.getElementById('cz-kpi-distri');
+            const elDisKpiSub = document.getElementById('cz-kpi-distri-sub');
+            const metaDistriZero = distriZeroAll.reduce((acc, a) => acc + (a.PRESUPUESTO || 0), 0);
+            if (elDisKpi) elDisKpi.innerText = distriZeroAll.length;
+            if (elDisKpiSub) elDisKpiSub.innerHTML = `Meta en riesgo: <strong>${formatter.format(metaDistriZero)}</strong>`;
+
+            renderCeroVentasTables();
+            renderCeroVentasAsesoresTable();
+        }
+
+        function renderCeroVentasTables() {
+            const data = (typeof rawPresupuesto !== 'undefined' && rawPresupuesto.length > 0)
+                ? rawPresupuesto
+                : ((typeof PRESUPUESTO_DATA !== 'undefined') ? PRESUPUESTO_DATA : []);
+            if (!data || !data.length) return;
+
+            const { selReg, selZona, selDir } = getCeroVentasFilterValues();
+
+            let baseAdvisors = data.filter(a => {
+                if (selReg && (a.REGIONAL || '').trim().toUpperCase() !== selReg) return false;
+                if (selZona && (a.ZONA || '').trim().toUpperCase() !== selZona) return false;
+                if (selDir && (a.DIRECTOR || '').trim().toUpperCase() !== selDir) return false;
+                return true;
+            });
+
+            const regMap = {}, zonaMap = {}, dirMap = {};
+
+            baseAdvisors.forEach(a => {
+                const reg = (a.REGIONAL || 'SIN REGIONAL').trim();
+                const zona = (a.ZONA || 'SIN ZONA').trim();
+                const dire = (a.DIRECTOR || 'SIN DIRECTOR').trim();
+                const isZero = (a['CANTIDAD DE VENTAS'] || 0) === 0;
+                const isDirecto = (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT');
+
+                if (currentCeroVentasTipo === 'directo' && !isDirecto) return;
+                if (currentCeroVentasTipo === 'distri' && isDirecto) return;
+
+                if (!regMap[reg]) regMap[reg] = { name: reg, total: 0, zero: 0, directosZero: 0, distriZero: 0 };
+                regMap[reg].total++;
+                if (isZero) {
+                    regMap[reg].zero++;
+                    if (isDirecto) regMap[reg].directosZero++;
+                    else regMap[reg].distriZero++;
+                }
+
+                if (!zonaMap[zona]) zonaMap[zona] = { name: zona, regional: reg, total: 0, zero: 0, directosZero: 0, distriZero: 0 };
+                zonaMap[zona].total++;
+                if (isZero) {
+                    zonaMap[zona].zero++;
+                    if (isDirecto) zonaMap[zona].directosZero++;
+                    else zonaMap[zona].distriZero++;
+                }
+
+                if (!dirMap[dire]) dirMap[dire] = { name: dire, total: 0, zero: 0, directosZero: 0, distriZero: 0 };
+                dirMap[dire].total++;
+                if (isZero) {
+                    dirMap[dire].zero++;
+                    if (isDirecto) dirMap[dire].directosZero++;
+                    else dirMap[dire].distriZero++;
+                }
+            });
+
+            const sortFn = (a, b) => {
+                if (currentCeroVentasCriterio === 'impacto') {
+                    return (b.pct - a.pct) || (b.zero - a.zero);
+                }
+                return (b.zero - a.zero) || (b.pct - a.pct);
+            };
+
+            const regList = Object.values(regMap).map(v => ({
+                ...v,
+                pct: v.total > 0 ? (v.zero / v.total * 100) : 0
+            })).sort(sortFn);
+
+            const zonaList = Object.values(zonaMap).map(v => ({
+                ...v,
+                pct: v.total > 0 ? (v.zero / v.total * 100) : 0
+            })).sort(sortFn);
+
+            const dirList = Object.values(dirMap).map(v => ({
+                ...v,
+                pct: v.total > 0 ? (v.zero / v.total * 100) : 0
+            })).sort(sortFn);
+
+            if (regList.length > 0) {
+                const topR = regList[0];
+                const elTopR = document.getElementById('cz-kpi-top-reg');
+                const elTopRSub = document.getElementById('cz-kpi-top-reg-sub');
+                if (elTopR) elTopR.innerText = topR.name;
+                if (elTopRSub) elTopRSub.innerText = `${topR.zero} asesores (${topR.pct.toFixed(1)}% del equipo)`;
+            }
+
+            if (dirList.length > 0) {
+                const topD = dirList[0];
+                const elTopD = document.getElementById('cz-kpi-top-dir');
+                const elTopDSub = document.getElementById('cz-kpi-top-dir-sub');
+                if (elTopD) elTopD.innerText = topD.name;
+                if (elTopDSub) elTopDSub.innerText = `${topD.zero} asesores (${topD.pct.toFixed(1)}% del equipo)`;
+            }
+
+            // Población de tablas con filtros de búsqueda por texto
+            const sReg = document.getElementById('cz-search-reg') ? document.getElementById('cz-search-reg').value.toLowerCase().trim() : '';
+            const sZona = document.getElementById('cz-search-zona') ? document.getElementById('cz-search-zona').value.toLowerCase().trim() : '';
+            const sDir = document.getElementById('cz-search-dir') ? document.getElementById('cz-search-dir').value.toLowerCase().trim() : '';
+
+            // Tabla Regionales
+            const tbReg = document.getElementById('czRegTbody');
+            const tfReg = document.getElementById('czRegTfoot');
+            if (tbReg) {
+                tbReg.innerHTML = '';
+                const filteredRegs = regList.filter(r => !sReg || r.name.toLowerCase().includes(sReg));
+                if (!filteredRegs.length) {
+                    tbReg.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-muted);">Sin datos</td></tr>';
+                } else {
+                    filteredRegs.forEach((r, idx) => {
+                        const tr = document.createElement('tr');
+                        tr.style.cursor = 'pointer';
+                        tr.title = `Haz clic para ver los asesores de ${r.name}`;
+                        tr.onclick = () => drillDownCeroVentas('regional', r.name);
+                        const isSelected = currentCeroVentasDrilldown.type === 'regional' && currentCeroVentasDrilldown.value === r.name;
+                        if (isSelected) tr.style.background = '#eff6ff';
+
+                        const rankBadge = idx === 0 ? 'background: #1e40af; color: #fff;' : 'background: #e2e8f0; color: #475569;';
+                        tr.innerHTML = `
+                            <td style="text-align: center;"><span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; ${rankBadge}">#${idx+1}</span></td>
+                            <td><strong style="color: #1e3a8a;">${r.name}</strong></td>
+                            <td style="text-align: center;">${r.total}</td>
+                            <td style="text-align: center;"><span style="background: #fee2e2; color: #991b1b; font-weight: 800; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${r.directosZero}</span></td>
+                            <td style="text-align: center;"><span style="background: #ffedd5; color: #9a3412; font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${r.distriZero}</span></td>
+                            <td style="text-align: center; color: #dc2626; font-weight: 800; font-size: 0.92rem;">${r.zero}</td>
+                            <td style="text-align: center;"><span style="background: #fee2e2; color: #b91c1c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${r.pct.toFixed(1)}%</span></td>
+                        `;
+                        tbReg.appendChild(tr);
+                    });
+                }
+                if (tfReg) {
+                    const totA = filteredRegs.reduce((acc, r) => acc + r.total, 0);
+                    const totDir = filteredRegs.reduce((acc, r) => acc + r.directosZero, 0);
+                    const totDis = filteredRegs.reduce((acc, r) => acc + r.distriZero, 0);
+                    const totZ = filteredRegs.reduce((acc, r) => acc + r.zero, 0);
+                    const totPct = totA > 0 ? (totZ / totA * 100) : 0;
+                    tfReg.innerHTML = `
+                        <tr style="background: #f8fafc; font-weight: 800; border-top: 2px solid #cbd5e1;">
+                            <td colspan="2" style="text-align: center; color: #1B365D;">TOTAL (${filteredRegs.length})</td>
+                            <td style="text-align: center;">${totA}</td>
+                            <td style="text-align: center; color: #991b1b;">${totDir}</td>
+                            <td style="text-align: center; color: #9a3412;">${totDis}</td>
+                            <td style="text-align: center; color: #dc2626;">${totZ}</td>
+                            <td style="text-align: center; color: #b91c1c;">${totPct.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // Tabla Zonas
+            const tbZona = document.getElementById('czZonaTbody');
+            const tfZona = document.getElementById('czZonaTfoot');
+            if (tbZona) {
+                tbZona.innerHTML = '';
+                const filteredZonas = zonaList.filter(z => !sZona || z.name.toLowerCase().includes(sZona) || (z.regional && z.regional.toLowerCase().includes(sZona)));
+                if (!filteredZonas.length) {
+                    tbZona.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-muted);">Sin datos</td></tr>';
+                } else {
+                    filteredZonas.forEach((z, idx) => {
+                        const tr = document.createElement('tr');
+                        tr.style.cursor = 'pointer';
+                        tr.title = `Haz clic para ver los asesores de ${z.name}`;
+                        tr.onclick = () => drillDownCeroVentas('zona', z.name);
+                        const isSelected = currentCeroVentasDrilldown.type === 'zona' && currentCeroVentasDrilldown.value === z.name;
+                        if (isSelected) tr.style.background = '#fffbeb';
+
+                        const rankBadge = idx === 0 ? 'background: #c2410c; color: #fff;' : 'background: #ffedd5; color: #9a3412;';
+                        tr.innerHTML = `
+                            <td style="text-align: center;"><span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; ${rankBadge}">#${idx+1}</span></td>
+                            <td><strong style="color: #9a3412;">${z.name}</strong> <span style="font-size: 0.75rem; color: #64748b;">(${z.regional})</span></td>
+                            <td style="text-align: center;">${z.total}</td>
+                            <td style="text-align: center;"><span style="background: #fee2e2; color: #991b1b; font-weight: 800; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${z.directosZero}</span></td>
+                            <td style="text-align: center;"><span style="background: #ffedd5; color: #9a3412; font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${z.distriZero}</span></td>
+                            <td style="text-align: center; color: #ea580c; font-weight: 800; font-size: 0.92rem;">${z.zero}</td>
+                            <td style="text-align: center;"><span style="background: #ffedd5; color: #c2410c; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${z.pct.toFixed(1)}%</span></td>
+                        `;
+                        tbZona.appendChild(tr);
+                    });
+                }
+                if (tfZona) {
+                    const totA = filteredZonas.reduce((acc, z) => acc + z.total, 0);
+                    const totDir = filteredZonas.reduce((acc, z) => acc + z.directosZero, 0);
+                    const totDis = filteredZonas.reduce((acc, z) => acc + z.distriZero, 0);
+                    const totZ = filteredZonas.reduce((acc, z) => acc + z.zero, 0);
+                    const totPct = totA > 0 ? (totZ / totA * 100) : 0;
+                    tfZona.innerHTML = `
+                        <tr style="background: #fffbeb; font-weight: 800; border-top: 2px solid #ea580c;">
+                            <td colspan="2" style="text-align: center; color: #9a3412;">TOTAL (${filteredZonas.length})</td>
+                            <td style="text-align: center;">${totA}</td>
+                            <td style="text-align: center; color: #991b1b;">${totDir}</td>
+                            <td style="text-align: center; color: #9a3412;">${totDis}</td>
+                            <td style="text-align: center; color: #ea580c;">${totZ}</td>
+                            <td style="text-align: center; color: #c2410c;">${totPct.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                }
+            }
+
+            // Tabla Directores
+            const tbDir = document.getElementById('czDirTbody');
+            const tfDir = document.getElementById('czDirTfoot');
+            if (tbDir) {
+                tbDir.innerHTML = '';
+                const filteredDirs = dirList.filter(d => !sDir || d.name.toLowerCase().includes(sDir));
+                if (!filteredDirs.length) {
+                    tbDir.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:15px; color:var(--text-muted);">Sin datos</td></tr>';
+                } else {
+                    filteredDirs.forEach((d, idx) => {
+                        const tr = document.createElement('tr');
+                        tr.style.cursor = 'pointer';
+                        tr.title = `Haz clic para ver los asesores de ${d.name}`;
+                        tr.onclick = () => drillDownCeroVentas('director', d.name);
+                        const isSelected = currentCeroVentasDrilldown.type === 'director' && currentCeroVentasDrilldown.value === d.name;
+                        if (isSelected) tr.style.background = '#faf5ff';
+
+                        const rankBadge = idx === 0 ? 'background: #7e22ce; color: #fff;' : 'background: #f3e8ff; color: #6b21a8;';
+                        tr.innerHTML = `
+                            <td style="text-align: center;"><span style="display: inline-block; width: 22px; height: 22px; line-height: 22px; border-radius: 50%; font-size: 0.72rem; font-weight: 800; ${rankBadge}">#${idx+1}</span></td>
+                            <td><strong style="color: #1e3a8a;">${d.name}</strong></td>
+                            <td style="text-align: center;">${d.total}</td>
+                            <td style="text-align: center;"><span style="background: #fee2e2; color: #991b1b; font-weight: 800; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${d.directosZero}</span></td>
+                            <td style="text-align: center;"><span style="background: #ffedd5; color: #9a3412; font-weight: 700; padding: 2px 7px; border-radius: 4px; font-size: 0.78rem;">${d.distriZero}</span></td>
+                            <td style="text-align: center; color: #7e22ce; font-weight: 800; font-size: 0.92rem;">${d.zero}</td>
+                            <td style="text-align: center;"><span style="background: #f3e8ff; color: #6b21a8; font-weight: 800; padding: 2px 8px; border-radius: 6px;">${d.pct.toFixed(1)}%</span></td>
+                        `;
+                        tbDir.appendChild(tr);
+                    });
+                }
+                if (tfDir) {
+                    const totA = filteredDirs.reduce((acc, d) => acc + d.total, 0);
+                    const totDir = filteredDirs.reduce((acc, d) => acc + d.directosZero, 0);
+                    const totDis = filteredDirs.reduce((acc, d) => acc + d.distriZero, 0);
+                    const totZ = filteredDirs.reduce((acc, d) => acc + d.zero, 0);
+                    const totPct = totA > 0 ? (totZ / totA * 100) : 0;
+                    tfDir.innerHTML = `
+                        <tr style="background: #faf5ff; font-weight: 800; border-top: 2px solid #7e22ce;">
+                            <td colspan="2" style="text-align: center; color: #581c87;">TOTAL (${filteredDirs.length})</td>
+                            <td style="text-align: center;">${totA}</td>
+                            <td style="text-align: center; color: #991b1b;">${totDir}</td>
+                            <td style="text-align: center; color: #9a3412;">${totDis}</td>
+                            <td style="text-align: center; color: #7e22ce;">${totZ}</td>
+                            <td style="text-align: center; color: #6b21a8;">${totPct.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                }
+            }
+        }
+
+        function renderCeroVentasAsesoresTable() {
+            const data = (typeof rawPresupuesto !== 'undefined' && rawPresupuesto.length > 0)
+                ? rawPresupuesto
+                : ((typeof PRESUPUESTO_DATA !== 'undefined') ? PRESUPUESTO_DATA : []);
+            if (!data || !data.length) return;
+
+            const { selReg, selZona, selDir } = getCeroVentasFilterValues();
+            const searchTxt = document.getElementById('cz-search-asesor') ? document.getElementById('cz-search-asesor').value.toLowerCase().trim() : '';
+
+            let rows = data.filter(a => (a['CANTIDAD DE VENTAS'] || 0) === 0);
+
+            if (selReg) rows = rows.filter(a => (a.REGIONAL || '').trim().toUpperCase() === selReg);
+            if (selZona) rows = rows.filter(a => (a.ZONA || '').trim().toUpperCase() === selZona);
+            if (selDir) rows = rows.filter(a => (a.DIRECTOR || '').trim().toUpperCase() === selDir);
+
+            if (currentCeroVentasTipo === 'directo') {
+                rows = rows.filter(a => (a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT'));
+            } else if (currentCeroVentasTipo === 'distri') {
+                rows = rows.filter(a => !(a['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT'));
+            }
+
+            if (currentCeroVentasDrilldown.type && currentCeroVentasDrilldown.value) {
+                const dt = currentCeroVentasDrilldown.type;
+                const dv = currentCeroVentasDrilldown.value.toUpperCase();
+                if (dt === 'regional') rows = rows.filter(a => (a.REGIONAL || '').trim().toUpperCase() === dv);
+                else if (dt === 'zona') rows = rows.filter(a => (a.ZONA || '').trim().toUpperCase() === dv);
+                else if (dt === 'director') rows = rows.filter(a => (a.DIRECTOR || '').trim().toUpperCase() === dv);
+            }
+
+            if (searchTxt) {
+                rows = rows.filter(a =>
+                    (a['NOMBRE ASESOR'] || '').toLowerCase().includes(searchTxt) ||
+                    (a.REGIONAL || '').toLowerCase().includes(searchTxt) ||
+                    (a.ZONA || '').toLowerCase().includes(searchTxt) ||
+                    (a.DIRECTOR || '').toLowerCase().includes(searchTxt) ||
+                    (a['TIPO DE ASESOR'] || '').toLowerCase().includes(searchTxt)
+                );
+            }
+
+            const sc = czAsesoresSortState.col;
+            const asc = czAsesoresSortState.asc;
+            rows.sort((a, b) => {
+                let vA = a[sc] !== undefined ? a[sc] : 0;
+                let vB = b[sc] !== undefined ? b[sc] : 0;
+                if (typeof vA === 'string') {
+                    return asc ? vA.localeCompare(vB) : vB.localeCompare(vA);
+                }
+                if (vA !== vB) {
+                    return asc ? (vA - vB) : (vB - vA);
+                }
+                return (b.PRESUPUESTO || 0) - (a.PRESUPUESTO || 0);
+            });
+
+            const tbody = document.getElementById('czAsesoresTbody');
+            const tfoot = document.getElementById('czAsesoresTfoot');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            if (rows.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="11" style="text-align: center; padding: 25px; color: var(--text-muted);">No se encontraron asesores con 0 ventas bajo los filtros actuales.</td></tr>';
+                if (tfoot) tfoot.innerHTML = '';
+                return;
+            }
+
+            let totPres = 0;
+            let directosCount = 0;
+            let distriCount = 0;
+
+            rows.forEach((r, idx) => {
+                totPres += (r.PRESUPUESTO || 0);
+                const isDirecto = (r['TIPO DE ASESOR'] || '').toUpperCase().includes('DIRECT');
+                if (isDirecto) directosCount++; else distriCount++;
+
+                const tipoBadge = isDirecto
+                    ? '<span style="background: #fee2e2; color: #991b1b; padding: 2px 7px; border-radius: 4px; font-weight: 700; font-size: 0.75rem;">DIRECTO</span>'
+                    : '<span style="background: #f1f5f9; color: #475569; padding: 2px 7px; border-radius: 4px; font-weight: 600; font-size: 0.75rem;">DISTRI</span>';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="text-align: center; color: #64748b; font-size: 0.78rem;">${idx + 1}</td>
+                    <td><strong style="color: #1e3a8a;">${r['NOMBRE ASESOR'] || 'SIN NOMBRE'}</strong></td>
+                    <td style="text-align: center;">${tipoBadge}</td>
+                    <td>${r.REGIONAL || '-'}</td>
+                    <td>${r.ZONA || '-'}</td>
+                    <td>${r.DIRECTOR || '-'}</td>
+                    <td style="text-align: center; color: #dc2626; font-weight: 800;">0</td>
+                    <td class="num" style="text-align: center;">$ 0</td>
+                    <td class="num" style="text-align: center;">${formatter.format(r.PRESUPUESTO || 0)}</td>
+                    <td class="num" style="text-align: center; color: #dc2626; font-weight: 700;">- ${formatter.format(r.PRESUPUESTO || 0)}</td>
+                    <td class="num" style="text-align: center;"><span class="badge badge-baja">0.0 %</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            if (tfoot) {
+                tfoot.innerHTML = `
+                    <tr class="totals-row" style="background: #f8fafc; font-weight: 800; border-top: 2px solid #1B365D;">
+                        <td colspan="2" style="text-align: left; padding-left: 12px; color: #1B365D;">TOTAL (${rows.length} Asesores en 0 Ventas)</td>
+                        <td style="text-align: center; font-size: 0.78rem;"><span style="color: #991b1b;">${directosCount} Directos</span> / <span style="color: #047857;">${distriCount} Distri</span></td>
+                        <td colspan="3"></td>
+                        <td style="text-align: center; color: #b91c1c;">0</td>
+                        <td class="num" style="text-align: center;">$ 0</td>
+                        <td class="num" style="text-align: center; color: #dc2626;">${formatter.format(totPres)}</td>
+                        <td class="num" style="text-align: center; color: #dc2626;">- ${formatter.format(totPres)}</td>
+                        <td class="num" style="text-align: center;"><span class="badge badge-baja">0.0 %</span></td>
+                    </tr>
+                `;
+            }
+        }
+
+
         function sortPresupuesto(col) {
 
             if (pSortState.col === col) {
