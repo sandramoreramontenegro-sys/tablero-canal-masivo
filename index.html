@@ -5655,8 +5655,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-19 15:32:24';
-const TIMESTAMP_ACTUALIZACION = 1795120344;
+const ULTIMA_ACTUALIZACION = '2026-11-19 15:38:26';
+const TIMESTAMP_ACTUALIZACION = 1795120706;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -41343,6 +41343,20 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "LEDYS MARGOTH HOYOS VASQUEZ",
+    "FECHA DE LA VENTA": "2026-03-11",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SEM 11",
+    "DIA": "MIÉRCOLES",
+    "NOMINAL VENTA": 177600.0,
+    "VALOR ANUAL": 177600.0,
+    "REGIONAL": "Antioquia",
+    "ZONA": "Medellin",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Distri. Autorizados"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -43746,11 +43760,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Antioquia",
     "ZONA": "Medellin",
     "PRESUPUESTO": 4800000.0,
-    "LLEVAMOS": 0.0,
-    "CANTIDAD DE VENTAS": 0,
-    "NOS FALTA": 4800000.0,
-    "DEBEMOS HACER DIARIO": 533333.0,
-    "CUMPLIMIENTO": 0.0,
+    "LLEVAMOS": 177600.0,
+    "CANTIDAD DE VENTAS": 1,
+    "NOS FALTA": 4622400.0,
+    "DEBEMOS HACER DIARIO": 513600.0,
+    "CUMPLIMIENTO": 4.0,
     "APROBADO": 0.0,
     "TIPO DE ASESOR": "DISTRIBUIDOR AUTORIZADO"
   },
@@ -48791,13 +48805,13 @@ const CANTADAS_ROWS = [
     "SEMILLERO",
     "9%",
     "$4,800,000",
-    "",
-    "",
-    "$4,800,000",
-    "$533,333",
-    "0%",
-    "$0",
-    "0%"
+    "$177,600",
+    "1",
+    "$4,622,400",
+    "$513,600",
+    "4%",
+    "$291,771",
+    "6%"
   ],
   [
     "Siuly García",
@@ -191850,7 +191864,7 @@ const QUINCENA1_DATA_ACT = {
     "total_cumplieron": 16,
     "pct_cumplieron_global": 5.2,
     "total_presupuesto": 2127600000.0,
-    "total_ventas_q1": 964272716.0,
+    "total_ventas_q1": 964450316.0,
     "ventas_q1_cumplidores": 116684600.0
   },
   "pivot_directores": [
@@ -194102,11 +194116,11 @@ const QUINCENA1_DATA_ACT = {
                   "zona": "Medellin",
                   "tipo": "Distribuidor Autorizado",
                   "presupuesto": 4800000.0,
-                  "ventas_q1": 0.0,
-                  "cant_q1": 0,
+                  "ventas_q1": 177600.0,
+                  "cant_q1": 1,
                   "cumple": false,
-                  "pct_cumplimiento": 0.0,
-                  "diferencia": -4800000.0
+                  "pct_cumplimiento": 3.7,
+                  "diferencia": -4622400.0
                 },
                 {
                   "nombre": "DORIS GARCIA QUEZADA",
@@ -196847,8 +196861,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 3.2,
       "pct_global": 0.3,
       "presupuesto_total": 283800000.0,
-      "ventas_q1_total": 160108992.0,
-      "pct_venta_meta": 56.4,
+      "ventas_q1_total": 160286592.0,
+      "pct_venta_meta": 56.5,
       "asesores_cumplieron": [
         "MANUEL ESTEBAN PAREJA CASTAÑEDA"
       ]
@@ -197063,8 +197077,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 4.2,
       "pct_global": 0.3,
       "presupuesto_total": 247500000.0,
-      "ventas_q1_total": 137814792.0,
-      "pct_venta_meta": 55.7,
+      "ventas_q1_total": 137992392.0,
+      "pct_venta_meta": 55.8,
       "asesores_cumplieron": [
         "MANUEL ESTEBAN PAREJA CASTAÑEDA"
       ]
@@ -197267,8 +197281,8 @@ const QUINCENA1_DATA_ACT = {
       "pct_equipo": 4.4,
       "pct_global": 0.7,
       "presupuesto_total": 351000000.0,
-      "ventas_q1_total": 185091392.0,
-      "pct_venta_meta": 52.7,
+      "ventas_q1_total": 185268992.0,
+      "pct_venta_meta": 52.8,
       "asesores_cumplieron": [
         "MANUEL ESTEBAN PAREJA CASTAÑEDA",
         "MARTHA INOCENCIA CALA GIRON"
@@ -199717,11 +199731,11 @@ const QUINCENA1_DATA_ACT = {
       "zona": "Medellin",
       "tipo": "Distribuidor Autorizado",
       "presupuesto": 4800000.0,
-      "ventas_q1": 0.0,
-      "cant_q1": 0,
+      "ventas_q1": 177600.0,
+      "cant_q1": 1,
       "cumple": false,
-      "pct_cumplimiento": 0.0,
-      "diferencia": -4800000.0
+      "pct_cumplimiento": 3.7,
+      "diferencia": -4622400.0
     },
     {
       "nombre": "LUZ JANETH PAZ HORMIGA",
@@ -227176,7 +227190,7 @@ const PRODUCTOS_DATA = {
         "aprobadas": 39,
         "pct_aprob": 18.2,
         "asesores_unicos": 67,
-        "pct_penetracion_asesores": 23.9,
+        "pct_penetracion_asesores": 23.8,
         "ventas_directos": 168,
         "ventas_distribuidores": 46,
         "pct_directos": 78.5,
@@ -227234,10 +227248,10 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 100,
           "nominal_prod": 89940000.0,
-          "total_ventas_reg": 314,
-          "total_nominal_reg": 163272792.0,
-          "pct_ventas_mix": 31.8,
-          "pct_nominal_mix": 55.1,
+          "total_ventas_reg": 315,
+          "total_nominal_reg": 163450392.0,
+          "pct_ventas_mix": 31.7,
+          "pct_nominal_mix": 55.0,
           "ticket_promedio": 899400.0,
           "cuota_promedio": 74950.0,
           "top_asesor": "Daniela Alexandra  Salazar Bracho"
@@ -227442,10 +227456,10 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 95,
           "nominal_prod": 84225600.0,
-          "total_ventas_zona": 268,
-          "total_nominal_zona": 140883192.0,
-          "pct_ventas_mix": 35.4,
-          "pct_nominal_mix": 59.8,
+          "total_ventas_zona": 269,
+          "total_nominal_zona": 141060792.0,
+          "pct_ventas_mix": 35.3,
+          "pct_nominal_mix": 59.7,
           "ticket_promedio": 886585.0,
           "cuota_promedio": 73882.0
         },
@@ -227755,10 +227769,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 102,
           "nominal_prod": 90276000.0,
-          "total_ventas_dir": 379,
-          "total_nominal_dir": 191022992.0,
-          "pct_ventas_mix": 26.9,
-          "pct_nominal_mix": 47.3,
+          "total_ventas_dir": 380,
+          "total_nominal_dir": 191200592.0,
+          "pct_ventas_mix": 26.8,
+          "pct_nominal_mix": 47.2,
           "ticket_promedio": 885059.0,
           "cuota_promedio": 73755.0,
           "asesores_vendiendo": 23
@@ -229253,8 +229267,8 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 1,
           "nominal_prod": 381000.0,
-          "total_ventas_reg": 314,
-          "total_nominal_reg": 163272792.0,
+          "total_ventas_reg": 315,
+          "total_nominal_reg": 163450392.0,
           "pct_ventas_mix": 0.3,
           "pct_nominal_mix": 0.2,
           "ticket_promedio": 381000.0,
@@ -229564,8 +229578,8 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 268,
-          "total_nominal_zona": 140883192.0,
+          "total_ventas_zona": 269,
+          "total_nominal_zona": 141060792.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -229695,8 +229709,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 1,
           "nominal_prod": 381000.0,
-          "total_ventas_dir": 379,
-          "total_nominal_dir": 191022992.0,
+          "total_ventas_dir": 380,
+          "total_nominal_dir": 191200592.0,
           "pct_ventas_mix": 0.3,
           "pct_nominal_mix": 0.2,
           "ticket_promedio": 381000.0,
@@ -230770,8 +230784,8 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 314,
-          "total_nominal_reg": 163272792.0,
+          "total_ventas_reg": 315,
+          "total_nominal_reg": 163450392.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -231123,8 +231137,8 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 268,
-          "total_nominal_zona": 140883192.0,
+          "total_ventas_zona": 269,
+          "total_nominal_zona": 141060792.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -231267,8 +231281,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 4,
           "nominal_prod": 3200000.0,
-          "total_ventas_dir": 379,
-          "total_nominal_dir": 191022992.0,
+          "total_ventas_dir": 380,
+          "total_nominal_dir": 191200592.0,
           "pct_ventas_mix": 1.1,
           "pct_nominal_mix": 1.7,
           "ticket_promedio": 800000.0,
@@ -231404,7 +231418,7 @@ const PRODUCTOS_DATA = {
         "aprobadas": 71,
         "pct_aprob": 19.3,
         "asesores_unicos": 118,
-        "pct_penetracion_asesores": 42.1,
+        "pct_penetracion_asesores": 42.0,
         "ventas_directos": 282,
         "ventas_distribuidores": 86,
         "pct_directos": 76.6,
@@ -231506,9 +231520,9 @@ const PRODUCTOS_DATA = {
           "regional": "Antioquia",
           "ventas_prod": 101,
           "nominal_prod": 90321000.0,
-          "total_ventas_reg": 314,
-          "total_nominal_reg": 163272792.0,
-          "pct_ventas_mix": 32.2,
+          "total_ventas_reg": 315,
+          "total_nominal_reg": 163450392.0,
+          "pct_ventas_mix": 32.1,
           "pct_nominal_mix": 55.3,
           "ticket_promedio": 894267.0,
           "cuota_promedio": 74522.0,
@@ -231714,10 +231728,10 @@ const PRODUCTOS_DATA = {
           "director": "Franklin Gamba",
           "ventas_prod": 95,
           "nominal_prod": 84225600.0,
-          "total_ventas_zona": 268,
-          "total_nominal_zona": 140883192.0,
-          "pct_ventas_mix": 35.4,
-          "pct_nominal_mix": 59.8,
+          "total_ventas_zona": 269,
+          "total_nominal_zona": 141060792.0,
+          "pct_ventas_mix": 35.3,
+          "pct_nominal_mix": 59.7,
           "ticket_promedio": 886585.0,
           "cuota_promedio": 73882.0
         },
@@ -232027,8 +232041,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Antioquia, Santander",
           "ventas_prod": 107,
           "nominal_prod": 93857000.0,
-          "total_ventas_dir": 379,
-          "total_nominal_dir": 191022992.0,
+          "total_ventas_dir": 380,
+          "total_nominal_dir": 191200592.0,
           "pct_ventas_mix": 28.2,
           "pct_nominal_mix": 49.1,
           "ticket_promedio": 877168.0,
@@ -234242,9 +234256,9 @@ const PRODUCTOS_DATA = {
       ]
     },
     "global_info": {
-      "total_ventas_mes": 2549,
-      "total_nominal_mes": 988359716.0,
-      "total_asesores_mes": 280
+      "total_ventas_mes": 2550,
+      "total_nominal_mes": 988537316.0,
+      "total_asesores_mes": 281
     }
   },
   "anterior": {
