@@ -5655,8 +5655,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-19 16:14:07';
-const TIMESTAMP_ACTUALIZACION = 1795122847;
+const ULTIMA_ACTUALIZACION = '2026-11-19 16:20:14';
+const TIMESTAMP_ACTUALIZACION = 1795123214;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -81360,19 +81360,19 @@ const SERVER_DATA_ANT = [
     "NOMINAL APROBADO": 324000.0
   },
   {
-    "ASESOR PLANILLA": "MARÍA CRISTINA DÁVILA GONZÁLEZ",
+    "ASESOR PLANILLA": "SIN ASESOR",
     "FECHA DE LA VENTA": "1900-01-01",
-    "MES": "OCTUBRE",
+    "MES": "SIN MES",
     "SEMANA": "SIN ESPECIFICAR",
     "DIA": "SIN ESPECIFICAR",
-    "NOMINAL VENTA": 432000.0,
-    "VALOR ANUAL": 432000.0,
-    "SECTOR": "Villavicencio",
-    "DIRECTOR": "Yudy Carreño",
-    "TIPO_VENDEDOR": "Distri. Autorizados",
-    "REGIONAL": "Meta",
-    "ZONA": "Villavicencio",
-    "STATUS": "Comercial",
+    "NOMINAL VENTA": 0.0,
+    "VALOR ANUAL": 0.0,
+    "SECTOR": "Sin Sector Especificado",
+    "DIRECTOR": "Sin Director",
+    "TIPO_VENDEDOR": "Asesor Directo",
+    "REGIONAL": "",
+    "ZONA": "",
+    "STATUS": "",
     "NOMINAL APROBADO": 0.0
   },
   {
@@ -147621,11 +147621,11 @@ const PRESUPUESTO_DATA_ANT = [
     "REGIONAL": "Meta",
     "ZONA": "Villavicencio",
     "PRESUPUESTO": 4800000.0,
-    "LLEVAMOS": 5523000.0,
-    "CANTIDAD DE VENTAS": 12,
-    "NOS FALTA": -723000.0,
-    "DEBEMOS HACER DIARIO": -80333.0,
-    "CUMPLIMIENTO": 115.0,
+    "LLEVAMOS": 5091000.0,
+    "CANTIDAD DE VENTAS": 11,
+    "NOS FALTA": -291000.0,
+    "DEBEMOS HACER DIARIO": -32333.0,
+    "CUMPLIMIENTO": 106.0,
     "APROBADO": 3717600.0,
     "TIPO DE ASESOR": "DISTRIBUIDOR AUTORIZADO"
   },
@@ -151918,9 +151918,9 @@ const ROTACION_DATA = {
       "zona": "Villavicencio",
       "director": "Yudy Carreño",
       "ventas_antep": 8,
-      "ventas_ant": 12,
+      "ventas_ant": 11,
       "ventas_act": 4,
-      "total_ventas": 24,
+      "total_ventas": 23,
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
@@ -159248,6 +159248,20 @@ const SECTORES_DATA_ANT = [
   },
   {
     "SECTOR": "Sin Sector Especificado",
+    "REGIONAL": "",
+    "ZONA": "",
+    "DIRECTOR": "Sin Director",
+    "TIPO_VENDEDOR": "Asesor Directo",
+    "TOTAL_VENTAS": 0,
+    "VENTAS_APROBADAS": 0,
+    "NOMINAL_TOTAL": 0.0,
+    "NOMINAL_APROBADO": 0.0,
+    "VENTAS_PENDIENTES": 0,
+    "PCT_EFECTIVIDAD": 0.0,
+    "PCT_MONTO_APROBADO": 0.0
+  },
+  {
+    "SECTOR": "Sin Sector Especificado",
     "REGIONAL": "Antioquia",
     "ZONA": "Itagui",
     "DIRECTOR": "Franklin Gamba",
@@ -160596,13 +160610,13 @@ const SECTORES_DATA_ANT = [
     "ZONA": "Villavicencio",
     "DIRECTOR": "Yudy Carreño",
     "TIPO_VENDEDOR": "Distri. Autorizados",
-    "TOTAL_VENTAS": 55,
+    "TOTAL_VENTAS": 54,
     "VENTAS_APROBADAS": 38,
-    "NOMINAL_TOTAL": 21695400.0,
+    "NOMINAL_TOTAL": 21263400.0,
     "NOMINAL_APROBADO": 15756000.0,
-    "VENTAS_PENDIENTES": 17,
-    "PCT_EFECTIVIDAD": 69.1,
-    "PCT_MONTO_APROBADO": 72.6
+    "VENTAS_PENDIENTES": 16,
+    "PCT_EFECTIVIDAD": 70.4,
+    "PCT_MONTO_APROBADO": 74.1
   },
   {
     "SECTOR": "Villavicencio",
@@ -168496,7 +168510,7 @@ const QUINCENA1_DATA = {
     "total_cumplieron": 33,
     "pct_cumplieron_global": 9.3,
     "total_presupuesto": 2343600000.0,
-    "total_ventas_q1": 1269106552.0,
+    "total_ventas_q1": 1268674552.0,
     "ventas_q1_cumplidores": 331726000.0
   },
   "pivot_directores": [
@@ -173691,11 +173705,11 @@ const QUINCENA1_DATA = {
                   "zona": "Villavicencio",
                   "tipo": "Distribuidor Autorizado",
                   "presupuesto": 4800000.0,
-                  "ventas_q1": 4461600.0,
-                  "cant_q1": 9,
+                  "ventas_q1": 4029600.0,
+                  "cant_q1": 8,
                   "cumple": false,
-                  "pct_cumplimiento": 93.0,
-                  "diferencia": -338400.0
+                  "pct_cumplimiento": 84.0,
+                  "diferencia": -770400.0
                 },
                 {
                   "nombre": "MARIELA AGUADO",
@@ -174349,8 +174363,8 @@ const QUINCENA1_DATA = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 60300000.0,
-      "ventas_q1_total": 14739000.0,
-      "pct_venta_meta": 24.4,
+      "ventas_q1_total": 14307000.0,
+      "pct_venta_meta": 23.7,
       "asesores_cumplieron": []
     },
     {
@@ -174639,8 +174653,8 @@ const QUINCENA1_DATA = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 60300000.0,
-      "ventas_q1_total": 14739000.0,
-      "pct_venta_meta": 24.4,
+      "ventas_q1_total": 14307000.0,
+      "pct_venta_meta": 23.7,
       "asesores_cumplieron": []
     },
     {
@@ -174801,8 +174815,8 @@ const QUINCENA1_DATA = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 198000000.0,
-      "ventas_q1_total": 65765400.0,
-      "pct_venta_meta": 33.2,
+      "ventas_q1_total": 65333400.0,
+      "pct_venta_meta": 33.0,
       "asesores_cumplieron": []
     }
   ],
@@ -177181,11 +177195,11 @@ const QUINCENA1_DATA = {
       "zona": "Villavicencio",
       "tipo": "Distribuidor Autorizado",
       "presupuesto": 4800000.0,
-      "ventas_q1": 4461600.0,
-      "cant_q1": 9,
+      "ventas_q1": 4029600.0,
+      "cant_q1": 8,
       "cumple": false,
-      "pct_cumplimiento": 93.0,
-      "diferencia": -338400.0
+      "pct_cumplimiento": 84.0,
+      "diferencia": -770400.0
     },
     {
       "nombre": "MARITZA BOLAÑOS COBO",
@@ -180222,7 +180236,7 @@ const QUINCENA1_DATA_ANT = {
     "total_cumplieron": 33,
     "pct_cumplieron_global": 9.3,
     "total_presupuesto": 2343600000.0,
-    "total_ventas_q1": 1269106552.0,
+    "total_ventas_q1": 1268674552.0,
     "ventas_q1_cumplidores": 331726000.0
   },
   "pivot_directores": [
@@ -185417,11 +185431,11 @@ const QUINCENA1_DATA_ANT = {
                   "zona": "Villavicencio",
                   "tipo": "Distribuidor Autorizado",
                   "presupuesto": 4800000.0,
-                  "ventas_q1": 4461600.0,
-                  "cant_q1": 9,
+                  "ventas_q1": 4029600.0,
+                  "cant_q1": 8,
                   "cumple": false,
-                  "pct_cumplimiento": 93.0,
-                  "diferencia": -338400.0
+                  "pct_cumplimiento": 84.0,
+                  "diferencia": -770400.0
                 },
                 {
                   "nombre": "MARIELA AGUADO",
@@ -186075,8 +186089,8 @@ const QUINCENA1_DATA_ANT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 60300000.0,
-      "ventas_q1_total": 14739000.0,
-      "pct_venta_meta": 24.4,
+      "ventas_q1_total": 14307000.0,
+      "pct_venta_meta": 23.7,
       "asesores_cumplieron": []
     },
     {
@@ -186365,8 +186379,8 @@ const QUINCENA1_DATA_ANT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 60300000.0,
-      "ventas_q1_total": 14739000.0,
-      "pct_venta_meta": 24.4,
+      "ventas_q1_total": 14307000.0,
+      "pct_venta_meta": 23.7,
       "asesores_cumplieron": []
     },
     {
@@ -186527,8 +186541,8 @@ const QUINCENA1_DATA_ANT = {
       "pct_equipo": 0.0,
       "pct_global": 0.0,
       "presupuesto_total": 198000000.0,
-      "ventas_q1_total": 65765400.0,
-      "pct_venta_meta": 33.2,
+      "ventas_q1_total": 65333400.0,
+      "pct_venta_meta": 33.0,
       "asesores_cumplieron": []
     }
   ],
@@ -188907,11 +188921,11 @@ const QUINCENA1_DATA_ANT = {
       "zona": "Villavicencio",
       "tipo": "Distribuidor Autorizado",
       "presupuesto": 4800000.0,
-      "ventas_q1": 4461600.0,
-      "cant_q1": 9,
+      "ventas_q1": 4029600.0,
+      "cant_q1": 8,
       "cumple": false,
-      "pct_cumplimiento": 93.0,
-      "diferencia": -338400.0
+      "pct_cumplimiento": 84.0,
+      "diferencia": -770400.0
     },
     {
       "nombre": "MARITZA BOLAÑOS COBO",
@@ -224755,11 +224769,11 @@ const REINCIDENCIA_DATA = {
         },
         {
           "mes": "Oct",
-          "pct": 115.0,
-          "valor": 5523000.0,
+          "pct": 106.0,
+          "valor": 5091000.0,
           "has_data": true,
           "cumplio": true,
-          "raw_pct": "115%"
+          "raw_pct": "106%"
         }
       ]
     },
@@ -234583,8 +234597,8 @@ const PRODUCTOS_DATA = {
           "regional": "Meta",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 66,
-          "total_nominal_reg": 25612800.0,
+          "total_ventas_reg": 65,
+          "total_nominal_reg": 25180800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -234922,8 +234936,8 @@ const PRODUCTOS_DATA = {
           "director": "Yudy Carreño",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 66,
-          "total_nominal_zona": 25612800.0,
+          "total_ventas_zona": 65,
+          "total_nominal_zona": 25180800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -234962,10 +234976,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Bogota, Meta",
           "ventas_prod": 80,
           "nominal_prod": 61993200.0,
-          "total_ventas_dir": 276,
-          "total_nominal_dir": 139207800.0,
-          "pct_ventas_mix": 29.0,
-          "pct_nominal_mix": 44.5,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 138775800.0,
+          "pct_ventas_mix": 29.1,
+          "pct_nominal_mix": 44.7,
           "ticket_promedio": 774915.0,
           "cuota_promedio": 64576.0,
           "asesores_vendiendo": 16
@@ -236752,10 +236766,10 @@ const PRODUCTOS_DATA = {
           "regional": "Meta",
           "ventas_prod": 5,
           "nominal_prod": 1487400.0,
-          "total_ventas_reg": 66,
-          "total_nominal_reg": 25612800.0,
-          "pct_ventas_mix": 7.6,
-          "pct_nominal_mix": 5.8,
+          "total_ventas_reg": 65,
+          "total_nominal_reg": 25180800.0,
+          "pct_ventas_mix": 7.7,
+          "pct_nominal_mix": 5.9,
           "ticket_promedio": 297480.0,
           "cuota_promedio": 24790.0,
           "top_asesor": "Diana Patricia Cortes Santos"
@@ -236983,10 +236997,10 @@ const PRODUCTOS_DATA = {
           "director": "Yudy Carreño",
           "ventas_prod": 5,
           "nominal_prod": 1487400.0,
-          "total_ventas_zona": 66,
-          "total_nominal_zona": 25612800.0,
-          "pct_ventas_mix": 7.6,
-          "pct_nominal_mix": 5.8,
+          "total_ventas_zona": 65,
+          "total_nominal_zona": 25180800.0,
+          "pct_ventas_mix": 7.7,
+          "pct_nominal_mix": 5.9,
           "ticket_promedio": 297480.0,
           "cuota_promedio": 24790.0
         },
@@ -237218,8 +237232,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Bogota, Meta",
           "ventas_prod": 7,
           "nominal_prod": 2586000.0,
-          "total_ventas_dir": 276,
-          "total_nominal_dir": 139207800.0,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 138775800.0,
           "pct_ventas_mix": 2.5,
           "pct_nominal_mix": 1.9,
           "ticket_promedio": 369429.0,
@@ -238707,8 +238721,8 @@ const PRODUCTOS_DATA = {
           "regional": "Meta",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 66,
-          "total_nominal_reg": 25612800.0,
+          "total_ventas_reg": 65,
+          "total_nominal_reg": 25180800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -239082,8 +239096,8 @@ const PRODUCTOS_DATA = {
           "director": "Yudy Carreño",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 66,
-          "total_nominal_zona": 25612800.0,
+          "total_ventas_zona": 65,
+          "total_nominal_zona": 25180800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -239174,8 +239188,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Bogota, Meta",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 276,
-          "total_nominal_dir": 139207800.0,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 138775800.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -239635,10 +239649,10 @@ const PRODUCTOS_DATA = {
           "regional": "Meta",
           "ventas_prod": 5,
           "nominal_prod": 1487400.0,
-          "total_ventas_reg": 66,
-          "total_nominal_reg": 25612800.0,
-          "pct_ventas_mix": 7.6,
-          "pct_nominal_mix": 5.8,
+          "total_ventas_reg": 65,
+          "total_nominal_reg": 25180800.0,
+          "pct_ventas_mix": 7.7,
+          "pct_nominal_mix": 5.9,
           "ticket_promedio": 297480.0,
           "cuota_promedio": 24790.0,
           "top_asesor": "Diana Patricia Cortes Santos"
@@ -239908,10 +239922,10 @@ const PRODUCTOS_DATA = {
           "director": "Yudy Carreño",
           "ventas_prod": 5,
           "nominal_prod": 1487400.0,
-          "total_ventas_zona": 66,
-          "total_nominal_zona": 25612800.0,
-          "pct_ventas_mix": 7.6,
-          "pct_nominal_mix": 5.8,
+          "total_ventas_zona": 65,
+          "total_nominal_zona": 25180800.0,
+          "pct_ventas_mix": 7.7,
+          "pct_nominal_mix": 5.9,
           "ticket_promedio": 297480.0,
           "cuota_promedio": 24790.0
         },
@@ -240039,10 +240053,10 @@ const PRODUCTOS_DATA = {
           "regionales": "Bogota, Meta",
           "ventas_prod": 87,
           "nominal_prod": 64579200.0,
-          "total_ventas_dir": 276,
-          "total_nominal_dir": 139207800.0,
-          "pct_ventas_mix": 31.5,
-          "pct_nominal_mix": 46.4,
+          "total_ventas_dir": 275,
+          "total_nominal_dir": 138775800.0,
+          "pct_ventas_mix": 31.6,
+          "pct_nominal_mix": 46.5,
           "ticket_promedio": 742290.0,
           "cuota_promedio": 61857.0,
           "asesores_vendiendo": 18
@@ -242881,8 +242895,8 @@ const PRODUCTOS_DATA = {
       ]
     },
     "global_info": {
-      "total_ventas_mes": 5850,
-      "total_nominal_mes": 2343762352.0,
+      "total_ventas_mes": 5849,
+      "total_nominal_mes": 2343330352.0,
       "total_asesores_mes": 308
     }
   },
