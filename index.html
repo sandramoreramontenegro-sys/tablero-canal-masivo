@@ -4524,7 +4524,7 @@
                             <th id="rot-th-v-act" style="text-align: center; padding: 10px;">Ventas Mes Actual</th>
                             <th onclick="sortRotacionTable('total_ventas')" style="cursor: pointer; text-align: center; padding: 10px;">Total Ventas ⇕</th>
                             <th onclick="sortRotacionTable('estado')" style="cursor: pointer; text-align: center; padding: 10px;">Estado Comercial ⇕</th>
-                            <th style="text-align: left; padding: 10px;">Diagnóstico</th>
+                            <th style="text-align: left; padding: 10px; min-width: 260px;">Mes Deserción / Diagnóstico</th>
                         </tr>
                     </thead>
                     <tbody id="rotacionTbody">
@@ -5624,8 +5624,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-20 11:25:08';
-const TIMESTAMP_ACTUALIZACION = 1795191908;
+const ULTIMA_ACTUALIZACION = '2026-11-20 11:32:56';
+const TIMESTAMP_ACTUALIZACION = 1795192376;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -148233,7 +148233,7 @@ const PRESUPUESTO_DATA_ANT = [
     "NOS FALTA": -802200.0,
     "DEBEMOS HACER DIARIO": -100275.0,
     "CUMPLIMIENTO": 111.0,
-    "APROBADO": 6620400.0,
+    "APROBADO": 6800400.0,
     "TIPO DE ASESOR": "CONTRATO DIRECTO"
   },
   {
@@ -151364,10 +151364,10 @@ const ROTACION_DATA = {
           "director": "Siuly García",
           "total_ingresos": 19,
           "retenidos": 13,
-          "desertaron": 2,
+          "desertaron": 3,
           "nuevos_activos": 1,
-          "tasa_retencion": 86.7,
-          "tasa_desercion": 13.3,
+          "tasa_retencion": 81.2,
+          "tasa_desercion": 18.8,
           "semaforo": "🟢 EXCELENTE"
         },
         {
@@ -151394,10 +151394,10 @@ const ROTACION_DATA = {
           "director": "Diana Romero",
           "total_ingresos": 21,
           "retenidos": 12,
-          "desertaron": 7,
+          "desertaron": 8,
           "nuevos_activos": 1,
-          "tasa_retencion": 63.2,
-          "tasa_desercion": 36.8,
+          "tasa_retencion": 60.0,
+          "tasa_desercion": 40.0,
           "semaforo": "🟡 ALERTA"
         },
         {
@@ -151424,22 +151424,14 @@ const ROTACION_DATA = {
           "director": "Angélica Mur",
           "total_ingresos": 12,
           "retenidos": 3,
-          "desertaron": 4,
+          "desertaron": 5,
           "nuevos_activos": 4,
-          "tasa_retencion": 42.9,
-          "tasa_desercion": 57.1,
+          "tasa_retencion": 37.5,
+          "tasa_desercion": 62.5,
           "semaforo": "🔴 CRÍTICO"
         }
       ],
       "por_regional": [
-        {
-          "regional": "Risaralda",
-          "total_ingresos": 7,
-          "retenidos": 5,
-          "desertaron": 0,
-          "tasa_retencion": 100.0,
-          "tasa_desercion": 0.0
-        },
         {
           "regional": "Valle Norte",
           "total_ingresos": 2,
@@ -151467,6 +151459,14 @@ const ROTACION_DATA = {
         {
           "regional": "Santander",
           "total_ingresos": 10,
+          "retenidos": 5,
+          "desertaron": 1,
+          "tasa_retencion": 83.3,
+          "tasa_desercion": 16.7
+        },
+        {
+          "regional": "Risaralda",
+          "total_ingresos": 7,
           "retenidos": 5,
           "desertaron": 1,
           "tasa_retencion": 83.3,
@@ -151505,20 +151505,20 @@ const ROTACION_DATA = {
           "tasa_desercion": 28.6
         },
         {
-          "regional": "Cauca",
-          "total_ingresos": 7,
-          "retenidos": 4,
-          "desertaron": 2,
-          "tasa_retencion": 66.7,
-          "tasa_desercion": 33.3
-        },
-        {
           "regional": "Bogota",
           "total_ingresos": 4,
           "retenidos": 2,
           "desertaron": 1,
           "tasa_retencion": 66.7,
           "tasa_desercion": 33.3
+        },
+        {
+          "regional": "Cauca",
+          "total_ingresos": 7,
+          "retenidos": 4,
+          "desertaron": 3,
+          "tasa_retencion": 57.1,
+          "tasa_desercion": 42.9
         },
         {
           "regional": "Valle Sur",
@@ -151537,14 +151537,6 @@ const ROTACION_DATA = {
           "tasa_desercion": 50.0
         },
         {
-          "regional": "Tolima Sur",
-          "total_ingresos": 4,
-          "retenidos": 1,
-          "desertaron": 1,
-          "tasa_retencion": 50.0,
-          "tasa_desercion": 50.0
-        },
-        {
           "regional": "Antioquia",
           "total_ingresos": 15,
           "retenidos": 5,
@@ -151559,6 +151551,14 @@ const ROTACION_DATA = {
           "desertaron": 3,
           "tasa_retencion": 40.0,
           "tasa_desercion": 60.0
+        },
+        {
+          "regional": "Tolima Sur",
+          "total_ingresos": 4,
+          "retenidos": 1,
+          "desertaron": 2,
+          "tasa_retencion": 33.3,
+          "tasa_desercion": 66.7
         }
       ]
     },
@@ -151572,10 +151572,10 @@ const ROTACION_DATA = {
           "director": "Siuly García",
           "total_ingresos": 19,
           "retenidos": 13,
-          "desertaron": 2,
+          "desertaron": 3,
           "nuevos_activos": 1,
-          "tasa_retencion": 86.7,
-          "tasa_desercion": 13.3,
+          "tasa_retencion": 81.2,
+          "tasa_desercion": 18.8,
           "semaforo": "🟢 EXCELENTE"
         },
         {
@@ -151602,10 +151602,10 @@ const ROTACION_DATA = {
           "director": "Diana Romero",
           "total_ingresos": 21,
           "retenidos": 12,
-          "desertaron": 7,
+          "desertaron": 8,
           "nuevos_activos": 1,
-          "tasa_retencion": 63.2,
-          "tasa_desercion": 36.8,
+          "tasa_retencion": 60.0,
+          "tasa_desercion": 40.0,
           "semaforo": "🟡 ALERTA"
         },
         {
@@ -151632,22 +151632,14 @@ const ROTACION_DATA = {
           "director": "Angélica Mur",
           "total_ingresos": 12,
           "retenidos": 3,
-          "desertaron": 4,
+          "desertaron": 5,
           "nuevos_activos": 4,
-          "tasa_retencion": 42.9,
-          "tasa_desercion": 57.1,
+          "tasa_retencion": 37.5,
+          "tasa_desercion": 62.5,
           "semaforo": "🔴 CRÍTICO"
         }
       ],
       "por_regional": [
-        {
-          "regional": "Risaralda",
-          "total_ingresos": 7,
-          "retenidos": 5,
-          "desertaron": 0,
-          "tasa_retencion": 100.0,
-          "tasa_desercion": 0.0
-        },
         {
           "regional": "Valle Norte",
           "total_ingresos": 2,
@@ -151675,6 +151667,14 @@ const ROTACION_DATA = {
         {
           "regional": "Santander",
           "total_ingresos": 10,
+          "retenidos": 5,
+          "desertaron": 1,
+          "tasa_retencion": 83.3,
+          "tasa_desercion": 16.7
+        },
+        {
+          "regional": "Risaralda",
+          "total_ingresos": 7,
           "retenidos": 5,
           "desertaron": 1,
           "tasa_retencion": 83.3,
@@ -151713,20 +151713,20 @@ const ROTACION_DATA = {
           "tasa_desercion": 28.6
         },
         {
-          "regional": "Cauca",
-          "total_ingresos": 7,
-          "retenidos": 4,
-          "desertaron": 2,
-          "tasa_retencion": 66.7,
-          "tasa_desercion": 33.3
-        },
-        {
           "regional": "Bogota",
           "total_ingresos": 4,
           "retenidos": 2,
           "desertaron": 1,
           "tasa_retencion": 66.7,
           "tasa_desercion": 33.3
+        },
+        {
+          "regional": "Cauca",
+          "total_ingresos": 7,
+          "retenidos": 4,
+          "desertaron": 3,
+          "tasa_retencion": 57.1,
+          "tasa_desercion": 42.9
         },
         {
           "regional": "Valle Sur",
@@ -151745,14 +151745,6 @@ const ROTACION_DATA = {
           "tasa_desercion": 50.0
         },
         {
-          "regional": "Tolima Sur",
-          "total_ingresos": 4,
-          "retenidos": 1,
-          "desertaron": 1,
-          "tasa_retencion": 50.0,
-          "tasa_desercion": 50.0
-        },
-        {
           "regional": "Antioquia",
           "total_ingresos": 15,
           "retenidos": 5,
@@ -151767,6 +151759,14 @@ const ROTACION_DATA = {
           "desertaron": 3,
           "tasa_retencion": 40.0,
           "tasa_desercion": 60.0
+        },
+        {
+          "regional": "Tolima Sur",
+          "total_ingresos": 4,
+          "retenidos": 1,
+          "desertaron": 2,
+          "tasa_retencion": 33.3,
+          "tasa_desercion": 66.7
         }
       ]
     }
@@ -151789,6 +151789,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -151808,9 +151810,11 @@ const ROTACION_DATA = {
       "total_ventas": 4,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1047225083",
@@ -151828,9 +151832,11 @@ const ROTACION_DATA = {
       "total_ventas": 5,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "32692940",
@@ -151849,6 +151855,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -151868,9 +151876,11 @@ const ROTACION_DATA = {
       "total_ventas": 10,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1095914989",
@@ -151889,6 +151899,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 11 contratos vendidos"
     },
@@ -151909,6 +151921,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -151929,6 +151943,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 8 contratos vendidos"
     },
@@ -151948,9 +151964,11 @@ const ROTACION_DATA = {
       "total_ventas": 0,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "30238050",
@@ -151969,6 +151987,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -151989,6 +152009,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -152008,9 +152030,11 @@ const ROTACION_DATA = {
       "total_ventas": 18,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1061692144",
@@ -152029,6 +152053,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 9 contratos vendidos"
     },
@@ -152049,6 +152075,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 6 contratos vendidos"
     },
@@ -152069,6 +152097,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 7 contratos vendidos"
     },
@@ -152089,6 +152119,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 6 contratos vendidos"
     },
@@ -152109,6 +152141,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -152129,6 +152163,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 7 contratos vendidos"
     },
@@ -152149,6 +152185,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 17 contratos vendidos"
     },
@@ -152169,6 +152207,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -152189,6 +152229,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -152209,6 +152251,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -152229,6 +152273,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -152248,9 +152294,11 @@ const ROTACION_DATA = {
       "total_ventas": 5,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "106229005",
@@ -152268,9 +152316,11 @@ const ROTACION_DATA = {
       "total_ventas": 0,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "52250620",
@@ -152288,9 +152338,11 @@ const ROTACION_DATA = {
       "total_ventas": 4,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "1104011288",
@@ -152308,9 +152360,11 @@ const ROTACION_DATA = {
       "total_ventas": 3,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "16451344",
@@ -152329,6 +152383,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 6 contratos vendidos"
     },
@@ -152349,6 +152405,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -152368,9 +152426,11 @@ const ROTACION_DATA = {
       "total_ventas": 18,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1062305016",
@@ -152388,9 +152448,11 @@ const ROTACION_DATA = {
       "total_ventas": 2,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "5821331",
@@ -152408,9 +152470,11 @@ const ROTACION_DATA = {
       "total_ventas": 2,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "1104941586",
@@ -152428,9 +152492,11 @@ const ROTACION_DATA = {
       "total_ventas": 1,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "10251868",
@@ -152449,6 +152515,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -152468,9 +152536,11 @@ const ROTACION_DATA = {
       "total_ventas": 1,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1062433283",
@@ -152488,9 +152558,11 @@ const ROTACION_DATA = {
       "total_ventas": 1,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1001248639",
@@ -152508,9 +152580,11 @@ const ROTACION_DATA = {
       "total_ventas": 0,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1047418241",
@@ -152528,9 +152602,11 @@ const ROTACION_DATA = {
       "total_ventas": 1,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "1005297494",
@@ -152549,6 +152625,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 12 contratos vendidos"
     },
@@ -152569,6 +152647,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -152588,9 +152668,11 @@ const ROTACION_DATA = {
       "total_ventas": 5,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1007257684",
@@ -152609,6 +152691,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -152628,9 +152712,11 @@ const ROTACION_DATA = {
       "total_ventas": 4,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "34329239",
@@ -152648,9 +152734,11 @@ const ROTACION_DATA = {
       "total_ventas": 6,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1112148784",
@@ -152669,6 +152757,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -152688,9 +152778,11 @@ const ROTACION_DATA = {
       "total_ventas": 16,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1117350995",
@@ -152708,9 +152800,11 @@ const ROTACION_DATA = {
       "total_ventas": 3,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Estuvo en presupuesto de Octubre, pero ya no figura en Noviembre"
+      "diagnostico": "Figuró en presupuesto de Octubre, pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1117016034",
@@ -152729,6 +152823,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -152749,6 +152845,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -152769,6 +152867,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 21 contratos vendidos"
     },
@@ -152788,9 +152888,11 @@ const ROTACION_DATA = {
       "total_ventas": 3,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "DESERTÓ",
+      "estado": "DESERTÓ EN OCTUBRE",
+      "mes_desercion": "Octubre",
+      "hoja_desercion": "Hoja de Octubre (Mes Anterior)",
       "badge_type": "deserto",
-      "diagnostico": "Retiro temprano: no figuró en presupuesto de Octubre ni Noviembre"
+      "diagnostico": "Ingresó en Septiembre y dejó de figurar desde la hoja del mes anterior (Octubre)"
     },
     {
       "cedula": "1031803653",
@@ -152809,6 +152911,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 14 contratos vendidos"
     },
@@ -152829,6 +152933,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 5 contratos vendidos"
     },
@@ -152849,6 +152955,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -152869,6 +152977,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -152888,9 +152998,11 @@ const ROTACION_DATA = {
       "total_ventas": 7,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1117352331",
@@ -152909,6 +153021,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -152929,6 +153043,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -152949,6 +153065,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -152969,6 +153087,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 8 contratos vendidos"
     },
@@ -152989,6 +153109,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -153009,6 +153131,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -153028,9 +153152,11 @@ const ROTACION_DATA = {
       "total_ventas": 4,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "8786604",
@@ -153049,6 +153175,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -153069,6 +153197,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 7 contratos vendidos"
     },
@@ -153088,9 +153218,11 @@ const ROTACION_DATA = {
       "total_ventas": 16,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "40384712",
@@ -153109,6 +153241,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -153128,9 +153262,11 @@ const ROTACION_DATA = {
       "total_ventas": 7,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1140843488",
@@ -153148,9 +153284,11 @@ const ROTACION_DATA = {
       "total_ventas": 2,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "34567025",
@@ -153169,6 +153307,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 8 contratos vendidos"
     },
@@ -153189,6 +153329,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -153208,9 +153350,11 @@ const ROTACION_DATA = {
       "total_ventas": 1,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "22623392",
@@ -153229,6 +153373,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 9 contratos vendidos"
     },
@@ -153249,6 +153395,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 16 contratos vendidos"
     },
@@ -153269,6 +153417,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -153289,6 +153439,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 5 contratos vendidos"
     },
@@ -153308,9 +153460,11 @@ const ROTACION_DATA = {
       "total_ventas": 1,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "DESERTÓ TEMPRANO",
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
       "badge_type": "deserto",
-      "diagnostico": "Ingresó en Octubre y ya no figura en la hoja de presupuesto de Noviembre"
+      "diagnostico": "Ingresó en Octubre (figuró en su presupuesto), pero dejó de aparecer en la hoja actual (Noviembre)"
     },
     {
       "cedula": "1143847256",
@@ -153329,6 +153483,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -153349,6 +153505,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -153369,6 +153527,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -153389,6 +153549,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -153409,6 +153571,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 6 contratos vendidos"
     },
@@ -153429,6 +153593,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -153449,6 +153615,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -153469,6 +153637,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -153489,6 +153659,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -153509,6 +153681,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 4 contratos vendidos"
     },
@@ -153529,6 +153703,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO EN RIESGO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "riesgo",
       "diagnostico": "Activo en presupuesto de Noviembre, sin ventas registradas este mes"
     },
@@ -153549,6 +153725,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -153569,6 +153747,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 2 contratos vendidos"
     },
@@ -153589,6 +153769,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -153609,6 +153791,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 3 contratos vendidos"
     },
@@ -153629,6 +153813,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "RETENIDO ACTIVO",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "activo",
       "diagnostico": "Activo en presupuesto de Noviembre con 1 contratos vendidos"
     },
@@ -153649,6 +153835,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "NUEVO EN INDUCCIÓN",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "induccion",
       "diagnostico": "En período de entrenamiento / sin venta aún"
     },
@@ -153669,6 +153857,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (3 ventas en su 1er mes)"
     },
@@ -153689,6 +153879,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": true,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (6 ventas en su 1er mes)"
     },
@@ -153708,9 +153900,11 @@ const ROTACION_DATA = {
       "total_ventas": 0,
       "in_pres_act": false,
       "in_pres_ant": true,
-      "estado": "NUEVO EN INDUCCIÓN",
-      "badge_type": "induccion",
-      "diagnostico": "En período de entrenamiento / sin venta aún"
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
+      "badge_type": "deserto",
+      "diagnostico": "Ingresó en Noviembre y ya no figura en la hoja de presupuesto de Noviembre (deserción temprana)"
     },
     {
       "cedula": "1116436745",
@@ -153728,9 +153922,11 @@ const ROTACION_DATA = {
       "total_ventas": 0,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "NUEVO EN INDUCCIÓN",
-      "badge_type": "induccion",
-      "diagnostico": "En período de entrenamiento / sin venta aún"
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
+      "badge_type": "deserto",
+      "diagnostico": "Ingresó en Noviembre y ya no figura en la hoja de presupuesto de Noviembre (deserción temprana)"
     },
     {
       "cedula": "63534607",
@@ -153749,6 +153945,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (6 ventas en su 1er mes)"
     },
@@ -153769,6 +153967,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (4 ventas en su 1er mes)"
     },
@@ -153789,6 +153989,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (5 ventas en su 1er mes)"
     },
@@ -153809,6 +154011,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (5 ventas en su 1er mes)"
     },
@@ -153829,6 +154033,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (1 ventas en su 1er mes)"
     },
@@ -153849,6 +154055,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (1 ventas en su 1er mes)"
     },
@@ -153868,9 +154076,11 @@ const ROTACION_DATA = {
       "total_ventas": 0,
       "in_pres_act": false,
       "in_pres_ant": false,
-      "estado": "NUEVO EN INDUCCIÓN",
-      "badge_type": "induccion",
-      "diagnostico": "En período de entrenamiento / sin venta aún"
+      "estado": "DESERTÓ EN NOVIEMBRE",
+      "mes_desercion": "Noviembre",
+      "hoja_desercion": "Hoja de Noviembre (Mes Actual)",
+      "badge_type": "deserto",
+      "diagnostico": "Ingresó en Noviembre y ya no figura en la hoja de presupuesto de Noviembre (deserción temprana)"
     },
     {
       "cedula": "1333900",
@@ -153889,6 +154099,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (4 ventas en su 1er mes)"
     },
@@ -153909,6 +154121,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO EN INDUCCIÓN",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "induccion",
       "diagnostico": "En período de entrenamiento / sin venta aún"
     },
@@ -153929,6 +154143,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (1 ventas en su 1er mes)"
     },
@@ -153949,6 +154165,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO EN INDUCCIÓN",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "induccion",
       "diagnostico": "En período de entrenamiento / sin venta aún"
     },
@@ -153969,6 +154187,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (5 ventas en su 1er mes)"
     },
@@ -153989,6 +154209,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (3 ventas en su 1er mes)"
     },
@@ -154009,6 +154231,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (8 ventas en su 1er mes)"
     },
@@ -154029,6 +154253,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO EN INDUCCIÓN",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "induccion",
       "diagnostico": "En período de entrenamiento / sin venta aún"
     },
@@ -154049,6 +154275,8 @@ const ROTACION_DATA = {
       "in_pres_act": true,
       "in_pres_ant": false,
       "estado": "NUEVO CON VENTA",
+      "mes_desercion": null,
+      "hoja_desercion": null,
       "badge_type": "nuevo-venta",
       "diagnostico": "Arranque exitoso (1 ventas en su 1er mes)"
     }
@@ -252710,7 +252938,7 @@ const PRODUCTOS_DATA = {
 
                 // Search query
                 if (query) {
-                    const str = `${a.nombre} ${a.cedula} ${a.zona} ${a.regional} ${a.director}`.toLowerCase();
+                    const str = `${a.nombre} ${a.cedula} ${a.zona} ${a.regional} ${a.director} ${a.estado} ${a.mes_desercion || ''} ${a.hoja_desercion || ''} ${a.diagnostico}`.toLowerCase();
                     if (!str.includes(query)) return false;
                 }
 
@@ -252780,21 +253008,58 @@ const PRODUCTOS_DATA = {
                     ? '<span style="background:#fee2e2; color:#dc2626; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; border:1px solid #fca5a5;">DIRECTO</span>'
                     : '<span style="background:#eef2ff; color:#4f46e5; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; border:1px solid #c7d2fe;">DISTRIBUIDOR</span>';
 
-                // Estado badge
+                // Estado badge & Diagnóstico enriquecido con mes y hoja de deserción
                 let bgEst = '#f1f5f9', colEst = '#475569', bdrEst = '#cbd5e1';
+                let badgeEstado = '';
+                let diagHtml = '';
+
                 if (r.estado === 'RETENIDO ACTIVO') {
                     bgEst = '#dcfce7'; colEst = '#15803d'; bdrEst = '#86efac';
+                    badgeEstado = `<span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">${r.estado}</span>`;
+                    diagHtml = `<span style="font-size: 0.76rem; color: #166534; font-weight: 600;">${r.diagnostico}</span>`;
                 } else if (r.estado === 'RETENIDO EN RIESGO') {
                     bgEst = '#fef3c7'; colEst = '#b45309'; bdrEst = '#fde68a';
+                    badgeEstado = `<span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">${r.estado}</span>`;
+                    diagHtml = `<span style="font-size: 0.76rem; color: #9a3412;">${r.diagnostico}</span>`;
                 } else if (r.estado.includes('DESERT')) {
                     bgEst = '#fee2e2'; colEst = '#b91c1c'; bdrEst = '#fca5a5';
+                    const mesDes = r.mes_desercion || (r.in_pres_ant ? 'Noviembre' : 'Octubre');
+                    const hojaTxt = r.hoja_desercion || (r.in_pres_ant ? 'Hoja Mes Actual (Noviembre)' : 'Hoja Mes Anterior (Octubre)');
+                    const hojaShort = hojaTxt.includes('Mes Actual') ? 'Dejó de figurar: Hoja Mes Actual (Nov)' : 'Dejó de figurar: Hoja Mes Anterior (Oct)';
+                    
+                    badgeEstado = `
+                        <div style="display:inline-flex; flex-direction:column; align-items:center; gap:3px;">
+                            <span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.72rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">
+                                ${r.estado}
+                            </span>
+                            <span style="font-size:0.67rem; font-weight:800; color:#dc2626; background:#fff1f2; border:1px solid #fecaca; padding:1px 6px; border-radius:4px; white-space:nowrap;">
+                                ${hojaShort}
+                            </span>
+                        </div>
+                    `;
+
+                    diagHtml = `
+                        <div style="font-size:0.75rem; color:#1e293b; line-height:1.45;">
+                            <div>
+                                <b style="color:#b91c1c;">📅 Mes en que desertó:</b> <span style="font-weight:900; color:#991b1b; text-decoration:underline;">${mesDes}</span>
+                            </div>
+                            <div>
+                                <b style="color:#475569;">📄 Dónde dejó de figurar:</b> <span style="font-weight:800; color:#dc2626;">${hojaTxt}</span>
+                            </div>
+                            <div style="font-size:0.72rem; color:#64748b; margin-top:2px;">
+                                ${r.diagnostico}
+                            </div>
+                        </div>
+                    `;
                 } else if (r.estado === 'NUEVO CON VENTA') {
                     bgEst = '#e0f2fe'; colEst = '#0369a1'; bdrEst = '#7dd3fc';
+                    badgeEstado = `<span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">${r.estado}</span>`;
+                    diagHtml = `<span style="font-size: 0.76rem; color: #0369a1; font-weight: 600;">${r.diagnostico}</span>`;
                 } else if (r.estado === 'NUEVO EN INDUCCIÓN') {
                     bgEst = '#f1f5f9'; colEst = '#475569'; bdrEst = '#cbd5e1';
+                    badgeEstado = `<span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">${r.estado}</span>`;
+                    diagHtml = `<span style="font-size: 0.76rem; color: #64748b;">${r.diagnostico}</span>`;
                 }
-
-                const badgeEstado = `<span style="background:${bgEst}; color:${colEst}; border:1px solid ${bdrEst}; font-weight:800; font-size:0.73rem; padding:3px 8px; border-radius:6px; white-space:nowrap;">${r.estado}</span>`;
 
                 tr.innerHTML = `
                     <td style="padding: 10px;">
@@ -252814,7 +253079,7 @@ const PRODUCTOS_DATA = {
                     <td style="text-align: center; font-weight: 800; color: #10b981; padding: 10px;">${r.ventas_act}</td>
                     <td style="text-align: center; font-weight: 900; color: #0f172a; padding: 10px;">${r.total_ventas}</td>
                     <td style="text-align: center; padding: 10px;">${badgeEstado}</td>
-                    <td style="padding: 10px; font-size: 0.75rem; color: #475569;">${r.diagnostico}</td>
+                    <td style="padding: 10px;">${diagHtml}</td>
                 `;
                 tbody.appendChild(tr);
             });
