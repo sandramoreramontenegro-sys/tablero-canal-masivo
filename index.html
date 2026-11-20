@@ -943,6 +943,24 @@
             transform: translateY(-1px);
         }
 
+        .cruce-mode-pill.riesgototal {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fca5a5;
+            font-weight: 800;
+        }
+        .cruce-mode-pill.riesgototal:hover {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        .cruce-mode-pill.riesgototal.active {
+            background: #b91c1c !important;
+            color: #ffffff !important;
+            border-color: #7f1d1d !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.4), 0 3px 8px rgba(185, 28, 28, 0.5) !important;
+            transform: translateY(-1px);
+        }
         .cruce-mode-pill.nocumplen {
             background: #fef2f2;
             color: #b91c1c;
@@ -2458,6 +2476,9 @@
                         <button type="button" id="btn-asesor-proyeccion" class="cruce-mode-pill proyeccion" style="display: none;" onclick="switchAsesorMode('proyeccion')">
                             <span>📈</span> PROYECCIÓN DE CIERRE POR ASESOR
                         </button>
+                        <button type="button" id="btn-asesor-riesgototal" class="cruce-mode-pill riesgototal" style="display: none;" onclick="switchAsesorMode('riesgototal')">
+                            <span>🚨</span> ASESORES EN RIESGO (< 100%)
+                        </button>
                         <button type="button" id="btn-asesor-nocumplen" class="cruce-mode-pill nocumplen" style="display: none;" onclick="switchAsesorMode('nocumplen')">
                             <span>🚨</span> CONTRATO DIRECTO EN RIESGO (< 100%)
                         </button>
@@ -3746,6 +3767,9 @@
 
                         <button type="button" id="btn-ant-asesor-efectividad" class="cruce-mode-pill efectividad" onclick="switchAsesorModeAnt('efectividad')" style="display: none;">
                             <span>✅</span> EFECTIVIDAD DE CONFIRMACIÓN
+                        </button>
+                        <button type="button" id="btn-ant-asesor-riesgototal" class="cruce-mode-pill riesgototal" onclick="switchAsesorModeAnt('riesgototal')" style="display: none;">
+                            <span>🚨</span> ASESORES EN RIESGO (< 100%)
                         </button>
                         <button type="button" id="btn-ant-asesor-nocumplen" class="cruce-mode-pill nocumplen" onclick="switchAsesorModeAnt('nocumplen')" style="display: none;">
                             <span>🚨</span> CONTRATO DIRECTO EN RIESGO (< 100%)
@@ -5624,8 +5648,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-20 11:49:03';
-const TIMESTAMP_ACTUALIZACION = 1795193343;
+const ULTIMA_ACTUALIZACION = '2026-11-20 11:58:50';
+const TIMESTAMP_ACTUALIZACION = 1795193930;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -244586,7 +244610,7 @@ const PRODUCTOS_DATA = {
             });
 
             // 3. Cambiar a modo 'nocumplen'
-            switchAsesorMode('nocumplen');
+            switchAsesorMode(currentNoCumplenSubMode || 'riesgototal');
 
             // 4. Desplazar suavemente a la tabla
             setTimeout(() => {
@@ -244595,11 +244619,11 @@ const PRODUCTOS_DATA = {
             }, 80);
         }
 
-        let currentNoCumplenSubMode = 'nocumplen'; // 'nocumplen' | 'concentracion' | 'bajaprod' | 'ceroventas'
+        let currentNoCumplenSubMode = 'riesgototal'; // 'riesgototal' | 'nocumplen' | 'concentracion' | 'bajaprod' | 'ceroventas'
 
         function switchAsesorMode(mode) {
             currentAsesorMode = mode;
-            if (['nocumplen', 'concentracion', 'bajaprod', 'ceroventas'].includes(mode)) {
+            if (['riesgototal', 'nocumplen', 'concentracion', 'bajaprod', 'ceroventas'].includes(mode)) {
                 currentNoCumplenSubMode = mode;
             }
 
@@ -244609,6 +244633,7 @@ const PRODUCTOS_DATA = {
             const censoContainer = document.getElementById('asesor-censo-container');
             const btnEf = document.getElementById('btn-asesor-efectividad');
             const btnProy = document.getElementById('btn-asesor-proyeccion');
+            const btnRiesgoTot = document.getElementById('btn-asesor-riesgototal');
             const btnNo = document.getElementById('btn-asesor-nocumplen');
             const btnConc = document.getElementById('btn-asesor-concentracion');
             const btnBp = document.getElementById('btn-asesor-bajaprod');
@@ -244617,6 +244642,7 @@ const PRODUCTOS_DATA = {
             if (btnGen) btnGen.classList.toggle('active', mode === 'general');
             if (btnEf) btnEf.classList.toggle('active', mode === 'efectividad');
             if (btnProy) btnProy.classList.toggle('active', mode === 'proyeccion');
+            if (btnRiesgoTot) btnRiesgoTot.classList.toggle('active', mode === 'riesgototal');
             if (btnNo) btnNo.classList.toggle('active', mode === 'nocumplen');
             if (btnConc) btnConc.classList.toggle('active', mode === 'concentracion');
             if (btnBp) btnBp.classList.toggle('active', mode === 'bajaprod');
@@ -244700,7 +244726,7 @@ const PRODUCTOS_DATA = {
                 pSortState = { col: 'APROBADO', asc: false };
             } else if (mode === 'proyeccion') {
                 pSortState = { col: 'PROYECCION', asc: false };
-            } else if (mode === 'nocumplen') {
+            } else if (mode === 'riesgototal' || mode === 'nocumplen') {
                 // Del más crítico al menos crítico (< 100%)
                 pSortState = { col: 'PROY_CUMPL', asc: true };
             }
@@ -246004,6 +246030,7 @@ const PRODUCTOS_DATA = {
             const isProyeccion = (currentAsesorMode === 'proyeccion');
 
             const isNoCumplen = (currentAsesorMode === 'nocumplen');
+            const isRiesgoTotal = (currentAsesorMode === 'riesgototal');
 
             const diasHabiles = (typeof DATOS_FORMULA !== 'undefined' && DATOS_FORMULA.DIAS_HABILES) ? DATOS_FORMULA.DIAS_HABILES : 25;
 
@@ -246044,6 +246071,22 @@ const PRODUCTOS_DATA = {
                 if (subEl) {
 
                     subEl.innerHTML = `Fórmula: (Llevamos / ${diasLaborados} días laborados) × ${diasHabiles} días hábiles vs Meta asignada.`;
+
+                }
+
+            } else if (isRiesgoTotal) {
+
+                if (titleEl) {
+
+                    titleEl.innerHTML = '<span>🚨</span> ASESORES EN RIESGO DE NO CUMPLIMIENTO (< 100%) - FUERZA COMERCIAL TOTAL';
+
+                    titleEl.style.color = '#b91c1c';
+
+                }
+
+                if (subEl) {
+
+                    subEl.innerHTML = 'Fuerza comercial total en riesgo: Asesores (<b>Directos y Distribuidores</b>) cuya proyección de cierre es inferior al 100% de la meta asignada.';
 
                 }
 
@@ -246229,18 +246272,19 @@ const PRODUCTOS_DATA = {
 
             });
 
-            // Filtro específico para "Contrato Directo en Riesgo (<100%)"
-
-            if (isNoCumplen) {
-
+            // Filtro para "Asesores en Riesgo (<100%)" (Total: Directos + Distribuidores)
+            if (isRiesgoTotal) {
                 data = data.filter(r => {
-
-                    const isDirecto = r.TIPO_ASESOR.includes('CONTRATO DIRECTO');
-
-                    return isDirecto && r.PRESUPUESTO > 0 && r.PROY_CUMPL < 100.0;
-
+                    return r.PRESUPUESTO > 0 && r.PROY_CUMPL < 100.0;
                 });
+            }
 
+            // Filtro específico para "Contrato Directo en Riesgo (<100%)"
+            if (isNoCumplen) {
+                data = data.filter(r => {
+                    const isDirecto = r.TIPO_ASESOR.includes('CONTRATO DIRECTO');
+                    return isDirecto && r.PRESUPUESTO > 0 && r.PROY_CUMPL < 100.0;
+                });
             }
 
             // Filtro de búsqueda
@@ -246768,17 +246812,20 @@ const PRODUCTOS_DATA = {
 
             if (!btnAsesorGen || !btnAsesorEf || !btnAsesorProy || !btnAsesorNc || !btnAsesorConc) return;
 
+            const btnAsesorRiesgoTot = document.getElementById('btn-asesor-riesgototal');
             if (cruceMode === 'nocumplen') {
-                // Mostrar los 4 botones de vistas de no cumplimiento debajo de regionales y zonas
+                // Mostrar los 5 botones de vistas de no cumplimiento debajo de regionales y zonas
                 btnAsesorGen.style.display = 'none';
                 btnAsesorEf.style.display = 'none';
                 btnAsesorProy.style.display = 'none';
+                if (btnAsesorRiesgoTot) btnAsesorRiesgoTot.style.display = 'inline-flex';
                 btnAsesorNc.style.display = 'inline-flex';
                 btnAsesorConc.style.display = 'inline-flex';
                 if (btnAsesorBp) btnAsesorBp.style.display = 'inline-flex';
                 if (btnAsesorCz) btnAsesorCz.style.display = 'inline-flex';
             } else {
-                // Ocultar los 4 botones de incumplimiento
+                // Ocultar los botones de incumplimiento
+                if (btnAsesorRiesgoTot) btnAsesorRiesgoTot.style.display = 'none';
                 btnAsesorNc.style.display = 'none';
                 btnAsesorConc.style.display = 'none';
                 if (btnAsesorBp) btnAsesorBp.style.display = 'none';
@@ -246843,7 +246890,7 @@ const PRODUCTOS_DATA = {
                 cruceZonaSort = { col: 'CUMPLIMIENTO', asc: true };
                 // Al tocar NO PROYECTAN CUMPLIMIENTO < 100 se despliega las regionales y zonas que no proyectan cumplimiento
                 // y debajo se activan las vistas de no cumplimiento
-                const targetSub = (currentNoCumplenSubMode && ['nocumplen', 'concentracion', 'bajaprod', 'ceroventas'].includes(currentNoCumplenSubMode)) ? currentNoCumplenSubMode : 'nocumplen';
+                const targetSub = (currentNoCumplenSubMode && ['riesgototal', 'nocumplen', 'concentracion', 'bajaprod', 'ceroventas'].includes(currentNoCumplenSubMode)) ? currentNoCumplenSubMode : 'riesgototal';
                 switchAsesorMode(targetSub);
             } else if (btnGen) {
                 btnGen.classList.add('active');
@@ -249473,6 +249520,7 @@ const PRODUCTOS_DATA = {
         function updateAntDetailedReportsButtons(cruceMode) {
             const btnGen = document.getElementById('btn-ant-asesor-general');
             const btnEf = document.getElementById('btn-ant-asesor-efectividad');
+            const btnAntRiesgoTot = document.getElementById('btn-ant-asesor-riesgototal');
             const btnNc = document.getElementById('btn-ant-asesor-nocumplen');
             const btnConc = document.getElementById('btn-ant-asesor-concentracion');
             const btnSinAprob = document.getElementById('btn-ant-asesor-sinaprobar');
@@ -249491,13 +249539,17 @@ const PRODUCTOS_DATA = {
                 if (btnEf) btnEf.style.display = 'inline-flex';
                 switchAsesorModeAnt('efectividad');
             } else if (cruceMode === 'nocumplen') {
-                // Solo botones "CONTRATO DIRECTO EN RIESGO (< 100%)" y "MAYOR INCUMPLIMIENTO DIRECTOS"
+                // Mostrar botones de vistas de no cumplimiento mes anterior
+                const btnAntRiesgoTotVis = document.getElementById('btn-ant-asesor-riesgototal');
+                if (btnAntRiesgoTotVis) btnAntRiesgoTotVis.style.display = 'inline-flex';
                 if (btnNc) btnNc.style.display = 'inline-flex';
                 if (btnConc) btnConc.style.display = 'inline-flex';
                 if (currentAsesorModeAnt === 'concentracion') {
                     switchAsesorModeAnt('concentracion');
-                } else {
+                } else if (currentAsesorModeAnt === 'nocumplen') {
                     switchAsesorModeAnt('nocumplen');
+                } else {
+                    switchAsesorModeAnt('riesgototal');
                 }
             } else if (cruceMode === 'aprob_realizado') {
                 // Solo botón "RANKING NOMINAL SIN APROBAR"
@@ -249517,6 +249569,7 @@ const PRODUCTOS_DATA = {
             if (btnGen) btnGen.classList.toggle('active', mode === 'general');
             if (btnEf) btnEf.classList.toggle('active', mode === 'efectividad');
             if (btnApReal) btnApReal.classList.toggle('active', mode === 'aprob_realizado');
+            if (btnAntRiesgoTot) btnAntRiesgoTot.classList.toggle('active', mode === 'riesgototal');
             if (btnNc) btnNc.classList.toggle('active', mode === 'nocumplen');
             if (btnBp) btnBp.classList.toggle('active', mode === 'bajaprod');
 
@@ -250968,6 +251021,7 @@ const PRODUCTOS_DATA = {
         function renderAntPresupuestoTable() {
             const isEfectividad = (currentAsesorModeAnt === 'efectividad');
             const isNoCumplen = (currentAsesorModeAnt === 'nocumplen');
+            const isRiesgoTotal = (currentAsesorModeAnt === 'riesgototal');
 
             const titleEl = document.getElementById('ant-p-table-title');
             const subEl = document.getElementById('ant-p-table-sub');
@@ -250979,6 +251033,14 @@ const PRODUCTOS_DATA = {
                 }
                 if (subEl) {
                     subEl.innerHTML = 'Ventas aprobadas (Status: <b>Aprobado</b>, <b>Aprobado Ncp</b>, <b>Aprobado Sc</b>) vs <b>Presupuesto Asesor</b> mes anterior.';
+                }
+            } else if (isRiesgoTotal) {
+                if (titleEl) {
+                    titleEl.innerHTML = '<span>🚨</span> ASESORES QUE NO CUMPLIERON (< 100%) - FUERZA COMERCIAL TOTAL';
+                    titleEl.style.color = '#b91c1c';
+                }
+                if (subEl) {
+                    subEl.innerHTML = 'Fuerza comercial total que no cumplió: Asesores (<b>Directos y Distribuidores</b>) cuyo cumplimiento mes anterior fue inferior al 100%.';
                 }
             } else if (isNoCumplen) {
                 if (titleEl) {
