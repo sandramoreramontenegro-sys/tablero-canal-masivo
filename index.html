@@ -4405,37 +4405,6 @@
 
         </div>
 
-        <!-- 2 Gráficas Claras y Comprensibles -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 20px; margin-bottom: 24px;">
-            
-            <!-- Gráfica 1: Retención vs Deserción por Mes de Ingreso -->
-            <div style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                    <div>
-                        <h4 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">📊 Retención vs Deserción por Mes de Ingreso</h4>
-                        <span style="font-size: 0.8rem; color: #64748b;">Comparativa clara del volumen de asesores retenidos frente a deserciones por mes de ingreso</span>
-                    </div>
-                </div>
-                <div style="position: relative; height: 290px; width: 100%;">
-                    <canvas id="rotChartBarras"></canvas>
-                </div>
-            </div>
-
-            <!-- Gráfica 2: Maduración Comercial de los Ingresos del Mes Antepenúltimo -->
-            <div style="background: #ffffff; border-radius: 14px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                    <div>
-                        <h4 id="rot-chart2-title" style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">📈 Curva de Actividad en Ventas de Nuevos Ingresos</h4>
-                        <span id="rot-chart2-sub" style="font-size: 0.8rem; color: #64748b;">Comportamiento mes a mes de los asesores que ingresaron hace 3 meses</span>
-                    </div>
-                </div>
-                <div style="position: relative; height: 290px; width: 100%;">
-                    <canvas id="rotChartEvolucion"></canvas>
-                </div>
-            </div>
-
-        </div>
-
         <!-- Rankings de Retención por Director y por Regional -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 20px; margin-bottom: 24px;">
             
@@ -5655,8 +5624,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-20 11:19:00';
-const TIMESTAMP_ACTUALIZACION = 1795191540;
+const ULTIMA_ACTUALIZACION = '2026-11-20 11:22:45';
+const TIMESTAMP_ACTUALIZACION = 1795191765;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -104710,8 +104679,8 @@ const SERVER_DATA_ANT = [
     "TIPO_VENDEDOR": "Asesor Directo",
     "REGIONAL": "Valle Sur",
     "ZONA": "Cali",
-    "STATUS": "Reportada",
-    "NOMINAL APROBADO": 0.0
+    "STATUS": "Aprobado",
+    "NOMINAL APROBADO": 230400.0
   },
   {
     "ASESOR PLANILLA": "HENRY JURADO",
@@ -107958,8 +107927,8 @@ const SERVER_DATA_ANT = [
     "TIPO_VENDEDOR": "Asesor Directo",
     "REGIONAL": "Valle Sur",
     "ZONA": "Palmira",
-    "STATUS": "Reportada",
-    "NOMINAL APROBADO": 0.0
+    "STATUS": "Aprobado",
+    "NOMINAL APROBADO": 180000.0
   },
   {
     "ASESOR PLANILLA": "MARÍA EUGENIA QUIÑONEZ DIAZ",
@@ -108598,8 +108567,8 @@ const SERVER_DATA_ANT = [
     "TIPO_VENDEDOR": "Asesor Directo",
     "REGIONAL": "Bogota",
     "ZONA": "Bogotá",
-    "STATUS": "Reportada",
-    "NOMINAL APROBADO": 0.0
+    "STATUS": "Aprobado",
+    "NOMINAL APROBADO": 484800.0
   },
   {
     "ASESOR PLANILLA": "ALEXANDER HORTA CAMACHO",
@@ -108678,8 +108647,8 @@ const SERVER_DATA_ANT = [
     "TIPO_VENDEDOR": "Asesor Directo",
     "REGIONAL": "Valle Sur",
     "ZONA": "Cali",
-    "STATUS": "Reportada",
-    "NOMINAL APROBADO": 0.0
+    "STATUS": "Aprobado",
+    "NOMINAL APROBADO": 268800.0
   },
   {
     "ASESOR PLANILLA": "LUZ MERY PATIÑO",
@@ -109446,8 +109415,8 @@ const SERVER_DATA_ANT = [
     "TIPO_VENDEDOR": "Asesor Directo",
     "REGIONAL": "Antioquia",
     "ZONA": "Medellin",
-    "STATUS": "Reportada",
-    "NOMINAL APROBADO": 0.0
+    "STATUS": "Aprobado",
+    "NOMINAL APROBADO": 796800.0
   },
   {
     "ASESOR PLANILLA": "JUAN CARLOS MONTOYA LUNA",
@@ -109574,8 +109543,8 @@ const SERVER_DATA_ANT = [
     "TIPO_VENDEDOR": "Asesor Directo",
     "REGIONAL": "Antioquia",
     "ZONA": "Medellin",
-    "STATUS": "Reportada",
-    "NOMINAL APROBADO": 0.0
+    "STATUS": "Aprobado",
+    "NOMINAL APROBADO": 58800.0
   },
   {
     "ASESOR PLANILLA": "ROQUE ARGEMIRO LORA ESCORCIA",
@@ -159763,12 +159732,12 @@ const SECTORES_DATA_ANT = [
     "DIRECTOR": "Franklin Gamba",
     "TIPO_VENDEDOR": "Asesor Directo",
     "TOTAL_VENTAS": 140,
-    "VENTAS_APROBADAS": 82,
+    "VENTAS_APROBADAS": 84,
     "NOMINAL_TOTAL": 85077696.0,
-    "NOMINAL_APROBADO": 55281000.0,
-    "VENTAS_PENDIENTES": 58,
-    "PCT_EFECTIVIDAD": 58.6,
-    "PCT_MONTO_APROBADO": 65.0
+    "NOMINAL_APROBADO": 56136600.0,
+    "VENTAS_PENDIENTES": 56,
+    "PCT_EFECTIVIDAD": 60.0,
+    "PCT_MONTO_APROBADO": 66.0
   },
   {
     "SECTOR": "Sin Sector Especificado",
@@ -159847,12 +159816,12 @@ const SECTORES_DATA_ANT = [
     "DIRECTOR": "Yudy Carreño",
     "TIPO_VENDEDOR": "Asesor Directo",
     "TOTAL_VENTAS": 39,
-    "VENTAS_APROBADAS": 13,
+    "VENTAS_APROBADAS": 14,
     "NOMINAL_TOTAL": 24174000.0,
-    "NOMINAL_APROBADO": 8732400.0,
-    "VENTAS_PENDIENTES": 26,
-    "PCT_EFECTIVIDAD": 33.3,
-    "PCT_MONTO_APROBADO": 36.1
+    "NOMINAL_APROBADO": 9217200.0,
+    "VENTAS_PENDIENTES": 25,
+    "PCT_EFECTIVIDAD": 35.9,
+    "PCT_MONTO_APROBADO": 38.1
   },
   {
     "SECTOR": "Sin Sector Especificado",
@@ -160267,12 +160236,12 @@ const SECTORES_DATA_ANT = [
     "DIRECTOR": "Diana Romero",
     "TIPO_VENDEDOR": "Asesor Directo",
     "TOTAL_VENTAS": 33,
-    "VENTAS_APROBADAS": 11,
+    "VENTAS_APROBADAS": 13,
     "NOMINAL_TOTAL": 11176200.0,
-    "NOMINAL_APROBADO": 4222200.0,
-    "VENTAS_PENDIENTES": 22,
-    "PCT_EFECTIVIDAD": 33.3,
-    "PCT_MONTO_APROBADO": 37.8
+    "NOMINAL_APROBADO": 4721400.0,
+    "VENTAS_PENDIENTES": 20,
+    "PCT_EFECTIVIDAD": 39.4,
+    "PCT_MONTO_APROBADO": 42.2
   },
   {
     "SECTOR": "Sin Sector Especificado",
@@ -160295,12 +160264,12 @@ const SECTORES_DATA_ANT = [
     "DIRECTOR": "Diana Romero",
     "TIPO_VENDEDOR": "Asesor Directo",
     "TOTAL_VENTAS": 74,
-    "VENTAS_APROBADAS": 43,
+    "VENTAS_APROBADAS": 44,
     "NOMINAL_TOTAL": 21772200.0,
-    "NOMINAL_APROBADO": 9950400.0,
-    "VENTAS_PENDIENTES": 31,
-    "PCT_EFECTIVIDAD": 58.1,
-    "PCT_MONTO_APROBADO": 45.7
+    "NOMINAL_APROBADO": 10130400.0,
+    "VENTAS_PENDIENTES": 30,
+    "PCT_EFECTIVIDAD": 59.5,
+    "PCT_MONTO_APROBADO": 46.5
   },
   {
     "SECTOR": "Sin Sector Especificado",
@@ -252319,126 +252288,14 @@ const PRODUCTOS_DATA = {
         }
 
         function renderRotacionCharts() {
-            if (typeof Chart === 'undefined' || typeof ROTACION_DATA === 'undefined') return;
-
-            const p = ROTACION_DATA.periodo;
-            const sum = (ROTACION_DATA.summary && ROTACION_DATA.summary[currentRotGroup]) 
-                ? ROTACION_DATA.summary[currentRotGroup] 
-                : ROTACION_DATA.summary['total'];
-
-            if (!sum || !p) return;
-
-            const cAntep = sum.cohortes.antepenultimo;
-            const cAnt = sum.cohortes.anterior;
-            const cAct = sum.cohortes.actual;
-
-            // Gráfica 1: Barras Apiladas Retención vs Deserción
-            const ctxBarras = document.getElementById('rotChartBarras');
-            if (ctxBarras) {
-                if (rotChartBarrasInstance) rotChartBarrasInstance.destroy();
-                rotChartBarrasInstance = new Chart(ctxBarras, {
-                    type: 'bar',
-                    data: {
-                        labels: [`Ingresos ${cAntep.nombre}`, `Ingresos ${cAnt.nombre}`, `Ingresos ${cAct.nombre}`],
-                        datasets: [
-                            {
-                                label: '🟢 Retenidos / Con Venta',
-                                data: [cAntep.retenidos, cAnt.retenidos, cAct.activados],
-                                backgroundColor: '#10b981',
-                                borderRadius: 6
-                            },
-                            {
-                                label: '🔴 Desertaron / Sin Ventas',
-                                data: [cAntep.desertaron, cAnt.desertaron, 0],
-                                backgroundColor: '#ef4444',
-                                borderRadius: 6
-                            },
-                            {
-                                label: '⚪ En Inducción Reciente',
-                                data: [0, 0, cAct.en_induccion],
-                                backgroundColor: '#94a3b8',
-                                borderRadius: 6
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'top', labels: { font: { weight: 'bold', size: 11 } } },
-                            tooltip: {
-                                callbacks: {
-                                    afterBody: function(items) {
-                                        const idx = items[0].dataIndex;
-                                        if (idx === 0) return `Tasa Retención: ${cAntep.tasa_retencion}%`;
-                                        if (idx === 1) return `Tasa Retención: ${cAnt.tasa_retencion}%`;
-                                        if (idx === 2) return `Arranque Rápido: ${cAct.tasa_activacion}%`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            x: { stacked: true },
-                            y: { stacked: true, beginAtZero: true, title: { display: true, text: 'Cantidad de Asesores' } }
-                        }
-                    }
-                });
+            // Gráficas de rotación removidas a solicitud del usuario
+            if (rotChartBarrasInstance) {
+                rotChartBarrasInstance.destroy();
+                rotChartBarrasInstance = null;
             }
-
-            // Gráfica 2: Maduración Comercial de la Cohorte Antepenúltima
-            const ctxEvolucion = document.getElementById('rotChartEvolucion');
-            const elCh2Title = document.getElementById('rot-chart2-title');
-            const elCh2Sub = document.getElementById('rot-chart2-sub');
-            if (elCh2Title) elCh2Title.innerText = `📈 Sostenimiento de Ventas - Ingresos de ${cAntep.nombre}`;
-            if (elCh2Sub) elCh2Sub.innerText = `Evolución de asesores activos con venta a lo largo de 3 meses (${cAntep.nombre} ➔ ${cAnt.nombre} ➔ ${cAct.nombre})`;
-
-            if (ctxEvolucion && cAntep.evolucion_ventas) {
-                if (rotChartEvolucionInstance) rotChartEvolucionInstance.destroy();
-                rotChartEvolucionInstance = new Chart(ctxEvolucion, {
-                    type: 'bar',
-                    data: {
-                        labels: [
-                            `Mes 1: ${cAntep.nombre} (Ingreso)`, 
-                            `Mes 2: ${cAnt.nombre} (+30 días)`, 
-                            `Mes 3: ${cAct.nombre} (+60 días)`
-                        ],
-                        datasets: [
-                            {
-                                label: 'Asesores Activos con Venta',
-                                data: [
-                                    cAntep.evolucion_ventas.mes_1, 
-                                    cAntep.evolucion_ventas.mes_2, 
-                                    cAntep.evolucion_ventas.mes_3
-                                ],
-                                backgroundColor: ['#0284c7', '#38bdf8', '#10b981'],
-                                borderRadius: 8,
-                                barThickness: 45
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(ctx) {
-                                        const pct = roundTo1(ctx.raw / cAntep.ingresos * 100);
-                                        return `${ctx.raw} asesores activos (${pct}% de los ingresados)`;
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: Math.max(cAntep.ingresos + 5, 20),
-                                title: { display: true, text: 'Asesores que Vendieron' }
-                            }
-                        }
-                    }
-                });
+            if (rotChartEvolucionInstance) {
+                rotChartEvolucionInstance.destroy();
+                rotChartEvolucionInstance = null;
             }
         }
 
