@@ -4445,10 +4445,10 @@
                     <span style="font-size: 1.3rem;">👔</span>
                     <div>
                         <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">Diagnóstico de Retención por Director</h4>
-                        <span style="font-size: 0.78rem; color: #64748b;">Evaluación del éxito en retención de los nuevos asesores reclutados</span>
+                        <span style="font-size: 0.78rem; color: #64748b;">Evaluación del éxito en retención • <strong style="color: #2563eb; cursor: pointer;">(Toca cualquier fila para desplegar Septiembre, Octubre y Noviembre)</strong></span>
                     </div>
                 </div>
-                <div style="max-height: 320px; overflow-y: auto;">
+                <div style="max-height: 520px; overflow-y: auto;">
                     <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
                         <thead>
                             <tr style="background: #f8fafc; color: #475569; position: sticky; top: 0;">
@@ -4473,10 +4473,10 @@
                     <span style="font-size: 1.3rem;">🏛️</span>
                     <div>
                         <h4 style="margin: 0; font-size: 1rem; font-weight: 800; color: #0f172a;">Diagnóstico de Retención por Regional</h4>
-                        <span style="font-size: 0.78rem; color: #64748b;">Comportamiento geográfico de reclutamiento y sostenimiento</span>
+                        <span style="font-size: 0.78rem; color: #64748b;">Comportamiento geográfico • <strong style="color: #2563eb; cursor: pointer;">(Toca cualquier fila para ver desglose mensual)</strong></span>
                     </div>
                 </div>
-                <div style="max-height: 320px; overflow-y: auto;">
+                <div style="max-height: 520px; overflow-y: auto;">
                     <table class="table-custom" style="width: 100%; font-size: 0.82rem;">
                         <thead>
                             <tr style="background: #f8fafc; color: #475569; position: sticky; top: 0;">
@@ -5655,8 +5655,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-20 11:12:56';
-const TIMESTAMP_ACTUALIZACION = 1795191176;
+const ULTIMA_ACTUALIZACION = '2026-11-20 11:15:22';
+const TIMESTAMP_ACTUALIZACION = 1795191322;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -252442,6 +252442,256 @@ const PRODUCTOS_DATA = {
             }
         }
 
+        function makeRotSlug(str) {
+            return (str || '').toString().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+        }
+
+        function toggleDirectorBreakdown(directorName, dSlug) {
+            const drawer = document.getElementById('rot-dir-drawer-' + dSlug);
+            const arrow = document.getElementById('rot-dir-arrow-' + dSlug);
+            if (!drawer) return;
+
+            const isCurrentlyOpen = drawer.style.display !== 'none';
+
+            // Cerrar todos los cajones de directores
+            document.querySelectorAll('.rot-dir-drawer').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[id^="rot-dir-arrow-"]').forEach(el => el.style.transform = 'rotate(0deg)');
+
+            if (isCurrentlyOpen) {
+                drawer.style.display = 'none';
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+                return;
+            }
+
+            // Inyectar contenido actualizado
+            const contentBox = document.getElementById('rot-dir-content-' + dSlug);
+            if (contentBox) {
+                contentBox.innerHTML = buildRotBreakdownHTML('director', directorName, dSlug);
+            }
+
+            drawer.style.display = '';
+            if (arrow) arrow.style.transform = 'rotate(90deg)';
+        }
+
+        function toggleRegionalBreakdown(regionalName, rSlug) {
+            const drawer = document.getElementById('rot-reg-drawer-' + rSlug);
+            const arrow = document.getElementById('rot-reg-arrow-' + rSlug);
+            if (!drawer) return;
+
+            const isCurrentlyOpen = drawer.style.display !== 'none';
+
+            // Cerrar todos los cajones de regionales
+            document.querySelectorAll('.rot-reg-drawer').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('[id^="rot-reg-arrow-"]').forEach(el => el.style.transform = 'rotate(0deg)');
+
+            if (isCurrentlyOpen) {
+                drawer.style.display = 'none';
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+                return;
+            }
+
+            // Inyectar contenido actualizado
+            const contentBox = document.getElementById('rot-reg-content-' + rSlug);
+            if (contentBox) {
+                contentBox.innerHTML = buildRotBreakdownHTML('regional', regionalName, rSlug);
+            }
+
+            drawer.style.display = '';
+            if (arrow) arrow.style.transform = 'rotate(90deg)';
+        }
+
+        function buildRotBreakdownHTML(entityType, entityName, slug) {
+            const field = (entityType === 'director') ? 'director' : 'regional';
+            const sub = (rawRotacionAdvisors || []).filter(a => {
+                if (a[field] !== entityName) return false;
+                if (currentRotGroup === 'directos' && a.tipo !== 'DIRECTO') return false;
+                if (currentRotGroup === 'distribuidores' && a.tipo !== 'DISTRIBUIDOR') return false;
+                return true;
+            });
+
+            const p = (typeof ROTACION_DATA !== 'undefined' && ROTACION_DATA.periodo) ? ROTACION_DATA.periodo : null;
+            const antepNom = p?.antepenultimo?.nombre || 'Septiembre';
+            const antepNum = p?.antepenultimo?.num || 9;
+            const antNom = p?.anterior?.nombre || 'Octubre';
+            const antNum = p?.anterior?.num || 10;
+            const actNom = p?.actual?.nombre || 'Noviembre';
+            const actNum = p?.actual?.num || 11;
+
+            // Septiembre (antepenúltimo)
+            const advSep = sub.filter(a => a.mes_ingreso_num === antepNum || a.cohorte === antepNom);
+            const totSep = advSep.length;
+            const retSep = advSep.filter(a => (a.estado || '').includes('RETENIDO')).length;
+            const desSep = advSep.filter(a => (a.estado || '').includes('DESERT')).length;
+            const pctRetSep = totSep > 0 ? (Math.round((retSep / totSep) * 1000) / 10).toFixed(1) : '0.0';
+
+            // Octubre (anterior)
+            const advOct = sub.filter(a => a.mes_ingreso_num === antNum || a.cohorte === antNom);
+            const totOct = advOct.length;
+            const retOct = advOct.filter(a => (a.estado || '').includes('RETENIDO')).length;
+            const desOct = advOct.filter(a => (a.estado || '').includes('DESERT')).length;
+            const pctRetOct = totOct > 0 ? (Math.round((retOct / totOct) * 1000) / 10).toFixed(1) : '0.0';
+
+            // Noviembre (actual)
+            const advNov = sub.filter(a => a.mes_ingreso_num === actNum || a.cohorte === actNom);
+            const totNov = advNov.length;
+            const conVentaNov = advNov.filter(a => (a.ventas_act > 0) || (a.estado || '').includes('CON VENTA') || (a.estado || '').includes('CON PRIMERA VENTA')).length;
+            const indNov = totNov - conVentaNov;
+            const pctVentaNov = totNov > 0 ? (Math.round((conVentaNov / totNov) * 1000) / 10).toFixed(1) : '0.0';
+
+            const safeName = entityName.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+            const toggleFunc = entityType === 'director' ? `toggleDirectorBreakdown('${safeName}', '${slug}')` : `toggleRegionalBreakdown('${safeName}', '${slug}')`;
+
+            return `
+            <div style="background: #ffffff; border-radius: 12px; border: 1.5px solid #bfdbfe; padding: 14px 16px; box-shadow: 0 4px 12px rgba(37,99,235,0.06); animation: slideDownBreakdown 0.25s ease-out;">
+                <!-- Encabezado del Desglose -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.25rem;">📊</span>
+                        <div>
+                            <span style="font-weight: 800; font-size: 0.95rem; color: #0f172a;">
+                                Desglose Mensual de Nuevos Ingresos • <span style="color: #2563eb;">${entityName}</span>
+                            </span>
+                            <span style="display: block; font-size: 0.74rem; color: #64748b;">
+                                Distribución detallada de asesores incorporados en Septiembre, Octubre y Noviembre
+                            </span>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 0.8rem; font-weight: 800; background: #eff6ff; color: #1d4ed8; padding: 4px 12px; border-radius: 20px; border: 1px solid #dbeafe;">
+                            Total: ${sub.length} Asesores
+                        </span>
+                    </div>
+                </div>
+
+                <!-- 3 Tarjetas de los Meses -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 12px;">
+                    <!-- Septiembre -->
+                    <div style="background: #f0f7ff; border: 1px solid #bfdbfe; border-left: 5px solid #2563eb; border-radius: 10px; padding: 10px 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 0.82rem; font-weight: 800; color: #1e3a8a;">📦 ${antepNom} (60-90 días)</span>
+                            <span style="font-size: 0.73rem; font-weight: 800; color: #2563eb; background: #ffffff; padding: 2px 8px; border-radius: 12px; border: 1px solid #bfdbfe;">
+                                ${totSep} ingresaron
+                            </span>
+                        </div>
+                        <div style="font-size: 0.76rem; color: #334155; line-height: 1.5;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>🟢 <b>Retenidos:</b></span>
+                                <span style="font-weight: 800; color: #15803d;">${retSep} (${pctRetSep}%)</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>🔴 <b>Desertaron:</b></span>
+                                <span style="font-weight: 800; color: #dc2626;">${desSep}</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #bfdbfe; text-align: right;">
+                            <button type="button" onclick="event.stopPropagation(); filterRotacionBy('${entityType}_cohorte', '${safeName}', '${antepNom}');" style="background: none; border: none; font-size: 0.73rem; color: #2563eb; font-weight: 800; cursor: pointer; padding: 0; text-decoration: underline;">
+                                Ver los ${totSep} en tabla ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Octubre -->
+                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 5px solid #16a34a; border-radius: 10px; padding: 10px 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 0.82rem; font-weight: 800; color: #065f46;">🎯 ${antNom} (30-60 días)</span>
+                            <span style="font-size: 0.73rem; font-weight: 800; color: #16a34a; background: #ffffff; padding: 2px 8px; border-radius: 12px; border: 1px solid #bbf7d0;">
+                                ${totOct} ingresaron
+                            </span>
+                        </div>
+                        <div style="font-size: 0.76rem; color: #334155; line-height: 1.5;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>🟢 <b>Retenidos:</b></span>
+                                <span style="font-weight: 800; color: #15803d;">${retOct} (${pctRetOct}%)</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>🔴 <b>Desertaron:</b></span>
+                                <span style="font-weight: 800; color: #dc2626;">${desOct}</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #bbf7d0; text-align: right;">
+                            <button type="button" onclick="event.stopPropagation(); filterRotacionBy('${entityType}_cohorte', '${safeName}', '${antNom}');" style="background: none; border: none; font-size: 0.73rem; color: #16a34a; font-weight: 800; cursor: pointer; padding: 0; text-decoration: underline;">
+                                Ver los ${totOct} en tabla ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Noviembre -->
+                    <div style="background: #fffbeb; border: 1px solid #fde68a; border-left: 5px solid #d97706; border-radius: 10px; padding: 10px 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 0.82rem; font-weight: 800; color: #78350f;">🚀 ${actNom} (&lt; 30 días)</span>
+                            <span style="font-size: 0.73rem; font-weight: 800; color: #d97706; background: #ffffff; padding: 2px 8px; border-radius: 12px; border: 1px solid #fde68a;">
+                                ${totNov} ingresaron
+                            </span>
+                        </div>
+                        <div style="font-size: 0.76rem; color: #334155; line-height: 1.5;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>🔵 <b>Con 1ra Venta:</b></span>
+                                <span style="font-weight: 800; color: #2563eb;">${conVentaNov} (${pctVentaNov}%)</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>🟣 <b>En Inducción:</b></span>
+                                <span style="font-weight: 800; color: #7c3aed;">${indNov}</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 8px; padding-top: 6px; border-top: 1px dashed #fde68a; text-align: right;">
+                            <button type="button" onclick="event.stopPropagation(); filterRotacionBy('${entityType}_cohorte', '${safeName}', '${actNom}');" style="background: none; border: none; font-size: 0.73rem; color: #d97706; font-weight: 800; cursor: pointer; padding: 0; text-decoration: underline;">
+                                Ver los ${totNov} en tabla ➔
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra de Acciones Inferiores -->
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; padding: 8px 12px; border-radius: 8px; flex-wrap: wrap; gap: 8px;">
+                    <span style="font-size: 0.74rem; color: #64748b;">
+                        💡 Haz clic en cualquier botón para filtrar nombres, cédulas y estado en el detalle inferior.
+                    </span>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" onclick="event.stopPropagation(); filterRotacionBy('${entityType}', '${safeName}');" style="background: linear-gradient(135deg, #1e3a8a, #2563eb); color: #ffffff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 0.76rem; font-weight: 800; cursor: pointer; box-shadow: 0 2px 6px rgba(37,99,235,0.25);">
+                            🔍 Ver todos los ${sub.length} asesores
+                        </button>
+                        <button type="button" onclick="event.stopPropagation(); ${toggleFunc};" style="background: #ffffff; color: #475569; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; cursor: pointer;">
+                            Cerrar ✕
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+
+        function filterRotacionBy(type, name, cohorte) {
+            const elSearch = document.getElementById('rot-filter-search');
+            if (elSearch) elSearch.value = '';
+
+            const elCoh = document.getElementById('rot-filter-cohorte');
+            if (elCoh) elCoh.value = cohorte || '';
+
+            const elReg = document.getElementById('rot-filter-reg');
+            const elZon = document.getElementById('rot-filter-zona');
+            const elDir = document.getElementById('rot-filter-dir');
+
+            if (type.startsWith('director')) {
+                if (elDir) elDir.value = name || '';
+                if (elReg) elReg.value = '';
+                if (elZon) elZon.value = '';
+            } else if (type.startsWith('regional')) {
+                if (elReg) elReg.value = name || '';
+                if (elDir) elDir.value = '';
+                if (elZon) elZon.value = '';
+            }
+
+            if (typeof setRotacionStatusFilter === 'function') {
+                setRotacionStatusFilter('ALL');
+            }
+
+            applyRotacionFilters();
+
+            const targetEl = document.getElementById('rotacionTbody')?.closest('div') || document.getElementById('rotacionTbody');
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         function renderRotacionRankings() {
             if (typeof ROTACION_DATA === 'undefined' || !ROTACION_DATA.rankings) return;
 
@@ -252460,14 +252710,30 @@ const PRODUCTOS_DATA = {
                     tbDir.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:15px; color:#64748b;">Sin datos para este segmento.</td></tr>';
                 } else {
                     dirs.forEach(d => {
+                        const dSlug = makeRotSlug(d.director);
                         const tr = document.createElement('tr');
+                        tr.style.cursor = 'pointer';
+                        tr.style.transition = 'background 0.15s ease';
+                        tr.title = `Toca para ver desglose mensual de ${d.director}`;
+                        tr.onmouseenter = function() { this.style.backgroundColor = '#f1f5f9'; };
+                        tr.onmouseleave = function() { this.style.backgroundColor = ''; };
+                        tr.onclick = function() { toggleDirectorBreakdown(d.director, dSlug); };
+
                         const isEx = d.semaforo.includes('EXCELENTE');
                         const isAl = d.semaforo.includes('ALERTA');
                         const bgSem = isEx ? '#dcfce7' : (isAl ? '#fef3c7' : '#fee2e2');
                         const colSem = isEx ? '#15803d' : (isAl ? '#b45309' : '#b91c1c');
 
                         tr.innerHTML = `
-                            <td style="font-weight: 800; color: #0f172a; padding: 9px 10px;">${d.director}</td>
+                            <td style="font-weight: 800; color: #0f172a; padding: 9px 10px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="display: flex; align-items: center; gap: 6px;">
+                                        <span id="rot-dir-arrow-${dSlug}" style="display: inline-block; font-size: 0.68rem; color: #2563eb; transition: transform 0.2s ease;">▶</span>
+                                        <span>${d.director}</span>
+                                    </span>
+                                    <span style="font-size: 0.65rem; color: #2563eb; background: #eff6ff; border: 1px solid #bfdbfe; padding: 1px 6px; border-radius: 4px; font-weight: 700;">Ver meses ▾</span>
+                                </div>
+                            </td>
                             <td style="text-align: center; font-weight: 700; color: #334155; padding: 9px 10px;">${d.total_ingresos}</td>
                             <td style="text-align: center; font-weight: 800; color: #15803d; padding: 9px 10px;">${d.retenidos}</td>
                             <td style="text-align: center; font-weight: 800; color: #dc2626; padding: 9px 10px;">${d.desertaron}</td>
@@ -252479,6 +252745,18 @@ const PRODUCTOS_DATA = {
                             </td>
                         `;
                         tbDir.appendChild(tr);
+
+                        // Fila colapsable de desglose
+                        const trDrawer = document.createElement('tr');
+                        trDrawer.id = `rot-dir-drawer-${dSlug}`;
+                        trDrawer.className = 'rot-dir-drawer';
+                        trDrawer.style.display = 'none';
+                        trDrawer.innerHTML = `
+                            <td colspan="6" style="padding: 10px 12px; background: #f8fafc; border-top: 1px dashed #cbd5e1; border-bottom: 2px solid #cbd5e1;">
+                                <div id="rot-dir-content-${dSlug}"></div>
+                            </td>
+                        `;
+                        tbDir.appendChild(trDrawer);
                     });
                 }
             }
@@ -252492,16 +252770,44 @@ const PRODUCTOS_DATA = {
                     tbReg.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:15px; color:#64748b;">Sin datos para este segmento.</td></tr>';
                 } else {
                     regs.forEach(r => {
+                        const rSlug = makeRotSlug(r.regional);
                         const tr = document.createElement('tr');
+                        tr.style.cursor = 'pointer';
+                        tr.style.transition = 'background 0.15s ease';
+                        tr.title = `Toca para ver desglose mensual de ${r.regional}`;
+                        tr.onmouseenter = function() { this.style.backgroundColor = '#f1f5f9'; };
+                        tr.onmouseleave = function() { this.style.backgroundColor = ''; };
+                        tr.onclick = function() { toggleRegionalBreakdown(r.regional, rSlug); };
+
                         const colRet = r.tasa_retencion >= 80 ? '#15803d' : (r.tasa_retencion >= 60 ? '#b45309' : '#dc2626');
                         tr.innerHTML = `
-                            <td style="font-weight: 800; color: #0f172a; padding: 9px 10px;">${r.regional}</td>
+                            <td style="font-weight: 800; color: #0f172a; padding: 9px 10px;">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span style="display: flex; align-items: center; gap: 6px;">
+                                        <span id="rot-reg-arrow-${rSlug}" style="display: inline-block; font-size: 0.68rem; color: #2563eb; transition: transform 0.2s ease;">▶</span>
+                                        <span>${r.regional}</span>
+                                    </span>
+                                    <span style="font-size: 0.65rem; color: #2563eb; background: #eff6ff; border: 1px solid #bfdbfe; padding: 1px 6px; border-radius: 4px; font-weight: 700;">Ver meses ▾</span>
+                                </div>
+                            </td>
                             <td style="text-align: center; font-weight: 700; color: #334155; padding: 9px 10px;">${r.total_ingresos}</td>
                             <td style="text-align: center; font-weight: 800; color: #15803d; padding: 9px 10px;">${r.retenidos}</td>
                             <td style="text-align: center; font-weight: 800; color: #dc2626; padding: 9px 10px;">${r.desertaron}</td>
                             <td style="text-align: center; font-weight: 900; color: ${colRet}; padding: 9px 10px;">${r.tasa_retencion}%</td>
                         `;
                         tbReg.appendChild(tr);
+
+                        // Fila colapsable de desglose
+                        const trDrawer = document.createElement('tr');
+                        trDrawer.id = `rot-reg-drawer-${rSlug}`;
+                        trDrawer.className = 'rot-reg-drawer';
+                        trDrawer.style.display = 'none';
+                        trDrawer.innerHTML = `
+                            <td colspan="5" style="padding: 10px 12px; background: #f8fafc; border-top: 1px dashed #cbd5e1; border-bottom: 2px solid #cbd5e1;">
+                                <div id="rot-reg-content-${rSlug}"></div>
+                            </td>
+                        `;
+                        tbReg.appendChild(trDrawer);
                     });
                 }
             }
