@@ -5648,8 +5648,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-22 18:37:35';
-const TIMESTAMP_ACTUALIZACION = 1795390655;
+const ULTIMA_ACTUALIZACION = '2026-11-22 18:43:17';
+const TIMESTAMP_ACTUALIZACION = 1795390997;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -252475,7 +252475,7 @@ const PRODUCTOS_DATA = {
             const btnConc = document.getElementById('btn-ant-asesor-concentracion');
             const btnSinAprob = document.getElementById('btn-ant-asesor-sinaprobar');
 
-            const allBtns = [btnGen, btnEf, btnNc, btnConc, btnSinAprob];
+            const allBtns = [btnGen, btnEf, btnAntRiesgoTot, btnNc, btnConc, btnSinAprob];
             allBtns.forEach(b => {
                 if (b) b.style.display = 'none';
             });
@@ -252519,7 +252519,6 @@ const PRODUCTOS_DATA = {
             if (btnGen) btnGen.classList.toggle('active', mode === 'general');
             if (btnEf) btnEf.classList.toggle('active', mode === 'efectividad');
             if (btnApReal) btnApReal.classList.toggle('active', mode === 'aprob_realizado');
-            if (btnAntRiesgoTot) btnAntRiesgoTot.classList.toggle('active', mode === 'riesgototal');
             if (btnNc) btnNc.classList.toggle('active', mode === 'nocumplen');
             if (btnBp) btnBp.classList.toggle('active', mode === 'bajaprod');
 
@@ -253763,11 +253762,13 @@ const PRODUCTOS_DATA = {
             if (btnCensoAnt) btnCensoAnt.classList.toggle('active', mode === 'censo');
             const censoContainerAnt = document.getElementById('ant-asesor-censo-container');
             const btnEf = document.getElementById('btn-ant-asesor-efectividad');
+            const btnAntRiesgoTot = document.getElementById('btn-ant-asesor-riesgototal');
             const btnNc = document.getElementById('btn-ant-asesor-nocumplen');
             const btnConc = document.getElementById('btn-ant-asesor-concentracion');
 
             if (btnGen) btnGen.classList.toggle('active', mode === 'general');
             if (btnEf) btnEf.classList.toggle('active', mode === 'efectividad');
+            if (btnAntRiesgoTot) btnAntRiesgoTot.classList.toggle('active', mode === 'riesgototal');
             if (btnNc) btnNc.classList.toggle('active', mode === 'nocumplen');
             if (btnConc) btnConc.classList.toggle('active', mode === 'concentracion');
 
@@ -253804,7 +253805,7 @@ const PRODUCTOS_DATA = {
                 if (stdContainer) stdContainer.style.display = 'block';
                 if (concContainer) concContainer.style.display = 'none';
                 if (sinAprobContainer) sinAprobContainer.style.display = 'none';
-                if (mode === 'nocumplen') {
+                if (mode === 'nocumplen' || mode === 'riesgototal') {
                     pSortStateAnt = { col: 'CUMPLIMIENTO_EF', asc: true };
                 } else if (pSortStateAnt.col === 'CUMPLIMIENTO_EF') {
                     pSortStateAnt = { col: 'LLEVAMOS', asc: false };
@@ -254025,7 +254026,7 @@ const PRODUCTOS_DATA = {
                             <th onclick="sortPresupuestoAnt('CUMPLIMIENTO_EF')" class="num">% Cumplimiento ↕</th>
                         </tr>
                     `;
-                } else if (isNoCumplen) {
+                } else if (isNoCumplen || isRiesgoTotal) {
                     thead.innerHTML = `
                         <tr>
                             <th onclick="sortPresupuestoAnt('NOMBRE ASESOR')">Nombre Asesor ↕</th>
@@ -254088,6 +254089,8 @@ const PRODUCTOS_DATA = {
                     const tipo = (r["TIPO DE ASESOR"] || '').toUpperCase();
                     return tipo.includes('CONTRATO DIRECTO') && r.PRESUPUESTO > 0 && r.CUMPLIMIENTO_EF < 100.0;
                 });
+            } else if (isRiesgoTotal) {
+                rows = rows.filter(r => r.PRESUPUESTO > 0 && r.CUMPLIMIENTO_EF < 100.0);
             }
 
             const sc = pSortStateAnt.col;
@@ -254107,8 +254110,8 @@ const PRODUCTOS_DATA = {
 
             tbody.innerHTML = '';
             if (!rows.length) {
-                const colSpan = isNoCumplen ? 9 : (isEfectividad ? 8 : 9);
-                tbody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center; padding: 20px; color: var(--text-muted);">${isNoCumplen ? '🎉 ¡Excelente! No se registran asesores directos en incumplimiento con los filtros actuales.' : 'No se encontraron asesores con los filtros seleccionados.'}</td></tr>`;
+                const colSpan = (isNoCumplen || isRiesgoTotal) ? 9 : (isEfectividad ? 8 : 9);
+                tbody.innerHTML = `<tr><td colspan="${colSpan}" style="text-align:center; padding: 20px; color: var(--text-muted);">${(isNoCumplen || isRiesgoTotal) ? (isNoCumplen ? '🎉 ¡Excelente! No se registran asesores directos en incumplimiento con los filtros actuales.' : '🎉 ¡Excelente! No se registran asesores en incumplimiento con los filtros actuales.') : 'No se encontraron asesores con los filtros seleccionados.'}</td></tr>`;
             } else {
                 rows.forEach(r => {
                     const tr = document.createElement('tr');
@@ -254125,13 +254128,15 @@ const PRODUCTOS_DATA = {
                             <td class="num">${difHtml}</td>
                             <td class="num"><span class="badge ${badgeClass}">${r.CUMPLIMIENTO_EF.toFixed(1)} %</span></td>
                         `;
-                    } else if (isNoCumplen) {
+                    } else if (isNoCumplen || isRiesgoTotal) {
+                        const isDir = (r["TIPO DE ASESOR"] || '').toUpperCase().includes('CONTRATO DIRECTO');
+                        const tipoBadgeStyle = isDir ? 'background: #fee2e2; color: #991b1b;' : 'background: #f3e8ff; color: #6b21a8;';
                         tr.innerHTML = `
                             <td><strong>${r["NOMBRE ASESOR"]}</strong></td>
                             <td>${r.REGIONAL}</td>
                             <td>${r.ZONA}</td>
                             <td>${r.DIRECTOR}</td>
-                            <td><span style="font-size: 0.75rem; background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${r["TIPO DE ASESOR"]}</span></td>
+                            <td><span style="font-size: 0.75rem; ${tipoBadgeStyle} padding: 2px 6px; border-radius: 4px; font-weight: 700;">${r["TIPO DE ASESOR"]}</span></td>
                             <td class="num">${formatter.format(r.PRESUPUESTO)}</td>
                             <td class="num" style="color: #047857; font-weight: 700;">${formatter.format(r.APROBADO)}</td>
                             <td class="num" style="color: #dc2626; font-weight: 700;">- ${formatter.format(Math.abs(r.NOS_FALTA_EF))}</td>
@@ -254180,10 +254185,10 @@ const PRODUCTOS_DATA = {
                         <td class="num"><span class="badge ${badgeClassTotEf}">${totCumplEf.toFixed(1)} %</span></td>
                     </tr>
                 `;
-            } else if (isNoCumplen) {
+            } else if (isNoCumplen || isRiesgoTotal) {
                 tfoot.innerHTML = `
                     <tr style="background-color: #fee2e2; font-weight: 800; border-top: 2px solid #b91c1c;">
-                        <td colspan="5">TOTALES (${rows.length} Asesores Directos en Riesgo)</td>
+                        <td colspan="5">TOTALES (${rows.length} ${isNoCumplen ? 'Asesores Directos en Riesgo' : 'Asesores en Riesgo'})</td>
                         <td class="num">${formatter.format(totPres)}</td>
                         <td class="num" style="color: #047857;">${formatter.format(totAprob)}</td>
                         <td class="num" style="color: #dc2626;">- ${formatter.format(Math.abs(totDiffEf))}</td>
