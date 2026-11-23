@@ -824,7 +824,73 @@
             color: #ffffff !important;
             box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35) !important;
         }
-        .cruce-view-btn.active {
+                .cruce-view-btn.dir-pill {
+            border-color: #3b82f6;
+            color: #1e40af;
+            font-weight: 700;
+        }
+        .cruce-view-btn.dir-pill:hover {
+            background: #eff6ff;
+            border-color: #2563eb;
+            color: #1d4ed8;
+        }
+        .cruce-view-btn.dir-pill.active {
+            background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%) !important;
+            color: #ffffff !important;
+            border-color: #1e3a8a !important;
+            box-shadow: 0 2px 8px rgba(30, 58, 138, 0.4) !important;
+        }
+        .director-tab-pill {
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .director-tab-pill:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+            color: #0f172a;
+        }
+        .director-tab-pill.active {
+            background: #1B365D;
+            color: #ffffff;
+            border-color: #1B365D;
+            box-shadow: 0 2px 6px rgba(27, 54, 93, 0.25);
+        }
+        .director-metric-btn {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .director-metric-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+        .director-metric-btn.active {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #1d4ed8;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+        }
+
+.cruce-view-btn.active {
 
             background: #1B365D;
 
@@ -2262,6 +2328,9 @@
                     📍 Solo Zonas
 
                 </button>
+                <button type="button" id="btn-view-dir" class="cruce-view-btn dir-pill" onclick="switchCruceView('dir')" title="Ver Balance y Consolidado Sumado por Director Comercial">
+                    <span>👔</span> Consolidado Directores
+                </button>
 
             </div>
 
@@ -2383,6 +2452,92 @@
         </div>
 
         <!-- Barra de progreso visual -->
+
+        
+        <!-- CONTENEDOR EXCLUSIVO: CONSOLIDADO Y BALANCE POR DIRECTOR (MES ACTUAL) -->
+        <div id="cruce-director-container" style="display: none; margin-bottom: 25px;">
+            <div style="background: #ffffff; border-radius: 12px; border: 1px solid #cbd5e1; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 18px 22px; border-top: 4px solid #1e40af;">
+                <!-- Encabezado de la Tarjeta de Director -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, #1e3a8a 0%, #172554 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; box-shadow: 0 3px 8px rgba(30, 58, 138, 0.3);">
+                            👔
+                        </div>
+                        <div>
+                            <h3 id="dir-header-title" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1e3a8a; letter-spacing: -0.2px;">
+                                CONSOLIDADO Y BALANCE POR DIRECTOR COMERCIAL
+                            </h3>
+                            <p id="dir-header-sub" style="margin: 3px 0 0 0; font-size: 0.82rem; color: #64748b;">
+                                Visión integral de regionales y zonas a cargo. Presupuesto sumado, seguimiento a ventas cantadas, realizadas y aprobadas.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <span id="dir-badge-reg-count" style="font-size: 0.76rem; background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 9999px; font-weight: 700; border: 1px solid #bfdbfe;">
+                            🏢 7 Directores
+                        </span>
+                        <button type="button" onclick="switchCruceView('both')" class="cruce-view-btn" style="font-size: 0.78rem; padding: 5px 10px;" title="Cerrar vista de director y volver a tablas de regional/zona">
+                            ✕ Volver a Regionales / Zonas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barra 1: Selector de Director (Pills de 1 Clic) -->
+                <div style="margin-bottom: 14px;">
+                    <label style="font-size: 0.76rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">
+                        Seleccionar Director Comercial:
+                    </label>
+                    <div id="dir-pills-selector" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Barra 2: Selector de Métrica (Sub-Botones) -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 18px;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 0.78rem; font-weight: 700; color: #334155;">Visualizar métrica:</span>
+                        <button type="button" id="btn-dir-metric-all" class="director-metric-btn active" onclick="setDirectorMetricMode('all')">
+                            📋 Vista Integral (Todas)
+                        </button>
+                        <button type="button" id="btn-dir-metric-cantada" class="director-metric-btn" onclick="setDirectorMetricMode('cantada')">
+                            📢 Solo Plata Cantada
+                        </button>
+                        <button type="button" id="btn-dir-metric-realizada" class="director-metric-btn" onclick="setDirectorMetricMode('realizada')">
+                            📊 Solo Plata Realizada
+                        </button>
+                        <button type="button" id="btn-dir-metric-aprobada" class="director-metric-btn" onclick="setDirectorMetricMode('aprobada')">
+                            ✅ Solo Plata Aprobada
+                        </button>
+                        <button type="button" id="btn-dir-metric-proyeccion" class="director-metric-btn" onclick="setDirectorMetricMode('proyeccion')">
+                            📈 Solo Proyección
+                        </button>
+                    </div>
+                    <div>
+                        <input type="text" id="dir-table-search" class="search-box" style="width: 190px; padding: 5px 10px; font-size: 0.8rem;" placeholder="🔍 Buscar regional o zona..." oninput="renderDirectorConsolidado()">
+                    </div>
+                </div>
+
+                <!-- Tarjetas KPI Consolidadas del Director Seleccionado -->
+                <div id="dir-kpis-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
+                    <!-- Inyectado dinámicamente -->
+                </div>
+
+                <!-- Tabla de Desglose de Regionales o Comparativa de Directores -->
+                <div class="table-wrapper" style="max-height: 520px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <table id="cruceDirectorTable" style="font-size: 0.86rem; width: 100%;">
+                        <thead id="dirTableThead">
+                            <!-- Inyectado dinámicamente -->
+                        </thead>
+                        <tbody id="dirTableTbody">
+                            <!-- Inyectado dinámicamente -->
+                        </tbody>
+                        <tfoot id="dirTableTfoot">
+                            <!-- Inyectado dinámicamente -->
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
 
         <div class="progress-box">
 
@@ -3413,6 +3568,9 @@
                 <button type="button" id="btn-ant-view-zona" class="cruce-view-btn" onclick="switchCruceViewAnt('zona')">
                     📍 Solo Zonas
                 </button>
+                <button type="button" id="btn-ant-view-dir" class="cruce-view-btn dir-pill" onclick="switchCruceViewAnt('dir')" title="Ver Balance y Consolidado Sumado por Director Comercial (Mes Anterior)">
+                    <span>👔</span> Consolidado Directores
+                </button>
             </div>
         </div>
 
@@ -3739,6 +3897,89 @@
             </div>
             <div style="height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden;">
                 <div id="ant-p-progress-fill" style="height: 100%; width: 0%; background: linear-gradient(90deg, #2563eb, #047857); border-radius: 6px; transition: width 0.5s ease;"></div>
+            </div>
+        </div>
+
+        
+        <!-- CONTENEDOR EXCLUSIVO: CONSOLIDADO Y BALANCE POR DIRECTOR (MES ANTERIOR) -->
+        <div id="ant-cruce-director-container" style="display: none; margin-bottom: 25px;">
+            <div style="background: #ffffff; border-radius: 12px; border: 1px solid #cbd5e1; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 18px 22px; border-top: 4px solid #059669;">
+                <!-- Encabezado de la Tarjeta de Director -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, #065f46 0%, #047857 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; box-shadow: 0 3px 8px rgba(4, 120, 87, 0.3);">
+                            👔
+                        </div>
+                        <div>
+                            <h3 id="ant-dir-header-title" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #065f46; letter-spacing: -0.2px;">
+                                CONSOLIDADO Y BALANCE POR DIRECTOR COMERCIAL (MES ANTERIOR)
+                            </h3>
+                            <p id="ant-dir-header-sub" style="margin: 3px 0 0 0; font-size: 0.82rem; color: #64748b;">
+                                Seguimiento al cierre del mes anterior: Presupuesto consolidado, ventas realizadas y dinero aprobado vs pendiente por aprobar.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <span id="ant-dir-badge-reg-count" style="font-size: 0.76rem; background: #ecfdf5; color: #047857; padding: 4px 10px; border-radius: 9999px; font-weight: 700; border: 1px solid #a7f3d0;">
+                            🏢 7 Directores
+                        </span>
+                        <button type="button" onclick="switchCruceViewAnt('both')" class="cruce-view-btn" style="font-size: 0.78rem; padding: 5px 10px;" title="Cerrar vista de director y volver a tablas de regional/zona">
+                            ✕ Volver a Regionales / Zonas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barra 1: Selector de Director (Pills de 1 Clic) -->
+                <div style="margin-bottom: 14px;">
+                    <label style="font-size: 0.76rem; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px;">
+                        Seleccionar Director Comercial:
+                    </label>
+                    <div id="ant-dir-pills-selector" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Barra 2: Selector de Métrica (Sub-Botones Mes Anterior) -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 18px;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="font-size: 0.78rem; font-weight: 700; color: #334155;">Visualizar métrica:</span>
+                        <button type="button" id="btn-ant-dir-metric-all" class="director-metric-btn active" onclick="setDirectorMetricModeAnt('all')">
+                            📋 Vista Integral (Realizado vs Aprobado)
+                        </button>
+                        <button type="button" id="btn-ant-dir-metric-realizada" class="director-metric-btn" onclick="setDirectorMetricModeAnt('realizada')">
+                            📊 Solo Ventas Realizadas
+                        </button>
+                        <button type="button" id="btn-ant-dir-metric-aprobada" class="director-metric-btn" onclick="setDirectorMetricModeAnt('aprobada')">
+                            ✅ Solo Dinero Aprobado
+                        </button>
+                        <button type="button" id="btn-ant-dir-metric-pendiente" class="director-metric-btn" onclick="setDirectorMetricModeAnt('pendiente')">
+                            ⏳ Dinero Pendiente por Aprobar
+                        </button>
+                    </div>
+                    <div>
+                        <input type="text" id="ant-dir-table-search" class="search-box" style="width: 190px; padding: 5px 10px; font-size: 0.8rem;" placeholder="🔍 Buscar regional o zona..." oninput="renderAntDirectorConsolidado()">
+                    </div>
+                </div>
+
+                <!-- Tarjetas KPI Consolidadas del Director Seleccionado (Mes Anterior) -->
+                <div id="ant-dir-kpis-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
+                    <!-- Inyectado dinámicamente -->
+                </div>
+
+                <!-- Tabla de Desglose de Regionales o Comparativa de Directores (Mes Anterior) -->
+                <div class="table-wrapper" style="max-height: 520px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <table id="antCruceDirectorTable" style="font-size: 0.86rem; width: 100%;">
+                        <thead id="antDirTableThead">
+                            <!-- Inyectado dinámicamente -->
+                        </thead>
+                        <tbody id="antDirTableTbody">
+                            <!-- Inyectado dinámicamente -->
+                        </tbody>
+                        <tfoot id="antDirTableTfoot">
+                            <!-- Inyectado dinámicamente -->
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -5648,8 +5889,8 @@
     <!-- Archivo de datos compilados -->
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-22 20:03:40';
-const TIMESTAMP_ACTUALIZACION = 1795395820;
+const ULTIMA_ACTUALIZACION = '2026-11-22 20:09:27';
+const TIMESTAMP_ACTUALIZACION = 1795396167;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -44514,6 +44755,20 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "HENRY JURADO",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 336000.0,
+    "VALOR ANUAL": 336000.0,
+    "REGIONAL": "Valle Sur",
+    "ZONA": "Cali",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Asesor Directo"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -47267,11 +47522,11 @@ const PRESUPUESTO_DATA = [
     "REGIONAL": "Valle Sur",
     "ZONA": "Cali",
     "PRESUPUESTO": 9900000.0,
-    "LLEVAMOS": 3990000.0,
-    "CANTIDAD DE VENTAS": 10,
-    "NOS FALTA": 5910000.0,
-    "DEBEMOS HACER DIARIO": 985000.0,
-    "CUMPLIMIENTO": 40.0,
+    "LLEVAMOS": 4326000.0,
+    "CANTIDAD DE VENTAS": 11,
+    "NOS FALTA": 5574000.0,
+    "DEBEMOS HACER DIARIO": 929000.0,
+    "CUMPLIMIENTO": 44.0,
     "APROBADO": 1050000.0,
     "TIPO DE ASESOR": "CONTRATO DIRECTO"
   },
@@ -52485,13 +52740,13 @@ const CANTADAS_ROWS = [
     "PROFESIONAL",
     "12%",
     "$9,900,000",
-    "$3,990,000",
-    "10",
-    "$5,910,000",
-    "$985,000",
-    "40%",
-    "$5,398,235",
-    "55%"
+    "$4,326,000",
+    "11",
+    "$5,574,000",
+    "$929,000",
+    "44%",
+    "$5,852,824",
+    "59%"
   ],
   [
     "Erubey Dávila",
@@ -231275,8 +231530,8 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Sur",
           "ventas_prod": 3,
           "nominal_prod": 504000.0,
-          "total_ventas_reg": 213,
-          "total_nominal_reg": 79302600.0,
+          "total_ventas_reg": 214,
+          "total_nominal_reg": 79638600.0,
           "pct_ventas_mix": 1.4,
           "pct_nominal_mix": 0.6,
           "ticket_promedio": 168000.0,
@@ -231503,8 +231758,8 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 3,
           "nominal_prod": 504000.0,
-          "total_ventas_zona": 213,
-          "total_nominal_zona": 79302600.0,
+          "total_ventas_zona": 214,
+          "total_nominal_zona": 79638600.0,
           "pct_ventas_mix": 1.4,
           "pct_nominal_mix": 0.6,
           "ticket_promedio": 168000.0,
@@ -231777,8 +232032,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 3,
           "nominal_prod": 504000.0,
-          "total_ventas_dir": 532,
-          "total_nominal_dir": 206015124.0,
+          "total_ventas_dir": 533,
+          "total_nominal_dir": 206351124.0,
           "pct_ventas_mix": 0.6,
           "pct_nominal_mix": 0.2,
           "ticket_promedio": 168000.0,
@@ -233114,10 +233369,10 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Sur",
           "ventas_prod": 24,
           "nominal_prod": 8925600.0,
-          "total_ventas_reg": 213,
-          "total_nominal_reg": 79302600.0,
-          "pct_ventas_mix": 11.3,
-          "pct_nominal_mix": 11.3,
+          "total_ventas_reg": 214,
+          "total_nominal_reg": 79638600.0,
+          "pct_ventas_mix": 11.2,
+          "pct_nominal_mix": 11.2,
           "ticket_promedio": 371900.0,
           "cuota_promedio": 30992.0,
           "top_asesor": "Jose Dario Mina"
@@ -233323,10 +233578,10 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 24,
           "nominal_prod": 8925600.0,
-          "total_ventas_zona": 213,
-          "total_nominal_zona": 79302600.0,
-          "pct_ventas_mix": 11.3,
-          "pct_nominal_mix": 11.3,
+          "total_ventas_zona": 214,
+          "total_nominal_zona": 79638600.0,
+          "pct_ventas_mix": 11.2,
+          "pct_nominal_mix": 11.2,
           "ticket_promedio": 371900.0,
           "cuota_promedio": 30992.0
         },
@@ -233623,8 +233878,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 82,
           "nominal_prod": 34362324.0,
-          "total_ventas_dir": 532,
-          "total_nominal_dir": 206015124.0,
+          "total_ventas_dir": 533,
+          "total_nominal_dir": 206351124.0,
           "pct_ventas_mix": 15.4,
           "pct_nominal_mix": 16.7,
           "ticket_promedio": 419053.0,
@@ -234155,8 +234410,8 @@ const PRODUCTOS_DATA = {
           "ticket_promedio": 465000.0,
           "cuota_promedio": 38750.0,
           "subplan_ppal": "Celestial con Adicional",
-          "total_ventas_asesor": 10,
-          "pct_mix_asesor": 20.0,
+          "total_ventas_asesor": 11,
+          "pct_mix_asesor": 18.2,
           "aprobadas": 0,
           "pct_aprob": 0.0,
           "pos": 25
@@ -234967,8 +235222,8 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 213,
-          "total_nominal_reg": 79302600.0,
+          "total_ventas_reg": 214,
+          "total_nominal_reg": 79638600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -235061,8 +235316,8 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 213,
-          "total_nominal_zona": 79302600.0,
+          "total_ventas_zona": 214,
+          "total_nominal_zona": 79638600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -235335,8 +235590,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 532,
-          "total_nominal_dir": 206015124.0,
+          "total_ventas_dir": 533,
+          "total_nominal_dir": 206351124.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -235583,10 +235838,10 @@ const PRODUCTOS_DATA = {
           "regional": "Valle Sur",
           "ventas_prod": 27,
           "nominal_prod": 9429600.0,
-          "total_ventas_reg": 213,
-          "total_nominal_reg": 79302600.0,
-          "pct_ventas_mix": 12.7,
-          "pct_nominal_mix": 11.9,
+          "total_ventas_reg": 214,
+          "total_nominal_reg": 79638600.0,
+          "pct_ventas_mix": 12.6,
+          "pct_nominal_mix": 11.8,
           "ticket_promedio": 349244.0,
           "cuota_promedio": 29104.0,
           "top_asesor": "Jose Dario Mina"
@@ -235795,10 +236050,10 @@ const PRODUCTOS_DATA = {
           "director": "Diana Romero",
           "ventas_prod": 27,
           "nominal_prod": 9429600.0,
-          "total_ventas_zona": 213,
-          "total_nominal_zona": 79302600.0,
-          "pct_ventas_mix": 12.7,
-          "pct_nominal_mix": 11.9,
+          "total_ventas_zona": 214,
+          "total_nominal_zona": 79638600.0,
+          "pct_ventas_mix": 12.6,
+          "pct_nominal_mix": 11.8,
           "ticket_promedio": 349244.0,
           "cuota_promedio": 29104.0
         },
@@ -236069,9 +236324,9 @@ const PRODUCTOS_DATA = {
           "regionales": "Cauca, Valle Centro, Valle Sur",
           "ventas_prod": 85,
           "nominal_prod": 34866324.0,
-          "total_ventas_dir": 532,
-          "total_nominal_dir": 206015124.0,
-          "pct_ventas_mix": 16.0,
+          "total_ventas_dir": 533,
+          "total_nominal_dir": 206351124.0,
+          "pct_ventas_mix": 15.9,
           "pct_nominal_mix": 16.9,
           "ticket_promedio": 410192.0,
           "cuota_promedio": 34183.0,
@@ -237488,8 +237743,8 @@ const PRODUCTOS_DATA = {
           "ticket_promedio": 465000.0,
           "cuota_promedio": 38750.0,
           "subplan_ppal": "Celestial con Adicional",
-          "total_ventas_asesor": 10,
-          "pct_mix_asesor": 20.0,
+          "total_ventas_asesor": 11,
+          "pct_mix_asesor": 18.2,
           "aprobadas": 0,
           "pct_aprob": 0.0,
           "pos": 75
@@ -238343,8 +238598,8 @@ const PRODUCTOS_DATA = {
       ]
     },
     "global_info": {
-      "total_ventas_mes": 2776,
-      "total_nominal_mes": 1070017316.0,
+      "total_ventas_mes": 2777,
+      "total_nominal_mes": 1070353316.0,
       "total_asesores_mes": 287
     }
   },
