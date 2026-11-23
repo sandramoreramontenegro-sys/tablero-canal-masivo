@@ -11463,8 +11463,8 @@
 
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-22 21:06:51';
-const TIMESTAMP_ACTUALIZACION = 1795399611;
+const ULTIMA_ACTUALIZACION = '2026-11-22 21:08:46';
+const TIMESTAMP_ACTUALIZACION = 1795399726;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -278636,7 +278636,7 @@ function getDirectorDataActual() {
 }
 
 function setDirectorSelected(dirName) {
-    currentDirectorSelected = dirName;
+    currentDirectorSelected = (dirName || 'ALL').trim();
     renderDirectorConsolidado();
 }
 
@@ -278649,19 +278649,31 @@ function renderDirectorConsolidado() {
     const dirStats = getDirectorDataActual();
     const dirKeys = Object.keys(dirStats).sort();
 
+    // Normalizar director seleccionado para coincidir exactamente con una llave de dirStats
+    let selectedKey = (currentDirectorSelected || 'ALL').trim();
+    if (selectedKey !== 'ALL') {
+        const normTarget = normDirectorStr(selectedKey);
+        const matched = dirKeys.find(k => normDirectorStr(k) === normTarget);
+        if (matched) {
+            selectedKey = matched;
+            currentDirectorSelected = matched;
+        }
+    }
+
     // 1. Render Director Tab Pills
     const pillsCont = document.getElementById('dir-pills-container-act');
     if (pillsCont) {
         let htmlPills = `
-            <button type="button" class="director-tab-pill ${currentDirectorSelected === 'ALL' ? 'active' : ''}" onclick="setDirectorSelected('ALL')">
+            <button type="button" class="director-tab-pill ${selectedKey === 'ALL' ? 'active' : ''}" onclick="setDirectorSelected('ALL')">
                 🌐 Todos los Directores (${dirKeys.length})
             </button>
         `;
         dirKeys.forEach(k => {
             const d = dirStats[k];
-            const isAct = (currentDirectorSelected === k);
+            const isAct = (selectedKey === k);
+            const safeK = k.replace(/'/g, "\\'");
             htmlPills += `
-                <button type="button" class="director-tab-pill ${isAct ? 'active' : ''}" onclick="setDirectorSelected('${k.replace(/'/g, "\\'")} ')}">
+                <button type="button" class="director-tab-pill ${isAct ? 'active' : ''}" onclick="setDirectorSelected('${safeK}')">
                     👤 ${k} <span style="font-size: 0.72rem; opacity: 0.85;">(${d.regionales.length} reg)</span>
                 </button>
             `;
@@ -278681,7 +278693,7 @@ function renderDirectorConsolidado() {
         let presVal = 0, nomVal = 0, aprobVal = 0, proyVal = 0, asesoresVal = 0, directosVal = 0, distrisVal = 0;
         let subtitleText = "";
 
-        if (currentDirectorSelected === 'ALL') {
+        if (selectedKey === 'ALL') {
             dirKeys.forEach(k => {
                 const d = dirStats[k];
                 presVal += d.presupuesto;
@@ -278694,7 +278706,7 @@ function renderDirectorConsolidado() {
             });
             subtitleText = "Consolidado Nacional (7 Directores Comerciales - 17 Regionales)";
         } else {
-            const d = dirStats[currentDirectorSelected] || {
+            const d = dirStats[selectedKey] || {
                 presupuesto: 0, nominal: 0, nominalAprobado: 0, proyeccion: 0, asesoresCount: 0, directosCount: 0, distrisCount: 0, regionales: []
             };
             presVal = d.presupuesto;
@@ -278767,7 +278779,7 @@ function renderDirectorConsolidado() {
     const tfoot = document.getElementById('dir-tfoot-act');
     if (!thead || !tbody || !tfoot) return;
 
-    if (currentDirectorSelected === 'ALL') {
+    if (selectedKey === 'ALL') {
         // Table: Comparativa de Todos los Directores
         thead.innerHTML = `
             <tr style="background-color: #1B365D; color: #ffffff; text-align: center;">
@@ -278796,6 +278808,7 @@ function renderDirectorConsolidado() {
 
             const rowBg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
             const regPills = d.regionales.map(r => `<span style="background: #e2e8f0; color: #334155; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; display: inline-block; margin: 1px;">${r}</span>`).join(' ');
+            const safeK = k.replace(/'/g, "\\'");
 
             rowsHtml += `
                 <tr style="background: ${rowBg}; border-bottom: 1px solid #e2e8f0;">
@@ -278813,7 +278826,7 @@ function renderDirectorConsolidado() {
                         <b>${d.asesoresCount}</b> <span style="color: #64748b;">(${d.directosCount} dir / ${d.distrisCount} dis)</span>
                     </td>
                     <td style="padding: 9px 12px; text-align: center;">
-                        <button type="button" onclick="setDirectorSelected('${k.replace(/'/g, "\\'")}')" style="padding: 4px 10px; border-radius: 6px; border: 1px solid #4f46e5; background: #eef2ff; color: #4338ca; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                        <button type="button" onclick="setDirectorSelected('${safeK}')" style="padding: 4px 10px; border-radius: 6px; border: 1px solid #4f46e5; background: #eef2ff; color: #4338ca; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
                             🔍 Ver Desglose
                         </button>
                     </td>
@@ -278838,10 +278851,20 @@ function renderDirectorConsolidado() {
         `;
     } else {
         // Table: Desglose individual del Director seleccionado
-        const d = dirStats[currentDirectorSelected];
+        const d = dirStats[selectedKey];
         if (!d) return;
 
         thead.innerHTML = `
+            <tr style="background-color: #1e1b4b; color: #ffffff;">
+                <th colspan="9" style="padding: 8px 12px; text-align: left; font-size: 0.85rem; background: #312e81;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <span>📍 Desglose de las <b>${d.regionales.length} regionales</b> a cargo de <b>${d.name}</b> (${d.regionales.join(', ')})</span>
+                        <button type="button" onclick="setDirectorSelected('ALL')" style="padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.2); color: #ffffff; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                            ↩ Ver Todos los Directores
+                        </button>
+                    </div>
+                </th>
+            </tr>
             <tr style="background-color: #1B365D; color: #ffffff; text-align: center;">
                 <th style="padding: 10px 12px; text-align: left;">Regional Asignada</th>
                 <th style="padding: 10px 12px; text-align: left;">Zonas Incluidas</th>
@@ -279075,7 +279098,7 @@ function getDirectorDataAnt() {
 }
 
 function setDirectorSelectedAnt(dirName) {
-    currentDirectorSelectedAnt = dirName;
+    currentDirectorSelectedAnt = (dirName || 'ALL').trim();
     renderAntDirectorConsolidado();
 }
 
@@ -279088,19 +279111,31 @@ function renderAntDirectorConsolidado() {
     const dirStats = getDirectorDataAnt();
     const dirKeys = Object.keys(dirStats).sort();
 
+    // Normalizar director seleccionado para coincidir exactamente con una llave de dirStats
+    let selectedKey = (currentDirectorSelectedAnt || 'ALL').trim();
+    if (selectedKey !== 'ALL') {
+        const normTarget = normDirectorStr(selectedKey);
+        const matched = dirKeys.find(k => normDirectorStr(k) === normTarget);
+        if (matched) {
+            selectedKey = matched;
+            currentDirectorSelectedAnt = matched;
+        }
+    }
+
     // 1. Render Tab Pills
     const pillsCont = document.getElementById('dir-pills-container-ant');
     if (pillsCont) {
         let htmlPills = `
-            <button type="button" class="director-tab-pill ${currentDirectorSelectedAnt === 'ALL' ? 'active' : ''}" onclick="setDirectorSelectedAnt('ALL')">
+            <button type="button" class="director-tab-pill ${selectedKey === 'ALL' ? 'active' : ''}" onclick="setDirectorSelectedAnt('ALL')">
                 🌐 Todos los Directores (${dirKeys.length})
             </button>
         `;
         dirKeys.forEach(k => {
             const d = dirStats[k];
-            const isAct = (currentDirectorSelectedAnt === k);
+            const isAct = (selectedKey === k);
+            const safeK = k.replace(/'/g, "\\'");
             htmlPills += `
-                <button type="button" class="director-tab-pill ${isAct ? 'active' : ''}" onclick="setDirectorSelectedAnt('${k.replace(/'/g, "\\'")}')">
+                <button type="button" class="director-tab-pill ${isAct ? 'active' : ''}" onclick="setDirectorSelectedAnt('${safeK}')">
                     👤 ${k} <span style="font-size: 0.72rem; opacity: 0.85;">(${d.regionales.length} reg)</span>
                 </button>
             `;
@@ -279120,7 +279155,7 @@ function renderAntDirectorConsolidado() {
         let presVal = 0, nomVal = 0, aprobVal = 0, pendienteVal = 0, asesoresVal = 0, directosVal = 0, distrisVal = 0;
         let subtitleText = "";
 
-        if (currentDirectorSelectedAnt === 'ALL') {
+        if (selectedKey === 'ALL') {
             dirKeys.forEach(k => {
                 const d = dirStats[k];
                 presVal += d.presupuesto;
@@ -279133,7 +279168,7 @@ function renderAntDirectorConsolidado() {
             });
             subtitleText = "Consolidado Nacional Mes Anterior (7 Directores - 17 Regionales)";
         } else {
-            const d = dirStats[currentDirectorSelectedAnt] || {
+            const d = dirStats[selectedKey] || {
                 presupuesto: 0, nominal: 0, nominalAprobado: 0, pendiente: 0, asesoresCount: 0, directosCount: 0, distrisCount: 0, regionales: []
             };
             presVal = d.presupuesto;
@@ -279207,7 +279242,7 @@ function renderAntDirectorConsolidado() {
     const tfoot = document.getElementById('dir-tfoot-ant');
     if (!thead || !tbody || !tfoot) return;
 
-    if (currentDirectorSelectedAnt === 'ALL') {
+    if (selectedKey === 'ALL') {
         // Table: Comparativa Nacional Directores Mes Anterior
         thead.innerHTML = `
             <tr style="background-color: #1B365D; color: #ffffff; text-align: center;">
@@ -279236,6 +279271,7 @@ function renderAntDirectorConsolidado() {
 
             const rowBg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
             const regPills = d.regionales.map(r => `<span style="background: #e2e8f0; color: #334155; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; display: inline-block; margin: 1px;">${r}</span>`).join(' ');
+            const safeK = k.replace(/'/g, "\\'");
 
             rowsHtml += `
                 <tr style="background: ${rowBg}; border-bottom: 1px solid #e2e8f0;">
@@ -279252,7 +279288,7 @@ function renderAntDirectorConsolidado() {
                     <td style="padding: 9px 12px; text-align: center;">${getPercentBadge(d.cumplAprobado)}</td>
                     <td style="padding: 9px 12px; text-align: center; font-weight: 700; color: #475569;">${safeFormatPercent(d.pctAprobSobreReal)}</td>
                     <td style="padding: 9px 12px; text-align: center;">
-                        <button type="button" onclick="setDirectorSelectedAnt('${k.replace(/'/g, "\\'")}')" style="padding: 4px 10px; border-radius: 6px; border: 1px solid #4f46e5; background: #eef2ff; color: #4338ca; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                        <button type="button" onclick="setDirectorSelectedAnt('${safeK}')" style="padding: 4px 10px; border-radius: 6px; border: 1px solid #4f46e5; background: #eef2ff; color: #4338ca; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
                             🔍 Ver Desglose
                         </button>
                     </td>
@@ -279281,10 +279317,20 @@ function renderAntDirectorConsolidado() {
         `;
     } else {
         // Table: Desglose individual de regional para el Director seleccionado Mes Anterior
-        const d = dirStats[currentDirectorSelectedAnt];
+        const d = dirStats[selectedKey];
         if (!d) return;
 
         thead.innerHTML = `
+            <tr style="background-color: #1e1b4b; color: #ffffff;">
+                <th colspan="10" style="padding: 8px 12px; text-align: left; font-size: 0.85rem; background: #312e81;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                        <span>📍 Desglose de las <b>${d.regionales.length} regionales</b> a cargo de <b>${d.name}</b> (${d.regionales.join(', ')})</span>
+                        <button type="button" onclick="setDirectorSelectedAnt('ALL')" style="padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.2); color: #ffffff; font-size: 0.74rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease;">
+                            ↩ Ver Todos los Directores
+                        </button>
+                    </div>
+                </th>
+            </tr>
             <tr style="background-color: #1B365D; color: #ffffff; text-align: center;">
                 <th style="padding: 10px 12px; text-align: left;">Regional Asignada</th>
                 <th style="padding: 10px 12px; text-align: left;">Zonas Incluidas</th>
