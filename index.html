@@ -4848,16 +4848,15 @@
                             <span style="background: #e0e7ff; color: #3730a3; font-size: 0.72rem; font-weight: 800; padding: 3px 9px; border-radius: 12px; text-transform: uppercase;">Multiregional</span>
                         </div>
                         <div style="color: #64748b; font-size: 0.82rem; margin-top: 4px;">
-                            Suma automática de todas las regionales asignadas a cada director comercial, con cumplimiento de plata cantada, realizada, aprobada y proyección.
+                            Suma automática de todas las regionales asignadas a cada director comercial, con cumplimiento de nominal realizado, nominal aprobado y proyección.
                         </div>
                     </div>
                     <!-- Sub-botones de Modo de Métrica -->
                     <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
                         <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; margin-right: 2px;">Vista:</span>
                         <button type="button" id="btn-dir-m-all" class="director-metric-btn active" onclick="setDirectorMetricMode('all')">📋 Vista Integral</button>
-                        <button type="button" id="btn-dir-m-cantada" class="director-metric-btn" onclick="setDirectorMetricMode('cantada')">📢 Solo Cantada</button>
-                        <button type="button" id="btn-dir-m-realizado" class="director-metric-btn" onclick="setDirectorMetricMode('realizado')">📊 Solo Realizada</button>
-                        <button type="button" id="btn-dir-m-aprobado" class="director-metric-btn" onclick="setDirectorMetricMode('aprobado')">✅ Solo Aprobada</button>
+                        <button type="button" id="btn-dir-m-realizado" class="director-metric-btn" onclick="setDirectorMetricMode('realizado')">📊 Solo Nominal Realizado</button>
+                        <button type="button" id="btn-dir-m-aprobado" class="director-metric-btn" onclick="setDirectorMetricMode('aprobado')">✅ Solo Nominal Aprobado</button>
                         <button type="button" id="btn-dir-m-proyeccion" class="director-metric-btn" onclick="setDirectorMetricMode('proyeccion')">📈 Solo Proyección</button>
                     </div>
                 </div>
@@ -7626,8 +7625,8 @@
                     <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
                         <span style="font-size: 0.75rem; font-weight: 700; color: #64748b; margin-right: 2px;">Métrica:</span>
                         <button type="button" id="btn-ant-dir-m-all" class="director-metric-btn active" onclick="setDirectorMetricModeAnt('all')">📋 Vista Integral</button>
-                        <button type="button" id="btn-ant-dir-m-realizado" class="director-metric-btn" onclick="setDirectorMetricModeAnt('realizado')">📊 Solo Realizado</button>
-                        <button type="button" id="btn-ant-dir-m-aprobado" class="director-metric-btn" onclick="setDirectorMetricModeAnt('aprobado')">✅ Solo Aprobado</button>
+                        <button type="button" id="btn-ant-dir-m-realizado" class="director-metric-btn" onclick="setDirectorMetricModeAnt('realizado')">📊 Solo Nominal Realizado</button>
+                        <button type="button" id="btn-ant-dir-m-aprobado" class="director-metric-btn" onclick="setDirectorMetricModeAnt('aprobado')">✅ Solo Nominal Aprobado</button>
                         <button type="button" id="btn-ant-dir-m-pendiente" class="director-metric-btn" onclick="setDirectorMetricModeAnt('pendiente')">⏳ Pendiente por Aprobar</button>
                     </div>
                 </div>
@@ -11464,8 +11463,8 @@
 
 
     <script id="embedded-data">
-const ULTIMA_ACTUALIZACION = '2026-11-22 20:55:38';
-const TIMESTAMP_ACTUALIZACION = 1795398938;
+const ULTIMA_ACTUALIZACION = '2026-11-22 20:58:42';
+const TIMESTAMP_ACTUALIZACION = 1795399122;
 const SERVER_DATA = [
   {
     "ASESOR PLANILLA": "MARÍA NANCY BURGOS FIGUEROA",
@@ -50456,6 +50455,20 @@ const SERVER_DATA = [
     "STATUS": "Reportada",
     "NOMINAL APROBADO": 0.0,
     "TIPO_VENDEDOR": "Asesor Directo"
+  },
+  {
+    "ASESOR PLANILLA": "MARTHA LILIANA MURCIA MEDINA",
+    "FECHA DE LA VENTA": "1900-01-01",
+    "MES": "NOVIEMBRE",
+    "SEMANA": "SIN ESPECIFICAR",
+    "DIA": "SIN ESPECIFICAR",
+    "NOMINAL VENTA": 84000.0,
+    "VALOR ANUAL": 84000.0,
+    "REGIONAL": "Cundinamarca",
+    "ZONA": "Fusagasuga",
+    "STATUS": "Reportada",
+    "NOMINAL APROBADO": 0.0,
+    "TIPO_VENDEDOR": "Distri. Autorizados"
   }
 ];
 const PRESUPUESTO_DATA = [
@@ -55758,13 +55771,13 @@ const CANTADAS_ROWS = [
     "SEMILLERO",
     "9%",
     "$4,800,000",
-    "$1,989,600",
-    "8",
-    "$2,810,400",
-    "$468,400",
-    "41%",
-    "$2,691,812",
-    "56%"
+    "$2,073,600",
+    "9",
+    "$2,726,400",
+    "$454,400",
+    "43%",
+    "$2,805,459",
+    "58%"
   ],
   [
     "Diana Romero",
@@ -237071,7 +237084,7 @@ const PRODUCTOS_DATA = {
         "ticket_promedio": 797912.0,
         "cuota_promedio": 66493.0,
         "pct_ventas_global": 8.3,
-        "pct_nominal_global": 17.3,
+        "pct_nominal_global": 17.2,
         "aprobadas": 47,
         "pct_aprob": 20.3,
         "asesores_unicos": 69,
@@ -237277,8 +237290,8 @@ const PRODUCTOS_DATA = {
           "regional": "Cundinamarca",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 51,
-          "total_nominal_reg": 15893400.0,
+          "total_ventas_reg": 52,
+          "total_nominal_reg": 15977400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -237523,8 +237536,8 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 51,
-          "total_nominal_zona": 15893400.0,
+          "total_ventas_zona": 52,
+          "total_nominal_zona": 15977400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -237732,8 +237745,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 406,
-          "total_nominal_dir": 121767600.0,
+          "total_ventas_dir": 407,
+          "total_nominal_dir": 121851600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -239176,9 +239189,9 @@ const PRODUCTOS_DATA = {
           "regional": "Cundinamarca",
           "ventas_prod": 4,
           "nominal_prod": 1722000.0,
-          "total_ventas_reg": 51,
-          "total_nominal_reg": 15893400.0,
-          "pct_ventas_mix": 7.8,
+          "total_ventas_reg": 52,
+          "total_nominal_reg": 15977400.0,
+          "pct_ventas_mix": 7.7,
           "pct_nominal_mix": 10.8,
           "ticket_promedio": 430500.0,
           "cuota_promedio": 35875.0,
@@ -239382,9 +239395,9 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 4,
           "nominal_prod": 1722000.0,
-          "total_ventas_zona": 51,
-          "total_nominal_zona": 15893400.0,
-          "pct_ventas_mix": 7.8,
+          "total_ventas_zona": 52,
+          "total_nominal_zona": 15977400.0,
+          "pct_ventas_mix": 7.7,
           "pct_nominal_mix": 10.8,
           "ticket_promedio": 430500.0,
           "cuota_promedio": 35875.0
@@ -239578,9 +239591,9 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 36,
           "nominal_prod": 13326600.0,
-          "total_ventas_dir": 406,
-          "total_nominal_dir": 121767600.0,
-          "pct_ventas_mix": 8.9,
+          "total_ventas_dir": 407,
+          "total_nominal_dir": 121851600.0,
+          "pct_ventas_mix": 8.8,
           "pct_nominal_mix": 10.9,
           "ticket_promedio": 370183.0,
           "cuota_promedio": 30849.0,
@@ -240801,8 +240814,8 @@ const PRODUCTOS_DATA = {
           "regional": "Cundinamarca",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_reg": 51,
-          "total_nominal_reg": 15893400.0,
+          "total_ventas_reg": 52,
+          "total_nominal_reg": 15977400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -241016,8 +241029,8 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_zona": 51,
-          "total_nominal_zona": 15893400.0,
+          "total_ventas_zona": 52,
+          "total_nominal_zona": 15977400.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -241264,8 +241277,8 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 0,
           "nominal_prod": 0.0,
-          "total_ventas_dir": 406,
-          "total_nominal_dir": 121767600.0,
+          "total_ventas_dir": 407,
+          "total_nominal_dir": 121851600.0,
           "pct_ventas_mix": 0.0,
           "pct_nominal_mix": 0.0,
           "ticket_promedio": 0,
@@ -241645,9 +241658,9 @@ const PRODUCTOS_DATA = {
           "regional": "Cundinamarca",
           "ventas_prod": 4,
           "nominal_prod": 1722000.0,
-          "total_ventas_reg": 51,
-          "total_nominal_reg": 15893400.0,
-          "pct_ventas_mix": 7.8,
+          "total_ventas_reg": 52,
+          "total_nominal_reg": 15977400.0,
+          "pct_ventas_mix": 7.7,
           "pct_nominal_mix": 10.8,
           "ticket_promedio": 430500.0,
           "cuota_promedio": 35875.0,
@@ -241893,9 +241906,9 @@ const PRODUCTOS_DATA = {
           "director": "Angélica Mur",
           "ventas_prod": 4,
           "nominal_prod": 1722000.0,
-          "total_ventas_zona": 51,
-          "total_nominal_zona": 15893400.0,
-          "pct_ventas_mix": 7.8,
+          "total_ventas_zona": 52,
+          "total_nominal_zona": 15977400.0,
+          "pct_ventas_mix": 7.7,
           "pct_nominal_mix": 10.8,
           "ticket_promedio": 430500.0,
           "cuota_promedio": 35875.0
@@ -242050,9 +242063,9 @@ const PRODUCTOS_DATA = {
           "regionales": "Cundinamarca, Tolima Norte, Tolima Sur",
           "ventas_prod": 36,
           "nominal_prod": 13326600.0,
-          "total_ventas_dir": 406,
-          "total_nominal_dir": 121767600.0,
-          "pct_ventas_mix": 8.9,
+          "total_ventas_dir": 407,
+          "total_nominal_dir": 121851600.0,
+          "pct_ventas_mix": 8.8,
           "pct_nominal_mix": 10.9,
           "ticket_promedio": 370183.0,
           "cuota_promedio": 30849.0,
@@ -244285,8 +244298,8 @@ const PRODUCTOS_DATA = {
       ]
     },
     "global_info": {
-      "total_ventas_mes": 2785,
-      "total_nominal_mes": 1073065916.0,
+      "total_ventas_mes": 2786,
+      "total_nominal_mes": 1073149916.0,
       "total_asesores_mes": 287
     }
   },
@@ -278592,7 +278605,7 @@ function renderDirectorConsolidado() {
             const d = dirStats[k];
             const isAct = (currentDirectorSelected === k);
             htmlPills += `
-                <button type="button" class="director-tab-pill ${isAct ? 'active' : ''}" onclick="setDirectorSelected('${k.replace(/'/g, "\\'")}')">
+                <button type="button" class="director-tab-pill ${isAct ? 'active' : ''}" onclick="setDirectorSelected('${k.replace(/'/g, "\\'")} ')}">
                     👤 ${k} <span style="font-size: 0.72rem; opacity: 0.85;">(${d.regionales.length} reg)</span>
                 </button>
             `;
@@ -278601,7 +278614,7 @@ function renderDirectorConsolidado() {
     }
 
     // 2. Update Metric Mode Buttons
-    ['all', 'cantada', 'realizado', 'aprobado', 'proyeccion'].forEach(m => {
+    ['all', 'realizado', 'aprobado', 'proyeccion'].forEach(m => {
         const btn = document.getElementById(`btn-dir-m-${m}`);
         if (btn) btn.classList.toggle('active', currentDirectorMetricMode === m);
     });
@@ -278609,14 +278622,13 @@ function renderDirectorConsolidado() {
     // 3. Render KPI Cards
     const cardsCont = document.getElementById('dir-kpi-cards-act');
     if (cardsCont) {
-        let presVal = 0, cantVal = 0, nomVal = 0, aprobVal = 0, proyVal = 0, asesoresVal = 0, directosVal = 0, distrisVal = 0;
+        let presVal = 0, nomVal = 0, aprobVal = 0, proyVal = 0, asesoresVal = 0, directosVal = 0, distrisVal = 0;
         let subtitleText = "";
 
         if (currentDirectorSelected === 'ALL') {
             dirKeys.forEach(k => {
                 const d = dirStats[k];
                 presVal += d.presupuesto;
-                cantVal += d.cantada;
                 nomVal += d.nominal;
                 aprobVal += d.nominalAprobado;
                 proyVal += d.proyeccion;
@@ -278627,10 +278639,9 @@ function renderDirectorConsolidado() {
             subtitleText = "Consolidado Nacional (7 Directores Comerciales - 17 Regionales)";
         } else {
             const d = dirStats[currentDirectorSelected] || {
-                presupuesto: 0, cantada: 0, nominal: 0, nominalAprobado: 0, proyeccion: 0, asesoresCount: 0, directosCount: 0, distrisCount: 0, regionales: []
+                presupuesto: 0, nominal: 0, nominalAprobado: 0, proyeccion: 0, asesoresCount: 0, directosCount: 0, distrisCount: 0, regionales: []
             };
             presVal = d.presupuesto;
-            cantVal = d.cantada;
             nomVal = d.nominal;
             aprobVal = d.nominalAprobado;
             proyVal = d.proyeccion;
@@ -278640,11 +278651,9 @@ function renderDirectorConsolidado() {
             subtitleText = `Regionales a cargo: ${d.regionales.join(', ')}`;
         }
 
-        const pctCant = presVal > 0 ? (cantVal / presVal * 100) : 0;
         const pctNom = presVal > 0 ? (nomVal / presVal * 100) : 0;
         const pctAprob = presVal > 0 ? (aprobVal / presVal * 100) : 0;
         const pctProy = presVal > 0 ? (proyVal / presVal * 100) : 0;
-        const pctDirectos = nomVal > 0 ? (directosVal / asesoresVal * 100) : 0;
 
         cardsCont.innerHTML = `
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #1B365D;">
@@ -278653,18 +278662,9 @@ function renderDirectorConsolidado() {
                 <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="${subtitleText}">${subtitleText}</div>
             </div>
 
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #0284c7;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.72rem; font-weight: 800; color: #0284c7; text-transform: uppercase;">Plata Cantada</span>
-                    ${getPercentBadge(pctCant)}
-                </div>
-                <div style="font-size: 1.35rem; font-weight: 800; color: #0369a1; margin-top: 4px;">${safeFormatMoney(cantVal)}</div>
-                <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">Cumplimiento Cantado s/ Presupuesto</div>
-            </div>
-
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #2563eb;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.72rem; font-weight: 800; color: #2563eb; text-transform: uppercase;">Plata Realizada</span>
+                    <span style="font-size: 0.72rem; font-weight: 800; color: #2563eb; text-transform: uppercase;">Nominal Realizado</span>
                     ${getPercentBadge(pctNom)}
                 </div>
                 <div style="font-size: 1.35rem; font-weight: 800; color: #1d4ed8; margin-top: 4px;">${safeFormatMoney(nomVal)}</div>
@@ -278675,7 +278675,7 @@ function renderDirectorConsolidado() {
 
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #059669;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.72rem; font-weight: 800; color: #059669; text-transform: uppercase;">Plata Aprobada</span>
+                    <span style="font-size: 0.72rem; font-weight: 800; color: #059669; text-transform: uppercase;">Nominal Aprobado</span>
                     ${getPercentBadge(pctAprob)}
                 </div>
                 <div style="font-size: 1.35rem; font-weight: 800; color: #047857; margin-top: 4px;">${safeFormatMoney(aprobVal)}</div>
@@ -278694,6 +278694,14 @@ function renderDirectorConsolidado() {
                     Nos Falta: <b>${safeFormatMoney(Math.max(0, presVal - nomVal))}</b>
                 </div>
             </div>
+
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #4f46e5;">
+                <div style="font-size: 0.72rem; font-weight: 800; color: #4338ca; text-transform: uppercase;">Fuerza Comercial</div>
+                <div style="font-size: 1.35rem; font-weight: 800; color: #3730a3; margin-top: 4px;">${asesoresVal} Asesores</div>
+                <div style="font-size: 0.72rem; color: #64748b; margin-top: 4px;">
+                    <b style="color: #4338ca;">${directosVal} Directos</b> / <b style="color: #d97706;">${distrisVal} Distribuidores</b>
+                </div>
+            </div>
         `;
     }
 
@@ -278710,9 +278718,8 @@ function renderDirectorConsolidado() {
                 <th style="padding: 10px 12px; text-align: left;">Director Comercial</th>
                 <th style="padding: 10px 12px; text-align: left;">Regionales a Cargo</th>
                 <th style="padding: 10px 12px; text-align: right;">Presupuesto Total</th>
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'cantada' ? '<th style="padding: 10px 12px; text-align: right; background: #0284c7;">Plata Cantada</th>' : ''}
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? '<th style="padding: 10px 12px; text-align: right;">Plata Realizada</th>' : ''}
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Plata Aprobada</th>' : ''}
+                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? '<th style="padding: 10px 12px; text-align: right; background: #1e3a8a;">Nominal Realizado</th>' : ''}
+                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Nominal Aprobado</th>' : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'proyeccion' ? '<th style="padding: 10px 12px; text-align: right; background: #6d28d9;">Proyección Cierre</th>' : ''}
                 <th style="padding: 10px 12px; text-align: center;">% Cumplimiento</th>
                 <th style="padding: 10px 12px; text-align: center;">Asesores</th>
@@ -278721,12 +278728,11 @@ function renderDirectorConsolidado() {
         `;
 
         let rowsHtml = "";
-        let totPres = 0, totCant = 0, totNom = 0, totAprob = 0, totProy = 0, totAsesores = 0;
+        let totPres = 0, totNom = 0, totAprob = 0, totProy = 0, totAsesores = 0;
 
         dirKeys.forEach((k, idx) => {
             const d = dirStats[k];
             totPres += d.presupuesto;
-            totCant += d.cantada;
             totNom += d.nominal;
             totAprob += d.nominalAprobado;
             totProy += d.proyeccion;
@@ -278743,7 +278749,6 @@ function renderDirectorConsolidado() {
                     </td>
                     <td style="padding: 9px 12px;">${regPills}</td>
                     <td style="padding: 9px 12px; text-align: right; font-weight: 700;">${safeFormatMoney(d.presupuesto)}</td>
-                    ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'cantada' ? `<td style="padding: 9px 12px; text-align: right; color: #0369a1; font-weight: 700;">${safeFormatMoney(d.cantada)}</td>` : ''}
                     ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? `<td style="padding: 9px 12px; text-align: right; color: #1d4ed8; font-weight: 700;">${safeFormatMoney(d.nominal)}</td>` : ''}
                     ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? `<td style="padding: 9px 12px; text-align: right; color: #047857; font-weight: 700;">${safeFormatMoney(d.nominalAprobado)}</td>` : ''}
                     ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'proyeccion' ? `<td style="padding: 9px 12px; text-align: right; color: #6d28d9; font-weight: 700;">${safeFormatMoney(d.proyeccion)}</td>` : ''}
@@ -278767,7 +278772,6 @@ function renderDirectorConsolidado() {
                 <td style="padding: 10px 12px;">TOTAL CONSOLIDADO NACIONAL</td>
                 <td style="padding: 10px 12px;">17 Regionales</td>
                 <td style="padding: 10px 12px; text-align: right;">${safeFormatMoney(totPres)}</td>
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'cantada' ? `<td style="padding: 10px 12px; text-align: right; color: #38bdf8;">${safeFormatMoney(totCant)}</td>` : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? `<td style="padding: 10px 12px; text-align: right; color: #60a5fa;">${safeFormatMoney(totNom)}</td>` : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? `<td style="padding: 10px 12px; text-align: right; color: #4ade80;">${safeFormatMoney(totAprob)}</td>` : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'proyeccion' ? `<td style="padding: 10px 12px; text-align: right; color: #c084fc;">${safeFormatMoney(totProy)}</td>` : ''}
@@ -278786,9 +278790,8 @@ function renderDirectorConsolidado() {
                 <th style="padding: 10px 12px; text-align: left;">Regional Asignada</th>
                 <th style="padding: 10px 12px; text-align: left;">Zonas Incluidas</th>
                 <th style="padding: 10px 12px; text-align: right;">Presupuesto Regional</th>
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'cantada' ? '<th style="padding: 10px 12px; text-align: right; background: #0284c7;">Plata Cantada</th>' : ''}
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? '<th style="padding: 10px 12px; text-align: right;">Plata Realizada</th>' : ''}
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Plata Aprobada</th>' : ''}
+                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? '<th style="padding: 10px 12px; text-align: right; background: #1e3a8a;">Nominal Realizado</th>' : ''}
+                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Nominal Aprobado</th>' : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'proyeccion' ? '<th style="padding: 10px 12px; text-align: right; background: #6d28d9;">Proyección Cierre</th>' : ''}
                 <th style="padding: 10px 12px; text-align: right;">Nos Falta</th>
                 <th style="padding: 10px 12px; text-align: center;">% Cumplimiento</th>
@@ -278808,7 +278811,6 @@ function renderDirectorConsolidado() {
                         📍 ${reg.zonas}
                     </td>
                     <td style="padding: 9px 12px; text-align: right; font-weight: 700;">${safeFormatMoney(reg.presupuesto)}</td>
-                    ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'cantada' ? `<td style="padding: 9px 12px; text-align: right; color: #0369a1; font-weight: 700;">${safeFormatMoney(reg.cantada)}</td>` : ''}
                     ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? `<td style="padding: 9px 12px; text-align: right; color: #1d4ed8; font-weight: 700;">${safeFormatMoney(reg.nominal)}</td>` : ''}
                     ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? `<td style="padding: 9px 12px; text-align: right; color: #047857; font-weight: 700;">${safeFormatMoney(reg.nominalAprobado)}</td>` : ''}
                     ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'proyeccion' ? `<td style="padding: 9px 12px; text-align: right; color: #6d28d9; font-weight: 700;">${safeFormatMoney(reg.proyeccion)}</td>` : ''}
@@ -278827,7 +278829,6 @@ function renderDirectorConsolidado() {
                 <td style="padding: 10px 12px;">TOTAL CONSOLIDADO ${d.name.toUpperCase()}</td>
                 <td style="padding: 10px 12px;">${d.regionales.length} Regionales Asignadas</td>
                 <td style="padding: 10px 12px; text-align: right;">${safeFormatMoney(d.presupuesto)}</td>
-                ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'cantada' ? `<td style="padding: 10px 12px; text-align: right; color: #38bdf8;">${safeFormatMoney(d.cantada)}</td>` : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'realizado' ? `<td style="padding: 10px 12px; text-align: right; color: #60a5fa;">${safeFormatMoney(d.nominal)}</td>` : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'aprobado' ? `<td style="padding: 10px 12px; text-align: right; color: #4ade80;">${safeFormatMoney(d.nominalAprobado)}</td>` : ''}
                 ${currentDirectorMetricMode === 'all' || currentDirectorMetricMode === 'proyeccion' ? `<td style="padding: 10px 12px; text-align: right; color: #c084fc;">${safeFormatMoney(d.proyeccion)}</td>` : ''}
@@ -279103,7 +279104,7 @@ function renderAntDirectorConsolidado() {
 
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #2563eb;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.72rem; font-weight: 800; color: #2563eb; text-transform: uppercase;">Ventas Realizadas</span>
+                    <span style="font-size: 0.72rem; font-weight: 800; color: #2563eb; text-transform: uppercase;">Nominal Realizado</span>
                     ${getPercentBadge(pctNom)}
                 </div>
                 <div style="font-size: 1.35rem; font-weight: 800; color: #1d4ed8; margin-top: 4px;">${safeFormatMoney(nomVal)}</div>
@@ -279114,7 +279115,7 @@ function renderAntDirectorConsolidado() {
 
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-top: 4px solid #059669;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.72rem; font-weight: 800; color: #059669; text-transform: uppercase;">Dinero Aprobado</span>
+                    <span style="font-size: 0.72rem; font-weight: 800; color: #059669; text-transform: uppercase;">Nominal Aprobado</span>
                     ${getPercentBadge(pctAprobPres)}
                 </div>
                 <div style="font-size: 1.35rem; font-weight: 800; color: #047857; margin-top: 4px;">${safeFormatMoney(aprobVal)}</div>
@@ -279157,8 +279158,8 @@ function renderAntDirectorConsolidado() {
                 <th style="padding: 10px 12px; text-align: left;">Director Comercial</th>
                 <th style="padding: 10px 12px; text-align: left;">Regionales a Cargo</th>
                 <th style="padding: 10px 12px; text-align: right;">Presupuesto Mes Ant</th>
-                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'realizado' ? '<th style="padding: 10px 12px; text-align: right;">Ventas Realizadas</th>' : ''}
-                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Dinero Aprobado</th>' : ''}
+                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'realizado' ? '<th style="padding: 10px 12px; text-align: right; background: #1e3a8a;">Nominal Realizado</th>' : ''}
+                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Nominal Aprobado</th>' : ''}
                 ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'pendiente' ? '<th style="padding: 10px 12px; text-align: right; background: #b45309;">Pendiente por Aprobar</th>' : ''}
                 <th style="padding: 10px 12px; text-align: center;">% Cump Realizado</th>
                 <th style="padding: 10px 12px; text-align: center;">% Aprob s/ Presupuesto</th>
@@ -279232,8 +279233,8 @@ function renderAntDirectorConsolidado() {
                 <th style="padding: 10px 12px; text-align: left;">Regional Asignada</th>
                 <th style="padding: 10px 12px; text-align: left;">Zonas Incluidas</th>
                 <th style="padding: 10px 12px; text-align: right;">Presupuesto Mes Ant</th>
-                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'realizado' ? '<th style="padding: 10px 12px; text-align: right;">Ventas Realizadas</th>' : ''}
-                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Dinero Aprobado</th>' : ''}
+                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'realizado' ? '<th style="padding: 10px 12px; text-align: right; background: #1e3a8a;">Nominal Realizado</th>' : ''}
+                ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'aprobado' ? '<th style="padding: 10px 12px; text-align: right; background: #047857;">Nominal Aprobado</th>' : ''}
                 ${currentDirectorMetricModeAnt === 'all' || currentDirectorMetricModeAnt === 'pendiente' ? '<th style="padding: 10px 12px; text-align: right; background: #b45309;">Pendiente por Aprobar</th>' : ''}
                 <th style="padding: 10px 12px; text-align: center;">% Cump Realizado</th>
                 <th style="padding: 10px 12px; text-align: center;">% Aprob s/ Presupuesto</th>
